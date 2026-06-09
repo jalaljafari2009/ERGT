@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local environment
+.env
+.env.*
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Data artifacts
+data/raw/
+data/processed/
+data/cache/
+data/tokenizers/*.cache
+
+# Training artifacts
+runs/**/checkpoints/
+runs/**/*.pt
+runs/**/*.pth
+runs/**/*.ckpt
+runs/**/artifacts/matrices/
+runs/**/artifacts/tensors/
+
+# Generated large media
+runs/**/*.png
+runs/**/*.jpg
+runs/**/*.jpeg
+runs/**/*.gif
+runs/**/*.webp
+
+# Keep lightweight machine-readable reports trackable by default:
+# runs/**/*.json
+# runs/**/*.jsonl
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/

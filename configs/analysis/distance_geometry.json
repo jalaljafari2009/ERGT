@@ -1,0 +1,47 @@
+{
+  "run": {
+    "phase": "phase2_distance",
+    "condition": "distance_geometry",
+    "seed": 1337,
+    "output_dir": "runs/phase2_distance/distance_geometry"
+  },
+  "source_model": {
+    "type": "transformer_baseline",
+    "checkpoint": "runs/phase0_baseline/proof_wikitext2/checkpoints/best.pt",
+    "config": "configs/baseline/proof_wikitext2.json"
+  },
+  "dataset": {
+    "name": "wikitext-2",
+    "split": "validation",
+    "tokenizer": "gpt2",
+    "context_length": 256,
+    "max_batches": 32
+  },
+  "relational_graph": {
+    "kernel": "sigmoid_dot_sqrt_d",
+    "graph_heads": 1,
+    "normalize_hidden": false,
+    "diagonal_policy": "keep_for_distance",
+    "layers": "all_block_outputs"
+  },
+  "distance": {
+    "formula": "-log(W + epsilon)",
+    "epsilon": 0.000001,
+    "normalization": "offdiag_zscore_clamp",
+    "clip_value": 5.0,
+    "diagonal_policy": "zero"
+  },
+  "metrics": {
+    "controls": ["random_D", "shuffled_D"],
+    "neighborhood_k": [4, 8, 16],
+    "attention_duplication_check": true,
+    "triangle_inequality_check": false,
+    "save_sample_matrices": true,
+    "max_saved_matrices": 16
+  },
+  "logging": {
+    "distance_stats": "distance_stats.json",
+    "geometry_report": "geometry_report.json",
+    "artifacts_dir": "artifacts"
+  }
+}

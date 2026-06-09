@@ -1,0 +1,230 @@
+{
+  "project": {
+    "name": "ERGT",
+    "full_name": "Emergent Relational Geometry Transformer",
+    "version": "0.1",
+    "goal": "Build and evaluate a transformer architecture where geometry emerges from relational dynamics."
+  },
+  "research_hypothesis": {
+    "core_principle": [
+      "Dynamics",
+      "Relations",
+      "Compression",
+      "Geometry",
+      "Memory",
+      "Reasoning"
+    ],
+    "scientific_claims": [
+      "Correlation induces distance",
+      "Distance induces geometry",
+      "Geometry improves attention",
+      "Stable relational structures improve reasoning"
+    ]
+  },
+  "phases": [
+    {
+      "id": 0,
+      "name": "Baseline Reproduction",
+      "objective": "Reproduce a standard transformer baseline",
+      "deliverables": [
+        "models/transformer_baseline.py",
+        "baseline_results.json"
+      ],
+      "components": [
+        "MultiHeadAttention",
+        "FeedForward",
+        "LayerNorm",
+        "ResidualConnections"
+      ],
+      "datasets": [
+        "WikiText-2"
+      ],
+      "metrics": [
+        "validation_loss",
+        "perplexity",
+        "tokens_per_second",
+        "gpu_memory"
+      ],
+      "success_criteria": {
+        "target": "GPT2-Small level reproduction"
+      }
+    },
+    {
+      "id": 1,
+      "name": "Relational Graph Layer",
+      "objective": "Construct relational graph without modifying attention",
+      "deliverables": [
+        "layers/relational_graph.py",
+        "graph_stats.json"
+      ],
+      "equations": {
+        "kernel": "W_ij = sigmoid((x_i^T x_j)/sqrt(d))"
+      },
+      "metrics": [
+        "graph_sparsity",
+        "degree_distribution",
+        "graph_entropy"
+      ],
+      "scientific_goal": "Determine whether meaningful graph structures emerge"
+    },
+    {
+      "id": 2,
+      "name": "Emergent Distance",
+      "objective": "Construct distance from graph relations",
+      "deliverables": [
+        "geometry/emergent_distance.py",
+        "distance_visualizations"
+      ],
+      "equations": {
+        "distance": "D_ij = -log(W_ij + epsilon)"
+      },
+      "visualizations": [
+        "W_heatmap",
+        "D_heatmap"
+      ],
+      "analysis": [
+        "clustering",
+        "intrinsic_dimension"
+      ],
+      "scientific_goal": "Validate Correlation -> Distance hypothesis"
+    },
+    {
+      "id": 3,
+      "name": "GeoAttention v1",
+      "objective": "Replace standard attention with emergent geometry attention",
+      "deliverables": [
+        "attention/geo_attention.py"
+      ],
+      "equations": {
+        "attention": "A = Softmax(QK/sqrt(d) - alpha*D)"
+      },
+      "benchmarks": [
+        "TransformerBaseline"
+      ],
+      "metrics": [
+        "validation_loss",
+        "perplexity",
+        "throughput"
+      ],
+      "hypothesis": "GeoAttention outperforms Transformer"
+    },
+    {
+      "id": 4,
+      "name": "Dynamic Relational Graph",
+      "objective": "Introduce graph memory dynamics",
+      "deliverables": [
+        "memory/dynamic_graph.py"
+      ],
+      "equations": {
+        "update": "W(l+1) = (1-eta)W(l) + eta*K"
+      },
+      "metrics": [
+        "graph_stability",
+        "temporal_persistence"
+      ],
+      "hypothesis": "Knowledge is partially stored in graph structure"
+    },
+    {
+      "id": 5,
+      "name": "Emergent Geometry Transformer",
+      "objective": "Integrate graph, distance and geometry attention into a complete architecture",
+      "pipeline": [
+        "HiddenStates",
+        "RelationalGraph",
+        "EmergentDistance",
+        "GeoAttention",
+        "FeedForward"
+      ],
+      "benchmarks": [
+        "WikiText-2",
+        "WikiText-103"
+      ],
+      "comparisons": [
+        "GPT2",
+        "TransformerBase"
+      ],
+      "paper_target": "Emergent Relational Geometry Attention"
+    },
+    {
+      "id": 6,
+      "name": "Causal Geometry",
+      "objective": "Introduce causal relational structure",
+      "deliverables": [
+        "causal/causal_gate.py"
+      ],
+      "equations": {
+        "causal_gate": "C_ij = sigmoid(v*delta_t - D_ij)",
+        "attention": "A = Softmax(QK - alpha*D + beta*C)"
+      },
+      "benchmarks": [
+        "LongContext1024",
+        "LongContext2048",
+        "LongContext4096"
+      ],
+      "hypothesis": "Causal geometry reduces attention noise"
+    },
+    {
+      "id": 7,
+      "name": "Spectral Complexity",
+      "objective": "Introduce complexity minimization principle",
+      "deliverables": [
+        "losses/spectral_complexity.py"
+      ],
+      "equations": {
+        "complexity": "C(W) = -sum(p_i * log(p_i))",
+        "loss": "L = L_lm + lambda*C(W)"
+      },
+      "metrics": [
+        "effective_rank",
+        "spectral_entropy",
+        "compression_ratio"
+      ],
+      "hypothesis": "Low-complexity stable structures emerge"
+    },
+    {
+      "id": 8,
+      "name": "Relational Field Model",
+      "objective": "Generalize graph into a continuous relational field",
+      "deliverables": [
+        "field/relational_field.py"
+      ],
+      "equations": {
+        "field": "W(i,j,t)"
+      },
+      "pipeline": [
+        "DynamicField",
+        "Geometry",
+        "Attention",
+        "Reasoning"
+      ],
+      "final_goal": "Emergent Relational Intelligence"
+    }
+  ],
+  "execution_order": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "gate_conditions": {
+    "phase_4_and_beyond": {
+      "requirement": "Phase 3 must show statistically significant improvement over baseline",
+      "minimum_metrics": [
+        "lower_validation_loss",
+        "lower_perplexity"
+      ]
+    }
+  },
+  "final_architecture": {
+    "state": "S = (X, W)",
+    "pipeline": [
+      "Dynamics",
+      "Relations",
+      "Distance",
+      "Geometry",
+      "Attention",
+      "Memory",
+      "Reasoning"
+    ]
+  }
+}

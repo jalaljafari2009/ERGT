@@ -1,0 +1,12 @@
+{
+  "context_length": 256,
+  "dropout": 0.1,
+  "ffn_dim": 1024,
+  "hidden_dim": 256,
+  "n_heads": 4,
+  "n_layers": 4,
+  "total_params": 16090880,
+  "trainable_params": 16090880,
+  "type": "transformer_baseline",
+  "vocab_size": 50257
+}
