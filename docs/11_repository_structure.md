@@ -67,6 +67,12 @@ Phase 3 Stable Base planning is captured in:
 docs/13_phase3_stable_base_plan.md
 ```
 
+Phase 3 ratio-matched geometry control is captured in:
+
+```text
+docs/14_phase3_ratio_matched_plan.md
+```
+
 The original source notes remain at the repository root:
 
 ```text
@@ -247,6 +253,11 @@ Experiment scripts should:
 `experiments/progress_logging.py` owns lightweight progress JSONL writing,
 GPU-memory scalar capture, and one-line eval progress formatting for long
 Colab runs.
+
+`experiments/build_ratio_matched_configs.py` and
+`experiments/compare_phase3_ratio_matched.py` own the stronger Phase 3 control
+where real, random, and shuffled distances are compared at matched
+`geo_to_qk_ratio`.
 
 They should not contain core model definitions.
 

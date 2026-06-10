@@ -28,6 +28,7 @@ Documentation foundation is complete for the first implementation pass:
 - `docs/11_repository_structure.md`
 - `docs/12_phase4_dynamic_memory_plan.md`
 - `docs/13_phase3_stable_base_plan.md`
+- `docs/14_phase3_ratio_matched_plan.md`
 
 The next work is implementation planning and source scaffolding.
 
@@ -545,6 +546,31 @@ Acceptance criteria:
   and alpha warmup for non-zero alpha runs.
 - Stable Base comparison validates configs before interpreting results.
 - Stable Base does not move the project to Phase 4 without seed confirmation.
+
+### Task P3.8: Implement Ratio-Matched Geometry Control
+
+Status: complete
+
+Implement the stronger Phase 3 control that compares geometry at matched
+`geo_to_qk_ratio`, not merely matched `alpha`:
+
+```text
+docs/14_phase3_ratio_matched_plan.md
+experiments/build_ratio_matched_configs.py
+experiments/compare_phase3_ratio_matched.py
+tests/test_phase3_ratio_matched.py
+```
+
+Acceptance criteria:
+
+- Generated configs preserve Stable Base settings.
+- Generated alpha values are derived from completed calibration runs.
+- Generated configs record `run.ratio_match` metadata.
+- Ratio-matched comparison validates actual observed `geo_to_qk_ratio`.
+- `real_d` is compared with `random_d` and `shuffled_d` only at matched
+  geometry strength.
+- If ratio tolerance is missed, the result is marked for recalibration rather
+  than interpreted as evidence.
 
 ## 9. Gate 1: Phase 3 to Phase 4 Decision
 

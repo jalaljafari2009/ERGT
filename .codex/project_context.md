@@ -73,6 +73,10 @@ These documents should be read only when implementing the corresponding module:
   - Defines detached distance, cosine graph construction, clipped distance,
     alpha warmup, live monitoring, and strict controls.
 
+- `docs/14_phase3_ratio_matched_plan.md`
+  - Stronger Phase 3 control that compares real, random, and shuffled distance
+    at matched `geo_to_qk_ratio` rather than matched alpha.
+
 ## Source Notes
 
 The current source notes are:
