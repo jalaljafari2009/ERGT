@@ -149,6 +149,7 @@ class EmergentDistance(nn.Module):
             dim=(-2, -1),
             keepdim=True,
         ) / counts
+        variance = variance.clamp_min(self.config.epsilon)
         std = torch.sqrt(variance)
         return mean, std
 

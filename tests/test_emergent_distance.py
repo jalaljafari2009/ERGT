@@ -74,6 +74,25 @@ def test_offdiag_zscore_clamp_normalization_is_stable() -> None:
     assert distance.max() <= 5.0
 
 
+def test_offdiag_zscore_clamp_backward_is_stable_for_degenerate_graph() -> None:
+    graph = torch.full((1, 1, 4, 4), 0.5, requires_grad=True)
+    distance_builder = EmergentDistance(
+        {
+            "normalization": "offdiag_zscore_clamp",
+            "clip_value": 5.0,
+            "diagonal_policy": "zero",
+        }
+    )
+
+    distance = distance_builder(graph)
+    loss = distance.square().sum()
+    loss.backward()
+
+    assert torch.isfinite(distance).all()
+    assert graph.grad is not None
+    assert torch.isfinite(graph.grad).all()
+
+
 def test_padding_mask_sets_invalid_pairs_to_inf_before_normalization() -> None:
     distance_builder = EmergentDistance({"normalization": "none", "diagonal_policy": "zero"})
     attention_mask = torch.tensor([[1, 1, 0]])

@@ -106,6 +106,9 @@ def main() -> None:
     tokens_processed = 0
     step = 0
 
+    if train_log_path.exists():
+        train_log_path.unlink()
+
     while step < max_steps:
         for input_ids, targets in train_loader:
             if step >= max_steps:
@@ -132,7 +135,11 @@ def main() -> None:
 
             loss.backward()
             if grad_clip > 0:
-                torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
+                torch.nn.utils.clip_grad_norm_(
+                    model.parameters(),
+                    grad_clip,
+                    error_if_nonfinite=True,
+                )
             optimizer.step()
 
             batch_tokens = input_ids.numel()

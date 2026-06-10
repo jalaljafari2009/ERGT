@@ -104,6 +104,9 @@ def main() -> None:
     tokens_processed = 0
     step = 0
 
+    if train_log_path.exists():
+        train_log_path.unlink()
+
     while step < max_steps:
         for input_ids, targets in train_loader:
             if step >= max_steps:
