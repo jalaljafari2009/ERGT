@@ -68,6 +68,11 @@ These documents should be read only when implementing the corresponding module:
 - `docs/12_phase4_dynamic_memory_plan.md`
   - Gate-locked plan for dynamic relational graph memory after Phase 3.
 
+- `docs/13_phase3_stable_base_plan.md`
+  - Stable Phase 3 candidate after confirmation-seed instability.
+  - Defines detached distance, cosine graph construction, clipped distance,
+    alpha warmup, live monitoring, and strict controls.
+
 ## Source Notes
 
 The current source notes are:

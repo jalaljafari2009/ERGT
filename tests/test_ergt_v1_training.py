@@ -176,8 +176,18 @@ def test_train_ergt_v1_smoke_outputs_finite_metrics_and_exact_step(
         sys.argv = old_argv
 
     results = json.loads((output_dir / "metrics.json").read_text(encoding="utf-8"))
+    progress_rows = [
+        json.loads(line)
+        for line in (output_dir / "progress_log.jsonl").read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
     checkpoint = torch.load(output_dir / "checkpoints" / "last.pt", map_location="cpu")
 
     assert math.isfinite(results["final_validation_loss"])
     assert math.isfinite(results["perplexity"])
+    assert len(progress_rows) == 1
+    assert math.isfinite(progress_rows[0]["validation_loss"])
+    assert math.isfinite(progress_rows[0]["best_validation_loss"])
+    assert "tokens_per_second" in progress_rows[0]
+    assert "alpha_effective" in progress_rows[0]
     assert checkpoint["step"] == 1

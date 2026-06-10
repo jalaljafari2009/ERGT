@@ -35,6 +35,7 @@ class GeoAttentionConfig:
     alpha_mode: AlphaMode = "fixed"
     alpha_initial_value: float = 0.1
     alpha_non_negative: bool = True
+    alpha_warmup_steps: int = 0
     gradient_mode: GradientMode = "grad_d"
 
     def __post_init__(self) -> None:
@@ -50,6 +51,8 @@ class GeoAttentionConfig:
             raise ValueError(f"unsupported head_sharing: {self.head_sharing}")
         if self.alpha_mode not in {"fixed", "trainable"}:
             raise ValueError(f"unsupported alpha_mode: {self.alpha_mode}")
+        if self.alpha_warmup_steps < 0:
+            raise ValueError("alpha_warmup_steps must be non-negative")
         if self.gradient_mode not in {"grad_d", "detached_d"}:
             raise ValueError(f"unsupported gradient_mode: {self.gradient_mode}")
 
@@ -94,6 +97,11 @@ class GeoAttention(nn.Module):
                 torch.tensor(float(self.config.alpha_initial_value), dtype=torch.float32),
                 persistent=True,
             )
+        self.register_buffer(
+            "training_step",
+            torch.tensor(0, dtype=torch.long),
+            persistent=False,
+        )
 
     @classmethod
     def from_project_config(cls, project_config: dict[str, Any]) -> GeoAttention:
@@ -110,6 +118,7 @@ class GeoAttention(nn.Module):
             alpha_mode=alpha.get("mode", "fixed"),
             alpha_initial_value=float(alpha.get("initial_value", 0.1)),
             alpha_non_negative=bool(alpha.get("non_negative", True)),
+            alpha_warmup_steps=int(alpha.get("warmup_steps", 0)),
             gradient_mode=attention.get("gradient_mode", "grad_d"),
         )
         return cls(
@@ -237,6 +246,12 @@ class GeoAttention(nn.Module):
         return logits
 
     def alpha(self) -> torch.Tensor:
+        alpha = self.target_alpha()
+        if self.config.alpha_warmup_steps <= 0:
+            return alpha
+        return alpha * self.alpha_warmup_factor()
+
+    def target_alpha(self) -> torch.Tensor:
         if self.config.alpha_mode == "trainable":
             if self.config.alpha_non_negative:
                 return F.softplus(self.raw_alpha)
@@ -245,6 +260,15 @@ class GeoAttention(nn.Module):
         if self.config.alpha_non_negative:
             alpha = torch.clamp(alpha, min=0.0)
         return alpha
+
+    def alpha_warmup_factor(self) -> torch.Tensor:
+        if self.config.alpha_warmup_steps <= 0:
+            return torch.tensor(1.0, dtype=torch.float32, device=self.training_step.device)
+        step = self.training_step.to(dtype=torch.float32)
+        return torch.clamp(step / float(self.config.alpha_warmup_steps), min=0.0, max=1.0)
+
+    def set_training_step(self, step: int) -> None:
+        self.training_step.fill_(max(int(step), 0))
 
     def diagnostics(
         self,
@@ -259,8 +283,13 @@ class GeoAttention(nn.Module):
             mean_abs_geo = torch.tensor(0.0, device=qk_logits.device)
         else:
             mean_abs_geo = (alpha * finite_distance).abs().mean()
+        target_alpha = self.target_alpha()
+        warmup_factor = self.alpha_warmup_factor()
         return {
             "alpha": float(alpha.detach().cpu().item()),
+            "target_alpha": float(target_alpha.detach().cpu().item()),
+            "alpha_warmup_steps": float(self.config.alpha_warmup_steps),
+            "alpha_warmup_factor": float(warmup_factor.detach().cpu().item()),
             "mean_abs_qk": float(mean_abs_qk.detach().cpu().item()),
             "mean_abs_geo": float(mean_abs_geo.detach().cpu().item()),
             "geo_to_qk_ratio": float(

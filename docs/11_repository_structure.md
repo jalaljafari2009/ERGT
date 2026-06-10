@@ -61,6 +61,12 @@ Phase 4 planning is captured in:
 docs/12_phase4_dynamic_memory_plan.md
 ```
 
+Phase 3 Stable Base planning is captured in:
+
+```text
+docs/13_phase3_stable_base_plan.md
+```
+
 The original source notes remain at the repository root:
 
 ```text
@@ -237,6 +243,10 @@ Experiment scripts should:
 - Run training or evaluation.
 - Save logs and metrics.
 - Avoid hidden defaults.
+
+`experiments/progress_logging.py` owns lightweight progress JSONL writing,
+GPU-memory scalar capture, and one-line eval progress formatting for long
+Colab runs.
 
 They should not contain core model definitions.
 

@@ -52,6 +52,9 @@ class ERGTBlock(nn.Module):
         self.ln_2 = nn.LayerNorm(config.hidden_dim, bias=config.bias)
         self.ffn = FeedForward(config.baseline_config())
 
+    def set_training_step(self, step: int) -> None:
+        self.attn.set_training_step(step)
+
     def forward(
         self,
         hidden_states: torch.Tensor,
@@ -110,6 +113,10 @@ class ERGTV1(nn.Module):
 
         self.token_embedding.weight = self.lm_head.weight
         self.apply(self._init_weights)
+
+    def set_training_step(self, step: int) -> None:
+        for block in self.blocks:
+            block.set_training_step(step)
 
     def forward(
         self,
@@ -258,6 +265,7 @@ def _geo_attention_config(config: ERGTV1Config) -> GeoAttentionConfig:
         alpha_mode=alpha.get("mode", "fixed"),
         alpha_initial_value=float(alpha.get("initial_value", 0.1)),
         alpha_non_negative=bool(alpha.get("non_negative", True)),
+        alpha_warmup_steps=int(alpha.get("warmup_steps", 0)),
         gradient_mode=attention.get("gradient_mode", "grad_d"),
     )
 

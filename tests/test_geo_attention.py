@@ -8,6 +8,7 @@ def geo_attention(
     *,
     distance_mode: str = "real_d",
     alpha: float = 0.1,
+    alpha_warmup_steps: int = 0,
     gradient_mode: str = "grad_d",
 ) -> GeoAttention:
     return GeoAttention(
@@ -17,6 +18,7 @@ def geo_attention(
             dropout=0.0,
             distance_mode=distance_mode,
             alpha_initial_value=alpha,
+            alpha_warmup_steps=alpha_warmup_steps,
             gradient_mode=gradient_mode,
         ),
         relational_graph_config={
@@ -105,3 +107,21 @@ def test_geo_attention_zero_distance_mode_has_zero_geo_ratio() -> None:
 
     assert result["diagnostics"]["mean_abs_geo"] == 0.0
     assert result["diagnostics"]["geo_to_qk_ratio"] == 0.0
+
+
+def test_geo_attention_alpha_warmup_scales_effective_alpha() -> None:
+    attention = geo_attention(alpha=0.2, alpha_warmup_steps=10)
+
+    assert torch.isclose(attention.alpha(), torch.tensor(0.0))
+
+    attention.set_training_step(5)
+    assert torch.isclose(attention.alpha(), torch.tensor(0.1))
+
+    attention.set_training_step(20)
+    assert torch.isclose(attention.alpha(), torch.tensor(0.2))
+
+    hidden_states = torch.randn(2, 4, 16)
+    result = attention(hidden_states, return_diagnostics=True)
+
+    assert abs(result["diagnostics"]["target_alpha"] - 0.2) < 1e-6
+    assert result["diagnostics"]["alpha_warmup_factor"] == 1.0

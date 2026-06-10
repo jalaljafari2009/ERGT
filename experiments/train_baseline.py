@@ -26,6 +26,11 @@ from experiments.data_utils import (  # noqa: E402
     load_tokenizer,
     save_json,
 )
+from experiments.progress_logging import (  # noqa: E402
+    append_jsonl,
+    format_progress_line,
+    gpu_memory_snapshot,
+)
 from models.transformer_baseline import TransformerBaseline  # noqa: E402
 
 
@@ -98,6 +103,9 @@ def main() -> None:
     grad_clip = float(config["training"].get("grad_clip", 0.0))
 
     train_log_path = output_dir / config["logging"].get("train_log", "train_log.jsonl")
+    progress_log_path = output_dir / config["logging"].get(
+        "progress_log", "progress_log.jsonl"
+    )
     best_val_loss = math.inf
     final_train_loss = math.inf
     start_time = time.perf_counter()
@@ -106,6 +114,8 @@ def main() -> None:
 
     if train_log_path.exists():
         train_log_path.unlink()
+    if progress_log_path.exists():
+        progress_log_path.unlink()
 
     while step < max_steps:
         for input_ids, targets in train_loader:
@@ -128,13 +138,16 @@ def main() -> None:
                 raise RuntimeError(f"non-finite loss at step {step}: {loss.item()}")
 
             loss.backward()
+            grad_norm = None
             if grad_clip > 0:
-                torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
+                grad_norm_tensor = torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
+                grad_norm = float(grad_norm_tensor.detach().cpu().item())
             optimizer.step()
 
             batch_tokens = input_ids.numel()
             tokens_processed += batch_tokens
             final_train_loss = float(loss.item())
+            elapsed_seconds = time.perf_counter() - start_time
 
             should_eval = step == 1 or step % eval_interval == 0 or step == max_steps
             log_record: dict[str, Any] = {
@@ -142,9 +155,13 @@ def main() -> None:
                 "train_loss": final_train_loss,
                 "learning_rate": lr,
                 "tokens_processed": tokens_processed,
-                "tokens_per_second": tokens_processed / max(time.perf_counter() - start_time, 1e-9),
+                "tokens_per_second": tokens_processed / max(elapsed_seconds, 1e-9),
+                "elapsed_seconds": elapsed_seconds,
+                "elapsed_minutes": elapsed_seconds / 60.0,
+                "grad_norm": grad_norm,
                 "seed": int(config["run"].get("seed", 1337)),
                 "device": str(device),
+                "condition": config["run"]["condition"],
             }
 
             if should_eval:
@@ -159,6 +176,10 @@ def main() -> None:
                     save_checkpoint(
                         output_dir / "checkpoints" / "best.pt", model, optimizer, step, config
                     )
+                log_record["best_validation_loss"] = best_val_loss
+                log_record.update(gpu_memory_snapshot(device))
+                append_jsonl(progress_log_path, log_record)
+                print(format_progress_line(log_record), flush=True)
 
             append_jsonl(train_log_path, log_record)
 
@@ -287,12 +308,6 @@ def save_checkpoint(
         },
         path,
     )
-
-
-def append_jsonl(path: Path, record: dict[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("a", encoding="utf-8") as handle:
-        handle.write(json.dumps(record, sort_keys=True) + "\n")
 
 
 if __name__ == "__main__":

@@ -27,6 +27,12 @@ from experiments.data_utils import (  # noqa: E402
     load_tokenizer,
     save_json,
 )
+from experiments.progress_logging import (  # noqa: E402
+    append_jsonl,
+    format_progress_line,
+    geometry_progress_fields,
+    gpu_memory_snapshot,
+)
 from experiments.train_baseline import default_data_dir, learning_rate_for_step  # noqa: E402
 from models.ergt_v1 import ERGTV1  # noqa: E402
 
@@ -100,6 +106,9 @@ def main() -> None:
     log_geometry = bool(config.get("logging", {}).get("log_geometry_diagnostics", True))
 
     train_log_path = output_dir / config["logging"].get("train_log", "train_log.jsonl")
+    progress_log_path = output_dir / config["logging"].get(
+        "progress_log", "progress_log.jsonl"
+    )
     best_val_loss = math.inf
     final_train_loss = math.inf
     start_time = time.perf_counter()
@@ -108,6 +117,8 @@ def main() -> None:
 
     if train_log_path.exists():
         train_log_path.unlink()
+    if progress_log_path.exists():
+        progress_log_path.unlink()
 
     while step < max_steps:
         for input_ids, targets in train_loader:
@@ -123,6 +134,7 @@ def main() -> None:
                 param_group["lr"] = lr
 
             model.train()
+            model.set_training_step(step)
             optimizer.zero_grad(set_to_none=True)
             outputs = model(
                 input_ids,
@@ -134,17 +146,20 @@ def main() -> None:
                 raise RuntimeError(f"non-finite loss at step {step}: {loss.item()}")
 
             loss.backward()
+            grad_norm = None
             if grad_clip > 0:
-                torch.nn.utils.clip_grad_norm_(
+                grad_norm_tensor = torch.nn.utils.clip_grad_norm_(
                     model.parameters(),
                     grad_clip,
                     error_if_nonfinite=True,
                 )
+                grad_norm = float(grad_norm_tensor.detach().cpu().item())
             optimizer.step()
 
             batch_tokens = input_ids.numel()
             tokens_processed += batch_tokens
             final_train_loss = float(loss.item())
+            elapsed_seconds = time.perf_counter() - start_time
 
             should_eval = step == 1 or step % eval_interval == 0 or step == max_steps
             log_record: dict[str, Any] = {
@@ -152,10 +167,18 @@ def main() -> None:
                 "train_loss": final_train_loss,
                 "learning_rate": lr,
                 "tokens_processed": tokens_processed,
-                "tokens_per_second": tokens_processed / max(time.perf_counter() - start_time, 1e-9),
+                "tokens_per_second": tokens_processed / max(elapsed_seconds, 1e-9),
+                "elapsed_seconds": elapsed_seconds,
+                "elapsed_minutes": elapsed_seconds / 60.0,
+                "grad_norm": grad_norm,
                 "seed": seed,
                 "device": str(device),
                 "condition": config["run"]["condition"],
+                "distance_mode": config.get("attention", {}).get("distance_mode"),
+                "gradient_mode": config.get("attention", {}).get("gradient_mode"),
+                "kernel": config.get("relational_graph", {}).get("kernel"),
+                "normalize_hidden": config.get("relational_graph", {}).get("normalize_hidden"),
+                "nan_or_inf_detected": False,
             }
 
             if log_geometry:
@@ -173,11 +196,16 @@ def main() -> None:
                 log_record["perplexity"] = perplexity
                 if log_geometry:
                     log_record["validation_geometry"] = val_result.get("geometry")
+                    log_record.update(geometry_progress_fields(val_result.get("geometry")))
                 if val_loss < best_val_loss:
                     best_val_loss = val_loss
                     save_checkpoint(
                         output_dir / "checkpoints" / "best.pt", model, optimizer, step, config
                     )
+                log_record["best_validation_loss"] = best_val_loss
+                log_record.update(gpu_memory_snapshot(device))
+                append_jsonl(progress_log_path, log_record)
+                print(format_progress_line(log_record), flush=True)
 
             append_jsonl(train_log_path, log_record)
 
@@ -318,12 +346,6 @@ def save_checkpoint(
         },
         path,
     )
-
-
-def append_jsonl(path: Path, record: dict[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("a", encoding="utf-8") as handle:
-        handle.write(json.dumps(record, sort_keys=True) + "\n")
 
 
 def average_nested_metrics(items: list[Any]) -> Any:

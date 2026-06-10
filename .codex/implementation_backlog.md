@@ -26,6 +26,8 @@ Documentation foundation is complete for the first implementation pass:
 - `docs/09_metrics_and_ablation_plan.md`
 - `docs/10_gate_conditions.md`
 - `docs/11_repository_structure.md`
+- `docs/12_phase4_dynamic_memory_plan.md`
+- `docs/13_phase3_stable_base_plan.md`
 
 The next work is implementation planning and source scaffolding.
 
@@ -518,6 +520,31 @@ Acceptance criteria:
 - Random and shuffled distance modes run.
 - GeoAttention output shape matches baseline attention output.
 - No NaN or Inf under small synthetic inputs.
+
+### Task P3.7: Implement Stable Base Candidate
+
+Status: complete
+
+Implement the post-confirmation-seed Stable Base candidate:
+
+```text
+docs/13_phase3_stable_base_plan.md
+experiments/progress_logging.py
+experiments/compare_phase3_stable_base.py
+notebooks/ergt_colab_phase3_stable_base.ipynb
+configs/baseline/phase3_stable_base_seed2027.json
+configs/ergt_v1/phase3_stable_base/
+```
+
+Acceptance criteria:
+
+- `GeoAttention` supports alpha warmup without changing old configs.
+- Baseline and ERGT trainers write lightweight `progress_log.jsonl`.
+- Trainers print one live progress line at each eval interval.
+- Stable Base configs use `detached_d`, `sigmoid_cosine`, clipped distance,
+  and alpha warmup for non-zero alpha runs.
+- Stable Base comparison validates configs before interpreting results.
+- Stable Base does not move the project to Phase 4 without seed confirmation.
 
 ## 9. Gate 1: Phase 3 to Phase 4 Decision
 
