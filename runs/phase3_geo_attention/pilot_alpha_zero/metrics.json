@@ -1,0 +1,147 @@
+{
+  "attention": {
+    "alpha": {
+      "initial_value": 0.0,
+      "mode": "fixed",
+      "non_negative": true
+    },
+    "causal_runtime_distance": true,
+    "distance_mode": "real_d",
+    "gradient_mode": "grad_d",
+    "head_sharing": "shared_d",
+    "type": "geo_attention"
+  },
+  "average_tokens_per_second": 6738.8328258632955,
+  "best_validation_loss": 6.752926815182247,
+  "condition": "alpha_zero",
+  "data_dir": "data/processed/wikitext2_gpt2_ctx256",
+  "device": "cuda",
+  "distance": {
+    "clip_value": 5.0,
+    "diagonal_policy": "zero",
+    "epsilon": 1e-06,
+    "formula": "-log(W + epsilon)",
+    "normalization": "offdiag_zscore_clamp"
+  },
+  "final_training_loss": 6.754510879516602,
+  "final_validation_loss": 6.752926815182247,
+  "geometry": {
+    "layers": {
+      "layer_0": {
+        "alpha": 0.0,
+        "attention_entropy": 4.503042396951894,
+        "attention_sparsity": {
+          "0.001": 0.4983320016352857,
+          "0.01": 0.9148347446175872
+        },
+        "distance_mean": 2.4902313283232393,
+        "distance_std": 2.5976786613464355,
+        "geo_to_qk_ratio": 0.0,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.0,
+        "mean_abs_qk": 0.2647327913856897,
+        "mean_max_probability": 0.03671684387888088,
+        "min": 0.0,
+        "shape": [
+          8,
+          4,
+          256,
+          256
+        ],
+        "std": 0.009309779196122631
+      },
+      "layer_1": {
+        "alpha": 0.0,
+        "attention_entropy": 4.4003487688596135,
+        "attention_sparsity": {
+          "0.001": 0.5046211569035639,
+          "0.01": 0.9146379579286106
+        },
+        "distance_mean": 2.490193736357767,
+        "distance_std": 2.597630946362605,
+        "geo_to_qk_ratio": 0.0,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.0,
+        "mean_abs_qk": 0.4145246863853736,
+        "mean_max_probability": 0.051605775188960014,
+        "min": 0.0,
+        "shape": [
+          8,
+          4,
+          256,
+          256
+        ],
+        "std": 0.010260525037397127
+      },
+      "layer_2": {
+        "alpha": 0.0,
+        "attention_entropy": 4.206597339911539,
+        "attention_sparsity": {
+          "0.001": 0.5452501920403027,
+          "0.01": 0.9045982805431866
+        },
+        "distance_mean": 2.4901854855115295,
+        "distance_std": 2.5976195374473194,
+        "geo_to_qk_ratio": 0.0,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.0,
+        "mean_abs_qk": 0.8621111341187211,
+        "mean_max_probability": 0.07511390061652073,
+        "min": 0.0,
+        "shape": [
+          8,
+          4,
+          256,
+          256
+        ],
+        "std": 0.011914283273833209
+      },
+      "layer_3": {
+        "alpha": 0.0,
+        "attention_entropy": 4.296410036868736,
+        "attention_sparsity": {
+          "0.001": 0.5057536373372937,
+          "0.01": 0.9127167888352128
+        },
+        "distance_mean": 2.490073499132375,
+        "distance_std": 2.597477131202573,
+        "geo_to_qk_ratio": 0.0,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.0,
+        "mean_abs_qk": 0.8034535025964018,
+        "mean_max_probability": 0.0714064461530232,
+        "min": 0.0,
+        "shape": [
+          8,
+          4,
+          256,
+          256
+        ],
+        "std": 0.01134045594600869
+      }
+    },
+    "summary": {
+      "alpha": 0.0,
+      "attention_entropy": 4.351599635647946,
+      "distance_mean": 2.4901710123312277,
+      "distance_std": 2.597601569089733,
+      "geo_to_qk_ratio": 0.0,
+      "max": 1.0,
+      "mean": 0.00390625,
+      "mean_abs_geo": 0.0,
+      "mean_abs_qk": 0.5862055286215465,
+      "mean_max_probability": 0.05871074145934621,
+      "min": 0.0,
+      "std": 0.010706260863340413
+    }
+  },
+  "peak_memory_bytes": 2154921984,
+  "perplexity": 856.5620962894618,
+  "seed": 1337,
+  "total_training_tokens": 409600,
+  "total_wall_clock_seconds": 60.782039053999995
+}

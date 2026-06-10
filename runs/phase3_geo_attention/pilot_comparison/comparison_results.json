@@ -1,0 +1,383 @@
+{
+  "conditions": {
+    "alpha_zero": {
+      "attention": {
+        "alpha": {
+          "initial_value": 0.0,
+          "mode": "fixed",
+          "non_negative": true
+        },
+        "causal_runtime_distance": true,
+        "distance_mode": "real_d",
+        "gradient_mode": "grad_d",
+        "head_sharing": "shared_d",
+        "type": "geo_attention"
+      },
+      "average_tokens_per_second": 6738.8328258632955,
+      "best_validation_loss": 6.752926815182247,
+      "condition": "alpha_zero",
+      "device": "cuda",
+      "distance": {
+        "clip_value": 5.0,
+        "diagonal_policy": "zero",
+        "epsilon": 1e-06,
+        "formula": "-log(W + epsilon)",
+        "normalization": "offdiag_zscore_clamp"
+      },
+      "final_training_loss": 6.754510879516602,
+      "final_validation_loss": 6.752926815182247,
+      "geometry_summary": {
+        "alpha": 0.0,
+        "attention_entropy": 4.351599635647946,
+        "distance_mean": 2.4901710123312277,
+        "distance_std": 2.597601569089733,
+        "geo_to_qk_ratio": 0.0,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.0,
+        "mean_abs_qk": 0.5862055286215465,
+        "mean_max_probability": 0.05871074145934621,
+        "min": 0.0,
+        "std": 0.010706260863340413
+      },
+      "path": "runs\\phase3_geo_attention\\pilot_alpha_zero\\metrics.json",
+      "peak_memory_bytes": 2154921984.0,
+      "perplexity": 856.5620962894618,
+      "seed": 1337,
+      "total_training_tokens": 409600.0
+    },
+    "baseline": {
+      "attention": {},
+      "average_tokens_per_second": 591.1559587873936,
+      "best_validation_loss": 6.753335403242023,
+      "condition": "baseline",
+      "device": "cpu",
+      "distance": {},
+      "final_training_loss": 6.755731105804443,
+      "final_validation_loss": 6.753335403242023,
+      "geometry_summary": {},
+      "path": "runs\\phase0_baseline\\pilot_wikitext2\\baseline_results.json",
+      "peak_memory_bytes": null,
+      "perplexity": 856.9121488432395,
+      "seed": 1337,
+      "total_training_tokens": 409600.0
+    },
+    "random_d": {
+      "attention": {
+        "alpha": {
+          "initial_value": 0.1,
+          "mode": "fixed",
+          "non_negative": true
+        },
+        "causal_runtime_distance": true,
+        "distance_mode": "random_d",
+        "gradient_mode": "detached_d",
+        "head_sharing": "shared_d",
+        "type": "geo_attention"
+      },
+      "average_tokens_per_second": 6599.407032225438,
+      "best_validation_loss": 6.752623007054432,
+      "condition": "random_d",
+      "device": "cuda",
+      "distance": {
+        "clip_value": 5.0,
+        "diagonal_policy": "zero",
+        "epsilon": 1e-06,
+        "formula": "random_matched_scale",
+        "normalization": "offdiag_zscore_clamp"
+      },
+      "final_training_loss": 6.753884315490723,
+      "final_validation_loss": 6.752629371921999,
+      "geometry_summary": {
+        "alpha": 0.10000000149011612,
+        "attention_entropy": 4.3258597420864415,
+        "distance_mean": 2.1412691835497246,
+        "distance_std": 1.6505134599130662,
+        "geo_to_qk_ratio": 0.4697806241876278,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.22318713421948622,
+        "mean_abs_qk": 0.5953446886212123,
+        "mean_max_probability": 0.06274791729834969,
+        "min": 0.0,
+        "std": 0.010900454668206026
+      },
+      "path": "runs\\phase3_geo_attention\\pilot_random_d\\metrics.json",
+      "peak_memory_bytes": 2154921984.0,
+      "perplexity": 856.3073555542722,
+      "seed": 1337,
+      "total_training_tokens": 409600.0
+    },
+    "real_d": {
+      "attention": {
+        "alpha": {
+          "initial_value": 0.1,
+          "mode": "fixed",
+          "non_negative": true
+        },
+        "causal_runtime_distance": true,
+        "distance_mode": "real_d",
+        "gradient_mode": "grad_d",
+        "head_sharing": "shared_d",
+        "type": "geo_attention"
+      },
+      "average_tokens_per_second": 6673.232910514362,
+      "best_validation_loss": 6.751315980198209,
+      "condition": "real_d",
+      "device": "cuda",
+      "distance": {
+        "clip_value": 5.0,
+        "diagonal_policy": "zero",
+        "epsilon": 1e-06,
+        "formula": "-log(W + epsilon)",
+        "normalization": "offdiag_zscore_clamp"
+      },
+      "final_training_loss": 6.7548933029174805,
+      "final_validation_loss": 6.751315980198209,
+      "geometry_summary": {
+        "alpha": 0.10000000149011612,
+        "attention_entropy": 4.323586999392901,
+        "distance_mean": 2.4901788332423225,
+        "distance_std": 2.5976114742091445,
+        "geo_to_qk_ratio": 0.5497410260140896,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.2870794510865798,
+        "mean_abs_qk": 0.6558531154496748,
+        "mean_max_probability": 0.061336542594200766,
+        "min": 0.0,
+        "std": 0.010970413100859914
+      },
+      "path": "runs\\phase3_geo_attention\\pilot_real_d\\metrics.json",
+      "peak_memory_bytes": 2176139264.0,
+      "perplexity": 855.1834268013924,
+      "seed": 1337,
+      "total_training_tokens": 409600.0
+    },
+    "shuffled_d": {
+      "attention": {
+        "alpha": {
+          "initial_value": 0.1,
+          "mode": "fixed",
+          "non_negative": true
+        },
+        "causal_runtime_distance": true,
+        "distance_mode": "shuffled_d",
+        "gradient_mode": "detached_d",
+        "head_sharing": "shared_d",
+        "type": "geo_attention"
+      },
+      "average_tokens_per_second": 5824.509036787782,
+      "best_validation_loss": 6.752980838229556,
+      "condition": "shuffled_d",
+      "device": "cuda",
+      "distance": {
+        "clip_value": 5.0,
+        "diagonal_policy": "zero",
+        "epsilon": 1e-06,
+        "formula": "shuffled_real_distance",
+        "normalization": "offdiag_zscore_clamp",
+        "shuffle": "entry_shuffle"
+      },
+      "final_training_loss": 6.758843421936035,
+      "final_validation_loss": 6.753049753721416,
+      "geometry_summary": {
+        "alpha": 0.10000000149011612,
+        "attention_entropy": 4.317587757696871,
+        "distance_mean": 2.4901979961356178,
+        "distance_std": 2.5976371770022344,
+        "geo_to_qk_ratio": 0.6341855820940167,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.2875538017661845,
+        "mean_abs_qk": 0.571803493058828,
+        "mean_max_probability": 0.06443380563687838,
+        "min": 0.0,
+        "std": 0.011004102614815117
+      },
+      "path": "runs\\phase3_geo_attention\\pilot_shuffled_d\\metrics.json",
+      "peak_memory_bytes": 2154087424.0,
+      "perplexity": 856.6674072555429,
+      "seed": 1337,
+      "total_training_tokens": 409600.0
+    }
+  },
+  "deltas": {
+    "alpha_zero_vs_baseline": {
+      "average_tokens_per_second": {
+        "absolute": 6147.676867075902,
+        "candidate": 6738.8328258632955,
+        "reference": 591.1559587873936,
+        "relative": 10.399416221205485
+      },
+      "best_validation_loss": {
+        "absolute": -0.0004085880597761715,
+        "candidate": 6.752926815182247,
+        "reference": 6.753335403242023,
+        "relative": -6.0501668491102e-05
+      },
+      "final_validation_loss": {
+        "absolute": -0.0004085880597761715,
+        "candidate": 6.752926815182247,
+        "reference": 6.753335403242023,
+        "relative": -6.0501668491102e-05
+      },
+      "peak_memory_bytes": {
+        "absolute": null,
+        "candidate": 2154921984.0,
+        "reference": null,
+        "relative": null
+      },
+      "perplexity": {
+        "absolute": -0.3500525537776866,
+        "candidate": 856.5620962894618,
+        "reference": 856.9121488432395,
+        "relative": -0.00040850459904230395
+      }
+    },
+    "real_d_vs_alpha_zero": {
+      "average_tokens_per_second": {
+        "absolute": -65.59991534893379,
+        "candidate": 6673.232910514362,
+        "reference": 6738.8328258632955,
+        "relative": -0.009734610880561493
+      },
+      "best_validation_loss": {
+        "absolute": -0.0016108349840378011,
+        "candidate": 6.751315980198209,
+        "reference": 6.752926815182247,
+        "relative": -0.00023853878890205745
+      },
+      "final_validation_loss": {
+        "absolute": -0.0016108349840378011,
+        "candidate": 6.751315980198209,
+        "reference": 6.752926815182247,
+        "relative": -0.00023853878890205745
+      },
+      "peak_memory_bytes": {
+        "absolute": 21217280.0,
+        "candidate": 2176139264.0,
+        "reference": 2154921984.0,
+        "relative": 0.009845962015114883
+      },
+      "perplexity": {
+        "absolute": -1.378669488069363,
+        "candidate": 855.1834268013924,
+        "reference": 856.5620962894618,
+        "relative": -0.001609538285714038
+      }
+    },
+    "real_d_vs_baseline": {
+      "average_tokens_per_second": {
+        "absolute": 6082.076951726968,
+        "candidate": 6673.232910514362,
+        "reference": 591.1559587873936,
+        "relative": 10.288447340026488
+      },
+      "best_validation_loss": {
+        "absolute": -0.0020194230438139726,
+        "candidate": 6.751315980198209,
+        "reference": 6.753335403242023,
+        "relative": -0.00029902602539843106
+      },
+      "final_validation_loss": {
+        "absolute": -0.0020194230438139726,
+        "candidate": 6.751315980198209,
+        "reference": 6.753335403242023,
+        "relative": -0.00029902602539843106
+      },
+      "peak_memory_bytes": {
+        "absolute": null,
+        "candidate": 2176139264.0,
+        "reference": null,
+        "relative": null
+      },
+      "perplexity": {
+        "absolute": -1.7287220418470497,
+        "candidate": 855.1834268013924,
+        "reference": 856.9121488432395,
+        "relative": -0.002017385380964293
+      }
+    },
+    "real_d_vs_random_d": {
+      "average_tokens_per_second": {
+        "absolute": 73.82587828892338,
+        "candidate": 6673.232910514362,
+        "reference": 6599.407032225438,
+        "relative": 0.011186744192080537
+      },
+      "best_validation_loss": {
+        "absolute": -0.0013070268562236365,
+        "candidate": 6.751315980198209,
+        "reference": 6.752623007054432,
+        "relative": -0.00019355839276947518
+      },
+      "final_validation_loss": {
+        "absolute": -0.0013133917237899695,
+        "candidate": 6.751315980198209,
+        "reference": 6.752629371921999,
+        "relative": -0.0001945007865012054
+      },
+      "peak_memory_bytes": {
+        "absolute": 21217280.0,
+        "candidate": 2176139264.0,
+        "reference": 2154921984.0,
+        "relative": 0.009845962015114883
+      },
+      "perplexity": {
+        "absolute": -1.1239287528798059,
+        "candidate": 855.1834268013924,
+        "reference": 856.3073555542722,
+        "relative": -0.0013125296023555784
+      }
+    },
+    "real_d_vs_shuffled_d": {
+      "average_tokens_per_second": {
+        "absolute": 848.7238737265798,
+        "candidate": 6673.232910514362,
+        "reference": 5824.509036787782,
+        "relative": 0.14571595105544743
+      },
+      "best_validation_loss": {
+        "absolute": -0.001664858031347194,
+        "candidate": 6.751315980198209,
+        "reference": 6.752980838229556,
+        "relative": -0.00024653676224315683
+      },
+      "final_validation_loss": {
+        "absolute": -0.0017337735232070273,
+        "candidate": 6.751315980198209,
+        "reference": 6.753049753721416,
+        "relative": -0.00025673933799341453
+      },
+      "peak_memory_bytes": {
+        "absolute": 22051840.0,
+        "candidate": 2176139264.0,
+        "reference": 2154087424.0,
+        "relative": 0.01023720753127613
+      },
+      "perplexity": {
+        "absolute": -1.483980454150469,
+        "candidate": 855.1834268013924,
+        "reference": 856.6674072555429,
+        "relative": -0.0017322714061278619
+      }
+    }
+  },
+  "ranking": {
+    "by_final_validation_loss": [
+      "real_d",
+      "random_d",
+      "alpha_zero",
+      "shuffled_d",
+      "baseline"
+    ]
+  },
+  "required_conditions": [
+    "baseline",
+    "alpha_zero",
+    "real_d",
+    "random_d",
+    "shuffled_d"
+  ]
+}
