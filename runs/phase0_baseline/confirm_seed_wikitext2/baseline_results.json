@@ -1,0 +1,14 @@
+{
+  "average_tokens_per_second": 8309.587875324789,
+  "best_validation_loss": 5.751527379150862,
+  "condition": "baseline",
+  "data_dir": "data/processed/wikitext2_gpt2_ctx256",
+  "device": "cuda",
+  "final_training_loss": 5.289863586425781,
+  "final_validation_loss": 5.751527379150862,
+  "peak_memory_bytes": 5163754496,
+  "perplexity": 314.67091522193346,
+  "seed": 2027,
+  "total_training_tokens": 4096000,
+  "total_wall_clock_seconds": 492.92456635100007
+}

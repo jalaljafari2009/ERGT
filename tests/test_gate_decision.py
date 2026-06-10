@@ -56,3 +56,24 @@ def test_gate_decision_conditionally_passes_when_one_distance_control_passes() -
 
     assert decision["decision"] == "conditional_pass"
     assert decision["required_next_actions"]
+
+
+def test_gate_decision_fails_when_confirm_seed_does_not_replicate() -> None:
+    decision = decide_gate(
+        comparison(),
+        ablation_checks(),
+        confirm_seed={
+            "checks": {
+                "all_losses_finite": True,
+                "all_seeds_equal": True,
+                "real_d_beats_baseline": False,
+                "real_d_beats_random_d_alpha_0_2": False,
+                "real_d_beats_best_random_control": False,
+            },
+            "summary": {"recommendation": "real_d_not_replicated"},
+        },
+    )
+
+    assert decision["decision"] == "fail"
+    assert any("Confirm-seed" in risk for risk in decision["risks"])
+    assert decision["inputs"]["confirm_seed_recommendation"] == "real_d_not_replicated"

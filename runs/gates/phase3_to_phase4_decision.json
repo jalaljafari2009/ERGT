@@ -1,0 +1,211 @@
+{
+  "anti_overclaim": "Passing Gate 1 supports only that induced relational distance can be a useful attention bias. It does not prove memory, reasoning, or intelligence.",
+  "decision": "fail",
+  "evidence": [
+    "All required Phase 3 conditions are present.",
+    "alpha_zero matches baseline within configured tolerance.",
+    "real_d improves final validation loss over baseline.",
+    "real_d beats shuffled_d control.",
+    "real_d validation loss is finite.",
+    "Runtime overhead is recorded and within the default warning threshold.",
+    "Confirm-seed run is finite and uses one shared seed."
+  ],
+  "gate": "phase3_to_phase4",
+  "inputs": {
+    "ablation_recommendation": "conditional_repeat_with_more_controls",
+    "comparison_conditions": [
+      "alpha_zero",
+      "baseline",
+      "random_d",
+      "real_d",
+      "shuffled_d"
+    ],
+    "confirm_seed_recommendation": "real_d_not_replicated"
+  },
+  "metrics": {
+    "deltas": {
+      "alpha_zero_vs_baseline": {
+        "average_tokens_per_second": {
+          "absolute": -2603.181855548358,
+          "candidate": 5250.512682444136,
+          "reference": 7853.694537992494,
+          "relative": -0.33145952429845393
+        },
+        "best_validation_loss": {
+          "absolute": 0.0,
+          "candidate": 5.757997885054835,
+          "reference": 5.757997885054835,
+          "relative": 0.0
+        },
+        "final_validation_loss": {
+          "absolute": 0.0,
+          "candidate": 5.757997885054835,
+          "reference": 5.757997885054835,
+          "relative": 0.0
+        },
+        "peak_memory_bytes": {
+          "absolute": 222301184.0,
+          "candidate": 5386055680.0,
+          "reference": 5163754496.0,
+          "relative": 0.043050300739936646
+        },
+        "perplexity": {
+          "absolute": 0.0,
+          "candidate": 316.71359670115476,
+          "reference": 316.71359670115476,
+          "relative": 0.0
+        }
+      },
+      "real_d_vs_alpha_zero": {
+        "average_tokens_per_second": {
+          "absolute": -212.76362750725912,
+          "candidate": 5037.749054936877,
+          "reference": 5250.512682444136,
+          "relative": -0.040522448068484
+        },
+        "best_validation_loss": {
+          "absolute": -0.006466130395136993,
+          "candidate": 5.751531754659698,
+          "reference": 5.757997885054835,
+          "relative": -0.0011229824192746146
+        },
+        "final_validation_loss": {
+          "absolute": -0.006466130395136993,
+          "candidate": 5.751531754659698,
+          "reference": 5.757997885054835,
+          "relative": -0.0011229824192746146
+        },
+        "peak_memory_bytes": {
+          "absolute": 191869952.0,
+          "candidate": 5577925632.0,
+          "reference": 5386055680.0,
+          "relative": 0.035623462399853985
+        },
+        "perplexity": {
+          "absolute": -2.041304630839022,
+          "candidate": 314.67229207031573,
+          "reference": 316.71359670115476,
+          "relative": -0.006445269960307894
+        }
+      },
+      "real_d_vs_baseline": {
+        "average_tokens_per_second": {
+          "absolute": -2815.945483055617,
+          "candidate": 5037.749054936877,
+          "reference": 7853.694537992494,
+          "relative": -0.3585504210067494
+        },
+        "best_validation_loss": {
+          "absolute": -0.006466130395136993,
+          "candidate": 5.751531754659698,
+          "reference": 5.757997885054835,
+          "relative": -0.0011229824192746146
+        },
+        "final_validation_loss": {
+          "absolute": -0.006466130395136993,
+          "candidate": 5.751531754659698,
+          "reference": 5.757997885054835,
+          "relative": -0.0011229824192746146
+        },
+        "peak_memory_bytes": {
+          "absolute": 414171136.0,
+          "candidate": 5577925632.0,
+          "reference": 5163754496.0,
+          "relative": 0.08020736390950217
+        },
+        "perplexity": {
+          "absolute": -2.041304630839022,
+          "candidate": 314.67229207031573,
+          "reference": 316.71359670115476,
+          "relative": -0.006445269960307894
+        }
+      },
+      "real_d_vs_random_d": {
+        "average_tokens_per_second": {
+          "absolute": 65.51307326307415,
+          "candidate": 5037.749054936877,
+          "reference": 4972.235981673803,
+          "relative": 0.013175777156300715
+        },
+        "best_validation_loss": {
+          "absolute": 0.0018956776627803151,
+          "candidate": 5.751531754659698,
+          "reference": 5.749636076996918,
+          "relative": 0.00032970393906573005
+        },
+        "final_validation_loss": {
+          "absolute": 0.001971999108485001,
+          "candidate": 5.751531754659698,
+          "reference": 5.749559755551213,
+          "relative": 0.0003429826269013086
+        },
+        "peak_memory_bytes": {
+          "absolute": 191869952.0,
+          "candidate": 5577925632.0,
+          "reference": 5386055680.0,
+          "relative": 0.035623462399853985
+        },
+        "perplexity": {
+          "absolute": 0.619922035681725,
+          "candidate": 314.67229207031573,
+          "reference": 314.052370034634,
+          "relative": 0.00197394477746931
+        }
+      },
+      "real_d_vs_shuffled_d": {
+        "average_tokens_per_second": {
+          "absolute": 282.6776707014669,
+          "candidate": 5037.749054936877,
+          "reference": 4755.07138423541,
+          "relative": 0.05944761873368174
+        },
+        "best_validation_loss": {
+          "absolute": -0.009056028450554088,
+          "candidate": 5.751531754659698,
+          "reference": 5.760587783110252,
+          "relative": -0.001572066738936936
+        },
+        "final_validation_loss": {
+          "absolute": -0.009461473608360471,
+          "candidate": 5.751531754659698,
+          "reference": 5.760993228268059,
+          "relative": -0.0016423337493151153
+        },
+        "peak_memory_bytes": {
+          "absolute": 193967104.0,
+          "candidate": 5577925632.0,
+          "reference": 5383958528.0,
+          "relative": 0.03602685700330863
+        },
+        "perplexity": {
+          "absolute": -2.991392762917087,
+          "candidate": 314.67229207031573,
+          "reference": 317.6636848332328,
+          "relative": -0.009416854698035469
+        }
+      }
+    },
+    "ranking": {
+      "by_final_validation_loss": [
+        "random_d",
+        "real_d",
+        "baseline",
+        "alpha_zero",
+        "shuffled_d"
+      ]
+    }
+  },
+  "next_action": "Do not proceed to Phase 4. Redesign or repeat Phase 3.",
+  "required_next_actions": [
+    "Verify that relational structure matters beyond arbitrary bias.",
+    "Do not proceed to Phase 4 before repeating Phase 3.",
+    "Redesign or repeat Phase 3 before claiming relational geometry advantage.",
+    "Treat Gate 1 as failed until replication improves."
+  ],
+  "risks": [
+    "real_d does not beat random_d control.",
+    "Confirm-seed real_d does not beat baseline.",
+    "Confirm-seed real_d does not beat the best random control.",
+    "Confirm-seed result did not replicate the real_d advantage."
+  ]
+}

@@ -1,0 +1,257 @@
+{
+  "best_random_control": {
+    "label": "random_d_alpha_0_2",
+    "summary": {
+      "alpha": 0.2,
+      "average_tokens_per_second": 5202.244294523687,
+      "best_validation_loss": 5.752111580786818,
+      "condition": "random_d",
+      "device": "cuda",
+      "final_training_loss": 5.289191246032715,
+      "final_validation_loss": 5.752173267113069,
+      "geometry_summary": {
+        "alpha": 0.20000000298023224,
+        "attention_entropy": 3.3594169238877427,
+        "distance_mean": 2.2359533003770586,
+        "distance_std": 1.5958308362569966,
+        "geo_to_qk_ratio": 0.39532878426987617,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.45764003091496847,
+        "mean_abs_qk": 2.7973852208891854,
+        "mean_max_probability": 0.2011659004180972,
+        "min": 0.0,
+        "std": 0.020022192038595676
+      },
+      "label": "random_d_alpha_0_2",
+      "path": "runs/phase3_geo_attention/confirm_seed/random_d_alpha_0_2/metrics.json",
+      "peak_memory_bytes": 5386055680.0,
+      "perplexity": 314.87422302809654,
+      "seed": 2027,
+      "total_training_tokens": 4096000.0
+    }
+  },
+  "checks": {
+    "all_losses_finite": true,
+    "all_seeds_equal": true,
+    "all_seeds_present": true,
+    "real_d_beats_baseline": false,
+    "real_d_beats_best_random_control": false,
+    "real_d_beats_random_d_alpha_0_2": false
+  },
+  "deltas": {
+    "real_d_vs_baseline": {
+      "average_tokens_per_second": {
+        "absolute": -3121.9390894893268,
+        "candidate": 5187.648785835462,
+        "reference": 8309.587875324789,
+        "relative": -0.3757032402003815
+      },
+      "best_validation_loss": {
+        "absolute": 0.005608391688117997,
+        "candidate": 5.75713577083898,
+        "reference": 5.751527379150862,
+        "relative": 0.0009751134469859732
+      },
+      "final_validation_loss": {
+        "absolute": 0.005608391688117997,
+        "candidate": 5.75713577083898,
+        "reference": 5.751527379150862,
+        "relative": 0.0009751134469859732
+      },
+      "peak_memory_bytes": {
+        "absolute": 414171136.0,
+        "candidate": 5577925632.0,
+        "reference": 5163754496.0,
+        "relative": 0.08020736390950217
+      },
+      "perplexity": {
+        "absolute": 1.7697558485877494,
+        "candidate": 316.4406710705212,
+        "reference": 314.67091522193346,
+        "relative": 0.005624148159163559
+      }
+    },
+    "real_d_vs_best_random_control": {
+      "average_tokens_per_second": {
+        "absolute": -14.595508688224982,
+        "candidate": 5187.648785835462,
+        "reference": 5202.244294523687,
+        "relative": -0.002805617703034327
+      },
+      "best_validation_loss": {
+        "absolute": 0.005024190052162147,
+        "candidate": 5.75713577083898,
+        "reference": 5.752111580786818,
+        "relative": 0.0008734514241594215
+      },
+      "final_validation_loss": {
+        "absolute": 0.004962503725910672,
+        "candidate": 5.75713577083898,
+        "reference": 5.752173267113069,
+        "relative": 0.0008627180537628831
+      },
+      "peak_memory_bytes": {
+        "absolute": 191869952.0,
+        "candidate": 5577925632.0,
+        "reference": 5386055680.0,
+        "relative": 0.035623462399853985
+      },
+      "perplexity": {
+        "absolute": 1.5664480424246676,
+        "candidate": 316.4406710705212,
+        "reference": 314.87422302809654,
+        "relative": 0.004974837340955954
+      }
+    },
+    "real_d_vs_random_d_alpha_0_2": {
+      "average_tokens_per_second": {
+        "absolute": -14.595508688224982,
+        "candidate": 5187.648785835462,
+        "reference": 5202.244294523687,
+        "relative": -0.002805617703034327
+      },
+      "best_validation_loss": {
+        "absolute": 0.005024190052162147,
+        "candidate": 5.75713577083898,
+        "reference": 5.752111580786818,
+        "relative": 0.0008734514241594215
+      },
+      "final_validation_loss": {
+        "absolute": 0.004962503725910672,
+        "candidate": 5.75713577083898,
+        "reference": 5.752173267113069,
+        "relative": 0.0008627180537628831
+      },
+      "peak_memory_bytes": {
+        "absolute": 191869952.0,
+        "candidate": 5577925632.0,
+        "reference": 5386055680.0,
+        "relative": 0.035623462399853985
+      },
+      "perplexity": {
+        "absolute": 1.5664480424246676,
+        "candidate": 316.4406710705212,
+        "reference": 314.87422302809654,
+        "relative": 0.004974837340955954
+      }
+    }
+  },
+  "ranking": {
+    "by_final_validation_loss": [
+      "baseline",
+      "random_d_alpha_0_2",
+      "random_d_alpha_0_1",
+      "real_d_alpha_0_2"
+    ]
+  },
+  "runs": {
+    "baseline": {
+      "alpha": null,
+      "average_tokens_per_second": 8309.587875324789,
+      "best_validation_loss": 5.751527379150862,
+      "condition": "baseline",
+      "device": "cuda",
+      "final_training_loss": 5.289863586425781,
+      "final_validation_loss": 5.751527379150862,
+      "geometry_summary": {},
+      "label": "baseline",
+      "path": "runs/phase0_baseline/confirm_seed_wikitext2/baseline_results.json",
+      "peak_memory_bytes": 5163754496.0,
+      "perplexity": 314.67091522193346,
+      "seed": 2027,
+      "total_training_tokens": 4096000.0
+    },
+    "random_d_alpha_0_1": {
+      "alpha": 0.1,
+      "average_tokens_per_second": 4793.006819424004,
+      "best_validation_loss": 5.753091665301338,
+      "condition": "random_d",
+      "device": "cuda",
+      "final_training_loss": 5.288145065307617,
+      "final_validation_loss": 5.753121155052303,
+      "geometry_summary": {
+        "alpha": 0.10000000149011612,
+        "attention_entropy": 3.4796056793035706,
+        "distance_mean": 2.2378886325763223,
+        "distance_std": 1.5947133172405223,
+        "geo_to_qk_ratio": 0.21080783234471506,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.2289483043584016,
+        "mean_abs_qk": 2.357808714030219,
+        "mean_max_probability": 0.1803992844995905,
+        "min": 0.0,
+        "std": 0.01884471977516357
+      },
+      "label": "random_d_alpha_0_1",
+      "path": "runs/phase3_geo_attention/confirm_seed/random_d_alpha_0_1/metrics.json",
+      "peak_memory_bytes": 5386055680.0,
+      "perplexity": 315.1728300070993,
+      "seed": 2027,
+      "total_training_tokens": 4096000.0
+    },
+    "random_d_alpha_0_2": {
+      "alpha": 0.2,
+      "average_tokens_per_second": 5202.244294523687,
+      "best_validation_loss": 5.752111580786818,
+      "condition": "random_d",
+      "device": "cuda",
+      "final_training_loss": 5.289191246032715,
+      "final_validation_loss": 5.752173267113069,
+      "geometry_summary": {
+        "alpha": 0.20000000298023224,
+        "attention_entropy": 3.3594169238877427,
+        "distance_mean": 2.2359533003770586,
+        "distance_std": 1.5958308362569966,
+        "geo_to_qk_ratio": 0.39532878426987617,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.45764003091496847,
+        "mean_abs_qk": 2.7973852208891854,
+        "mean_max_probability": 0.2011659004180972,
+        "min": 0.0,
+        "std": 0.020022192038595676
+      },
+      "label": "random_d_alpha_0_2",
+      "path": "runs/phase3_geo_attention/confirm_seed/random_d_alpha_0_2/metrics.json",
+      "peak_memory_bytes": 5386055680.0,
+      "perplexity": 314.87422302809654,
+      "seed": 2027,
+      "total_training_tokens": 4096000.0
+    },
+    "real_d_alpha_0_2": {
+      "alpha": 0.2,
+      "average_tokens_per_second": 5187.648785835462,
+      "best_validation_loss": 5.75713577083898,
+      "condition": "real_d",
+      "device": "cuda",
+      "final_training_loss": 5.2927937507629395,
+      "final_validation_loss": 5.75713577083898,
+      "geometry_summary": {
+        "alpha": 0.20000000298023224,
+        "attention_entropy": 3.5995332927651744,
+        "distance_mean": 2.4841225251474013,
+        "distance_std": 2.586953429576478,
+        "geo_to_qk_ratio": 0.5130681191148654,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.5531127915356329,
+        "mean_abs_qk": 2.0881873585813033,
+        "mean_max_probability": 0.15805685098786823,
+        "min": 0.0,
+        "std": 0.017461195043568075
+      },
+      "label": "real_d_alpha_0_2",
+      "path": "runs/phase3_geo_attention/confirm_seed/real_d_alpha_0_2/metrics.json",
+      "peak_memory_bytes": 5577925632.0,
+      "perplexity": 316.4406710705212,
+      "seed": 2027,
+      "total_training_tokens": 4096000.0
+    }
+  },
+  "summary": {
+    "note": "This same-seed confirmation tests whether real_d alpha=0.2 remains stronger than baseline and random distance controls under seed 2027.",
+    "recommendation": "real_d_not_replicated"
+  }
+}
