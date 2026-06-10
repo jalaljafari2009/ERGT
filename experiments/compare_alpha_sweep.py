@@ -103,7 +103,7 @@ def load_sweep_run(spec: SweepRunSpec) -> dict[str, Any]:
         "label": spec.label,
         "family": spec.family,
         "alpha": spec.alpha,
-        "path": str(spec.path),
+        "path": report_path(spec.path),
         "metrics": payload,
         "summary": summary,
     }
@@ -163,7 +163,7 @@ def extract_summary(run: dict[str, Any], path: Path) -> dict[str, Any]:
     return {
         "label": None,
         "condition": run.get("condition"),
-        "path": str(path),
+        "path": report_path(path),
         "alpha": as_float_or_none(alpha),
         "final_training_loss": as_float_or_none(run.get("final_training_loss")),
         "best_validation_loss": as_float_or_none(run.get("best_validation_loss")),
@@ -299,6 +299,10 @@ def sanitize_for_json(value: Any) -> Any:
 
 def format_alpha(alpha: float) -> str:
     return f"{alpha:g}".replace(".", "_")
+
+
+def report_path(path: Path) -> str:
+    return path.as_posix()
 
 
 if __name__ == "__main__":

@@ -77,3 +77,5 @@ def test_load_sweep_run_validates_condition_and_alpha(tmp_path) -> None:
 
     assert run["family"] == "random_d"
     assert run["summary"]["final_validation_loss"] == 5.9
+    assert "\\" not in run["path"]
+    assert "\\" not in run["summary"]["path"]

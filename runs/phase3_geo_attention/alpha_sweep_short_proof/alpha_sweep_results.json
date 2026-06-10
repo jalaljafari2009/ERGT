@@ -1,0 +1,303 @@
+{
+  "baseline": {
+    "alpha": null,
+    "average_tokens_per_second": 7853.694537992494,
+    "best_validation_loss": 5.757997885054835,
+    "condition": "baseline",
+    "device": "cuda",
+    "final_training_loss": 5.42242431640625,
+    "final_validation_loss": 5.757997885054835,
+    "geometry_summary": {},
+    "label": null,
+    "path": "runs/phase0_baseline/short_proof_wikitext2/baseline_results.json",
+    "peak_memory_bytes": 5163754496.0,
+    "perplexity": 316.71359670115476,
+    "total_training_tokens": 4096000.0
+  },
+  "best_by_family": {
+    "random_d": {
+      "alpha": 0.1,
+      "average_tokens_per_second": 4972.235981673803,
+      "best_validation_loss": 5.749636076996918,
+      "condition": "random_d",
+      "device": "cuda",
+      "family": "random_d",
+      "final_training_loss": 5.4130473136901855,
+      "final_validation_loss": 5.749559755551213,
+      "geometry_summary": {
+        "alpha": 0.10000000149011612,
+        "attention_entropy": 3.4776491806155345,
+        "distance_mean": 2.2386984792563434,
+        "distance_std": 1.5942745169655221,
+        "geo_to_qk_ratio": 0.19970622084668424,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.2290048158722497,
+        "mean_abs_qk": 2.3266681173785786,
+        "mean_max_probability": 0.1783821184513836,
+        "min": 0.0,
+        "std": 0.018737064262271903
+      },
+      "label": "random_d_alpha_0_1",
+      "path": "runs/phase3_geo_attention/short_proof_random_d/metrics.json",
+      "peak_memory_bytes": 5386055680.0,
+      "perplexity": 314.052370034634,
+      "total_training_tokens": 4096000.0
+    },
+    "real_d": {
+      "alpha": 0.2,
+      "average_tokens_per_second": 4989.310866086804,
+      "best_validation_loss": 5.749453921764935,
+      "condition": "real_d",
+      "device": "cuda",
+      "family": "real_d",
+      "final_training_loss": 5.4234466552734375,
+      "final_validation_loss": 5.749453921764935,
+      "geometry_summary": {
+        "alpha": 0.20000000298023224,
+        "attention_entropy": 3.4732544962825673,
+        "distance_mean": 2.4838611135065882,
+        "distance_std": 2.5865912756633236,
+        "geo_to_qk_ratio": 0.45964813275171107,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.5525705985358504,
+        "mean_abs_qk": 2.342412261363587,
+        "mean_max_probability": 0.1803417740684878,
+        "min": 0.0,
+        "std": 0.018929451403762797
+      },
+      "label": "real_d_alpha_0_2",
+      "path": "runs/phase3_geo_attention/alpha_sweep_short_proof/real_d_alpha_0_2/metrics.json",
+      "peak_memory_bytes": 5577925632.0,
+      "perplexity": 314.0191344419791,
+      "total_training_tokens": 4096000.0
+    }
+  },
+  "checks": {
+    "all_losses_finite": true,
+    "best_real_d_beats_baseline": true,
+    "best_real_d_beats_best_random_d": true,
+    "real_d_beats_random_d_at_any_matched_alpha": true
+  },
+  "matched_alpha_deltas": {
+    "0_05": {
+      "random_d_final_validation_loss": 5.751765132809766,
+      "real_d_final_validation_loss": 5.755201290122758,
+      "real_d_minus_random_d": {
+        "absolute": 0.003436157312992627,
+        "candidate": 5.755201290122758,
+        "reference": 5.751765132809766,
+        "relative": 0.000597409183728969
+      }
+    },
+    "0_1": {
+      "random_d_final_validation_loss": 5.749559755551213,
+      "real_d_final_validation_loss": 5.751531754659698,
+      "real_d_minus_random_d": {
+        "absolute": 0.001971999108485001,
+        "candidate": 5.751531754659698,
+        "reference": 5.749559755551213,
+        "relative": 0.0003429826269013086
+      }
+    },
+    "0_2": {
+      "random_d_final_validation_loss": 5.749837637193171,
+      "real_d_final_validation_loss": 5.749453921764935,
+      "real_d_minus_random_d": {
+        "absolute": -0.0003837154282360089,
+        "candidate": 5.749453921764935,
+        "reference": 5.749837637193171,
+        "relative": -6.673500235100945e-05
+      }
+    }
+  },
+  "ranking": [
+    "real_d_alpha_0_2",
+    "random_d_alpha_0_1",
+    "random_d_alpha_0_2",
+    "real_d_alpha_0_1",
+    "random_d_alpha_0_05",
+    "real_d_alpha_0_05"
+  ],
+  "runs": [
+    {
+      "alpha": 0.2,
+      "average_tokens_per_second": 4989.310866086804,
+      "best_validation_loss": 5.749453921764935,
+      "condition": "real_d",
+      "device": "cuda",
+      "family": "real_d",
+      "final_training_loss": 5.4234466552734375,
+      "final_validation_loss": 5.749453921764935,
+      "geometry_summary": {
+        "alpha": 0.20000000298023224,
+        "attention_entropy": 3.4732544962825673,
+        "distance_mean": 2.4838611135065882,
+        "distance_std": 2.5865912756633236,
+        "geo_to_qk_ratio": 0.45964813275171107,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.5525705985358504,
+        "mean_abs_qk": 2.342412261363587,
+        "mean_max_probability": 0.1803417740684878,
+        "min": 0.0,
+        "std": 0.018929451403762797
+      },
+      "label": "real_d_alpha_0_2",
+      "path": "runs/phase3_geo_attention/alpha_sweep_short_proof/real_d_alpha_0_2/metrics.json",
+      "peak_memory_bytes": 5577925632.0,
+      "perplexity": 314.0191344419791,
+      "total_training_tokens": 4096000.0
+    },
+    {
+      "alpha": 0.1,
+      "average_tokens_per_second": 4972.235981673803,
+      "best_validation_loss": 5.749636076996918,
+      "condition": "random_d",
+      "device": "cuda",
+      "family": "random_d",
+      "final_training_loss": 5.4130473136901855,
+      "final_validation_loss": 5.749559755551213,
+      "geometry_summary": {
+        "alpha": 0.10000000149011612,
+        "attention_entropy": 3.4776491806155345,
+        "distance_mean": 2.2386984792563434,
+        "distance_std": 1.5942745169655221,
+        "geo_to_qk_ratio": 0.19970622084668424,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.2290048158722497,
+        "mean_abs_qk": 2.3266681173785786,
+        "mean_max_probability": 0.1783821184513836,
+        "min": 0.0,
+        "std": 0.018737064262271903
+      },
+      "label": "random_d_alpha_0_1",
+      "path": "runs/phase3_geo_attention/short_proof_random_d/metrics.json",
+      "peak_memory_bytes": 5386055680.0,
+      "perplexity": 314.052370034634,
+      "total_training_tokens": 4096000.0
+    },
+    {
+      "alpha": 0.2,
+      "average_tokens_per_second": 5089.089471002075,
+      "best_validation_loss": 5.749939562486203,
+      "condition": "random_d",
+      "device": "cuda",
+      "family": "random_d",
+      "final_training_loss": 5.417642593383789,
+      "final_validation_loss": 5.749837637193171,
+      "geometry_summary": {
+        "alpha": 0.20000000298023224,
+        "attention_entropy": 3.372206960219503,
+        "distance_mean": 2.237776465754691,
+        "distance_std": 1.5948067414956015,
+        "geo_to_qk_ratio": 0.37793642534910005,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.457875379040593,
+        "mean_abs_qk": 2.739456782086951,
+        "mean_max_probability": 0.19767758061936316,
+        "min": 0.0,
+        "std": 0.01992443778496134
+      },
+      "label": "random_d_alpha_0_2",
+      "path": "runs/phase3_geo_attention/alpha_sweep_short_proof/random_d_alpha_0_2/metrics.json",
+      "peak_memory_bytes": 5386055680.0,
+      "perplexity": 314.13965154928377,
+      "total_training_tokens": 4096000.0
+    },
+    {
+      "alpha": 0.1,
+      "average_tokens_per_second": 5037.749054936877,
+      "best_validation_loss": 5.751531754659698,
+      "condition": "real_d",
+      "device": "cuda",
+      "family": "real_d",
+      "final_training_loss": 5.419658660888672,
+      "final_validation_loss": 5.751531754659698,
+      "geometry_summary": {
+        "alpha": 0.10000000149011612,
+        "attention_entropy": 3.4702406991374946,
+        "distance_mean": 2.4837886010362804,
+        "distance_std": 2.5865164923537622,
+        "geo_to_qk_ratio": 0.24378122981698785,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.27617505632463046,
+        "mean_abs_qk": 2.311468744294239,
+        "mean_max_probability": 0.18106080535697483,
+        "min": 0.0,
+        "std": 0.019007215365421413
+      },
+      "label": "real_d_alpha_0_1",
+      "path": "runs/phase3_geo_attention/short_proof_real_d/metrics.json",
+      "peak_memory_bytes": 5577925632.0,
+      "perplexity": 314.67229207031573,
+      "total_training_tokens": 4096000.0
+    },
+    {
+      "alpha": 0.05,
+      "average_tokens_per_second": 5069.11370725193,
+      "best_validation_loss": 5.751857153050809,
+      "condition": "random_d",
+      "device": "cuda",
+      "family": "random_d",
+      "final_training_loss": 5.41660213470459,
+      "final_validation_loss": 5.751765132809766,
+      "geometry_summary": {
+        "alpha": 0.05000000074505806,
+        "attention_entropy": 3.5238380171562156,
+        "distance_mean": 2.2372493398645537,
+        "distance_std": 1.5951112111409504,
+        "geo_to_qk_ratio": 0.10300716853451208,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.11445572070492421,
+        "mean_abs_qk": 2.154262971764054,
+        "mean_max_probability": 0.17022500966823165,
+        "min": 0.0,
+        "std": 0.018230885656581063
+      },
+      "label": "random_d_alpha_0_05",
+      "path": "runs/phase3_geo_attention/alpha_sweep_short_proof/random_d_alpha_0_05/metrics.json",
+      "peak_memory_bytes": 5386055680.0,
+      "perplexity": 314.7457382777532,
+      "total_training_tokens": 4096000.0
+    },
+    {
+      "alpha": 0.05,
+      "average_tokens_per_second": 5067.583659056662,
+      "best_validation_loss": 5.755201290122758,
+      "condition": "real_d",
+      "device": "cuda",
+      "family": "real_d",
+      "final_training_loss": 5.422491073608398,
+      "final_validation_loss": 5.755201290122758,
+      "geometry_summary": {
+        "alpha": 0.05000000074505806,
+        "attention_entropy": 3.48975774824945,
+        "distance_mean": 2.4838364039613903,
+        "distance_std": 2.586591213127303,
+        "geo_to_qk_ratio": 0.12608108620663158,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.1381378198256258,
+        "mean_abs_qk": 2.2175385995152217,
+        "mean_max_probability": 0.17764776210234465,
+        "min": 0.0,
+        "std": 0.01889021303555597
+      },
+      "label": "real_d_alpha_0_05",
+      "path": "runs/phase3_geo_attention/alpha_sweep_short_proof/real_d_alpha_0_05/metrics.json",
+      "peak_memory_bytes": 5577925632.0,
+      "perplexity": 315.82911440750746,
+      "total_training_tokens": 4096000.0
+    }
+  ],
+  "summary": {
+    "note": "This sweep is diagnostic. It tests alpha sensitivity after short proof random_d beat real_d at alpha=0.1.",
+    "recommendation": "alpha_sweep_supports_real_d"
+  }
+}
