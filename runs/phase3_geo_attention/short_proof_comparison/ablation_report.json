@@ -1,0 +1,182 @@
+{
+  "alpha_zero_tolerance": 0.02,
+  "checks": {
+    "all_required_conditions_present": true,
+    "alpha_zero_matches_baseline": true,
+    "real_d_beats_baseline": true,
+    "real_d_beats_random_d": false,
+    "real_d_beats_shuffled_d": true,
+    "real_d_validation_loss_finite": true
+  },
+  "deltas": {
+    "alpha_zero_vs_baseline": {
+      "average_tokens_per_second": {
+        "absolute": -2603.181855548358,
+        "candidate": 5250.512682444136,
+        "reference": 7853.694537992494,
+        "relative": -0.33145952429845393
+      },
+      "best_validation_loss": {
+        "absolute": 0.0,
+        "candidate": 5.757997885054835,
+        "reference": 5.757997885054835,
+        "relative": 0.0
+      },
+      "final_validation_loss": {
+        "absolute": 0.0,
+        "candidate": 5.757997885054835,
+        "reference": 5.757997885054835,
+        "relative": 0.0
+      },
+      "peak_memory_bytes": {
+        "absolute": 222301184.0,
+        "candidate": 5386055680.0,
+        "reference": 5163754496.0,
+        "relative": 0.043050300739936646
+      },
+      "perplexity": {
+        "absolute": 0.0,
+        "candidate": 316.71359670115476,
+        "reference": 316.71359670115476,
+        "relative": 0.0
+      }
+    },
+    "real_d_vs_alpha_zero": {
+      "average_tokens_per_second": {
+        "absolute": -212.76362750725912,
+        "candidate": 5037.749054936877,
+        "reference": 5250.512682444136,
+        "relative": -0.040522448068484
+      },
+      "best_validation_loss": {
+        "absolute": -0.006466130395136993,
+        "candidate": 5.751531754659698,
+        "reference": 5.757997885054835,
+        "relative": -0.0011229824192746146
+      },
+      "final_validation_loss": {
+        "absolute": -0.006466130395136993,
+        "candidate": 5.751531754659698,
+        "reference": 5.757997885054835,
+        "relative": -0.0011229824192746146
+      },
+      "peak_memory_bytes": {
+        "absolute": 191869952.0,
+        "candidate": 5577925632.0,
+        "reference": 5386055680.0,
+        "relative": 0.035623462399853985
+      },
+      "perplexity": {
+        "absolute": -2.041304630839022,
+        "candidate": 314.67229207031573,
+        "reference": 316.71359670115476,
+        "relative": -0.006445269960307894
+      }
+    },
+    "real_d_vs_baseline": {
+      "average_tokens_per_second": {
+        "absolute": -2815.945483055617,
+        "candidate": 5037.749054936877,
+        "reference": 7853.694537992494,
+        "relative": -0.3585504210067494
+      },
+      "best_validation_loss": {
+        "absolute": -0.006466130395136993,
+        "candidate": 5.751531754659698,
+        "reference": 5.757997885054835,
+        "relative": -0.0011229824192746146
+      },
+      "final_validation_loss": {
+        "absolute": -0.006466130395136993,
+        "candidate": 5.751531754659698,
+        "reference": 5.757997885054835,
+        "relative": -0.0011229824192746146
+      },
+      "peak_memory_bytes": {
+        "absolute": 414171136.0,
+        "candidate": 5577925632.0,
+        "reference": 5163754496.0,
+        "relative": 0.08020736390950217
+      },
+      "perplexity": {
+        "absolute": -2.041304630839022,
+        "candidate": 314.67229207031573,
+        "reference": 316.71359670115476,
+        "relative": -0.006445269960307894
+      }
+    },
+    "real_d_vs_random_d": {
+      "average_tokens_per_second": {
+        "absolute": 65.51307326307415,
+        "candidate": 5037.749054936877,
+        "reference": 4972.235981673803,
+        "relative": 0.013175777156300715
+      },
+      "best_validation_loss": {
+        "absolute": 0.0018956776627803151,
+        "candidate": 5.751531754659698,
+        "reference": 5.749636076996918,
+        "relative": 0.00032970393906573005
+      },
+      "final_validation_loss": {
+        "absolute": 0.001971999108485001,
+        "candidate": 5.751531754659698,
+        "reference": 5.749559755551213,
+        "relative": 0.0003429826269013086
+      },
+      "peak_memory_bytes": {
+        "absolute": 191869952.0,
+        "candidate": 5577925632.0,
+        "reference": 5386055680.0,
+        "relative": 0.035623462399853985
+      },
+      "perplexity": {
+        "absolute": 0.619922035681725,
+        "candidate": 314.67229207031573,
+        "reference": 314.052370034634,
+        "relative": 0.00197394477746931
+      }
+    },
+    "real_d_vs_shuffled_d": {
+      "average_tokens_per_second": {
+        "absolute": 282.6776707014669,
+        "candidate": 5037.749054936877,
+        "reference": 4755.07138423541,
+        "relative": 0.05944761873368174
+      },
+      "best_validation_loss": {
+        "absolute": -0.009056028450554088,
+        "candidate": 5.751531754659698,
+        "reference": 5.760587783110252,
+        "relative": -0.001572066738936936
+      },
+      "final_validation_loss": {
+        "absolute": -0.009461473608360471,
+        "candidate": 5.751531754659698,
+        "reference": 5.760993228268059,
+        "relative": -0.0016423337493151153
+      },
+      "peak_memory_bytes": {
+        "absolute": 193967104.0,
+        "candidate": 5577925632.0,
+        "reference": 5383958528.0,
+        "relative": 0.03602685700330863
+      },
+      "perplexity": {
+        "absolute": -2.991392762917087,
+        "candidate": 314.67229207031573,
+        "reference": 317.6636848332328,
+        "relative": -0.009416854698035469
+      }
+    }
+  },
+  "interpretation": [
+    "alpha_zero is close to baseline; GeoAttention neutral path is plausible.",
+    "real_d improves final validation loss over baseline.",
+    "real_d does not beat all required distance controls."
+  ],
+  "summary": {
+    "note": "This is not the Gate 1 decision. It is the Phase 3 comparison input for evaluation/gate_decision.py.",
+    "recommendation": "conditional_repeat_with_more_controls"
+  }
+}

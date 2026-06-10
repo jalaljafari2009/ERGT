@@ -1,0 +1,37 @@
+{
+  "attention": {
+    "alpha": {
+      "initial_value": 0.1,
+      "mode": "fixed",
+      "non_negative": true
+    },
+    "causal_runtime_distance": true,
+    "distance_mode": "random_d",
+    "gradient_mode": "detached_d",
+    "head_sharing": "shared_d",
+    "type": "geo_attention"
+  },
+  "context_length": 256,
+  "distance": {
+    "clip_value": 5.0,
+    "diagonal_policy": "zero",
+    "epsilon": 1e-06,
+    "formula": "random_matched_scale",
+    "normalization": "offdiag_zscore_clamp"
+  },
+  "dropout": 0.1,
+  "ffn_dim": 2048,
+  "hidden_dim": 512,
+  "n_heads": 8,
+  "n_layers": 6,
+  "relational_graph": {
+    "diagonal_policy": "keep_for_distance",
+    "graph_heads": 1,
+    "kernel": "sigmoid_dot_sqrt_d",
+    "normalize_hidden": false
+  },
+  "total_params": 44777984,
+  "trainable_params": 44777984,
+  "type": "ergt_v1",
+  "vocab_size": 50257
+}
