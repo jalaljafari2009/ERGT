@@ -55,6 +55,12 @@ docs/
 
 The `docs/` directory is the active project contract.
 
+Phase 4 planning is captured in:
+
+```text
+docs/12_phase4_dynamic_memory_plan.md
+```
+
 The original source notes remain at the repository root:
 
 ```text

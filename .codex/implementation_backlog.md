@@ -551,21 +551,121 @@ Acceptance criteria:
 
 ## 10. Deferred Phase 4: Dynamic Graph Memory
 
-Do not implement until Gate 1 passes or conditionally passes.
-
-Planned files:
-
-```text
-memory/dynamic_graph.py
-models/ergt_memory.py
-experiments/train_ergt_memory.py
-```
+Do not implement memory code until Gate 1 passes or conditionally passes.
 
 Gate prerequisite:
 
 ```text
 GeoAttention(real D) must show credible benefit over baseline and controls.
 ```
+
+### Task P4.1: Add Phase 4 Design Contract
+
+Status: complete
+
+Implement:
+
+```text
+docs/12_phase4_dynamic_memory_plan.md
+```
+
+Acceptance criteria:
+
+- Defines the dynamic graph memory formula.
+- Defines the Gate 1 prerequisite.
+- Defines causal-safety constraints.
+- Defines controls, metrics, pass criteria, and failure criteria.
+- Does not implement memory before Gate 1.
+
+### Task P4.2: Implement Dynamic Graph Memory Core
+
+Status: deferred until Gate 1
+
+Implement:
+
+```text
+memory/dynamic_graph.py
+tests/test_dynamic_graph_memory.py
+```
+
+Acceptance criteria:
+
+- Supports fixed `eta`.
+- Supports explicit initialization policy.
+- Preserves graph shape.
+- Produces finite values.
+- Records memory diagnostics.
+- Does not introduce causal leakage.
+
+### Task P4.3: Implement ERGT Memory Model
+
+Status: deferred until Gate 1
+
+Implement:
+
+```text
+models/ergt_memory.py
+configs/ergt_memory/debug_memory.json
+configs/ergt_memory/pilot_real_memory.json
+configs/ergt_memory/pilot_random_memory.json
+configs/ergt_memory/pilot_shuffled_memory.json
+```
+
+Acceptance criteria:
+
+- Reuses ERGT-v1 settings unless memory-specific.
+- Can disable memory for an ERGT-v1-equivalent control.
+- Supports real, random, and shuffled memory conditions.
+- Logs memory diagnostics.
+
+### Task P4.4: Implement Phase 4 Training
+
+Status: deferred until Gate 1
+
+Implement:
+
+```text
+experiments/train_ergt_memory.py
+```
+
+Acceptance criteria:
+
+- Loads memory configs.
+- Saves config, metrics, train log, model summary, and checkpoints.
+- Records runtime and peak memory.
+- Fails fast on NaN or Inf.
+
+### Task P4.5: Implement Phase 4 Comparison
+
+Status: deferred until Gate 1
+
+Implement:
+
+```text
+experiments/compare_phase4.py
+```
+
+Acceptance criteria:
+
+- Compares ERGT-memory against ERGT-v1 real_d alpha=0.2.
+- Includes random, shuffled, and disabled-memory controls.
+- Writes machine-readable comparison and ablation reports.
+
+### Task P4.6: Add Phase 4 Colab Pilot
+
+Status: deferred until Gate 1
+
+Implement:
+
+```text
+notebooks/ergt_colab_phase4_memory_pilot.ipynb
+```
+
+Acceptance criteria:
+
+- Runs a small GPU pilot.
+- Produces a light zip artifact with JSON and JSONL outputs.
+- Avoids large checkpoint archives by default.
 
 ## 11. Deferred Phase 5 and Beyond
 

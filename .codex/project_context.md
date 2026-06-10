@@ -65,6 +65,9 @@ These documents should be read only when implementing the corresponding module:
 - `docs/11_repository_structure.md`
   - Source tree and file ownership.
 
+- `docs/12_phase4_dynamic_memory_plan.md`
+  - Gate-locked plan for dynamic relational graph memory after Phase 3.
+
 ## Source Notes
 
 The current source notes are:
