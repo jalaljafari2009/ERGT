@@ -162,6 +162,49 @@ def test_build_ratio_matched_configs_scales_alpha(tmp_path: Path) -> None:
     assert real_config["attention"]["alpha"]["initial_value"] == pytest.approx(0.08)
 
 
+def test_build_ratio_matched_configs_selects_nearest_calibration_per_family(
+    tmp_path: Path,
+) -> None:
+    real_near = write_calibration(
+        tmp_path / "near",
+        "real_d",
+        alpha=0.04,
+        ratio=0.12,
+    )
+    real_far = write_calibration(
+        tmp_path / "far",
+        "real_d",
+        alpha=0.1,
+        ratio=0.27,
+    )
+    random_metrics = write_calibration(
+        tmp_path,
+        "random_d",
+        alpha=0.1,
+        ratio=0.19,
+    )
+
+    manifest = build_ratio_matched_configs(
+        target_ratios=[0.13],
+        calibrations=[
+            CalibrationSpec("real_d", real_near),
+            CalibrationSpec("real_d", real_far),
+            CalibrationSpec("random_d", random_metrics),
+        ],
+        output_dir=tmp_path / "configs",
+        run_output_root=tmp_path / "runs",
+        min_alpha=1e-4,
+        max_alpha=0.5,
+    )
+
+    generated = manifest["targets"]["0_13"]["configs"]
+    assert [item["family"] for item in generated].count("real_d") == 1
+    by_family = {item["family"]: item for item in generated}
+
+    assert by_family["real_d"]["calibration_geo_to_qk_ratio"] == pytest.approx(0.12)
+    assert by_family["real_d"]["generated_alpha"] == pytest.approx(0.0433333333)
+
+
 def test_ratio_matched_report_detects_real_win(tmp_path: Path) -> None:
     baseline = {
         "condition": "baseline",

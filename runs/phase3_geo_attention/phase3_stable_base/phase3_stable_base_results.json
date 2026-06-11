@@ -1,0 +1,600 @@
+{
+  "best_by_family": {
+    "random_d": {
+      "alpha": 0.1,
+      "alpha_warmup_steps": 200.0,
+      "average_tokens_per_second": 4874.4289377857285,
+      "best_validation_loss": 5.7486080514414795,
+      "condition": "random_d",
+      "device": "cuda",
+      "distance_clip_value": 5.0,
+      "distance_mode": "random_d",
+      "distance_normalization": "offdiag_zscore_clamp",
+      "family": "random_d",
+      "final_training_loss": 5.286128997802734,
+      "final_validation_loss": 5.748521477751334,
+      "geometry_summary": {
+        "alpha": 0.10000000149011612,
+        "alpha_warmup_factor": 1.0,
+        "alpha_warmup_steps": 200.0,
+        "attention_entropy": 3.4199121630256943,
+        "distance_mean": 0.8717410329912529,
+        "distance_std": 2.383464656240953,
+        "geo_to_qk_ratio": 0.19299015049603793,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.21570323037156644,
+        "mean_abs_qk": 2.5690561033011785,
+        "mean_max_probability": 0.1897969319907531,
+        "min": 0.0,
+        "std": 0.019412416117418497,
+        "target_alpha": 0.10000000149011612
+      },
+      "gradient_mode": "detached_d",
+      "kernel": "sigmoid_cosine",
+      "label": "random_d_alpha_0_1_warmup_cosine",
+      "normalize_hidden": true,
+      "path": "runs/phase3_geo_attention/phase3_stable_base/random_d_alpha_0_1_warmup_cosine/metrics.json",
+      "peak_memory_bytes": 5388156416.0,
+      "perplexity": 313.726465649749,
+      "seed": 2027,
+      "total_training_tokens": 4096000.0
+    },
+    "real_d": {
+      "alpha": 0.1,
+      "alpha_warmup_steps": 200.0,
+      "average_tokens_per_second": 4861.449821703224,
+      "best_validation_loss": 5.749332700035968,
+      "condition": "real_d",
+      "device": "cuda",
+      "distance_clip_value": 5.0,
+      "distance_mode": "real_d",
+      "distance_normalization": "offdiag_zscore_clamp",
+      "family": "real_d",
+      "final_training_loss": 5.288784027099609,
+      "final_validation_loss": 5.749332700035968,
+      "geometry_summary": {
+        "alpha": 0.10000000149011612,
+        "alpha_warmup_factor": 1.0,
+        "alpha_warmup_steps": 200.0,
+        "attention_entropy": 3.60130714783903,
+        "distance_mean": 2.490234362623079,
+        "distance_std": 2.5976798951300113,
+        "geo_to_qk_ratio": 0.28563734597928536,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.2881103514647875,
+        "mean_abs_qk": 2.1691982961906113,
+        "mean_max_probability": 0.1584156415847644,
+        "min": 0.0,
+        "std": 0.01741030325990964,
+        "target_alpha": 0.10000000149011612
+      },
+      "gradient_mode": "detached_d",
+      "kernel": "sigmoid_cosine",
+      "label": "real_d_alpha_0_1_warmup_cosine",
+      "normalize_hidden": true,
+      "path": "runs/phase3_geo_attention/phase3_stable_base/real_d_alpha_0_1_warmup_cosine/metrics.json",
+      "peak_memory_bytes": 5386059264.0,
+      "perplexity": 313.9810708066895,
+      "seed": 2027,
+      "total_training_tokens": 4096000.0
+    },
+    "shuffled_d": {
+      "alpha": 0.1,
+      "alpha_warmup_steps": 200.0,
+      "average_tokens_per_second": 4649.364358995631,
+      "best_validation_loss": 5.755636338961726,
+      "condition": "shuffled_d",
+      "device": "cuda",
+      "distance_clip_value": 5.0,
+      "distance_mode": "shuffled_d",
+      "distance_normalization": "offdiag_zscore_clamp",
+      "family": "shuffled_d",
+      "final_training_loss": 5.29688835144043,
+      "final_validation_loss": 5.755773684268877,
+      "geometry_summary": {
+        "alpha": 0.10000000149011612,
+        "alpha_warmup_factor": 1.0,
+        "alpha_warmup_steps": 200.0,
+        "attention_entropy": 3.386869024709274,
+        "distance_mean": 2.4902343222352323,
+        "distance_std": 2.5976798690733363,
+        "geo_to_qk_ratio": 0.2563668775977821,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.28809856464628314,
+        "mean_abs_qk": 2.7508499124011054,
+        "mean_max_probability": 0.1971855597275365,
+        "min": 0.0,
+        "std": 0.01994575642028956,
+        "target_alpha": 0.10000000149011612
+      },
+      "gradient_mode": "detached_d",
+      "kernel": "sigmoid_cosine",
+      "label": "shuffled_d_alpha_0_1_warmup_cosine",
+      "normalize_hidden": true,
+      "path": "runs/phase3_geo_attention/phase3_stable_base/shuffled_d_alpha_0_1_warmup_cosine/metrics.json",
+      "peak_memory_bytes": 5386059264.0,
+      "perplexity": 316.00994489198627,
+      "seed": 2027,
+      "total_training_tokens": 4096000.0
+    }
+  },
+  "checks": {
+    "all_losses_finite": true,
+    "alpha_zero_matches_baseline": true,
+    "best_real_beats_alpha_zero": true,
+    "best_real_beats_baseline": true,
+    "best_real_beats_best_random": false,
+    "best_real_beats_best_shuffled": true,
+    "has_real_random_and_shuffled": true,
+    "real_beats_random_at_any_matched_alpha": true
+  },
+  "deltas": {
+    "alpha_zero_vs_baseline": {
+      "average_tokens_per_second": {
+        "absolute": -2210.904900287196,
+        "candidate": 5029.6083153049285,
+        "reference": 7240.513215592125,
+        "relative": -0.3053519597928653
+      },
+      "best_validation_loss": {
+        "absolute": 0.0,
+        "candidate": 5.751527379150862,
+        "reference": 5.751527379150862,
+        "relative": 0.0
+      },
+      "final_validation_loss": {
+        "absolute": 0.0,
+        "candidate": 5.751527379150862,
+        "reference": 5.751527379150862,
+        "relative": 0.0
+      },
+      "peak_memory_bytes": {
+        "absolute": 226332672.0,
+        "candidate": 5390087680.0,
+        "reference": 5163755008.0,
+        "relative": 0.043831024448168394
+      },
+      "perplexity": {
+        "absolute": 0.0,
+        "candidate": 314.67091522193346,
+        "reference": 314.67091522193346,
+        "relative": 0.0
+      }
+    },
+    "best_real_vs_alpha_zero": {
+      "average_tokens_per_second": {
+        "absolute": -168.15849360170432,
+        "candidate": 4861.449821703224,
+        "reference": 5029.6083153049285,
+        "relative": -0.033433715522141895
+      },
+      "best_validation_loss": {
+        "absolute": -0.002194679114894349,
+        "candidate": 5.749332700035968,
+        "reference": 5.751527379150862,
+        "relative": -0.00038158196427091765
+      },
+      "final_validation_loss": {
+        "absolute": -0.002194679114894349,
+        "candidate": 5.749332700035968,
+        "reference": 5.751527379150862,
+        "relative": -0.00038158196427091765
+      },
+      "peak_memory_bytes": {
+        "absolute": -4028416.0,
+        "candidate": 5386059264.0,
+        "reference": 5390087680.0,
+        "relative": -0.0007473748553196078
+      },
+      "perplexity": {
+        "absolute": -0.6898444152439538,
+        "candidate": 313.9810708066895,
+        "reference": 314.67091522193346,
+        "relative": -0.0021922725675406485
+      }
+    },
+    "best_real_vs_baseline": {
+      "average_tokens_per_second": {
+        "absolute": -2379.0633938889005,
+        "candidate": 4861.449821703224,
+        "reference": 7240.513215592125,
+        "relative": -0.328576624757164
+      },
+      "best_validation_loss": {
+        "absolute": -0.002194679114894349,
+        "candidate": 5.749332700035968,
+        "reference": 5.751527379150862,
+        "relative": -0.00038158196427091765
+      },
+      "final_validation_loss": {
+        "absolute": -0.002194679114894349,
+        "candidate": 5.749332700035968,
+        "reference": 5.751527379150862,
+        "relative": -0.00038158196427091765
+      },
+      "peak_memory_bytes": {
+        "absolute": 222304256.0,
+        "candidate": 5386059264.0,
+        "reference": 5163755008.0,
+        "relative": 0.04305089138729333
+      },
+      "perplexity": {
+        "absolute": -0.6898444152439538,
+        "candidate": 313.9810708066895,
+        "reference": 314.67091522193346,
+        "relative": -0.0021922725675406485
+      }
+    },
+    "best_real_vs_best_random": {
+      "average_tokens_per_second": {
+        "absolute": -12.979116082504333,
+        "candidate": 4861.449821703224,
+        "reference": 4874.4289377857285,
+        "relative": -0.0026626946967864226
+      },
+      "best_validation_loss": {
+        "absolute": 0.0007246485944882863,
+        "candidate": 5.749332700035968,
+        "reference": 5.7486080514414795,
+        "relative": 0.0001260563579920149
+      },
+      "final_validation_loss": {
+        "absolute": 0.0008112222846339279,
+        "candidate": 5.749332700035968,
+        "reference": 5.748521477751334,
+        "relative": 0.00014111842284553072
+      },
+      "peak_memory_bytes": {
+        "absolute": -2097152.0,
+        "candidate": 5386059264.0,
+        "reference": 5388156416.0,
+        "relative": -0.00038921513001600284
+      },
+      "perplexity": {
+        "absolute": 0.25460515694049946,
+        "candidate": 313.9810708066895,
+        "reference": 313.726465649749,
+        "relative": 0.0008115514144246477
+      }
+    },
+    "best_real_vs_best_shuffled": {
+      "average_tokens_per_second": {
+        "absolute": 212.08546270759325,
+        "candidate": 4861.449821703224,
+        "reference": 4649.364358995631,
+        "relative": 0.04561601249797694
+      },
+      "best_validation_loss": {
+        "absolute": -0.00630363892575847,
+        "candidate": 5.749332700035968,
+        "reference": 5.755636338961726,
+        "relative": -0.0010952114682936344
+      },
+      "final_validation_loss": {
+        "absolute": -0.006440984232908953,
+        "candidate": 5.749332700035968,
+        "reference": 5.755773684268877,
+        "relative": -0.001119047514066237
+      },
+      "peak_memory_bytes": {
+        "absolute": 0.0,
+        "candidate": 5386059264.0,
+        "reference": 5386059264.0,
+        "relative": 0.0
+      },
+      "perplexity": {
+        "absolute": -2.0288740852967635,
+        "candidate": 313.9810708066895,
+        "reference": 316.00994489198627,
+        "relative": -0.006420285557754338
+      }
+    }
+  },
+  "matched_alpha_deltas": {
+    "0_05": {
+      "random_d_final_validation_loss": 5.750557258126665,
+      "real_d_final_validation_loss": 5.749788562252151,
+      "real_d_minus_random_d": {
+        "absolute": -0.0007686958745134476,
+        "candidate": 5.749788562252151,
+        "reference": 5.750557258126665,
+        "relative": -0.00013367328417209125
+      }
+    },
+    "0_1": {
+      "random_d_final_validation_loss": 5.748521477751334,
+      "real_d_final_validation_loss": 5.749332700035968,
+      "real_d_minus_random_d": {
+        "absolute": 0.0008112222846339279,
+        "candidate": 5.749332700035968,
+        "reference": 5.748521477751334,
+        "relative": 0.00014111842284553072
+      }
+    }
+  },
+  "ranking": {
+    "by_final_validation_loss": [
+      "random_d_alpha_0_1_warmup_cosine",
+      "real_d_alpha_0_1_warmup_cosine",
+      "real_d_alpha_0_05_warmup_cosine",
+      "random_d_alpha_0_05_warmup_cosine",
+      "baseline",
+      "alpha_zero_cosine",
+      "shuffled_d_alpha_0_1_warmup_cosine"
+    ]
+  },
+  "references": {
+    "alpha_zero_cosine": {
+      "alpha": 0.0,
+      "alpha_warmup_steps": 0.0,
+      "average_tokens_per_second": 5029.6083153049285,
+      "best_validation_loss": 5.751527379150862,
+      "condition": "alpha_zero",
+      "device": "cuda",
+      "distance_clip_value": 5.0,
+      "distance_mode": "real_d",
+      "distance_normalization": "offdiag_zscore_clamp",
+      "final_training_loss": 5.289863586425781,
+      "final_validation_loss": 5.751527379150862,
+      "geometry_summary": {
+        "alpha": 0.0,
+        "alpha_warmup_factor": 1.0,
+        "alpha_warmup_steps": 0.0,
+        "attention_entropy": 3.6051375149377707,
+        "distance_mean": 2.4902343548060766,
+        "distance_std": 2.597679881450257,
+        "geo_to_qk_ratio": 0.0,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.0,
+        "mean_abs_qk": 2.108175293262539,
+        "mean_max_probability": 0.15940762349898047,
+        "min": 0.0,
+        "std": 0.017495296836978265,
+        "target_alpha": 0.0
+      },
+      "gradient_mode": "detached_d",
+      "kernel": "sigmoid_cosine",
+      "label": "alpha_zero_cosine",
+      "normalize_hidden": true,
+      "path": "runs/phase3_geo_attention/phase3_stable_base/alpha_zero_cosine/metrics.json",
+      "peak_memory_bytes": 5390087680.0,
+      "perplexity": 314.67091522193346,
+      "seed": 2027,
+      "total_training_tokens": 4096000.0
+    },
+    "baseline": {
+      "alpha": null,
+      "alpha_warmup_steps": null,
+      "average_tokens_per_second": 7240.513215592125,
+      "best_validation_loss": 5.751527379150862,
+      "condition": "baseline",
+      "device": "cuda",
+      "distance_clip_value": null,
+      "distance_mode": null,
+      "distance_normalization": null,
+      "final_training_loss": 5.289863586425781,
+      "final_validation_loss": 5.751527379150862,
+      "geometry_summary": {},
+      "gradient_mode": null,
+      "kernel": null,
+      "label": "baseline",
+      "normalize_hidden": null,
+      "path": "runs/phase0_baseline/phase3_stable_base_seed2027/baseline_results.json",
+      "peak_memory_bytes": 5163755008.0,
+      "perplexity": 314.67091522193346,
+      "seed": 2027,
+      "total_training_tokens": 4096000.0
+    }
+  },
+  "runs": [
+    {
+      "alpha": 0.1,
+      "alpha_warmup_steps": 200.0,
+      "average_tokens_per_second": 4874.4289377857285,
+      "best_validation_loss": 5.7486080514414795,
+      "condition": "random_d",
+      "device": "cuda",
+      "distance_clip_value": 5.0,
+      "distance_mode": "random_d",
+      "distance_normalization": "offdiag_zscore_clamp",
+      "family": "random_d",
+      "final_training_loss": 5.286128997802734,
+      "final_validation_loss": 5.748521477751334,
+      "geometry_summary": {
+        "alpha": 0.10000000149011612,
+        "alpha_warmup_factor": 1.0,
+        "alpha_warmup_steps": 200.0,
+        "attention_entropy": 3.4199121630256943,
+        "distance_mean": 0.8717410329912529,
+        "distance_std": 2.383464656240953,
+        "geo_to_qk_ratio": 0.19299015049603793,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.21570323037156644,
+        "mean_abs_qk": 2.5690561033011785,
+        "mean_max_probability": 0.1897969319907531,
+        "min": 0.0,
+        "std": 0.019412416117418497,
+        "target_alpha": 0.10000000149011612
+      },
+      "gradient_mode": "detached_d",
+      "kernel": "sigmoid_cosine",
+      "label": "random_d_alpha_0_1_warmup_cosine",
+      "normalize_hidden": true,
+      "path": "runs/phase3_geo_attention/phase3_stable_base/random_d_alpha_0_1_warmup_cosine/metrics.json",
+      "peak_memory_bytes": 5388156416.0,
+      "perplexity": 313.726465649749,
+      "seed": 2027,
+      "total_training_tokens": 4096000.0
+    },
+    {
+      "alpha": 0.1,
+      "alpha_warmup_steps": 200.0,
+      "average_tokens_per_second": 4861.449821703224,
+      "best_validation_loss": 5.749332700035968,
+      "condition": "real_d",
+      "device": "cuda",
+      "distance_clip_value": 5.0,
+      "distance_mode": "real_d",
+      "distance_normalization": "offdiag_zscore_clamp",
+      "family": "real_d",
+      "final_training_loss": 5.288784027099609,
+      "final_validation_loss": 5.749332700035968,
+      "geometry_summary": {
+        "alpha": 0.10000000149011612,
+        "alpha_warmup_factor": 1.0,
+        "alpha_warmup_steps": 200.0,
+        "attention_entropy": 3.60130714783903,
+        "distance_mean": 2.490234362623079,
+        "distance_std": 2.5976798951300113,
+        "geo_to_qk_ratio": 0.28563734597928536,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.2881103514647875,
+        "mean_abs_qk": 2.1691982961906113,
+        "mean_max_probability": 0.1584156415847644,
+        "min": 0.0,
+        "std": 0.01741030325990964,
+        "target_alpha": 0.10000000149011612
+      },
+      "gradient_mode": "detached_d",
+      "kernel": "sigmoid_cosine",
+      "label": "real_d_alpha_0_1_warmup_cosine",
+      "normalize_hidden": true,
+      "path": "runs/phase3_geo_attention/phase3_stable_base/real_d_alpha_0_1_warmup_cosine/metrics.json",
+      "peak_memory_bytes": 5386059264.0,
+      "perplexity": 313.9810708066895,
+      "seed": 2027,
+      "total_training_tokens": 4096000.0
+    },
+    {
+      "alpha": 0.05,
+      "alpha_warmup_steps": 200.0,
+      "average_tokens_per_second": 4909.379251859077,
+      "best_validation_loss": 5.749788562252151,
+      "condition": "real_d",
+      "device": "cuda",
+      "distance_clip_value": 5.0,
+      "distance_mode": "real_d",
+      "distance_normalization": "offdiag_zscore_clamp",
+      "family": "real_d",
+      "final_training_loss": 5.288947105407715,
+      "final_validation_loss": 5.749788562252151,
+      "geometry_summary": {
+        "alpha": 0.05000000074505806,
+        "alpha_warmup_factor": 1.0,
+        "alpha_warmup_steps": 200.0,
+        "attention_entropy": 3.604791862065675,
+        "distance_mean": 2.4902343574117443,
+        "distance_std": 2.597679882101674,
+        "geo_to_qk_ratio": 0.14645607663634044,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.14406257346679602,
+        "mean_abs_qk": 2.132594927493992,
+        "mean_max_probability": 0.1585928859402899,
+        "min": 0.0,
+        "std": 0.01744123582875794,
+        "target_alpha": 0.05000000074505806
+      },
+      "gradient_mode": "detached_d",
+      "kernel": "sigmoid_cosine",
+      "label": "real_d_alpha_0_05_warmup_cosine",
+      "normalize_hidden": true,
+      "path": "runs/phase3_geo_attention/phase3_stable_base/real_d_alpha_0_05_warmup_cosine/metrics.json",
+      "peak_memory_bytes": 5386059264.0,
+      "perplexity": 314.12423554268474,
+      "seed": 2027,
+      "total_training_tokens": 4096000.0
+    },
+    {
+      "alpha": 0.05,
+      "alpha_warmup_steps": 200.0,
+      "average_tokens_per_second": 4859.156320967778,
+      "best_validation_loss": 5.7505317785221814,
+      "condition": "random_d",
+      "device": "cuda",
+      "distance_clip_value": 5.0,
+      "distance_mode": "random_d",
+      "distance_normalization": "offdiag_zscore_clamp",
+      "family": "random_d",
+      "final_training_loss": 5.286716461181641,
+      "final_validation_loss": 5.750557258126665,
+      "geometry_summary": {
+        "alpha": 0.05000000074505806,
+        "alpha_warmup_factor": 1.0,
+        "alpha_warmup_steps": 200.0,
+        "attention_entropy": 3.49513174471308,
+        "distance_mean": 0.8727858947600171,
+        "distance_std": 2.3828609419650717,
+        "geo_to_qk_ratio": 0.10276483394246284,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.10784144272081188,
+        "mean_abs_qk": 2.304891628727235,
+        "mean_max_probability": 0.1774066414154781,
+        "min": 0.0,
+        "std": 0.018643680262720324,
+        "target_alpha": 0.05000000074505806
+      },
+      "gradient_mode": "detached_d",
+      "kernel": "sigmoid_cosine",
+      "label": "random_d_alpha_0_05_warmup_cosine",
+      "normalize_hidden": true,
+      "path": "runs/phase3_geo_attention/phase3_stable_base/random_d_alpha_0_05_warmup_cosine/metrics.json",
+      "peak_memory_bytes": 5388156416.0,
+      "perplexity": 314.36579437737635,
+      "seed": 2027,
+      "total_training_tokens": 4096000.0
+    },
+    {
+      "alpha": 0.1,
+      "alpha_warmup_steps": 200.0,
+      "average_tokens_per_second": 4649.364358995631,
+      "best_validation_loss": 5.755636338961726,
+      "condition": "shuffled_d",
+      "device": "cuda",
+      "distance_clip_value": 5.0,
+      "distance_mode": "shuffled_d",
+      "distance_normalization": "offdiag_zscore_clamp",
+      "family": "shuffled_d",
+      "final_training_loss": 5.29688835144043,
+      "final_validation_loss": 5.755773684268877,
+      "geometry_summary": {
+        "alpha": 0.10000000149011612,
+        "alpha_warmup_factor": 1.0,
+        "alpha_warmup_steps": 200.0,
+        "attention_entropy": 3.386869024709274,
+        "distance_mean": 2.4902343222352323,
+        "distance_std": 2.5976798690733363,
+        "geo_to_qk_ratio": 0.2563668775977821,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.28809856464628314,
+        "mean_abs_qk": 2.7508499124011054,
+        "mean_max_probability": 0.1971855597275365,
+        "min": 0.0,
+        "std": 0.01994575642028956,
+        "target_alpha": 0.10000000149011612
+      },
+      "gradient_mode": "detached_d",
+      "kernel": "sigmoid_cosine",
+      "label": "shuffled_d_alpha_0_1_warmup_cosine",
+      "normalize_hidden": true,
+      "path": "runs/phase3_geo_attention/phase3_stable_base/shuffled_d_alpha_0_1_warmup_cosine/metrics.json",
+      "peak_memory_bytes": 5386059264.0,
+      "perplexity": 316.00994489198627,
+      "seed": 2027,
+      "total_training_tokens": 4096000.0
+    }
+  ],
+  "summary": {
+    "alpha_zero_tolerance": 0.02,
+    "note": "Stable Base treats raw ERGT as diagnostic and tests detached, cosine, clipped, alpha-warmup geometry against random/shuffled controls.",
+    "recommendation": "stable_signal_partial_repeat_or_extend"
+  }
+}

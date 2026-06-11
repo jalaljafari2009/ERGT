@@ -1,0 +1,82 @@
+{
+  "attention": {
+    "alpha": {
+      "initial_value": 0.07801319806756904,
+      "mode": "fixed",
+      "non_negative": true,
+      "warmup_steps": 200
+    },
+    "causal_runtime_distance": true,
+    "distance_mode": "shuffled_d",
+    "gradient_mode": "detached_d",
+    "head_sharing": "shared_d",
+    "type": "geo_attention"
+  },
+  "dataset": {
+    "context_length": 256,
+    "name": "wikitext-2",
+    "split": "standard",
+    "tokenizer": "gpt2"
+  },
+  "distance": {
+    "clip_value": 5.0,
+    "diagonal_policy": "zero",
+    "epsilon": 1e-06,
+    "formula": "-log(W + epsilon)",
+    "normalization": "offdiag_zscore_clamp"
+  },
+  "logging": {
+    "log_geometry_diagnostics": true,
+    "model_summary": "model_summary.json",
+    "progress_log": "progress_log.jsonl",
+    "results": "metrics.json",
+    "train_log": "train_log.jsonl"
+  },
+  "model": {
+    "bias": true,
+    "dropout": 0.1,
+    "ffn_dim": 2048,
+    "hidden_dim": 512,
+    "n_heads": 8,
+    "n_layers": 6,
+    "positional_encoding": "learned_absolute",
+    "type": "ergt_v1",
+    "vocab_size": null
+  },
+  "relational_graph": {
+    "diagonal_policy": "keep_for_distance",
+    "graph_heads": 1,
+    "kernel": "sigmoid_cosine",
+    "normalize_hidden": true
+  },
+  "run": {
+    "condition": "shuffled_d",
+    "output_dir": "runs/phase3_geo_attention/phase3_ratio_matched/target_0_2/shuffled_d_target_0_2_alpha_0_0780132",
+    "phase": "phase3_geo_attention",
+    "ratio_match": {
+      "calibration_alpha": 0.1,
+      "calibration_config": "runs/phase3_geo_attention/phase3_stable_base/shuffled_d_alpha_0_1_warmup_cosine/config.json",
+      "calibration_geo_to_qk_ratio": 0.2563668775977821,
+      "calibration_metrics": "runs/phase3_geo_attention/phase3_stable_base/shuffled_d_alpha_0_1_warmup_cosine/metrics.json",
+      "generated_alpha": 0.07801319806756904,
+      "scaling_rule": "calibration_alpha * target_ratio / observed_geo_to_qk_ratio",
+      "target_geo_to_qk_ratio": 0.2
+    },
+    "seed": 2027
+  },
+  "training": {
+    "batch_size": 16,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "checkpoint_interval": 500,
+    "eval_interval": 100,
+    "grad_clip": 1.0,
+    "learning_rate": 0.0003,
+    "max_steps": 1000,
+    "optimizer": "adamw",
+    "warmup_steps": 100,
+    "weight_decay": 0.1
+  }
+}

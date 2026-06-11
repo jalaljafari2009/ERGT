@@ -117,6 +117,10 @@ def build_ratio_matched_configs(
         "targets": {},
         "alpha_bounds": {"min_alpha": min_alpha, "max_alpha": max_alpha},
         "rule": "generated_alpha = calibration_alpha * target_ratio / observed_geo_to_qk_ratio",
+        "selection_rule": (
+            "for each target and family, use the calibration with nearest "
+            "observed geo_to_qk_ratio"
+        ),
     }
     calibration_runs = [load_calibration(spec) for spec in calibrations]
 
@@ -128,7 +132,7 @@ def build_ratio_matched_configs(
         target_dir.mkdir(parents=True, exist_ok=True)
         target_records = []
 
-        for calibration in calibration_runs:
+        for calibration in select_calibrations_for_target(calibration_runs, target_ratio):
             generated = generate_config_for_target(
                 calibration=calibration,
                 target_ratio=target_ratio,
@@ -147,6 +151,30 @@ def build_ratio_matched_configs(
 
     save_json(output_dir / "ratio_matched_manifest.json", sanitize_for_json(manifest))
     return manifest
+
+
+def select_calibrations_for_target(
+    calibration_runs: list[dict[str, Any]],
+    target_ratio: float,
+) -> list[dict[str, Any]]:
+    by_family: dict[str, list[dict[str, Any]]] = {}
+    for calibration in calibration_runs:
+        by_family.setdefault(calibration["family"], []).append(calibration)
+
+    selected = []
+    for family in ("real_d", "random_d", "shuffled_d"):
+        candidates = by_family.get(family, [])
+        if not candidates:
+            continue
+        selected.append(
+            min(
+                candidates,
+                key=lambda calibration: abs(
+                    calibration["observed_geo_to_qk_ratio"] - target_ratio
+                ),
+            )
+        )
+    return selected
 
 
 def load_calibration(spec: CalibrationSpec) -> dict[str, Any]:
