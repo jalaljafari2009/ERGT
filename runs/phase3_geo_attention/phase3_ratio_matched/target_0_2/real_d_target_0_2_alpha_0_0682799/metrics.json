@@ -1,0 +1,217 @@
+{
+  "attention": {
+    "alpha": {
+      "initial_value": 0.06827985720818279,
+      "mode": "fixed",
+      "non_negative": true,
+      "warmup_steps": 200
+    },
+    "causal_runtime_distance": true,
+    "distance_mode": "real_d",
+    "gradient_mode": "detached_d",
+    "head_sharing": "shared_d",
+    "type": "geo_attention"
+  },
+  "average_tokens_per_second": 5216.404011976914,
+  "best_validation_loss": 5.749569392965456,
+  "condition": "real_d",
+  "data_dir": "data/processed/wikitext2_gpt2_ctx256",
+  "device": "cuda",
+  "distance": {
+    "clip_value": 5.0,
+    "diagonal_policy": "zero",
+    "epsilon": 1e-06,
+    "formula": "-log(W + epsilon)",
+    "normalization": "offdiag_zscore_clamp"
+  },
+  "final_training_loss": 5.288838863372803,
+  "final_validation_loss": 5.749569392965456,
+  "geometry": {
+    "layers": {
+      "layer_0": {
+        "alpha": 0.06827985495328903,
+        "alpha_warmup_factor": 1.0,
+        "alpha_warmup_steps": 200.0,
+        "attention_entropy": 4.462208708778757,
+        "attention_sparsity": {
+          "0.001": 0.49956988066923425,
+          "0.01": 0.9119957021025361
+        },
+        "distance_mean": 2.490234375,
+        "distance_std": 2.5976804397145257,
+        "geo_to_qk_ratio": 0.5941958857364342,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.19574719472009627,
+        "mean_abs_qk": 0.329558970498257,
+        "mean_max_probability": 0.048286613443347275,
+        "min": 0.0,
+        "shape": [
+          16,
+          8,
+          256,
+          256
+        ],
+        "std": 0.009821245431533603,
+        "target_alpha": 0.06827985495328903
+      },
+      "layer_1": {
+        "alpha": 0.06827985495328903,
+        "alpha_warmup_factor": 1.0,
+        "alpha_warmup_steps": 200.0,
+        "attention_entropy": 3.938531625466269,
+        "attention_sparsity": {
+          "0.001": 0.6033309805588644,
+          "0.01": 0.9024078464898907
+        },
+        "distance_mean": 2.4902343437319896,
+        "distance_std": 2.5976796384717598,
+        "geo_to_qk_ratio": 0.15965680069610722,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.19703324212402593,
+        "mean_abs_qk": 1.2361671064720778,
+        "mean_max_probability": 0.1089574715397397,
+        "min": 0.0,
+        "shape": [
+          16,
+          8,
+          256,
+          256
+        ],
+        "std": 0.014239780543768992,
+        "target_alpha": 0.06827985495328903
+      },
+      "layer_2": {
+        "alpha": 0.06827985495328903,
+        "alpha_warmup_factor": 1.0,
+        "alpha_warmup_steps": 200.0,
+        "attention_entropy": 3.068849829376721,
+        "attention_sparsity": {
+          "0.001": 0.7673752356748111,
+          "0.01": 0.9233321088259338
+        },
+        "distance_mean": 2.490234320280982,
+        "distance_std": 2.5976797948118118,
+        "geo_to_qk_ratio": 0.051645019442820156,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.19678073999334555,
+        "mean_abs_qk": 3.817714800600146,
+        "mean_max_probability": 0.22329332642867916,
+        "min": 0.0,
+        "shape": [
+          16,
+          8,
+          256,
+          256
+        ],
+        "std": 0.021810649634629,
+        "target_alpha": 0.06827985495328903
+      },
+      "layer_3": {
+        "alpha": 0.06827985495328903,
+        "alpha_warmup_factor": 1.0,
+        "alpha_warmup_steps": 200.0,
+        "attention_entropy": 2.605867546112811,
+        "attention_sparsity": {
+          "0.001": 0.8409183338040211,
+          "0.01": 0.935481321616251
+        },
+        "distance_mean": 2.490234359365995,
+        "distance_std": 2.5976798299883233,
+        "geo_to_qk_ratio": 0.039103576089026496,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.1967185383937398,
+        "mean_abs_qk": 5.046577406711266,
+        "mean_max_probability": 0.2951730831724698,
+        "min": 0.0,
+        "shape": [
+          16,
+          8,
+          256,
+          256
+        ],
+        "std": 0.02609600200027716,
+        "target_alpha": 0.06827985495328903
+      },
+      "layer_4": {
+        "alpha": 0.06827985495328903,
+        "alpha_warmup_factor": 1.0,
+        "alpha_warmup_steps": 200.0,
+        "attention_entropy": 3.615959464526567,
+        "attention_sparsity": {
+          "0.001": 0.6653223838962492,
+          "0.01": 0.9099521148400228
+        },
+        "distance_mean": 2.490234371091499,
+        "distance_std": 2.5976797400927936,
+        "geo_to_qk_ratio": 0.1290279965175957,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.19689521755351394,
+        "mean_abs_qk": 1.5308593433411395,
+        "mean_max_probability": 0.15539282193926515,
+        "min": 0.0,
+        "shape": [
+          16,
+          8,
+          256,
+          256
+        ],
+        "std": 0.017346376705853664,
+        "target_alpha": 0.06827985495328903
+      },
+      "layer_5": {
+        "alpha": 0.06827985495328903,
+        "alpha_warmup_factor": 1.0,
+        "alpha_warmup_steps": 200.0,
+        "attention_entropy": 3.9325852355018993,
+        "attention_sparsity": {
+          "0.001": 0.5785193003591944,
+          "0.01": 0.9120775490510659
+        },
+        "distance_mean": 2.490234375,
+        "distance_std": 2.597679892524344,
+        "geo_to_qk_ratio": 0.2167288182211704,
+        "max": 1.0,
+        "mean": 0.00390625,
+        "mean_abs_geo": 0.1971928245220028,
+        "mean_abs_qk": 0.9106343554668739,
+        "mean_max_probability": 0.11939447263225181,
+        "min": 0.0,
+        "shape": [
+          16,
+          8,
+          256,
+          256
+        ],
+        "std": 0.01521549648681625,
+        "target_alpha": 0.06827985495328903
+      }
+    },
+    "summary": {
+      "alpha": 0.06827985495328903,
+      "alpha_warmup_factor": 1.0,
+      "alpha_warmup_steps": 200.0,
+      "attention_entropy": 3.6040004016271707,
+      "distance_mean": 2.4902343574117443,
+      "distance_std": 2.5976798892672592,
+      "geo_to_qk_ratio": 0.19839301611719234,
+      "max": 1.0,
+      "mean": 0.00390625,
+      "mean_abs_geo": 0.1967279595511207,
+      "mean_abs_qk": 2.1452519971816266,
+      "mean_max_probability": 0.1584162981926255,
+      "min": 0.0,
+      "std": 0.01742159180047978,
+      "target_alpha": 0.06827985495328903
+    }
+  },
+  "peak_memory_bytes": 5386059264,
+  "perplexity": 314.0553967020025,
+  "seed": 2027,
+  "total_training_tokens": 4096000,
+  "total_wall_clock_seconds": 785.215253764
+}
