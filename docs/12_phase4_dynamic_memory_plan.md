@@ -40,6 +40,20 @@ runs/gates/phase3_to_phase4_decision.json
 If Gate 1 is missing or failed, Phase 4 work is limited to documentation and
 planning.
 
+Post-Phase-3 update:
+
+The ratio-matched and confirm-seed evidence mean ERGT should not proceed
+directly to memory injection. The physics-aligned program in
+`docs/17_physics_aligned_ergt_program.md` splits memory into two stages:
+
+```text
+memory-as-observer -> memory-as-attention-substrate
+```
+
+`memory-as-observer` may be used as part of the corrective post-Phase-3 program
+because it does not alter attention. `memory-as-attention-substrate` remains
+locked behind Gate 1 and the stricter controls in the updated program.
+
 ## 3. Starting Point
 
 Phase 4 builds on the Phase 3 pipeline:

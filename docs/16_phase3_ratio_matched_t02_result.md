@@ -71,3 +71,26 @@ Only the relational arrangement should differ between `real_d`, `random_d`, and
 
 If `random_d` still beats `real_d` after strict controls, Phase 3 should redesign
 `W` rather than proceed to Phase 4.
+
+## Program Update
+
+This result changes the planning baseline. Post-Phase-3 work should follow
+`docs/17_physics_aligned_ergt_program.md` rather than moving directly from
+GeoAttention v1 to graph-memory implementation.
+
+The next movement standard is:
+
+```text
+measure -> control -> observe -> validate -> inject -> regularize
+```
+
+Immediate next work:
+
+```text
+strict W-level controls
+relational field observer
+resonant-response observer
+Phi and reconstruction gates
+memory-as-observer before memory injection
+causal shortest-path geometry before GeoAttention v2
+```

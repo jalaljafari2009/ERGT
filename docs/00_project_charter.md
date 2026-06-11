@@ -183,6 +183,36 @@ If the gate is not passed, the next work should revise:
 - The schedule or parameterization of `alpha`.
 - The layer at which relational geometry is injected.
 
+## Updated Movement Standard
+
+The Phase 3 stable-base, confirm-seed, and ratio-matched evidence did not
+produce a clean Gate 1 pass. In particular, `random_d` can still outperform
+`real_d` under matched geometry strength. The project therefore adopts the
+physics-aligned program in `docs/17_physics_aligned_ergt_program.md` as the
+movement standard for post-Phase-3 work.
+
+The reader-facing explanation of this strengthened view is
+`docs/18_ergt_position_paper.md`. That document is not the execution contract;
+it is the conceptual article that explains why ERGT now treats intelligence
+space as stable, reconstructible, causal-contextual relational geometry over
+hidden states.
+
+The updated path is:
+
+```text
+HiddenStates -> W -> Phi -> W_t -> D_causal -> D_stable -> GeoAttention -> Reasoning
+```
+
+The governing rule is:
+
+```text
+measure -> control -> observe -> validate -> inject -> regularize
+```
+
+No later phase should be treated as credible unless the current phase separates
+`real` structure from `random` and `shuffled` controls under matched masks,
+normalization, clipping, and scale.
+
 ## Research Discipline
 
 The project should protect the depth of the theory without overclaiming early

@@ -22,6 +22,14 @@ Phase 2: Emergent Distance
 Phase 3: GeoAttention v1
 ```
 
+Post-Phase-3 update:
+
+The first proof stage produced incomplete evidence. Future proof-stage repeats
+must account for the stricter movement standard in
+`docs/17_physics_aligned_ergt_program.md`, especially strict W-level controls,
+matched valid regions, `Sep(real, random/shuffled)`, reconstruction checks, and
+anti-collapse diagnostics.
+
 ## 2. Primary Hypothesis
 
 The primary experimental hypothesis is:

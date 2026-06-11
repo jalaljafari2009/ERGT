@@ -30,6 +30,17 @@ For ERGT-v1, the earlier mechanism is:
 W -> D -> GeoAttention
 ```
 
+After the Phase 3 evidence, the gate philosophy is strengthened by
+`docs/17_physics_aligned_ergt_program.md`:
+
+```text
+measure -> control -> observe -> validate -> inject -> regularize
+```
+
+This means that later mechanisms must not be built directly on top of a weak
+GeoAttention result. They must first pass strict control, observer,
+reconstruction, memory-observer, and causal-geometry checks.
+
 ## 3. First Proof Claim
 
 The first proof stage tests:
@@ -201,6 +212,11 @@ Revisit:
 
 ## 12. Later Phase Gates
 
+The later phase gates below remain valid, but post-Phase-3 execution must use
+the stricter program in `docs/17_physics_aligned_ergt_program.md` whenever there
+is ambiguity about random/shuffled controls, reconstruction, causal leakage, or
+collapse.
+
 ### Phase 4 to Phase 5
 
 Proceed only if graph memory:
@@ -208,6 +224,10 @@ Proceed only if graph memory:
 - Improves or stabilizes results compared with ERGT-v1.
 - Shows measurable persistence in `W`.
 - Does not introduce unacceptable leakage or cost.
+- Beats instantaneous, no-memory, random-memory, shuffled-memory, and generic
+  smoothing controls.
+- Uses a similarity-based and `Phi`-gated update if the physics-aligned program
+  is active.
 
 ### Phase 5 to Phase 6
 
@@ -216,6 +236,8 @@ Proceed only if full ERGT architecture:
 - Remains competitive with baseline and ERGT-v1.
 - Preserves the proven role of `D`.
 - Has clear motivation for causal geometry.
+- Preserves the proven role of `W_t`, `Phi`, and reconstruction controls when
+  those components are active.
 
 ### Phase 6 to Phase 7
 
@@ -224,6 +246,7 @@ Proceed only if causal geometry:
 - Improves long-context behavior.
 - Passes strict causal leakage checks.
 - Does not only add another uncontrolled bias.
+- Adds signal beyond pairwise distance and no-memory controls.
 
 ### Phase 7 to Phase 8
 
@@ -232,6 +255,7 @@ Proceed only if spectral complexity:
 - Produces measurable compression or stability.
 - Does not collapse useful relational structure.
 - Improves generalization or interpretability enough to justify complexity.
+- Is paired with anti-collapse and reconstruction consistency checks.
 
 ## 13. Documentation Required for Any Gate Decision
 
@@ -294,6 +318,11 @@ ambiguous pass -> conditional pass
 ambiguous fail -> redesign current phase
 missing controls -> no gate decision
 ```
+
+For post-Phase-3 work, "missing controls" includes missing strict W-level
+controls, missing `Phi` anti-collapse checks, missing reconstruction-deficit
+checks, missing memory observer controls, or missing pairwise/no-memory causal
+geometry controls.
 
 The project should advance only when the current mechanism is clear enough to
 support the next one.

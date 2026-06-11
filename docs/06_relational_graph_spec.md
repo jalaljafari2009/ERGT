@@ -311,6 +311,20 @@ random_W: random matrix with similar shape and scale
 shuffled_W: real W with entries or positions shuffled
 ```
 
+Post-Phase-3 strict-control update:
+
+Random and shuffled controls must be constructed at the `W` level before
+distance normalization and attention use. They must preserve the same valid
+region:
+
+```text
+valid_edge = causal_lower_triangular & non_diagonal & non_padding
+```
+
+Shuffling must not mix diagonal, padding, or future-invalid entries with valid
+causal off-diagonal entries. The detailed movement standard is
+`docs/17_physics_aligned_ergt_program.md`.
+
 Purpose:
 
 - `random_W` tests whether metrics are artifacts of dense matrices.

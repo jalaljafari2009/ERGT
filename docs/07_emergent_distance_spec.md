@@ -433,6 +433,21 @@ one at a time:
 
 Each alternative must be compared against the original definition and controls.
 
+Post-Phase-3 update:
+
+For the physics-aligned program in
+`docs/17_physics_aligned_ergt_program.md`, pairwise `D = -log(W + epsilon)` is
+an edge-cost candidate, not the final geometry. The stronger geometry candidate
+is:
+
+```text
+edge_cost_ij = -log(W_t_ij + epsilon)
+D_causal(i,j) = shortest path over valid causal edges
+```
+
+This causal shortest-path distance must be compared against pairwise and
+no-memory controls before it can be used in GeoAttention v2.
+
 ## 22. Relationship to GeoAttention
 
 Phase 3 consumes normalized `D`:

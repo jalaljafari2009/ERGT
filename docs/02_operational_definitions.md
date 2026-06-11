@@ -274,6 +274,63 @@ This is not a Phase 1-3 metric.
 
 For early stages, it should remain a guiding theory, not an experimental claim.
 
+## 12.1 Post-Phase-3 Operational Additions
+
+The Phase 3 evidence requires stricter operational definitions before moving to
+memory, causal geometry, spectral complexity, or reasoning claims. The detailed
+program is `docs/17_physics_aligned_ergt_program.md`.
+
+The valid relation region is:
+
+```text
+valid_edge = causal_lower_triangular & non_diagonal & non_padding
+```
+
+`Phi` is the information-potential selector:
+
+```text
+Phi =
+coherence
+* coherence_gradient
+* low_local_entropy
+* salience
+* stability
+* reconstruction_score
+* causal_validity
+* anti_collapse
+```
+
+`Phi` is not consciousness. It is a testable selector for stable,
+reconstructible relational structure.
+
+The reconstruction deficit is:
+
+```text
+hidden deficit:     ||h_i - R(H_<i)||^2
+relational deficit: ||W_i - R_W(H_<i)||
+```
+
+The reconstructor must not receive `h_i`, future hidden states, or any future
+token-derived relation. Otherwise reconstruction is not a causal test.
+
+Only allowed causal context may be used for reconstruction.
+
+The causal geometry distance is:
+
+```text
+edge_cost_ij = -log(W_t_ij + eps)
+D_causal(i,j) = shortest path over valid causal edges
+```
+
+`D_causal` is the geometry candidate. Pairwise `d_ij` is only an edge cost.
+
+The long-term intelligence-space definition is:
+
+```text
+Intelligence Space =
+stable, compressible, causal, reconstructible relational geometry over hidden states
+```
+
 ## 13. GeoAttention
 
 GeoAttention uses induced distance as an attention bias:

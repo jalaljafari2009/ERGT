@@ -12,6 +12,32 @@ geometry can improve or stabilize attention.
 Dynamics -> Relations -> Structure -> Compression -> Geometry -> Memory -> Reasoning -> Intelligence
 ```
 
+## Updated Program After Phase 3 Evidence
+
+The early Phase 3 runs produced a useful but incomplete signal: `real_d` can
+improve over baseline or shuffled controls in some settings, but `random_d` can
+still beat `real_d` under matched geometry strength. That means ERGT should not
+continue as a simple GeoAttention extension.
+
+From this point forward, post-Phase-3 work is governed by
+`docs/17_physics_aligned_ergt_program.md`.
+
+For a reader-facing position paper that explains the strengthened ERGT vision
+and the meaning of "intelligence space", see
+`docs/18_ergt_position_paper.md`.
+
+The updated movement standard is:
+
+```text
+measure -> control -> observe -> validate -> inject -> regularize
+```
+
+The updated operational path is:
+
+```text
+HiddenStates -> W -> Phi -> W_t -> D_causal -> D_stable -> GeoAttention -> Reasoning
+```
+
 ## Core Claim
 
 ERGT starts from a relational view of information:
@@ -87,6 +113,8 @@ Later phases extend the first proof into the deeper theory:
 - Phase 6: Causal geometry for long-context structure.
 - Phase 7: Spectral complexity minimization.
 - Phase 8: Relational field model.
+- Later: Reasoning paths over stable relational geometry.
+- Later: Intelligence-space evaluation.
 
 These phases remain downstream of the first proof stage.
 
@@ -137,7 +165,10 @@ before continuing to later phases.
 
 ## Current Status
 
-The project is currently in the documentation and research-design stage.
+The project has Phase 3 evidence and control risks recorded in `docs/13` through
+`docs/16`. The current design direction is no longer "proceed directly to graph
+memory"; it is to tighten controls, observe relational structure, validate
+reconstructible causal geometry, and only then re-enter GeoAttention v2.
 
 The existing source notes are:
 

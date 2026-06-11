@@ -34,6 +34,21 @@ GeoAttention(real D)
   and outperforms non-relational distance controls
 ```
 
+After the Phase 3 ratio-matched evidence, post-Phase-3 work must also follow
+`docs/17_physics_aligned_ergt_program.md`. That adds required diagnostics before
+any stronger claim:
+
+```text
+strict W-level control equality
+Sep(real, random/shuffled)
+Phi with anti-collapse
+reconstruction deficit from allowed context only
+memory observer controls
+causal shortest-path vs pairwise/no-memory
+```
+
+These diagnostics are movement criteria, not optional interpretation aids.
+
 ## 3. Required Model Conditions
 
 The required Phase 3 conditions are:

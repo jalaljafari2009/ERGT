@@ -535,3 +535,18 @@ If Phase 3 passes, GeoAttention becomes the foundation for:
 
 If Phase 3 fails, later phases should pause. A memory system built on weak
 relational distance would not provide a clean test of the ERGT theory.
+
+Post-Phase-3 update:
+
+The current evidence does not justify moving directly from GeoAttention v1 to
+memory injection. The next GeoAttention target is GeoAttention v2 as defined in
+`docs/17_physics_aligned_ergt_program.md`:
+
+```text
+H -> W_t -> D_causal -> normalized D_stable
+logits = QK^T / sqrt(d) - alpha * D_stable
+```
+
+GeoAttention v2 may only run after strict W-level controls, observer metrics,
+`Phi`, reconstruction checks, memory-as-observer, and causal shortest-path
+geometry have passed their controls.

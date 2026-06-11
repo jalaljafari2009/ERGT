@@ -24,6 +24,32 @@ Phase  7: Spectral Complexity
 Phase  8: Relational Field Model
 ```
 
+After the Phase 3 evidence, the post-Phase-3 execution path is strengthened by
+`docs/17_physics_aligned_ergt_program.md`. The historical phase names remain
+valid, but the movement standard is now:
+
+```text
+measure -> control -> observe -> validate -> inject -> regularize
+```
+
+The strengthened path is:
+
+```text
+Claim/measurement contracts
+-> strict W-level controls
+-> relational field observer
+-> resonant-response observer
+-> Phi information potential
+-> reconstruction gate
+-> Phi-gated relational memory observer
+-> causal shortest-path geometry
+-> GeoAttention v2
+-> auxiliary loss
+-> complete ERGT
+-> reasoning paths
+-> intelligence-space evaluation
+```
+
 The first implementation target is:
 
 ```text
@@ -43,6 +69,7 @@ Translate the philosophical foundation into a precise experimental contract.
 - `docs/01_theoretical_foundation.md`
 - `docs/02_operational_definitions.md`
 - `docs/03_phase_plan.md`
+- `docs/18_ergt_position_paper.md`
 - `.codex/project_context.md`
 
 ### Deliverables
@@ -346,6 +373,11 @@ Do not proceed to memory or causal geometry. Revisit:
 - Layer placement.
 - Whether gradients pass through `W` and `D`.
 
+The current Phase 3 evidence should be treated as requiring the strengthened
+post-Phase-3 plan rather than direct implementation of graph memory. The next
+work should begin with strict W-level controls, observer metrics, `Phi`, and
+memory-as-observer as defined in `docs/17_physics_aligned_ergt_program.md`.
+
 ## 9. Phase 4: Dynamic Relational Graph Memory
 
 ### Objective
@@ -495,6 +527,8 @@ Before implementation, complete:
 - `docs/08_geo_attention_spec.md`
 - `docs/09_metrics_and_ablation_plan.md`
 - `docs/10_gate_conditions.md`
+- `docs/17_physics_aligned_ergt_program.md`
+- `docs/18_ergt_position_paper.md`
 - `docs/11_repository_structure.md`
 
 Implementation should not begin until the proof-stage protocol and repository

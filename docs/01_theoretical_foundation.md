@@ -295,6 +295,28 @@ The project must protect both levels:
 - The broad theory gives meaning and direction.
 - The narrow experiment gives falsifiability and scientific discipline.
 
+### Post-Phase-3 Strengthening
+
+The early Phase 3 evidence showed that the first reduction is necessary but not
+sufficient. A useful result against baseline is not enough if random or shuffled
+distance can explain the same gain. ERGT therefore strengthens the operational
+reduction for post-Phase-3 work:
+
+```text
+HiddenStates
+-> W relations
+-> Phi information potential
+-> W_t stable memory
+-> causal shortest-path geometry
+-> validated GeoAttention
+-> reasoning paths
+```
+
+This strengthened path is defined in
+`docs/17_physics_aligned_ergt_program.md`. It preserves the relational thesis
+while adding explicit tests for control fairness, reconstructibility, causal
+reachability, stability, and anti-collapse behavior.
+
 ## 17. Falsifiability
 
 ERGT must remain testable.
