@@ -127,6 +127,19 @@ def test_geo_attention_v2_alpha_zero_matches_baseline_attention() -> None:
     assert torch.allclose(geo_output, baseline_output, atol=1e-6)
 
 
+def test_geo_attention_v2_alpha_zero_skips_geometry_construction() -> None:
+    torch.manual_seed(1)
+    attention = geo_attention_v2(alpha=0.0, distance_mode="real_stable_causal_d")
+    hidden_states = torch.randn(2, 5, 16)
+
+    result = attention(hidden_states, return_diagnostics=True)
+
+    assert result["geometry_memory"] is None
+    assert torch.all(result["distance"] == 0)
+    assert result["diagnostics"]["geometry_skipped_by_alpha_zero"] is True
+    assert result["diagnostics"]["geo_to_qk_ratio"] == 0.0
+
+
 def test_geo_attention_distance_modes_run_and_are_finite() -> None:
     torch.manual_seed(1)
     hidden_states = torch.randn(2, 4, 16)

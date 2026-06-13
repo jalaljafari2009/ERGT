@@ -265,6 +265,13 @@ def causal_shortest_path_distance(
         raise ValueError("epsilon must be positive")
     _validate_graph(memory_graph)
     valid_edge_mask = _prepare_mask(valid_edge_mask, memory_graph)
+    if _is_unit_step_causal_mask(valid_edge_mask):
+        return _unit_step_causal_path_distance(
+            memory_graph,
+            valid_edge_mask,
+            epsilon=epsilon,
+        )
+
     direct = pairwise_edge_distance(memory_graph, valid_edge_mask, epsilon=epsilon)
     distance = direct.clone()
     sequence_length = distance.size(-1)
@@ -333,6 +340,85 @@ def finite_speed_edge_mask(
     local = (current - context) <= max_causal_step
     local = local.view(1, 1, sequence_length, sequence_length)
     return valid_edge_mask.to(dtype=torch.bool) & local.expand_as(valid_edge_mask)
+
+
+def _is_unit_step_causal_mask(valid_edge_mask: torch.Tensor) -> bool:
+    """Return true when direct causal edges are only adjacent past edges."""
+
+    sequence_length = valid_edge_mask.size(-1)
+    positions = torch.arange(sequence_length, device=valid_edge_mask.device)
+    current = positions.view(sequence_length, 1)
+    context = positions.view(1, sequence_length)
+    unit_step = (current - context) == 1
+    diagonal = current == context
+    non_unit_edges = valid_edge_mask & ~(unit_step | diagonal).view(
+        1,
+        1,
+        sequence_length,
+        sequence_length,
+    )
+    return not bool(non_unit_edges.any().item())
+
+
+def _unit_step_causal_path_distance(
+    memory_graph: torch.Tensor,
+    valid_edge_mask: torch.Tensor,
+    *,
+    epsilon: float,
+) -> torch.Tensor:
+    """Fast shortest-path distance for max_causal_step=1 chain geometry."""
+
+    direct = pairwise_edge_distance(memory_graph, valid_edge_mask, epsilon=epsilon)
+    sequence_length = direct.size(-1)
+    diagonal = torch.eye(sequence_length, dtype=torch.bool, device=direct.device).view(
+        1,
+        1,
+        sequence_length,
+        sequence_length,
+    )
+    if sequence_length <= 1:
+        return direct.masked_fill(diagonal, 0.0)
+
+    indices = torch.arange(1, sequence_length, device=direct.device)
+    adjacent_cost = direct[..., indices, indices - 1]
+    adjacent_finite = torch.isfinite(adjacent_cost)
+    safe_adjacent_cost = torch.where(
+        adjacent_finite,
+        adjacent_cost,
+        torch.zeros_like(adjacent_cost),
+    )
+    zero_cost = torch.zeros(
+        *adjacent_cost.shape[:-1],
+        1,
+        dtype=adjacent_cost.dtype,
+        device=adjacent_cost.device,
+    )
+    prefix_cost = torch.cat(
+        [zero_cost, torch.cumsum(safe_adjacent_cost, dim=-1)],
+        dim=-1,
+    )
+
+    missing_edge = (~adjacent_finite).to(dtype=torch.int64)
+    zero_missing = torch.zeros(
+        *missing_edge.shape[:-1],
+        1,
+        dtype=missing_edge.dtype,
+        device=missing_edge.device,
+    )
+    prefix_missing = torch.cat(
+        [zero_missing, torch.cumsum(missing_edge, dim=-1)],
+        dim=-1,
+    )
+
+    distance = prefix_cost.unsqueeze(-1) - prefix_cost.unsqueeze(-2)
+    missing = prefix_missing.unsqueeze(-1) - prefix_missing.unsqueeze(-2)
+    positions = torch.arange(sequence_length, device=direct.device)
+    causal = positions.view(sequence_length, 1) >= positions.view(1, sequence_length)
+    reachable = (missing == 0) & causal.view(1, 1, sequence_length, sequence_length)
+    distance = torch.where(reachable, distance, torch.full_like(distance, torch.inf))
+    future = _future_mask(distance)
+    distance = distance.masked_fill(future, torch.inf)
+    return distance.masked_fill(diagonal, 0.0)
 
 
 def geometry_quality_metrics(

@@ -20,6 +20,35 @@ def causal_mask(sequence_length: int) -> torch.Tensor:
     return valid.view(1, 1, sequence_length, sequence_length)
 
 
+def unit_step_causal_mask(sequence_length: int) -> torch.Tensor:
+    positions = torch.arange(sequence_length)
+    current = positions.view(sequence_length, 1)
+    context = positions.view(1, sequence_length)
+    valid = (current - context) == 1
+    return valid.view(1, 1, sequence_length, sequence_length)
+
+
+def floyd_reference_shortest_path(graph: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
+    distance = pairwise_edge_distance(graph, mask)
+    sequence_length = distance.size(-1)
+    diagonal = torch.eye(sequence_length, dtype=torch.bool, device=distance.device).view(
+        1,
+        1,
+        sequence_length,
+        sequence_length,
+    )
+    distance = distance.masked_fill(diagonal, 0.0)
+    for bridge in range(sequence_length):
+        via_bridge = (
+            distance[..., :, bridge].unsqueeze(-1)
+            + distance[..., bridge, :].unsqueeze(-2)
+        )
+        distance = torch.minimum(distance, via_bridge)
+    future = torch.ones(sequence_length, sequence_length, dtype=torch.bool).triu(diagonal=1)
+    future = future.view(1, 1, sequence_length, sequence_length)
+    return distance.masked_fill(future, torch.inf).masked_fill(diagonal, 0.0)
+
+
 def test_causal_shortest_path_uses_only_valid_past_bridges() -> None:
     graph = torch.full((1, 1, 4, 4), 0.05)
     mask = causal_mask(4)
@@ -36,6 +65,23 @@ def test_causal_shortest_path_uses_only_valid_past_bridges() -> None:
     assert torch.isfinite(causal[0, 0, 3, 1])
     assert distance_diagonal_is_zero(causal)
     assert future_distances_are_infinite(causal)
+
+
+def test_unit_step_causal_shortest_path_matches_floyd_reference() -> None:
+    torch.manual_seed(3)
+    graph = torch.rand(2, 1, 6, 6).clamp_min(0.05)
+    mask = unit_step_causal_mask(6).expand_as(graph).clone()
+    mask[0, 0, 3, 2] = False
+    graph = torch.where(mask, graph, torch.zeros_like(graph))
+
+    fast = causal_shortest_path_distance(graph, mask)
+    reference = floyd_reference_shortest_path(graph, mask)
+
+    assert torch.equal(torch.isfinite(fast), torch.isfinite(reference))
+    finite = torch.isfinite(fast) & torch.isfinite(reference)
+    assert torch.allclose(fast[finite], reference[finite], atol=1e-6)
+    assert future_distances_are_infinite(fast)
+    assert distance_diagonal_is_zero(fast)
 
 
 def test_distance_to_affinity_maps_unreachable_pairs_to_zero() -> None:

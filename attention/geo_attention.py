@@ -213,12 +213,28 @@ class GeoAttention(nn.Module):
         v = self._split_heads(v)
 
         qk_logits = self.compute_attention_logits(q, k)
-        distance_result = self.compute_distance(
-            hidden_states,
-            attention_mask=attention_mask,
-            geometry_memory=geometry_memory,
-            return_memory=True,
-        )
+        alpha = self.alpha()
+        if self._alpha_is_zero(alpha):
+            distance_result = self._zero_distance_result(
+                hidden_states,
+                pipeline="alpha_zero_skip",
+                skipped_by_alpha_zero=True,
+            )
+        elif self.config.gradient_mode == "detached_d":
+            with torch.no_grad():
+                distance_result = self.compute_distance(
+                    hidden_states,
+                    attention_mask=attention_mask,
+                    geometry_memory=geometry_memory,
+                    return_memory=True,
+                )
+        else:
+            distance_result = self.compute_distance(
+                hidden_states,
+                attention_mask=attention_mask,
+                geometry_memory=geometry_memory,
+                return_memory=True,
+            )
         distance = distance_result["distance"]
         updated_geometry_memory = distance_result["geometry_memory"]
         geometry_metadata = distance_result["metadata"]
@@ -228,7 +244,6 @@ class GeoAttention(nn.Module):
                 updated_geometry_memory = updated_geometry_memory.detach()
 
         distance = self._broadcast_distance(distance, qk_logits)
-        alpha = self.alpha()
         geo_logits = self.apply_geometry_bias(qk_logits, distance, alpha)
         masked_logits = self.apply_attention_mask(geo_logits, attention_mask)
         attention_weights = F.softmax(masked_logits, dim=-1)
@@ -270,25 +285,8 @@ class GeoAttention(nn.Module):
         return_memory: bool = False,
     ) -> torch.Tensor | dict[str, Any]:
         if self.config.distance_mode == "zero_d":
-            batch_size, sequence_length, _ = hidden_states.shape
-            distance = torch.zeros(
-                batch_size,
-                1,
-                sequence_length,
-                sequence_length,
-                dtype=hidden_states.dtype,
-                device=hidden_states.device,
-            )
-            result = {
-                "distance": distance,
-                "geometry_memory": None,
-                "metadata": self._geometry_metadata(
-                    pipeline="zero_distance",
-                    memory_used=False,
-                    shortest_path=False,
-                ),
-            }
-            return result if return_memory else distance
+            result = self._zero_distance_result(hidden_states, pipeline="zero_distance")
+            return result if return_memory else result["distance"]
 
         if self.config.distance_mode in V2_DISTANCE_MODES:
             result = self.compute_v2_distance(
@@ -514,6 +512,55 @@ class GeoAttention(nn.Module):
 
     def uses_geometry_memory(self) -> bool:
         return self.config.distance_mode in STABLE_MEMORY_DISTANCE_MODES
+
+    def _alpha_is_zero(self, alpha: torch.Tensor) -> bool:
+        return bool(torch.all(alpha.detach() == 0).item())
+
+    def _zero_distance_result(
+        self,
+        hidden_states: torch.Tensor,
+        *,
+        pipeline: str,
+        skipped_by_alpha_zero: bool = False,
+    ) -> dict[str, Any]:
+        batch_size, sequence_length, _ = hidden_states.shape
+        distance = torch.zeros(
+            batch_size,
+            1,
+            sequence_length,
+            sequence_length,
+            dtype=hidden_states.dtype,
+            device=hidden_states.device,
+        )
+        metadata = self._geometry_metadata(
+            pipeline=pipeline,
+            memory_used=False,
+            shortest_path=False,
+        )
+        if skipped_by_alpha_zero:
+            metadata.update(
+                {
+                    "geometry_skipped_by_alpha_zero": True,
+                    "geometry_source_family": "skipped_alpha_zero",
+                    "control_generation_level": "skipped_alpha_zero",
+                    "normalization_source": "none",
+                    "memory_source": "none",
+                    "causal_shortest_path": False,
+                    "control_isolation_contract": {
+                        "distance_built_from": "none_alpha_zero",
+                        "normalization_uses": "none",
+                        "memory_uses": "none",
+                        "random_or_shuffled_generated_before_distance": False,
+                        "cross_family_real_distance_reuse": False,
+                        "cross_family_real_memory_reuse": False,
+                    },
+                }
+            )
+        return {
+            "distance": distance,
+            "geometry_memory": None,
+            "metadata": metadata,
+        }
 
     def _split_heads(self, tensor: torch.Tensor) -> torch.Tensor:
         batch_size, sequence_length, _ = tensor.shape
