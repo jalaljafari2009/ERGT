@@ -1,0 +1,317 @@
+{
+  "audit_scope": "geoattention_v2_random_shuffled_control_isolation",
+  "checks": {
+    "distance_finite_regions_match": true,
+    "future_edges_forbidden": true,
+    "no_real_distance_reuse_random": true,
+    "no_real_distance_reuse_shuffled": true,
+    "no_real_memory_reuse_random": true,
+    "no_real_memory_reuse_shuffled": true,
+    "random_built_at_w_level": true,
+    "random_distance_not_real_distance": true,
+    "random_memory_not_real_memory": true,
+    "random_uses_self_family_memory": true,
+    "random_uses_self_family_normalization": true,
+    "random_w_changes_valid_edges": true,
+    "random_w_preserves_valid_range": true,
+    "same_hidden_inputs_for_all_modes": true,
+    "shuffled_built_at_w_level": true,
+    "shuffled_distance_not_real_distance": true,
+    "shuffled_memory_not_real_memory": true,
+    "shuffled_uses_self_family_memory": true,
+    "shuffled_uses_self_family_normalization": true,
+    "shuffled_w_changes_valid_edges": true,
+    "shuffled_w_preserves_valid_multiset": true,
+    "valid_edge_mask_shared": true
+  },
+  "contract": {
+    "forbidden": [
+      "random/shuffled from normalized real D",
+      "random/shuffled from real memory",
+      "random/shuffled from real distance statistics",
+      "different training data or seed across control families"
+    ],
+    "random": "H -> W_random -> memory_random -> D_random -> self normalization",
+    "real": "H -> W_real -> memory_real -> D_real -> self normalization",
+    "shuffled": "H -> W_shuffled -> memory_shuffled -> D_shuffled -> self normalization"
+  },
+  "distance_fingerprints": {
+    "instantaneous_real_d": {
+      "finite_count": 37,
+      "mean": -3.2218725465327225e-08,
+      "shape": [
+        2,
+        1,
+        6,
+        6
+      ],
+      "std": 0.8219948410987854,
+      "sum": -1.1920928955078125e-06
+    },
+    "no_memory_real_d": {
+      "finite_count": 37,
+      "mean": -9.665617639598167e-09,
+      "shape": [
+        2,
+        1,
+        6,
+        6
+      ],
+      "std": 0.8219932317733765,
+      "sum": -3.5762786865234375e-07
+    },
+    "random_stable_causal_d": {
+      "finite_count": 37,
+      "mean": -1.288749107430931e-08,
+      "shape": [
+        2,
+        1,
+        6,
+        6
+      ],
+      "std": 0.8219947814941406,
+      "sum": -4.76837158203125e-07
+    },
+    "real_stable_causal_d": {
+      "finite_count": 37,
+      "mean": 0.0,
+      "shape": [
+        2,
+        1,
+        6,
+        6
+      ],
+      "std": 0.8219948410987854,
+      "sum": 0.0
+    },
+    "shuffled_stable_causal_d": {
+      "finite_count": 37,
+      "mean": -4.8328089974347677e-08,
+      "shape": [
+        2,
+        1,
+        6,
+        6
+      ],
+      "std": 0.8219948410987854,
+      "sum": -1.7881393432617188e-06
+    }
+  },
+  "input_source": "synthetic_memory_smoke",
+  "max_causal_step": 1,
+  "memory_config": {
+    "anti_collapse_threshold": 0.1,
+    "decay": 0.7,
+    "eta": 0.3,
+    "gate_floor": 0.05,
+    "min_context_edges": 2
+  },
+  "memory_fingerprints": {
+    "random_stable_causal_d": {
+      "finite_count": 72,
+      "mean": 0.09412737935781479,
+      "shape": [
+        2,
+        1,
+        6,
+        6
+      ],
+      "std": 0.14788776636123657,
+      "sum": 6.7771711349487305
+    },
+    "real_stable_causal_d": {
+      "finite_count": 72,
+      "mean": 0.09955490380525589,
+      "shape": [
+        2,
+        1,
+        6,
+        6
+      ],
+      "std": 0.19023415446281433,
+      "sum": 7.167953014373779
+    },
+    "shuffled_stable_causal_d": {
+      "finite_count": 72,
+      "mean": 0.07179010659456253,
+      "shape": [
+        2,
+        1,
+        6,
+        6
+      ],
+      "std": 0.14224496483802795,
+      "sum": 5.168887615203857
+    }
+  },
+  "metadata_contracts": {
+    "instantaneous_real_d": {
+      "causal_shortest_path": true,
+      "control_generation_level": "W_before_distance",
+      "control_isolation_contract": {
+        "cross_family_real_distance_reuse": false,
+        "cross_family_real_memory_reuse": false,
+        "distance_built_from": "W_real",
+        "memory_uses": "none",
+        "normalization_uses": "self_family_distance",
+        "random_or_shuffled_generated_before_distance": false
+      },
+      "cross_family_real_distance_reuse": false,
+      "cross_family_real_memory_reuse": false,
+      "distance_mode": "instantaneous_real_d",
+      "geometry_memory_used": false,
+      "geometry_pipeline": "H -> stable_update -> finite-speed D_causal",
+      "geometry_source_family": "real",
+      "geometry_version": "v2",
+      "max_causal_step": 1,
+      "memory_source": "none",
+      "normalization_source": "self_family_distance"
+    },
+    "no_memory_real_d": {
+      "causal_shortest_path": true,
+      "control_generation_level": "W_before_distance",
+      "control_isolation_contract": {
+        "cross_family_real_distance_reuse": false,
+        "cross_family_real_memory_reuse": false,
+        "distance_built_from": "W_real",
+        "memory_uses": "none",
+        "normalization_uses": "self_family_distance",
+        "random_or_shuffled_generated_before_distance": false
+      },
+      "cross_family_real_distance_reuse": false,
+      "cross_family_real_memory_reuse": false,
+      "distance_mode": "no_memory_real_d",
+      "geometry_memory_used": false,
+      "geometry_pipeline": "H -> W_real -> finite-speed D_causal",
+      "geometry_source_family": "real",
+      "geometry_version": "v2",
+      "max_causal_step": 1,
+      "memory_source": "none",
+      "normalization_source": "self_family_distance"
+    },
+    "random_stable_causal_d": {
+      "causal_shortest_path": true,
+      "control_generation_level": "W_before_distance",
+      "control_isolation_contract": {
+        "cross_family_real_distance_reuse": false,
+        "cross_family_real_memory_reuse": false,
+        "distance_built_from": "W_random",
+        "memory_uses": "self_family_memory_recurrence",
+        "normalization_uses": "self_family_distance",
+        "random_or_shuffled_generated_before_distance": true
+      },
+      "cross_family_real_distance_reuse": false,
+      "cross_family_real_memory_reuse": false,
+      "distance_mode": "random_stable_causal_d",
+      "geometry_memory_used": true,
+      "geometry_pipeline": "H -> W_t memory -> finite-speed D_causal",
+      "geometry_source_family": "random",
+      "geometry_version": "v2",
+      "max_causal_step": 1,
+      "memory_source": "self_family_memory_recurrence",
+      "normalization_source": "self_family_distance"
+    },
+    "real_stable_causal_d": {
+      "causal_shortest_path": true,
+      "control_generation_level": "W_before_distance",
+      "control_isolation_contract": {
+        "cross_family_real_distance_reuse": false,
+        "cross_family_real_memory_reuse": false,
+        "distance_built_from": "W_real",
+        "memory_uses": "self_family_memory_recurrence",
+        "normalization_uses": "self_family_distance",
+        "random_or_shuffled_generated_before_distance": false
+      },
+      "cross_family_real_distance_reuse": false,
+      "cross_family_real_memory_reuse": false,
+      "distance_mode": "real_stable_causal_d",
+      "geometry_memory_used": true,
+      "geometry_pipeline": "H -> W_t memory -> finite-speed D_causal",
+      "geometry_source_family": "real",
+      "geometry_version": "v2",
+      "max_causal_step": 1,
+      "memory_source": "self_family_memory_recurrence",
+      "normalization_source": "self_family_distance"
+    },
+    "shuffled_stable_causal_d": {
+      "causal_shortest_path": true,
+      "control_generation_level": "W_before_distance",
+      "control_isolation_contract": {
+        "cross_family_real_distance_reuse": false,
+        "cross_family_real_memory_reuse": false,
+        "distance_built_from": "W_shuffled",
+        "memory_uses": "self_family_memory_recurrence",
+        "normalization_uses": "self_family_distance",
+        "random_or_shuffled_generated_before_distance": true
+      },
+      "cross_family_real_distance_reuse": false,
+      "cross_family_real_memory_reuse": false,
+      "distance_mode": "shuffled_stable_causal_d",
+      "geometry_memory_used": true,
+      "geometry_pipeline": "H -> W_t memory -> finite-speed D_causal",
+      "geometry_source_family": "shuffled",
+      "geometry_version": "v2",
+      "max_causal_step": 1,
+      "memory_source": "self_family_memory_recurrence",
+      "normalization_source": "self_family_distance"
+    }
+  },
+  "next_required_step": "run_geoattention_v2_training_controls",
+  "phase": "phase8a_control_isolation_audit",
+  "scientific_scope": "mechanics_only_no_performance_claim",
+  "seed": 2027,
+  "status": "pass",
+  "w_level_control_audit": {
+    "checks": {
+      "future_edges_forbidden": true,
+      "invalid_edges_preserved_random": true,
+      "invalid_edges_preserved_shuffled": true,
+      "random_built_at_w_level": true,
+      "random_w_changes_valid_edges": true,
+      "random_w_preserves_valid_range": true,
+      "shuffled_built_at_w_level": true,
+      "shuffled_w_changes_valid_edges": true,
+      "shuffled_w_preserves_valid_multiset": true,
+      "valid_edge_mask_shared": true
+    },
+    "fingerprints": {
+      "random_w": {
+        "finite_count": 72,
+        "mean": 0.5199283957481384,
+        "shape": [
+          2,
+          1,
+          6,
+          6
+        ],
+        "std": 0.23304572701454163,
+        "sum": 37.434844970703125
+      },
+      "real_w": {
+        "finite_count": 72,
+        "mean": 0.5246117115020752,
+        "shape": [
+          2,
+          1,
+          6,
+          6
+        ],
+        "std": 0.23559248447418213,
+        "sum": 37.77204132080078
+      },
+      "shuffled_w": {
+        "finite_count": 72,
+        "mean": 0.5246117115020752,
+        "shape": [
+          2,
+          1,
+          6,
+          6
+        ],
+        "std": 0.23559248447418213,
+        "sum": 37.77204132080078
+      }
+    },
+    "valid_edges": 25
+  }
+}

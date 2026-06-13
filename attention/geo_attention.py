@@ -560,6 +560,18 @@ class GeoAttention(nn.Module):
         memory_used: bool,
         shortest_path: bool,
     ) -> dict[str, Any]:
+        source_family = self._geometry_source_family()
+        memory_source = (
+            "self_family_memory_recurrence"
+            if self.config.distance_mode in STABLE_MEMORY_DISTANCE_MODES
+            else "none"
+        )
+        normalization_source = (
+            "none" if self.config.distance_mode == "zero_d" else "self_family_distance"
+        )
+        control_generation_level = (
+            "none" if self.config.distance_mode == "zero_d" else "W_before_distance"
+        )
         return {
             "distance_mode": self.config.distance_mode,
             "geometry_pipeline": pipeline,
@@ -567,7 +579,32 @@ class GeoAttention(nn.Module):
             "geometry_memory_used": memory_used,
             "causal_shortest_path": shortest_path,
             "max_causal_step": self.config.max_causal_step,
+            "geometry_source_family": source_family,
+            "control_generation_level": control_generation_level,
+            "normalization_source": normalization_source,
+            "memory_source": memory_source,
+            "cross_family_real_distance_reuse": False,
+            "cross_family_real_memory_reuse": False,
+            "control_isolation_contract": {
+                "distance_built_from": f"W_{source_family}",
+                "normalization_uses": normalization_source,
+                "memory_uses": memory_source,
+                "random_or_shuffled_generated_before_distance": source_family
+                in {"random", "shuffled"},
+                "cross_family_real_distance_reuse": False,
+                "cross_family_real_memory_reuse": False,
+            },
         }
+
+    def _geometry_source_family(self) -> str:
+        mode = self.config.distance_mode
+        if mode.startswith("random_"):
+            return "random"
+        if mode.startswith("shuffled_"):
+            return "shuffled"
+        if mode == "zero_d":
+            return "zero"
+        return "real"
 
     def _distance_for_bias(self, distance: torch.Tensor) -> torch.Tensor:
         finite_mask = torch.isfinite(distance)

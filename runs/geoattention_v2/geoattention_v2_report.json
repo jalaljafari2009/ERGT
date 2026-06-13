@@ -45,10 +45,10 @@
       "valid_attention_entropy": 0.025392362847924232
     },
     "random_stable_causal_d": {
-      "attention_alignment_score": 0.31840520950467427,
-      "target_cosine": 0.65504951775074,
-      "target_prediction_score": 0.10962904915194016,
-      "valid_attention_entropy": 0.19927158951759338
+      "attention_alignment_score": 0.31660046724320773,
+      "target_cosine": 0.6518518179655075,
+      "target_prediction_score": 0.10749709628339515,
+      "valid_attention_entropy": 0.19382458180189133
     },
     "real_stable_causal_d": {
       "attention_alignment_score": 0.31640791371660437,
@@ -57,10 +57,10 @@
       "valid_attention_entropy": 0.19275056943297386
     },
     "shuffled_stable_causal_d": {
-      "attention_alignment_score": 0.31785628409491873,
-      "target_cosine": 0.6543344557285309,
-      "target_prediction_score": 0.10881350158816465,
-      "valid_attention_entropy": 0.19697556644678116
+      "attention_alignment_score": 0.3182827484619582,
+      "target_cosine": 0.6547919660806656,
+      "target_prediction_score": 0.10948033966361985,
+      "valid_attention_entropy": 0.19871685281395912
     }
   },
   "next_required_step": "run_geoattention_v2_training_controls",
