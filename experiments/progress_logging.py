@@ -55,15 +55,26 @@ def format_progress_line(record: dict[str, Any]) -> str:
         f"[{condition}]",
         f"step={record.get('step')}",
     ]
+    decision = record.get("alpha_decision")
+    if decision:
+        parts.append(f"decision={decision}")
     for key, label, precision in [
         ("train_loss", "train", 4),
         ("validation_loss", "val", 4),
         ("best_validation_loss", "best", 4),
         ("perplexity", "ppl", 1),
         ("alpha_effective", "alpha", 4),
-        ("alpha_next", "alpha_next", 4),
+        ("alpha_next", "a_next", 4),
+        ("alpha_delta", "d_alpha", 4),
         ("adaptive_score", "score", 6),
+        ("adaptive_slope_gain", "slope", 6),
+        ("adaptive_advantage", "adv", 6),
         ("geo_to_qk_ratio", "geo/qk", 3),
+        ("geo_qk_risk", "gRisk", 3),
+        ("attention_entropy", "ent", 3),
+        ("entropy_risk", "eRisk", 3),
+        ("mean_max_probability", "maxp", 3),
+        ("max_probability_risk", "pRisk", 3),
         ("grad_norm", "grad", 3),
         ("tokens_per_second", "tok/s", 0),
         ("gpu_memory_gb", "gpu", 2),

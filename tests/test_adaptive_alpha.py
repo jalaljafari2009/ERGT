@@ -15,6 +15,7 @@ from experiments.adaptive_alpha import (
     set_model_fixed_alpha,
 )
 from experiments.data_utils import PreparedDatasetMetadata, save_prepared_blocks
+from experiments.progress_logging import format_progress_line
 from experiments.train_ergt_adaptive_alpha import main as train_adaptive_main
 from models.ergt_v1 import ERGTV1
 
@@ -243,3 +244,41 @@ def test_train_ergt_adaptive_alpha_smoke_outputs_controller_metrics() -> None:
     assert len(progress_rows) == 2
     assert "adaptive_alpha" in progress_rows[-1]
     assert "alpha_next" in progress_rows[-1]
+    assert "alpha_delta" in progress_rows[-1]
+    assert "adaptive_slope_gain" in progress_rows[-1]
+    assert "adaptive_advantage" in progress_rows[-1]
+    assert "geo_qk_risk" in progress_rows[-1]
+    assert "entropy_risk" in progress_rows[-1]
+    assert "max_probability_risk" in progress_rows[-1]
+
+
+def test_progress_line_includes_adaptive_telemetry_fields() -> None:
+    line = format_progress_line(
+        {
+            "condition": "real_memory_d_adaptive",
+            "step": 100,
+            "validation_loss": 5.0,
+            "alpha_effective": 0.02,
+            "alpha_next": 0.03,
+            "alpha_delta": 0.01,
+            "alpha_decision": "grow",
+            "adaptive_score": 0.0003,
+            "adaptive_slope_gain": 0.0002,
+            "adaptive_advantage": 0.001,
+            "geo_to_qk_ratio": 0.06,
+            "geo_qk_risk": 0.0,
+            "attention_entropy": 3.2,
+            "entropy_risk": 0.1,
+            "mean_max_probability": 0.2,
+            "max_probability_risk": 0.0,
+        }
+    )
+
+    assert "decision=grow" in line
+    assert "a_next=0.0300" in line
+    assert "d_alpha=0.0100" in line
+    assert "slope=0.000200" in line
+    assert "adv=0.001000" in line
+    assert "gRisk=0.000" in line
+    assert "ent=3.200" in line
+    assert "maxp=0.200" in line

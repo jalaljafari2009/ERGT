@@ -121,6 +121,13 @@ def main() -> None:
             "validation loader produced no batches; reduce batch_size or provide more data"
         )
 
+    print(
+        "Live adaptive telemetry fields: "
+        "step train val best alpha a_next d_alpha decision score slope adv "
+        "geo/qk gRisk ent eRisk maxp pRisk grad tok/s gpu min",
+        flush=True,
+    )
+
     save_json(output_dir / "model_summary.json", model.model_summary())
 
     max_steps = int(config["training"]["max_steps"])
@@ -256,9 +263,17 @@ def main() -> None:
                 set_model_fixed_alpha(model, alpha_decision.next_alpha)
                 decision_row = asdict(alpha_decision)
                 log_record["adaptive_alpha"] = decision_row
+                log_record["alpha_previous"] = alpha_decision.previous_alpha
                 log_record["alpha_next"] = alpha_decision.next_alpha
+                log_record["alpha_delta"] = alpha_decision.alpha_delta
                 log_record["adaptive_score"] = alpha_decision.score
+                log_record["adaptive_slope_gain"] = alpha_decision.slope_gain
+                log_record["adaptive_advantage"] = alpha_decision.advantage
                 log_record["alpha_decision"] = alpha_decision.decision
+                log_record["geo_qk_risk"] = alpha_decision.geo_qk_risk
+                log_record["entropy_risk"] = alpha_decision.entropy_risk
+                log_record["max_probability_risk"] = alpha_decision.max_probability_risk
+                log_record["alpha_points_used"] = alpha_decision.points_used
                 append_jsonl(alpha_history_path, decision_row)
 
                 append_jsonl(progress_log_path, log_record)
