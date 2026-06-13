@@ -1,0 +1,185 @@
+{
+  "adaptive_parameters": {
+    "alpha": {
+      "growth_evidence": [
+        "positive_loss_slope_gain",
+        "real_beats_controls"
+      ],
+      "hard_ceiling_is_scientific_claim": false,
+      "meaning": "Strength of geometry injection into attention logits.",
+      "restraint_evidence": [
+        "attention_collapse_pressure",
+        "control_penalty"
+      ]
+    },
+    "causal_reachability": {
+      "growth_evidence": [
+        "local_geometry_underfits",
+        "stable_longer_edges"
+      ],
+      "hard_ceiling_is_scientific_claim": false,
+      "meaning": "Finite-speed graph reachability radius or policy.",
+      "restraint_evidence": [
+        "future_leakage_risk",
+        "noisy_long_edges"
+      ]
+    },
+    "distance_norm_scale": {
+      "growth_evidence": [
+        "stable_memory_low_geo_effect"
+      ],
+      "hard_ceiling_is_scientific_claim": false,
+      "meaning": "Effective scale of normalized distance before geometry bias.",
+      "restraint_evidence": [
+        "distance_scale_dominates_qk",
+        "collapse_pressure"
+      ]
+    },
+    "gate_floor": {
+      "growth_evidence": [
+        "edge_noise",
+        "random_like_edges"
+      ],
+      "hard_ceiling_is_scientific_claim": false,
+      "meaning": "Filtering strength for weak/noisy memory edges.",
+      "restraint_evidence": [
+        "relation_starvation",
+        "over_sparse_memory"
+      ]
+    },
+    "memory_decay": {
+      "growth_evidence": [
+        "stable_edges_help_loss",
+        "low_memory_turnover"
+      ],
+      "hard_ceiling_is_scientific_claim": false,
+      "meaning": "Persistence of previous relational memory.",
+      "restraint_evidence": [
+        "memory_rigidity",
+        "rank_collapse"
+      ]
+    },
+    "memory_eta": {
+      "growth_evidence": [
+        "under_adaptation",
+        "stale_memory"
+      ],
+      "hard_ceiling_is_scientific_claim": false,
+      "meaning": "Rate of accepting new relational evidence.",
+      "restraint_evidence": [
+        "high_turnover",
+        "noisy_edges"
+      ]
+    }
+  },
+  "anti_patterns": [
+    "fixed_small_alpha_as_default_truth",
+    "geo_qk_as_absolute_scientific_ceiling",
+    "single_step_loss_delta_controller",
+    "changing_alpha_memory_and_normalization_without_attribution",
+    "claiming_real_geometry_when_random_or_shuffled_matches_real",
+    "opening_more_parameters_when_run02_evidence_is_incomplete"
+  ],
+  "checks": {
+    "adaptive_parameters_declared": true,
+    "controller_obligations_require_real_controls": true,
+    "controller_obligations_require_trend_not_single_delta": true,
+    "every_adaptive_parameter_has_growth_and_restraint": true,
+    "hard_stops_are_limited_to_safety_and_validity": true,
+    "soft_pressures_are_not_hard_stops": true,
+    "telemetry_covers_loss_attention_memory_controls": true
+  },
+  "contract": "open_control_philosophy",
+  "controller_obligations": [
+    "Do not treat a soft pressure as a scientific hard stop.",
+    "Use rolling windows or smoothed trends instead of single-point deltas.",
+    "Record every parameter change with a reason and evidence fields.",
+    "Let a parameter grow when benefit evidence exceeds risk pressure.",
+    "Let a parameter shrink or freeze when risk pressure dominates.",
+    "Separate runtime safety bounds from scientific claims.",
+    "Compare real adaptive behavior against random and shuffled controls.",
+    "Do not count baseline-only improvement as proof of real relational geometry.",
+    "Allocate change budget across parameters instead of changing all knobs blindly."
+  ],
+  "hard_stops": {
+    "control_unfairness": {
+      "reason": "Real/random/shuffled comparisons are invalid if controls differ.",
+      "required_action": "abort_and_rebuild_controls"
+    },
+    "future_leakage": {
+      "reason": "Causal violations invalidate the experiment.",
+      "required_action": "abort_and_fix_mask_or_reachability"
+    },
+    "loss_explosion": {
+      "reason": "A runaway objective is not controlled adaptation.",
+      "required_action": "abort_or_rewind_to_last_safe_checkpoint"
+    },
+    "nan_or_inf": {
+      "reason": "Non-finite tensors make the trajectory uninterpretable.",
+      "required_action": "abort_and_fix_numerics"
+    },
+    "severe_attention_collapse": {
+      "reason": "Complete attention collapse prevents meaningful competition.",
+      "required_action": "freeze_or_shrink_geometry_and_record_failure"
+    }
+  },
+  "next_required_step": "unified_telemetry_schema",
+  "purpose": "Allow geometry and memory parameters to grow or shrink from evidence without pre-emptively choking the system with hard scientific ceilings.",
+  "required_telemetry": [
+    "validation_loss",
+    "baseline_centered_improvement",
+    "loss_slope_gain",
+    "control_separation",
+    "alpha",
+    "alpha_delta",
+    "memory_decay",
+    "memory_eta",
+    "gate_floor",
+    "distance_norm_scale",
+    "causal_reachability",
+    "geo_to_qk_ratio",
+    "attention_entropy",
+    "mean_max_probability",
+    "memory_stability",
+    "memory_turnover",
+    "spectral_entropy",
+    "effective_rank",
+    "rigidity_risk",
+    "noise_risk",
+    "control_penalty",
+    "attribution_summary"
+  ],
+  "soft_pressures": {
+    "attention_entropy_drop": {
+      "meaning": "Detects narrowing attention.",
+      "role": "pressure",
+      "rule": "penalize_when_not_supported_by_loss_and_controls"
+    },
+    "control_penalty": {
+      "meaning": "Prevents random/shuffled gains from being counted as real geometry.",
+      "role": "pressure",
+      "rule": "reduce_claim_credit_when_controls_match_or_beat_real"
+    },
+    "geo_to_qk_ratio": {
+      "meaning": "Measures geometry strength relative to QK.",
+      "role": "pressure",
+      "rule": "penalize_risk_without_hard_ceiling"
+    },
+    "mean_max_probability": {
+      "meaning": "Detects excessive attention concentration.",
+      "role": "pressure",
+      "rule": "penalize_growth_when_probability_spikes"
+    },
+    "memory_rigidity": {
+      "meaning": "Detects overly persistent or collapsed memory.",
+      "role": "pressure",
+      "rule": "shift_budget_toward_eta_or_lower_decay_when_rigid"
+    },
+    "memory_turnover": {
+      "meaning": "Detects unstable memory edges.",
+      "role": "pressure",
+      "rule": "shift_budget_toward_decay_or_gate_floor_when_noisy"
+    }
+  },
+  "status": "pass"
+}

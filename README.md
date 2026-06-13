@@ -36,6 +36,10 @@ competitive alpha growth, is defined in
 Run-02 evidence consolidation, which must happen before opening more adaptive
 parameters, is defined in `docs/20_run02_evidence_consolidation.md`.
 
+The open-control philosophy for allowing growth and limitation to come from
+evidence rather than fixed scientific ceilings is defined in
+`docs/21_open_control_philosophy_contract.md`.
+
 The updated movement standard is:
 
 ```text
