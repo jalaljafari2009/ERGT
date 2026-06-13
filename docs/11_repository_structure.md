@@ -83,6 +83,13 @@ Phase 3 ratio-matched geometry control is captured in:
 docs/14_phase3_ratio_matched_plan.md
 ```
 
+Post-evidence adaptive control and Run-02 consolidation are captured in:
+
+```text
+docs/19_adaptive_competitive_alpha_plan.md
+docs/20_run02_evidence_consolidation.md
+```
+
 The original source notes remain at the repository root:
 
 ```text

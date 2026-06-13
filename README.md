@@ -33,6 +33,9 @@ The next post-evidence injection strategy, based on loss-slope feedback and
 competitive alpha growth, is defined in
 `docs/19_adaptive_competitive_alpha_plan.md`.
 
+Run-02 evidence consolidation, which must happen before opening more adaptive
+parameters, is defined in `docs/20_run02_evidence_consolidation.md`.
+
 The updated movement standard is:
 
 ```text
