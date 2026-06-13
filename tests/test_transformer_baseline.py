@@ -1,5 +1,6 @@
 import torch
 
+from experiments.train_baseline import evaluate
 from models.transformer_baseline import TransformerBaseline, TransformerBaselineConfig
 
 
@@ -70,3 +71,27 @@ def test_model_summary_contains_core_fields() -> None:
     assert summary["context_length"] == 8
     assert summary["total_params"] > 0
     assert summary["trainable_params"] > 0
+
+
+def test_baseline_evaluate_respects_max_batches() -> None:
+    class CountingModel:
+        def __init__(self) -> None:
+            self.calls = 0
+
+        def eval(self) -> None:
+            pass
+
+        def __call__(self, input_ids, targets):
+            self.calls += 1
+            return {"loss": torch.tensor(float(self.calls))}
+
+    batches = [
+        (torch.ones(1, 2, dtype=torch.long), torch.ones(1, 2, dtype=torch.long))
+        for _ in range(3)
+    ]
+    model = CountingModel()
+
+    loss = evaluate(model, batches, torch.device("cpu"), max_batches=2)
+
+    assert model.calls == 2
+    assert loss == 1.5

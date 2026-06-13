@@ -103,6 +103,8 @@ def main() -> None:
     eval_interval = int(config["training"]["eval_interval"])
     checkpoint_interval = int(config["training"]["checkpoint_interval"])
     grad_clip = float(config["training"].get("grad_clip", 0.0))
+    max_eval_batches = config["training"].get("max_eval_batches")
+    max_eval_batches = int(max_eval_batches) if max_eval_batches is not None else None
     log_geometry = bool(config.get("logging", {}).get("log_geometry_diagnostics", True))
 
     train_log_path = output_dir / config["logging"].get("train_log", "train_log.jsonl")
@@ -187,7 +189,13 @@ def main() -> None:
                 )
 
             if should_eval:
-                val_result = evaluate(model, validation_loader, device, log_geometry=log_geometry)
+                val_result = evaluate(
+                    model,
+                    validation_loader,
+                    device,
+                    log_geometry=log_geometry,
+                    max_batches=max_eval_batches,
+                )
                 val_loss = val_result["validation_loss"]
                 if not math.isfinite(val_loss):
                     raise RuntimeError(f"non-finite validation loss at step {step}: {val_loss}")
@@ -215,7 +223,13 @@ def main() -> None:
                 )
 
     wall_time = time.perf_counter() - start_time
-    final_eval = evaluate(model, validation_loader, device, log_geometry=log_geometry)
+    final_eval = evaluate(
+        model,
+        validation_loader,
+        device,
+        log_geometry=log_geometry,
+        max_batches=max_eval_batches,
+    )
     final_val_loss = final_eval["validation_loss"]
     results: dict[str, Any] = {
         "condition": config["run"]["condition"],
@@ -229,6 +243,7 @@ def main() -> None:
         "device": str(device),
         "seed": seed,
         "data_dir": str(data_dir),
+        "max_eval_batches": max_eval_batches,
         "attention": config.get("attention", {}),
         "distance": config.get("distance", {}),
     }
@@ -296,12 +311,15 @@ def evaluate(
     device: torch.device,
     *,
     log_geometry: bool,
+    max_batches: int | None = None,
 ) -> dict[str, Any]:
     model.eval()
     total_loss = 0.0
     total_tokens = 0
     geometry_records: list[dict[str, Any]] = []
-    for input_ids, targets in data_loader:
+    for batch_index, (input_ids, targets) in enumerate(data_loader):
+        if max_batches is not None and batch_index >= max_batches:
+            break
         input_ids = input_ids.to(device)
         targets = targets.to(device)
         outputs = model(

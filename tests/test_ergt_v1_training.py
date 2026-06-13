@@ -10,6 +10,7 @@ import torch
 from attention.geo_attention import GeoAttention, GeoAttentionConfig
 from evaluation.attention_metrics import aggregate_attention_diagnostics
 from experiments.data_utils import PreparedDatasetMetadata, save_prepared_blocks
+from experiments.train_ergt_v1 import evaluate
 from experiments.train_ergt_v1 import main as train_ergt_main
 from models.ergt_v1 import ERGTV1
 
@@ -220,3 +221,34 @@ def test_train_ergt_v1_smoke_outputs_finite_metrics_and_exact_step(
     assert "tokens_per_second" in progress_rows[0]
     assert "alpha_effective" in progress_rows[0]
     assert checkpoint["step"] == 1
+
+
+def test_ergt_evaluate_respects_max_batches() -> None:
+    class CountingModel:
+        def __init__(self) -> None:
+            self.calls = 0
+
+        def eval(self) -> None:
+            pass
+
+        def __call__(self, input_ids, *, targets, return_geometry_diagnostics):
+            self.calls += 1
+            assert return_geometry_diagnostics is False
+            return {"loss": torch.tensor(float(self.calls))}
+
+    batches = [
+        (torch.ones(1, 2, dtype=torch.long), torch.ones(1, 2, dtype=torch.long))
+        for _ in range(4)
+    ]
+    model = CountingModel()
+
+    result = evaluate(
+        model,
+        batches,
+        torch.device("cpu"),
+        log_geometry=False,
+        max_batches=2,
+    )
+
+    assert model.calls == 2
+    assert result["validation_loss"] == 1.5

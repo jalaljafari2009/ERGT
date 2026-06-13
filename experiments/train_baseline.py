@@ -101,6 +101,8 @@ def main() -> None:
     eval_interval = int(config["training"]["eval_interval"])
     checkpoint_interval = int(config["training"]["checkpoint_interval"])
     grad_clip = float(config["training"].get("grad_clip", 0.0))
+    max_eval_batches = config["training"].get("max_eval_batches")
+    max_eval_batches = int(max_eval_batches) if max_eval_batches is not None else None
 
     train_log_path = output_dir / config["logging"].get("train_log", "train_log.jsonl")
     progress_log_path = output_dir / config["logging"].get(
@@ -165,7 +167,12 @@ def main() -> None:
             }
 
             if should_eval:
-                val_loss = evaluate(model, validation_loader, device)
+                val_loss = evaluate(
+                    model,
+                    validation_loader,
+                    device,
+                    max_batches=max_eval_batches,
+                )
                 if not math.isfinite(val_loss):
                     raise RuntimeError(f"non-finite validation loss at step {step}: {val_loss}")
                 perplexity = math.exp(val_loss) if val_loss < 50 else math.inf
@@ -189,7 +196,12 @@ def main() -> None:
                 )
 
     wall_time = time.perf_counter() - start_time
-    final_val_loss = evaluate(model, validation_loader, device)
+    final_val_loss = evaluate(
+        model,
+        validation_loader,
+        device,
+        max_batches=max_eval_batches,
+    )
     results = {
         "condition": config["run"]["condition"],
         "final_training_loss": final_train_loss,
@@ -202,6 +214,7 @@ def main() -> None:
         "device": str(device),
         "seed": seed,
         "data_dir": str(data_dir),
+        "max_eval_batches": max_eval_batches,
     }
     if torch.cuda.is_available() and device.type == "cuda":
         results["peak_memory_bytes"] = torch.cuda.max_memory_allocated(device)
@@ -272,11 +285,19 @@ def learning_rate_for_step(step: int, config: dict[str, Any]) -> float:
 
 
 @torch.no_grad()
-def evaluate(model: TransformerBaseline, data_loader: DataLoader, device: torch.device) -> float:
+def evaluate(
+    model: TransformerBaseline,
+    data_loader: DataLoader,
+    device: torch.device,
+    *,
+    max_batches: int | None = None,
+) -> float:
     model.eval()
     total_loss = 0.0
     total_tokens = 0
-    for input_ids, targets in data_loader:
+    for batch_index, (input_ids, targets) in enumerate(data_loader):
+        if max_batches is not None and batch_index >= max_batches:
+            break
         input_ids = input_ids.to(device)
         targets = targets.to(device)
         outputs = model(input_ids, targets=targets)
