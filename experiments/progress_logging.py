@@ -61,6 +61,8 @@ def format_progress_line(record: dict[str, Any]) -> str:
         ("best_validation_loss", "best", 4),
         ("perplexity", "ppl", 1),
         ("alpha_effective", "alpha", 4),
+        ("alpha_next", "alpha_next", 4),
+        ("adaptive_score", "score", 6),
         ("geo_to_qk_ratio", "geo/qk", 3),
         ("grad_norm", "grad", 3),
         ("tokens_per_second", "tok/s", 0),

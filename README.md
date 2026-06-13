@@ -29,6 +29,10 @@ and the meaning of "intelligence space", see
 The longer article manuscript artifacts are kept in
 `docs/research_article/`.
 
+The next post-evidence injection strategy, based on loss-slope feedback and
+competitive alpha growth, is defined in
+`docs/19_adaptive_competitive_alpha_plan.md`.
+
 The updated movement standard is:
 
 ```text
