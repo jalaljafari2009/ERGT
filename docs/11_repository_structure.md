@@ -55,6 +55,16 @@ docs/
 
 The `docs/` directory is the active project contract.
 
+Long-form article manuscript artifacts are kept in:
+
+```text
+docs/research_article/
+```
+
+This folder stores the paper-facing `.tex` source and compiled `.pdf`. It is a
+research manuscript archive, while the executable implementation contract
+remains in the numbered design documents.
+
 Phase 4 planning is captured in:
 
 ```text

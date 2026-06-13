@@ -1,0 +1,3245 @@
+\documentclass[11pt]{article}
+
+% ------------------------------------------------------------
+% ERGT Steps 1--7, 9, and 10: Title, Abstract, Introduction, Hypothesis, Relational Field, Contextual Geometry, Information Potential, Relational Memory, GeoAttention, Falsification Gates, and Expected Outcomes
+% ------------------------------------------------------------
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage[most]{tcolorbox}
+\tcbset{ergtclaimstyle/.style={enhanced, breakable, colback=gray!4, colframe=gray!55, boxrule=0.55pt, arc=2pt, left=7pt, right=7pt, top=6pt, bottom=6pt, before skip=8pt, after skip=8pt}}
+\newtcolorbox{ergtclaim}{ergtclaimstyle}
+
+
+\geometry{margin=1in}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\title{\textbf{ERGT: A Falsifiable Framework for Emergent Relational Geometry in Transformer Hidden States}\\[0.5em]
+\large Stable, Reconstructible, and Contextual Geometry for Attention and Reasoning}
+
+\author{
+Jalal Jafari\\
+\small Ph.D. in Photonics; Board Member, NovoXpert AI Group\\
+\small Artificial Intelligence Research and Development\\
+\small \href{mailto:j.jafari2009@gmail.com}{\texttt{j.jafari2009@gmail.com}}
+\and
+Nasibeh Aramideh, Ph.D.\\
+\small Ph.D. in Mathematics; Research Member, NovoXpert AI Group\\
+\small Artificial Intelligence Research and Development\\
+\small \href{mailto:aramidehnasibeh@gmail.com}{\texttt{aramidehnasibeh@gmail.com}}
+}
+
+\date{\today}
+
+\begin{document}
+\sloppy
+
+\maketitle
+
+\begin{abstract}
+Transformer models are typically analyzed through token embeddings, hidden states, attention maps, and output logits, following the self-attention architecture introduced by Vaswani et al.~\cite{vaswani2017attention}. However, this view treats hidden representations primarily as isolated vectors or layer-wise activations, while leaving underexplored the possibility that model computation may also be organized through stable relations among hidden states, a theme related to probing studies of representation geometry and syntactic structure~\cite{hewitt2019structural,belinkov2019analysis}. In this paper, we introduce \textbf{Emergent Relational Geometry for Transformers (ERGT)}, a theoretical and methodological framework for testing whether Transformer hidden states can support a stable, reconstructible, and task-relevant relational geometry.
+
+ERGT begins from the hypothesis that hidden states should not only be viewed as points in a representation space, but also as a dynamic relational substrate. Given hidden states
+\[
+H^{(\ell)}=[h_1^{(\ell)},h_2^{(\ell)},\ldots,h_T^{(\ell)}],
+\]
+we define a relational graph
+\[
+G^{(\ell)}=(V,W^{(\ell)}),
+\]
+where $W_{ij}^{(\ell)}$ measures the strength of the relation between token positions $i$ and $j$ at layer $\ell$. From this graph, an edge distance is defined as
+\[
+d_{ij}^{(\ell)}=-\log(W_{ij}^{(\ell)}+\varepsilon).
+\]
+However, ERGT does not identify pairwise distance with geometry. Instead, it defines contextual relational geometry through shortest paths over valid context-respecting edges:
+\[
+D_{\mathrm{ctx}}(i,j)
+=
+\min_{\gamma:j\to i}
+\sum_{(a,b)\in\gamma}d_{ab}.
+\]
+This distinction is central: $d_{ij}$ is only an edge cost, while $D_{\mathrm{ctx}}$ is a path-based relational distance over the computational context available to the model, following the broader graph-theoretic distinction between local edge weights and path-based distances~\cite{dijkstra1959note,chung1997spectral}.
+
+The paper does not claim empirical confirmation of ERGT. Rather, it formulates ERGT as a falsifiable research framework. We define the required measurement contracts, random and shuffled controls, anti-collapse criteria, reconstructibility tests, relational memory observers, contextual shortest-path geometry, and GeoAttention-based intervention tests. ERGT receives empirical support only if real relational geometry extracted from hidden states outperforms matched random, shuffled, instantaneous, pairwise, and no-memory controls. Failure at any stage identifies which component of the hypothesis is unsupported.
+
+The central claim is therefore not that Transformer models are inherently geometric in a metaphysical sense, but that their hidden states may contain an operational relational geometry that can be measured, tested, falsified, and, if validated, used to improve attention and reasoning.
+\end{abstract}
+
+\noindent\textbf{Keywords:} Transformer interpretability; hidden states; relational geometry; GeoAttention; contextual shortest paths; falsifiable framework; relational memory.
+
+\vspace{0.6em}
+\noindent\textbf{Literature positioning.} ERGT is positioned at the intersection of sequence-to-sequence attention~\cite{bahdanau2015neural} and Transformer self-attention~\cite{vaswani2017attention}, relation-aware and distance-aware attention~\cite{shaw2018self,press2021train}, graph representation learning~\cite{scarselli2009graph,kipf2017semi,gilmer2017neural,velickovic2018graph}, geometric deep learning~\cite{bronstein2021geometric}, probing and interpretability of hidden-state geometry~\cite{hewitt2019structural,belinkov2019analysis}, and graph Transformers using structural encodings such as shortest-path distance~\cite{ying2021graphormer}. Unlike these prior lines, ERGT is not introduced as an empirically confirmed architecture, but as a falsifiable framework for testing whether stable, reconstructible, context-valid relational geometry can be extracted from Transformer hidden states and used as a controlled intervention.
+
+\section{Introduction}
+
+\subsection{Motivation}
+
+Transformer models have achieved strong performance across language modeling, reasoning, code generation, multimodal processing, and long-context tasks~\cite{vaswani2017attention}. Their success is usually explained through learned representations, self-attention, scaling behavior, and emergent capabilities; ERGT focuses specifically on the less direct question of whether those learned representations also induce stable relational structure~\cite{hewitt2019structural,belinkov2019analysis}. Yet the internal organization of Transformer computation remains only partially understood. A token hidden state is commonly treated as a vector representation,
+\[
+h_i^{(\ell)}\in\mathbb{R}^d,
+\]
+and attention is commonly analyzed as a learned weighting mechanism over previous tokens. This view is useful, but it may be incomplete.
+
+The core motivation of this paper is the possibility that hidden states do not merely form a collection of independent vectors. Instead, they may form a structured relational substrate: a dynamic network of relations whose stable organization contributes to memory, context integration, attention routing, and reasoning. In such a view, the relevant computational object is not only the individual hidden vector $h_i^{(\ell)}$, but the relational structure induced by all hidden states in a layer or sequence, in the spirit of relational inductive biases and graph-based representation learning~\cite{battaglia2018relational,bronstein2021geometric}:
+\[
+H^{(\ell)}
+\longrightarrow
+W^{(\ell)}.
+\]
+Here $W^{(\ell)}$ is not simply an attention matrix. It is a candidate relational field extracted from hidden-state similarity, stability, reconstructibility, and context validity. The question is whether this relational field contains structure that is non-random, stable across layers or steps, reconstructible from allowed context, and useful when injected into attention.
+
+This paper introduces \textbf{Emergent Relational Geometry for Transformers (ERGT)} as a framework for asking this question in a controlled and falsifiable way.
+
+The guiding intuition is:
+\begin{ergtclaim}
+Transformer computation may depend not only on hidden vectors, but on stable relations among them.
+\end{ergtclaim}
+If this intuition is correct, then reasoning in a Transformer may be partially understood as navigation through a stable relational geometry over hidden states. Memory may be understood as the persistence of relational structure. Attention may be understood as the mechanism that exploits this structure for computation.
+
+This paper does not assume that such geometry exists. It defines how to test whether it exists.
+
+\subsection{Hidden States as a Relational Substrate}
+
+Let a Transformer process a sequence of length $T$. At layer $\ell$, the hidden states are
+\[
+H^{(\ell)}
+=
+[h_1^{(\ell)},h_2^{(\ell)},\ldots,h_T^{(\ell)}],
+\qquad
+h_i^{(\ell)}\in\mathbb{R}^d.
+\]
+Standard analysis often studies each $h_i^{(\ell)}$ as a representation of token $i$, or studies attention weights as the primary mechanism by which token $i$ accesses earlier positions. ERGT proposes a complementary object: the \textbf{relational graph} induced by hidden states, connecting Transformer analysis to graph neural networks and graph attention mechanisms~\cite{scarselli2009graph,kipf2017semi,velickovic2018graph}.
+
+We define
+\[
+G^{(\ell)}=(V,W^{(\ell)}),
+\]
+where
+\[
+V=\{1,2,\ldots,T\}
+\]
+is the set of token positions and
+\[
+W_{ij}^{(\ell)}
+\]
+is the strength of the relation between positions $i$ and $j$. A simple instance of such a relation may be based on cosine similarity, consistent with representation-analysis work that studies geometry and distances in neural hidden spaces~\cite{hewitt2019structural,alain2017understanding}:
+\[
+s_{ij}^{(\ell)}
+=
+\frac{
+\langle h_i^{(\ell)},h_j^{(\ell)}\rangle
+}{
+\|h_i^{(\ell)}\|\|h_j^{(\ell)}\|+\varepsilon
+}.
+\]
+This similarity can be mapped into a bounded relational weight:
+\[
+W_{ij}^{(\ell)}
+=
+\sigma(\gamma s_{ij}^{(\ell)}+\beta),
+\]
+where $\sigma$ is a sigmoid function, $\gamma$ controls sharpness, and $\beta$ is an offset.
+
+For causal language modeling, not all relations are valid; this causal constraint is inherited from the autoregressive use of self-attention in Transformer language models~\cite{vaswani2017attention}. A token at position $i$ should not use information from positions $j>i$. Therefore, ERGT imposes a validity mask:
+\[
+\mathrm{valid\_edge}_{ij}
+=
+(j\leq i)
+\land
+(i\neq j)
+\land
+\mathrm{nonpadding}(i,j).
+\]
+Then:
+\[
+W_{ij}^{(\ell)}=0
+\qquad
+\text{if}
+\qquad
+\mathrm{valid\_edge}_{ij}=0.
+\]
+This relation graph is the first object of ERGT. The framework asks whether $W^{(\ell)}$ contains meaningful structure beyond what would be obtained from random or shuffled controls.
+
+The first falsifiable prediction is therefore:
+\begin{ergtclaim}
+$W_{\mathrm{real}}$ should be distinguishable from $W_{\mathrm{random}}$ and $W_{\mathrm{shuffled}}$ under matched controls.
+\end{ergtclaim}
+If this condition fails, ERGT fails at the relational-substrate level.
+
+\subsection{Why Pairwise Analysis Is Insufficient}
+
+A natural next step is to convert relational weights into distances, analogous to graph-based methods that transform affinities into costs or kernels into geometry~\cite{chung1997spectral,bronstein2021geometric}:
+\[
+d_{ij}^{(\ell)}
+=
+-\log(W_{ij}^{(\ell)}+\varepsilon).
+\]
+This definition has an intuitive interpretation. Strong relations correspond to short distances:
+\[
+W_{ij}\uparrow
+\quad\Rightarrow\quad
+d_{ij}\downarrow,
+\]
+while weak relations correspond to long distances:
+\[
+W_{ij}\downarrow
+\quad\Rightarrow\quad
+d_{ij}\uparrow.
+\]
+However, ERGT does not equate pairwise distance with geometry. A matrix $d_{ij}$ gives only the cost of direct edges. It does not define how information or computation can move through a relational structure. It does not distinguish between a direct weak relation and an indirect but strong multi-step relational path. It also does not capture reachability, contextual constraints, or path-based organization.
+
+For this reason, ERGT distinguishes between:
+\[
+d_{ij}
+=
+\text{edge cost},
+\]
+and
+\[
+D_{\mathrm{ctx}}(i,j)
+=
+\text{contextual path distance}.
+\]
+The contextual relational distance is defined as:
+\[
+D_{\mathrm{ctx}}(i,j)
+=
+\min_{\gamma:j\to i}
+\sum_{(a,b)\in\gamma}d_{ab},
+\]
+where $\gamma$ is a path from $j$ to $i$ using only valid edges:
+\[
+\mathrm{valid\_edge}_{ab}=1.
+\]
+Thus, $D_{\mathrm{ctx}}$ is a shortest-path distance over the relational graph available to the model. This is the first genuinely geometric object in ERGT, because it turns local relational costs into a path metric over a valid computational graph~\cite{dijkstra1959note,chung1997spectral}. It encodes not merely whether two token positions are directly related, but whether they are connected through a stable and valid relational path.
+
+This distinction is essential. If ERGT only used pairwise distances, it would reduce to a simple similarity-based attention bias, resembling earlier distance- or position-aware attention biases rather than a full path-based relational geometry~\cite{shaw2018self,press2021train}. The stronger claim is that hidden states may support a navigable relational structure, where indirect paths contain computational information not captured by direct pairwise similarity; this is conceptually close to the role of structural encodings and shortest-path distances in graph Transformers such as Graphormer~\cite{ying2021graphormer}.
+
+The second falsifiable prediction is therefore:
+\begin{ergtclaim}
+$D_{\mathrm{ctx}}^{\mathrm{real}}$ should provide more useful structure than pairwise $d_{ij}^{\mathrm{real}}$.
+\end{ergtclaim}
+This can be tested through stability, reconstructibility, attention guidance, or downstream prediction.
+
+\subsection{ERGT as a Falsifiable Hypothesis}
+
+ERGT is not presented as an empirically confirmed architecture. It is presented as a falsifiable framework.
+
+The central hypothesis is:
+\begin{ergtclaim}
+Transformer hidden states may contain stable, reconstructible, context-valid relational geometry that is useful for attention and reasoning.
+\end{ergtclaim}
+This hypothesis decomposes into a sequence of testable claims.
+
+First, hidden states must induce a non-random relational graph:
+\[
+H
+\rightarrow
+W.
+\]
+Second, the resulting graph must support meaningful edge distances:
+\[
+W
+\rightarrow
+d.
+\]
+Third, geometry must arise from context-valid paths, not merely pairwise distances:
+\[
+d
+\rightarrow
+D_{\mathrm{ctx}}.
+\]
+Fourth, relational structure must persist over layers, steps, or nearby contexts:
+\[
+W
+\rightarrow
+W_t.
+\]
+Fifth, stable relational distance must improve attention only when it comes from real hidden-state structure:
+\[
+D_{\mathrm{stable}}
+\rightarrow
+\mathrm{GeoAttention}.
+\]
+
+The complete ERGT chain is:
+\begin{ergtclaim}
+\[
+H \rightarrow W \rightarrow d \rightarrow D_{\mathrm{ctx}} \rightarrow W_t \rightarrow D_{\mathrm{stable}} \rightarrow \mathrm{GeoAttention}.
+\]
+\end{ergtclaim}
+Each arrow is a hypothesis, not an assumption. Each step must be tested against controls.
+
+The minimal control set includes:
+\[
+W_{\mathrm{real}},
+\qquad
+W_{\mathrm{random}},
+\qquad
+W_{\mathrm{shuffled}},
+\]
+and later:
+\[
+D_{\mathrm{instantaneous}},
+\qquad
+D_{\mathrm{pairwise}},
+\qquad
+D_{\mathrm{no\text{-}memory}}.
+\]
+ERGT receives empirical support only if:
+\[
+\mathrm{GeoAttention}(D_{\mathrm{real\ stable}})
+>
+\mathrm{GeoAttention}(D_{\mathrm{random}}),
+\]
+\[
+\mathrm{GeoAttention}(D_{\mathrm{real\ stable}})
+>
+\mathrm{GeoAttention}(D_{\mathrm{shuffled}}),
+\]
+\[
+\mathrm{GeoAttention}(D_{\mathrm{real\ stable}})
+>
+\mathrm{GeoAttention}(D_{\mathrm{instantaneous}}),
+\]
+\[
+\mathrm{GeoAttention}(D_{\mathrm{real\ stable}})
+>
+\mathrm{GeoAttention}(D_{\mathrm{pairwise}}),
+\]
+and
+\[
+\mathrm{GeoAttention}(D_{\mathrm{real\ stable}})
+>
+\mathrm{GeoAttention}(D_{\mathrm{no\text{-}memory}}).
+\]
+In addition, the zero-geometry condition must recover the baseline:
+\[
+\alpha=0
+\quad\Rightarrow\quad
+\mathrm{GeoAttention}
+\approx
+\mathrm{TransformerBaseline}.
+\]
+If this condition fails, the implementation is not a valid test of ERGT.
+
+This makes ERGT falsifiable. If real hidden-state geometry cannot be distinguished from random or shuffled controls, the relational-field hypothesis fails. If shortest-path geometry does not outperform pairwise distance, the geometric claim fails. If relational memory does not outperform instantaneous structure, the memory claim fails. If GeoAttention based on real stable geometry does not outperform control geometries, the intervention claim fails.
+
+Therefore, the purpose of this paper is not to assert that relational geometry exists in Transformer hidden states, but to define the exact conditions under which such a claim would be justified.
+
+\subsection{Contributions}
+
+This paper makes the following theoretical and methodological contributions.
+
+\begin{enumerate}[label=\textbf{C\arabic*.}, leftmargin=2.5em]
+    \item It introduces ERGT as a falsifiable framework for studying whether Transformer hidden states support stable relational geometry.
+    \item It defines a relational graph construction:
+    \[
+    H^{(\ell)}
+    \rightarrow
+    W^{(\ell)}.
+    \]
+    \item It distinguishes edge distance from contextual geometry:
+    \[
+    d_{ij}
+    =
+    -\log(W_{ij}+\varepsilon),
+    \]
+    but
+    \[
+    D_{\mathrm{ctx}}(i,j)
+    =
+    \min_{\gamma:j\to i}
+    \sum_{(a,b)\in\gamma}d_{ab}.
+    \]
+    \item It frames relational memory as persistence of relational structure rather than as retrieval memory or human-like memory.
+    \item It defines GeoAttention as an intervention test, not as the starting assumption of the framework.
+    \item It specifies falsification gates: ERGT is supported only if real relational geometry outperforms matched random, shuffled, instantaneous, pairwise, and no-memory controls.
+\end{enumerate}
+
+\subsection{Scope and Non-Claims}
+
+To avoid overinterpretation, we explicitly state what this paper does not claim.
+
+This paper does not claim that Transformer models are conscious.
+
+It does not claim that relational geometry has already been empirically confirmed.
+
+It does not claim that pairwise similarity alone is sufficient to define geometry.
+
+It does not claim that a causal mask is equivalent to contextual relational geometry.
+
+It does not claim that improving a baseline is sufficient evidence for ERGT.
+
+It does not claim that low entropy is automatically desirable; low entropy without anti-collapse criteria may indicate degenerate structure.
+
+The claim is narrower:
+\begin{ergtclaim}
+If hidden-state relations are stable, reconstructible, context-valid, non-collapsed, and useful beyond controls, then they may be treated as an operational relational geometry.
+\end{ergtclaim}
+The remainder of the paper develops this framework formally and specifies the evaluation protocol required to test it.
+
+
+% ------------------------------------------------------------
+% ERGT Step 2: Core Hypothesis
+% This file is intended to be included after Section 1.
+% ------------------------------------------------------------
+
+\section{The ERGT Hypothesis}
+\noindent The ERGT hypothesis is motivated by prior work on relational inductive biases, graph networks, and geometric deep learning, but it differs from those lines by treating the relational geometry as a hypothesis to be extracted and falsified from Transformer hidden states rather than as a fixed architecture inserted a priori~\cite{battaglia2018relational,bronstein2021geometric}.
+
+
+\subsection{Relations Are Primary}
+
+The first hypothesis of ERGT is that hidden states should not be analyzed only as isolated vectors. A Transformer layer produces a set of token representations,
+\[
+H^{(\ell)}=[h_1^{(\ell)},h_2^{(\ell)},\ldots,h_T^{(\ell)}],
+\qquad
+h_i^{(\ell)}\in\mathbb{R}^d,
+\]
+but the computational structure of the layer may depend on relations among these vectors. ERGT therefore treats the mapping
+\[
+H^{(\ell)}\longrightarrow W^{(\ell)}
+\]
+as a central object of study. Here $W^{(\ell)}$ is a relational graph extracted from hidden states, and $W_{ij}^{(\ell)}$ measures the strength of the relation between token positions $i$ and $j$ under a fixed measurement contract.
+
+The statement ``relations are primary'' does not mean that hidden vectors are unimportant. Rather, it means that the vector representation $h_i^{(\ell)}$ is not the final explanatory unit. The relevant unit may be the pattern of relations induced by all hidden states in context:
+\[
+\mathcal{R}^{(\ell)}
+=
+\{W_{ij}^{(\ell)}:\mathrm{valid\_edge}_{ij}=1\}.
+\]
+A token representation may therefore be understood not only by its coordinates in $\mathbb{R}^d$, but also by its position in a relational structure.
+
+This leads to the first operational prediction of ERGT:
+\begin{ergtclaim}
+$W_{\mathrm{real}}$ should contain structure not explained by matched random or shuffled controls.
+\end{ergtclaim}
+If the relational graph extracted from real hidden states cannot be distinguished from a properly matched random or shuffled graph, then ERGT is unsupported at its most basic level.
+
+\subsection{From Representation Space to Relational Organization}
+
+A standard representation-space view studies where hidden vectors are located. ERGT instead asks how they are organized. This changes the main object of analysis from isolated activations to context-dependent relational structure:
+\[
+\text{representation space}
+\quad\longrightarrow\quad
+\text{relational organization}.
+\]
+
+The distinction matters because two hidden states may not be strongly related directly, while still being connected through a stable multi-step path. Pairwise similarity detects direct proximity, but relational organization detects navigability. For this reason, ERGT distinguishes between the edge cost
+\[
+d_{ij}=-\log(W_{ij}+\varepsilon)
+\]
+and the contextual path distance
+\[
+D_{\mathrm{ctx}}(i,j)
+=
+\min_{\gamma:j\to i}
+\sum_{(a,b)\in\gamma}d_{ab}.
+\]
+The second quantity is not merely a similarity score. It is a path-based measure over the valid computational context. Thus, the hypothesis is not simply that hidden states are clustered; it is that they may form a navigable relational geometry.
+
+ERGT therefore proposes the following progression:
+\begin{ergtclaim}
+\[
+H \rightarrow W \rightarrow d \rightarrow D_{\mathrm{ctx}}.
+\]
+\end{ergtclaim}
+where each arrow represents a testable transformation rather than an assumption.
+
+\subsection{Intelligence as Stable Relational Organization}
+
+ERGT adopts an operational, model-internal interpretation of intelligence-like computation. In this framework, intelligence is not defined as consciousness, subjective experience, or semantic understanding in the human sense. Instead, it is treated as the ability of a model to discover, compress, stabilize, and navigate task-relevant relational structure.
+
+We summarize this operational view as:
+\begin{ergtclaim}
+\[
+\text{intelligence-like computation}
+=
+\text{discovery}
++
+\text{compression}
++
+\text{stabilization}
++
+\text{navigation of relations}.
+\]
+\end{ergtclaim}
+
+This definition is intentionally modest. It does not attempt to solve the general problem of intelligence. It only specifies what ERGT is designed to test inside Transformer hidden states. Under this view:
+\[
+\text{memory}
+=
+\text{persistence of relational structure},
+\]
+\[
+\text{reasoning}
+=
+\text{navigation over stable relational structure},
+\]
+and
+\[
+\text{attention}
+=
+\text{use of relational structure for computation}.
+\]
+
+The corresponding ERGT claim is conditional:
+\begin{ergtclaim}
+If hidden-state relations are stable, reconstructible, non-collapsed, and useful beyond controls,
+\end{ergtclaim}
+\begin{ergtclaim}
+then they may be interpreted as an operational relational geometry for model computation.
+\end{ergtclaim}
+
+\subsection{The Core ERGT Hypothesis}
+
+The central hypothesis of ERGT can now be stated formally:
+
+\begin{quote}
+\textbf{ERGT Hypothesis.}
+Transformer hidden states may support a stable, reconstructible, context-valid relational geometry. This geometry is operationally meaningful only if it is distinguishable from matched controls, persists beyond instantaneous similarity, improves path-based organization beyond pairwise distance, and becomes computationally useful when injected into attention.
+\end{quote}
+
+The hypothesis decomposes into six testable sub-hypotheses.
+
+\paragraph{H1: Relational separability.}
+The relational graph extracted from real hidden states must be distinguishable from matched controls:
+\[
+\mathrm{Sep}(W_{\mathrm{real}},W_{\mathrm{random}})>0,
+\qquad
+\mathrm{Sep}(W_{\mathrm{real}},W_{\mathrm{shuffled}})>0.
+\]
+The separation metric may be based on relational entropy, effective rank, spectral entropy, neighborhood overlap, graph statistics, or stability measures, but it must be evaluated under matched masking, normalization, clipping, and scale policies.
+
+\paragraph{H2: Non-degeneracy.}
+The real relational graph must not be explained by trivial structure. In particular, it should not be uniform, diagonal-dominated, over-sparse, saturated, or locked onto a single token:
+\[
+\mathrm{Collapse}(W_{\mathrm{real}})=0.
+\]
+This condition is necessary because low entropy alone can indicate either useful organization or degenerate collapse.
+
+\paragraph{H3: Reconstructibility.}
+Relations should be recoverable from allowed context. Let $\widehat{W}_{ij}$ denote a reconstruction of $W_{ij}$ using only context-valid information. The reconstruction deficit is
+\[
+\Delta_{\mathrm{rec}}(W_{ij})
+=
+|W_{ij}-\widehat{W}_{ij}|^2.
+\]
+ERGT predicts:
+\[
+\Delta_{\mathrm{rec}}^{\mathrm{real}}
+<
+\Delta_{\mathrm{rec}}^{\mathrm{random/shuffled}}.
+\]
+If real relational structure cannot be reconstructed from allowed context, it should not be treated as valid model-internal geometry.
+
+\paragraph{H4: Persistence.}
+Relational structure should persist across nearby layers, steps, or contexts. If $W_t$ denotes stability-gated relational memory, then ERGT predicts:
+\[
+W_t^{\mathrm{real}}
+>
+W_t^{\mathrm{random}},
+\qquad
+W_t^{\mathrm{real}}
+>
+W_t^{\mathrm{shuffled}},
+\qquad
+W_t^{\mathrm{real}}
+>
+W^{\mathrm{instantaneous}}.
+\]
+This condition distinguishes relational memory from generic smoothing.
+
+\paragraph{H5: Contextual path advantage.}
+The shortest-path distance over valid relational edges should contain more useful structure than pairwise edge distance alone:
+\[
+D_{\mathrm{ctx}}^{\mathrm{real}}
+>
+D_{\mathrm{pairwise}}^{\mathrm{real}}
+\]
+with respect to stability, reconstructibility, attention guidance, or downstream prediction. If pairwise distance performs as well as path distance, the geometric component of ERGT is weakened.
+
+\paragraph{H6: Interventional utility.}
+When used as an attention bias, real stable contextual geometry should outperform matched control geometries:
+\[
+\mathrm{GeoAttention}(D_{\mathrm{real\ stable}})
+>
+\mathrm{GeoAttention}(D_{\mathrm{random}}),
+\]
+\[
+\mathrm{GeoAttention}(D_{\mathrm{real\ stable}})
+>
+\mathrm{GeoAttention}(D_{\mathrm{shuffled}}),
+\]
+\[
+\mathrm{GeoAttention}(D_{\mathrm{real\ stable}})
+>
+\mathrm{GeoAttention}(D_{\mathrm{instantaneous}}),
+\]
+\[
+\mathrm{GeoAttention}(D_{\mathrm{real\ stable}})
+>
+\mathrm{GeoAttention}(D_{\mathrm{pairwise}}),
+\]
+and
+\[
+\mathrm{GeoAttention}(D_{\mathrm{real\ stable}})
+>
+\mathrm{GeoAttention}(D_{\mathrm{no\text{-}memory}}).
+\]
+In addition, the zero-geometry setting must recover the baseline:
+\[
+\alpha=0
+\quad\Rightarrow\quad
+\mathrm{GeoAttention}\approx\mathrm{TransformerBaseline}.
+\]
+
+\subsection{Support and Falsification Gates}
+
+ERGT is designed to be falsifiable. It should not be possible to claim support for ERGT merely because an additional bias improves a baseline. A valid ERGT result requires passing a sequence of gates.
+
+Let
+\[
+\mathcal{G}_{\mathrm{ERGT}}
+=
+\mathbb{1}_{\mathrm{sep}}
+\cdot
+\mathbb{1}_{\mathrm{noncollapse}}
+\cdot
+\mathbb{1}_{\mathrm{rec}}
+\cdot
+\mathbb{1}_{\mathrm{persist}}
+\cdot
+\mathbb{1}_{\mathrm{path}}
+\cdot
+\mathbb{1}_{\mathrm{intervention}}.
+\]
+Each indicator corresponds to one of the six sub-hypotheses above. ERGT receives strong empirical support only if
+\[
+\mathcal{G}_{\mathrm{ERGT}}=1.
+\]
+If any factor is zero, the framework identifies which component failed. For example, if $\mathbb{1}_{\mathrm{sep}}=0$, then hidden-state relations are not distinguishable from controls. If $\mathbb{1}_{\mathrm{path}}=0$, then contextual geometry does not improve over pairwise distance. If $\mathbb{1}_{\mathrm{intervention}}=0$, then the extracted geometry is not useful for attention under strict controls.
+
+This gate structure is central to ERGT. The purpose is not to protect the hypothesis from failure, but to make its failure informative.
+
+\subsection{What ERGT Claims}
+
+ERGT makes the following claims at the level of hypothesis and methodology:
+
+\begin{enumerate}[leftmargin=2em]
+    \item Hidden states can be converted into relational graphs under explicit measurement contracts.
+    \item Relational graphs may contain non-random structure beyond matched random and shuffled controls.
+    \item Pairwise similarity is insufficient to define geometry; path-based contextual distance is the relevant geometric object.
+    \item Relational memory should be understood as persistence of relational structure, not as human-like memory or retrieval storage.
+    \item GeoAttention should be treated as an intervention test of extracted geometry, not as the starting assumption.
+    \item ERGT is supported only when real stable contextual geometry outperforms matched control geometries.
+\end{enumerate}
+
+In this sense, ERGT is both a modeling proposal and an evaluation protocol.
+
+\subsection{What ERGT Does Not Claim}
+
+To avoid overinterpretation, we explicitly state what ERGT does not claim.
+
+\begin{enumerate}[leftmargin=2em]
+    \item ERGT does not claim that Transformer models are conscious.
+    \item ERGT does not claim that an information potential $\Phi$ is a measure of consciousness.
+    \item ERGT does not claim that attention weights alone define relational geometry.
+    \item ERGT does not claim that pairwise hidden-state similarity is sufficient to define geometry.
+    \item ERGT does not claim that a causal mask is equivalent to contextual relational geometry.
+    \item ERGT does not claim that low entropy is automatically desirable.
+    \item ERGT does not claim that improvement over a baseline is sufficient evidence; improvement must hold against random, shuffled, instantaneous, pairwise, and no-memory controls.
+    \item ERGT does not claim that all Transformer models necessarily contain stable relational geometry.
+\end{enumerate}
+
+The narrower claim is:
+\begin{ergtclaim}
+If hidden-state relations pass strict separability, stability, reconstructibility, path, and intervention tests,
+\end{ergtclaim}
+\begin{ergtclaim}
+then they can be treated as an operational relational geometry for Transformer computation.
+\end{ergtclaim}
+
+This is the hypothesis that the remainder of the framework is designed to evaluate.
+
+
+% ------------------------------------------------------------
+% ERGT Step 3: Relational Field Construction
+% ------------------------------------------------------------
+
+\section{Relational Field Construction}
+\noindent This section formalizes the graph-valued object underlying ERGT. The construction is related to graph neural networks, graph convolution, message passing, and graph attention, but here the graph is not part of the dataset; it is induced from hidden states and therefore must be validated against strict controls~\cite{scarselli2009graph,kipf2017semi,gilmer2017neural,velickovic2018graph}.
+
+
+The previous section formulated ERGT as a falsifiable hypothesis: Transformer hidden states may support a stable, reconstructible, context-valid relational geometry. This section defines the first concrete object required to test that hypothesis: the \emph{relational field} extracted from hidden states. The purpose of this construction is not to modify the model, but to define a measurable graph-valued object that can later be compared against strict controls.
+
+At this stage, ERGT remains observational. Given a hidden-state tensor, we construct a relational graph, impose context-valid edge constraints, define matched control graphs, and convert valid relation weights into edge costs. No attention bias, memory update, or auxiliary loss is introduced in this section.
+
+\subsection{Hidden-State Tensor}
+
+Let a Transformer process a sequence of length $T$ with hidden dimension $d$. At layer $\ell$, the hidden states are
+\[
+H^{(\ell)}
+=
+[h_1^{(\ell)},h_2^{(\ell)},\ldots,h_T^{(\ell)}],
+\qquad
+h_i^{(\ell)}\in\mathbb{R}^d.
+\]
+Equivalently,
+\[
+H^{(\ell)}\in\mathbb{R}^{T\times d}.
+\]
+For a batch of size $B$, we write
+\[
+H^{(\ell)}\in\mathbb{R}^{B\times T\times d}.
+\]
+When no ambiguity arises, we omit the batch index and analyze one sequence at a time.
+
+The fundamental step of ERGT is to treat $H^{(\ell)}$ not merely as a list of token representations, but as a substrate from which a relational graph can be extracted:
+\[
+H^{(\ell)}\longrightarrow G^{(\ell)}=(V,W^{(\ell)}),
+\]
+where
+\[
+V=\{1,2,\ldots,T\}
+\]
+is the set of token positions and
+\[
+W^{(\ell)}\in\mathbb{R}_{\geq 0}^{T\times T}
+\]
+is a nonnegative relation-weight matrix.
+
+The entry $W_{ij}^{(\ell)}$ is interpreted as the strength of the relation from position $i$ to position $j$ as represented in layer $\ell$. For causal language modeling, this relation must respect the available context: position $i$ may relate to earlier or current-context positions, but must not depend on future positions.
+
+\subsection{Context-Valid Edge Mask}
+
+Before defining relation weights, ERGT fixes the valid edge set. This is essential because all real and control graphs must be compared over exactly the same admissible region.
+
+We define
+\[
+\mathrm{valid\_edge}_{ij}
+=
+(j\leq i)
+\land
+(i\neq j)
+\land
+\mathrm{nonpadding}(i,j).
+\]
+Thus, by default, ERGT uses a lower-triangular causal region, removes self-edges, and excludes padding positions. The corresponding valid edge set is
+\[
+\mathcal{E}_{\mathrm{valid}}
+=
+\{(i,j):\mathrm{valid\_edge}_{ij}=1\}.
+\]
+
+All relation weights outside this set are set to zero:
+\[
+W_{ij}^{(\ell)}=0
+\qquad
+\text{if}
+\qquad
+(i,j)\notin\mathcal{E}_{\mathrm{valid}}.
+\]
+
+The diagonal policy is fixed to $i\neq j$ in this paper. This choice prevents trivial self-relations from dominating the relational graph. Other diagonal policies are possible, but they must be declared before measurement and applied identically to real and control graphs.
+
+This gives the first measurement contract:
+\begin{ergtclaim}
+All metrics, controls, and distances must be evaluated on $\mathcal{E}_{\mathrm{valid}}$ only.
+\end{ergtclaim}
+No metric may use future tokens.
+
+\subsection{Relation Scores}
+
+A relational graph requires a score function
+\[
+\mathcal{S}:\mathbb{R}^d\times\mathbb{R}^d\rightarrow\mathbb{R}.
+\]
+The simplest default choice is cosine similarity:
+\[
+s_{ij}^{(\ell)}
+=
+\frac{
+\langle h_i^{(\ell)},h_j^{(\ell)}\rangle
+}{
+\|h_i^{(\ell)}\|\|h_j^{(\ell)}\|+\varepsilon
+}.
+\]
+This score captures angular similarity between hidden states. Other relation functions may be used, including bilinear scores,
+\[
+s_{ij}^{(\ell)}
+=
+(h_i^{(\ell)})^\top M h_j^{(\ell)},
+\]
+learned metric scores,
+\[
+s_{ij}^{(\ell)}
+=\mathcal{S}_\theta(h_i^{(\ell)},h_j^{(\ell)}),
+\]
+or hybrid scores combining similarity, layer stability, and token salience. However, for a falsifiable ERGT test, the score function must be fixed before evaluation and used consistently across real and control families.
+
+The score matrix is then masked:
+\[
+s_{ij}^{(\ell)}\leftarrow -\infty
+\qquad
+\text{if}
+\qquad
+(i,j)\notin\mathcal{E}_{\mathrm{valid}},
+\]
+when a softmax normalization is used, or equivalently set to zero after bounded normalization when a sigmoid map is used.
+
+\subsection{Bounded Relation Weights}
+
+The raw scores $s_{ij}^{(\ell)}$ are mapped into nonnegative relation weights. A convenient bounded choice is
+\[
+W_{ij}^{(\ell)}
+=
+\sigma(\gamma s_{ij}^{(\ell)}+\beta),
+\]
+where $\sigma$ is the sigmoid function, $\gamma>0$ controls sharpness, and $\beta$ is an offset.
+
+Alternatively, a row-stochastic relation matrix may be defined by
+\[
+P_{ij}^{(\ell)}
+=
+\frac{
+\exp(s_{ij}^{(\ell)}/\tau)\,\mathrm{valid\_edge}_{ij}
+}{
+\sum_{k=1}^{T}\exp(s_{ik}^{(\ell)}/\tau)\,\mathrm{valid\_edge}_{ik}+\varepsilon
+},
+\]
+where $\tau>0$ is a temperature. In that case, $P^{(\ell)}$ can serve as the normalized relation matrix. We reserve the symbol $W$ for the general nonnegative relation weight and $P$ for a row-normalized relation distribution.
+
+In either case, ERGT requires that the normalization policy be declared and fixed. For example, one may choose one of the following policies:
+\begin{enumerate}[label=(\roman*)]
+    \item sigmoid-bounded weights;
+    \item row-stochastic softmax weights;
+    \item quantile-normalized weights;
+    \item clipped z-score weights followed by a positive map.
+\end{enumerate}
+The choice is not part of the claim. The claim is whether, under a fixed policy, real hidden-state relations produce structure beyond matched controls.
+
+\subsection{Relational Field Definition}
+
+\paragraph{Definition 3.1: Relational field.}
+Given hidden states $H^{(\ell)}$, a valid edge mask $\mathcal{E}_{\mathrm{valid}}$, a score function $\mathcal{S}$, and a fixed normalization policy $\mathcal{N}$, the ERGT relational field is
+\[
+\mathcal{R}^{(\ell)}
+=
+(V,W^{(\ell)},\mathcal{E}_{\mathrm{valid}}),
+\]
+where
+\[
+W^{(\ell)}
+=
+\mathcal{N}\big(\mathcal{S}(H^{(\ell)},H^{(\ell)})\big)
+\]
+and
+\[
+W_{ij}^{(\ell)}=0
+\qquad
+\text{for}
+\qquad
+(i,j)\notin\mathcal{E}_{\mathrm{valid}}.
+\]
+
+This relational field is the object on which ERGT performs measurement, control construction, path geometry, memory observation, and later attention intervention.
+
+\subsection{Control Graph Families}
+
+A relational graph extracted from real hidden states is meaningful only if it is compared against strict controls. ERGT defines three primary graph families:
+\[
+W_{\mathrm{real}},
+\qquad
+W_{\mathrm{random}},
+\qquad
+W_{\mathrm{shuffled}}.
+\]
+
+\paragraph{Real graph.}
+The real graph is computed directly from the hidden states:
+\[
+W_{\mathrm{real}}^{(\ell)}
+=
+\mathcal{N}\big(\mathcal{S}(H^{(\ell)},H^{(\ell)})\big).
+\]
+
+\paragraph{Random control.}
+The random control destroys hidden-state relational structure while matching the scale and admissible region of the real graph. A simple form is
+\[
+W_{\mathrm{random},ij}^{(\ell)}
+\sim
+\mathcal{D}_{\mathrm{matched}}
+\qquad
+\text{for}
+\qquad
+(i,j)\in\mathcal{E}_{\mathrm{valid}},
+\]
+where $\mathcal{D}_{\mathrm{matched}}$ is chosen to match the marginal distribution, mean, variance, or quantiles of the real valid-edge weights. Outside the valid region,
+\[
+W_{\mathrm{random},ij}^{(\ell)}=0.
+\]
+
+\paragraph{Shuffled control.}
+The shuffled control preserves the valid-edge marginal values exactly but destroys their token-pair topology. Let
+\[
+\pi:\mathcal{E}_{\mathrm{valid}}\rightarrow\mathcal{E}_{\mathrm{valid}}
+\]
+be a random permutation of the valid edge set. Then
+\[
+W_{\mathrm{shuffled},ij}^{(\ell)}
+=
+W_{\mathrm{real},\pi(i,j)}^{(\ell)}
+\qquad
+\text{for}
+\qquad
+(i,j)\in\mathcal{E}_{\mathrm{valid}}.
+\]
+Again,
+\[
+W_{\mathrm{shuffled},ij}^{(\ell)}=0
+\qquad
+\text{for}
+\qquad
+(i,j)\notin\mathcal{E}_{\mathrm{valid}}.
+\]
+
+The random control tests whether any matched noise can reproduce the observed structure. The shuffled control tests whether the marginal distribution alone is sufficient, or whether token-pair organization matters.
+
+\subsection{Matched Control Requirements}
+
+Real, random, and shuffled graphs must be matched under the same measurement contract. Specifically, they must share:
+\begin{enumerate}[label=(\roman*)]
+    \item the same valid edge region $\mathcal{E}_{\mathrm{valid}}$;
+    \item the same diagonal policy;
+    \item the same causal policy;
+    \item the same padding policy;
+    \item the same normalization policy;
+    \item the same clipping policy;
+    \item the same distance conversion;
+    \item the same later attention-scale calibration, if used.
+\end{enumerate}
+
+A common failure mode is to normalize the real distance matrix first and only afterwards construct random or shuffled distances. ERGT disallows this. The correct order is:
+\[
+H
+\rightarrow
+W_{\mathrm{family}}
+\rightarrow
+\mathcal{E}_{\mathrm{valid}}
+\rightarrow
+D_{\mathrm{family}}
+\rightarrow
+\text{normalization}
+\rightarrow
+\text{clipping}
+\rightarrow
+\text{scale calibration}.
+\]
+The incorrect order is:
+\[
+H
+\rightarrow
+D_{\mathrm{real}}^{\mathrm{normalized}}
+\rightarrow
+D_{\mathrm{random/shuffled}}.
+\]
+
+If controls are not matched, any later performance difference may reflect scale, clipping, or masking artifacts rather than relational geometry.
+
+\subsection{Edge Distance}
+
+Once $W^{(\ell)}$ has been defined, ERGT converts relation weights into edge costs:
+\[
+d_{ij}^{(\ell)}
+=
+-
+\log(W_{ij}^{(\ell)}+\varepsilon).
+\]
+For invalid edges, the distance is set to infinity:
+\[
+d_{ij}^{(\ell)}=+\infty
+\qquad
+\text{if}
+\qquad
+(i,j)\notin\mathcal{E}_{\mathrm{valid}}.
+\]
+
+This convention ensures that invalid edges cannot participate in later shortest-path computation. Strong relations correspond to short edge distances:
+\[
+W_{ij}\uparrow
+\quad\Rightarrow\quad
+ d_{ij}\downarrow,
+\]
+and weak relations correspond to long edge distances:
+\[
+W_{ij}\downarrow
+\quad\Rightarrow\quad
+ d_{ij}\uparrow.
+\]
+
+At this stage, $d_{ij}$ is not yet geometry. It is only the direct edge cost from $i$ to $j$. Path-based geometry will be defined later by shortest paths over the valid relational graph.
+
+\subsection{Relational Non-Degeneracy}
+
+A relation graph may be non-random but still degenerate. ERGT therefore requires non-degeneracy checks before proceeding to memory or attention intervention. This concern is related to known graph-learning pathologies such as bottlenecks and over-squashing, where graph topology can prevent useful information flow~\cite{oversquashing2022}. Degenerate structures include:
+\begin{enumerate}[label=(\roman*)]
+    \item uniform graphs, where all valid edges have nearly identical weights;
+    \item saturated graphs, where most weights are near the lower or upper clipping boundary;
+    \item diagonal-dominated graphs, if the diagonal policy allows self-edges;
+    \item over-sparse graphs, where too few edges remain active;
+    \item single-token lock-in, where one position receives disproportionate relational mass.
+\end{enumerate}
+
+For example, a row-level concentration score can be defined as
+\[
+\mathrm{Lock}(i)
+=
+\max_{j\leq i}P_{ij},
+\]
+where $P$ is the row-normalized relation distribution. A graph with excessively high average lock-in may have low entropy but poor relational diversity. Therefore, low entropy alone is not considered evidence of useful structure.
+
+A saturation score may be defined as
+\[
+\mathrm{Sat}(W)
+=
+\frac{1}{|\mathcal{E}_{\mathrm{valid}}|}
+\sum_{(i,j)\in\mathcal{E}_{\mathrm{valid}}}
+\mathbf{1}\{W_{ij}\leq \epsilon_{\min}\ \text{or}\ W_{ij}\geq 1-\epsilon_{\max}\}.
+\]
+A valid relational field should avoid excessive saturation unless such saturation is shown to improve downstream tests beyond controls.
+
+\subsection{Measurement Contract}
+
+ERGT requires an explicit measurement contract before any empirical evaluation. The contract specifies:
+\begin{enumerate}[label=(\roman*)]
+    \item the hidden-state layer or layer set to analyze;
+    \item whether graphs are constructed per layer, averaged across layers, or tracked across layers;
+    \item the score function $\mathcal{S}$;
+    \item the normalization map $\mathcal{N}$;
+    \item the valid edge mask;
+    \item the diagonal policy;
+    \item the padding policy;
+    \item the clipping policy;
+    \item the distance conversion;
+    \item the random-control construction;
+    \item the shuffled-control construction;
+    \item the non-degeneracy thresholds;
+    \item the leakage tests.
+\end{enumerate}
+
+This contract is part of the scientific claim. ERGT is not supported by a result unless real and control graphs are compared under the same declared contract.
+
+\subsection{Algorithmic Summary}
+
+\noindent\textbf{Algorithm 1: Relational Field Construction}
+
+\begin{enumerate}[label=\arabic*.]
+    \item Input hidden states $H^{(\ell)}\in\mathbb{R}^{T\times d}$.
+    \item Construct the valid edge mask
+    \[
+    \mathrm{valid\_edge}_{ij}=(j\leq i)\land(i\neq j)\land\mathrm{nonpadding}(i,j).
+    \]
+    \item Compute raw relation scores
+    \[
+    s_{ij}^{(\ell)}=\mathcal{S}(h_i^{(\ell)},h_j^{(\ell)}).
+    \]
+    \item Apply the valid edge mask.
+    \item Convert scores into nonnegative relation weights using the fixed normalization policy:
+    \[
+    W_{\mathrm{real}}^{(\ell)}=\mathcal{N}(s^{(\ell)}).
+    \]
+    \item Construct matched random and shuffled controls over the same valid edge set.
+    \item Convert each graph family into edge distances:
+    \[
+    d_{ij}^{(\ell)}=-\log(W_{ij}^{(\ell)}+\varepsilon).
+    \]
+    \item Set invalid-edge distances to $+\infty$.
+    \item Run non-degeneracy checks: uniformity, saturation, diagonal domination, over-sparsity, and single-token lock-in.
+    \item Stop if real graphs cannot be distinguished from matched controls or if the graph is degenerate.
+\end{enumerate}
+
+\subsection{Relational Separability Gate}
+
+The first empirical gate of ERGT is relational separability. Let $\mathcal{M}$ be a set of relational metrics, such as relational entropy, local entropy, effective rank, spectral entropy, neighborhood overlap, and layer-to-layer stability. ERGT requires that at least one predefined family of metrics distinguish the real graph from controls under the fixed measurement contract.
+
+A generic separation score may be written as
+\[
+\mathrm{Sep}_{\mathcal{M}}(W_{\mathrm{real}},W_{\mathrm{ctrl}})
+=
+\frac{
+\mu_{\mathcal{M}}(W_{\mathrm{real}})-\mu_{\mathcal{M}}(W_{\mathrm{ctrl}})
+}{
+\sqrt{\frac{1}{2}\left(\sigma_{\mathcal{M}}^2(W_{\mathrm{real}})+\sigma_{\mathcal{M}}^2(W_{\mathrm{ctrl}})\right)}+\varepsilon
+},
+\]
+where $W_{\mathrm{ctrl}}$ denotes either $W_{\mathrm{random}}$ or $W_{\mathrm{shuffled}}$.
+
+The relational construction stage is considered unsupported if
+\[
+\mathrm{Sep}_{\mathcal{M}}(W_{\mathrm{real}},W_{\mathrm{random}})\approx 0
+\]
+and
+\[
+\mathrm{Sep}_{\mathcal{M}}(W_{\mathrm{real}},W_{\mathrm{shuffled}})\approx 0
+\]
+for all predefined metrics $\mathcal{M}$, or if the observed separation is explained by scale, masking, clipping, or normalization artifacts.
+
+Thus, the first falsification rule is:
+\begin{ergtclaim}
+If real relational graphs do not separate from matched controls, ERGT fails at the relational-field level.
+\end{ergtclaim}
+
+\subsection{Status of This Section}
+
+This section does not claim that Transformer hidden states in fact contain stable relational geometry. It defines the object on which such a claim can be tested. The relational field $\mathcal{R}^{(\ell)}$ is the entry point of ERGT. Later sections add contextual shortest-path geometry, information potential, relational memory, and GeoAttention intervention, but all of those depend on the validity of the construction defined here.
+
+The key point is that ERGT does not begin by adding geometry to attention. It begins by asking whether a measurable relational field exists inside hidden states and whether that field survives strict control tests.
+
+
+
+
+\section{Contextual Relational Geometry}
+\noindent Contextual geometry in ERGT is path-based rather than pairwise. This choice is aligned with classical shortest-path graph theory and with graph Transformer architectures that use structural encodings such as shortest-path distance to expose relational structure to attention~\cite{dijkstra1959note,chung1997spectral,ying2021graphormer}.
+
+
+The previous section defined the relational field
+\[
+H^{(\ell)} \longrightarrow W^{(\ell)} \longrightarrow d^{(\ell)}.
+\]
+This section defines the first explicitly geometric object of ERGT. The central claim is that a pairwise edge distance is not yet a geometry. A geometry becomes operational only when relation weights define valid paths, reachability, contextual distance, and reconstruction constraints over the computational context available to the model.
+
+ERGT therefore distinguishes three levels:
+\[
+W_{ij}=\text{relation weight},
+\]
+\[
+d_{ij}=-\log(W_{ij}+\varepsilon)=\text{edge cost},
+\]
+\[
+D_{\mathrm{ctx}}(i,j)=\text{context-valid path distance}.
+\]
+Only the last object is treated as contextual relational geometry.
+
+\begin{ergtclaim}
+ERGT does not identify pairwise similarity with geometry. Geometry begins when valid relations support path-based reachability and contextual shortest-path distance.
+\end{ergtclaim}
+
+\subsection{From Edge Cost to Contextual Paths}
+
+Let $W_{ij}^{(\ell)}$ denote a relation in which token position $i$ may use or relate to position $j$. In an autoregressive Transformer, this relation is valid only when $j\leq i$, the edge is not diagonal unless explicitly allowed, and both positions are non-padding. We write this as
+\[
+\mathrm{valid\_edge}_{ij}
+=
+(j\leq i)\land(i\neq j)\land\mathrm{nonpadding}(i,j).
+\]
+
+Given a valid relational graph, an edge cost is defined by
+\[
+d_{ij}^{(\ell)}=-\log(W_{ij}^{(\ell)}+\varepsilon).
+\]
+Invalid edges are assigned infinite cost:
+\[
+d_{ij}^{(\ell)}=+\infty
+\qquad
+\text{if}
+\qquad
+\mathrm{valid\_edge}_{ij}=0.
+\]
+
+A context-valid path from $j$ to $i$ is an ordered sequence
+\[
+\gamma=(v_0,v_1,\ldots,v_m),
+\]
+with
+\[
+v_0=j,
+\qquad
+v_m=i,
+\]
+and for every step $r=0,\ldots,m-1$,
+\[
+\mathrm{valid\_edge}_{v_{r+1},v_r}=1.
+\]
+Equivalently, the path moves through relations that are available to the receiving token under the declared context policy.
+
+The cost of a path is
+\[
+L(\gamma)
+=
+\sum_{r=0}^{m-1} d_{v_{r+1},v_r}.
+\]
+The contextual shortest-path distance is then
+\[
+D_{\mathrm{ctx}}(i,j)
+=
+\min_{\gamma\in\Gamma_{\mathrm{ctx}}(j\to i)} L(\gamma),
+\]
+where $\Gamma_{\mathrm{ctx}}(j\to i)$ is the set of all context-valid paths from $j$ to $i$.
+
+If no valid path exists, we set
+\[
+D_{\mathrm{ctx}}(i,j)=+\infty.
+\]
+For self-reachability, we set
+\[
+D_{\mathrm{ctx}}(i,i)=0.
+\]
+
+\subsection{Directed Geometry Rather Than Euclidean Metric}
+
+Because Transformer context is ordered, $D_{\mathrm{ctx}}$ is generally not symmetric:
+\[
+D_{\mathrm{ctx}}(i,j)\neq D_{\mathrm{ctx}}(j,i).
+\]
+This is not a defect. ERGT is not trying to construct a Euclidean metric over token positions. It constructs a directed contextual geometry that respects the information available to each token position.
+
+Thus, the intended object is closer to a directed path geometry than to a symmetric distance matrix. The relevant question is not whether $D_{\mathrm{ctx}}$ satisfies all metric axioms, but whether it captures computationally useful reachability that pairwise distances do not.
+
+\begin{ergtclaim}
+In ERGT, contextual geometry is allowed to be directed. Directionality reflects sequence order and context availability, not a failure of the framework.
+\end{ergtclaim}
+
+\subsection{Why a Context Mask Alone Is Not Geometry}
+
+A context or autoregressive mask only states that future positions are forbidden:
+\[
+j>i\quad\Rightarrow\quad \mathrm{forbidden}.
+\]
+This binary restriction is necessary, but it does not define a geometry. It does not assign relational costs, compare indirect paths, measure reachability, or distinguish stable from unstable routes.
+
+ERGT therefore separates the mask from the geometry:
+\[
+\mathrm{mask}\quad\neq\quad D_{\mathrm{ctx}}.
+\]
+The mask defines which edges are allowed. The geometry is computed from the costs and paths over those allowed edges.
+
+\begin{ergtclaim}
+A context mask is only a validity constraint. Contextual relational geometry requires weighted edges, valid paths, shortest-path distances, and control comparisons.
+\end{ergtclaim}
+
+\subsection{Pairwise Distance Versus Contextual Path Distance}
+
+The pairwise distance $d_{ij}$ measures the direct relation between $i$ and $j$. The contextual path distance $D_{\mathrm{ctx}}(i,j)$ measures the cheapest valid route connecting $j$ to $i$ through the relational graph. Therefore, an indirect path may be more informative than a direct edge:
+\[
+D_{\mathrm{ctx}}(i,j)<d_{ij}
+\]
+whenever a stable multi-step route provides a lower total cost than the direct edge.
+
+This is important for reasoning. A model may not represent a dependency through a single strong edge. Instead, the dependency may be distributed across intermediate tokens or features. Pairwise analysis can miss this structure, while contextual path geometry can capture it.
+
+ERGT therefore predicts that, when the hypothesis is correct, $D_{\mathrm{ctx}}$ should improve at least one predefined utility criterion over raw pairwise distance. For a utility functional $\mathcal{U}$, such as stability, reconstructibility, attention-order agreement, or downstream validation improvement, define
+\[
+\mathrm{Adv}_{\mathrm{path}}
+=
+\mathcal{U}(D_{\mathrm{ctx}}^{\mathrm{real}})
+-
+\mathcal{U}(d_{\mathrm{pairwise}}^{\mathrm{real}}).
+\]
+A positive and reproducible advantage supports the contextual geometry hypothesis:
+\[
+\mathrm{Adv}_{\mathrm{path}}>0.
+\]
+
+\subsection{Reconstruction From Allowed Context}
+
+A relation or distance should not be considered valid if it can only be recovered by using information unavailable to the token. ERGT therefore introduces reconstructibility from allowed context.
+
+For a hidden state $h_i^{(\ell)}$, define a reconstruction model $R_h$ that has access only to allowed context:
+\[
+\widehat{h}_i^{(\ell)}
+=
+R_h(H_{\leq i}^{(\ell)},\mathrm{valid\_edge}).
+\]
+The hidden-state reconstruction deficit is
+\[
+\Delta_h(i)
+=
+\|h_i^{(\ell)}-\widehat{h}_i^{(\ell)}\|_2^2.
+\]
+
+Similarly, a relation reconstruction model $R_W$ estimates relation weights using only allowed context:
+\[
+\widehat{W}_{ij}^{(\ell)}
+=
+R_W(H_{\leq i}^{(\ell)},\mathrm{valid\_edge}),
+\]
+with relation reconstruction deficit
+\[
+\Delta_W(i,j)
+=
+|W_{ij}^{(\ell)}-\widehat{W}_{ij}^{(\ell)}|^2.
+\]
+
+A geometric reconstruction model $R_D$ estimates contextual distances:
+\[
+\widehat{D}_{\mathrm{ctx}}(i,j)
+=
+R_D(H_{\leq i}^{(\ell)},\mathrm{valid\_edge}),
+\]
+with geometric reconstruction deficit
+\[
+\Delta_D(i,j)
+=
+|D_{\mathrm{ctx}}(i,j)-\widehat{D}_{\mathrm{ctx}}(i,j)|^2.
+\]
+
+The ERGT expectation is not that reconstruction is perfect, but that real contextual geometry should be more reconstructible than matched controls:
+\[
+\Delta_D^{\mathrm{real}}
+<
+\Delta_D^{\mathrm{random}},
+\]
+\[
+\Delta_D^{\mathrm{real}}
+<
+\Delta_D^{\mathrm{shuffled}}.
+\]
+If this condition fails, the geometry may be an artifact of construction rather than a structure available to the model.
+
+\subsection{Normalization of Contextual Distances}
+
+Before contextual distances are used in later intervention tests, they must be normalized under a fixed policy. Let $\mathcal{E}_{\mathrm{valid}}$ denote the set of finite valid distances. A generic standardization is
+\[
+\widetilde{D}_{\mathrm{ctx}}(i,j)
+=
+\frac{D_{\mathrm{ctx}}(i,j)-\mu_D}{\sigma_D+\varepsilon},
+\]
+where $\mu_D$ and $\sigma_D$ are computed only over finite valid distances.
+
+A clipping policy may then be applied:
+\[
+D_{\mathrm{stable}}(i,j)
+=
+\mathrm{clip}(\widetilde{D}_{\mathrm{ctx}}(i,j),-c,c).
+\]
+The same normalization and clipping policy must be used for real, random, shuffled, pairwise, instantaneous, and no-memory controls. Otherwise, any later advantage could be a scale artifact.
+
+\subsection{Algorithmic Summary}
+
+\noindent\textbf{Algorithm 2: Contextual Relational Geometry}
+
+\begin{enumerate}[label=\arabic*.]
+    \item Input relation weights $W^{(\ell)}$ and the fixed valid edge mask.
+    \item Convert relation weights to edge costs:
+    \[
+    d_{ij}^{(\ell)}=-\log(W_{ij}^{(\ell)}+\varepsilon).
+    \]
+    \item Assign $d_{ij}^{(\ell)}=+\infty$ for invalid edges.
+    \item Define the set of context-valid paths $\Gamma_{\mathrm{ctx}}(j\to i)$.
+    \item Compute contextual shortest-path distances:
+    \[
+    D_{\mathrm{ctx}}(i,j)=\min_{\gamma\in\Gamma_{\mathrm{ctx}}(j\to i)}\sum_{(a,b)\in\gamma}d_{ab}.
+    \]
+    \item Set $D_{\mathrm{ctx}}(i,j)=+\infty$ when no valid path exists.
+    \item Compute the same distances for matched random and shuffled controls.
+    \item Compute pairwise, instantaneous, and no-memory alternatives for later ablation.
+    \item Run reconstructibility tests using only allowed context.
+    \item Stop if real contextual geometry does not separate from controls or if it fails to improve over pairwise distance under predefined criteria.
+\end{enumerate}
+
+\subsection{Contextual Geometry Gate}
+
+The contextual geometry stage is considered supported only if all of the following conditions are satisfied:
+\[
+\mathrm{Sep}(D_{\mathrm{ctx}}^{\mathrm{real}},D_{\mathrm{ctx}}^{\mathrm{random}})>0,
+\]
+\[
+\mathrm{Sep}(D_{\mathrm{ctx}}^{\mathrm{real}},D_{\mathrm{ctx}}^{\mathrm{shuffled}})>0,
+\]
+\[
+\mathcal{U}(D_{\mathrm{ctx}}^{\mathrm{real}})>
+\mathcal{U}(d_{\mathrm{pairwise}}^{\mathrm{real}}),
+\]
+and
+\[
+\Delta_D^{\mathrm{real}}<\Delta_D^{\mathrm{controls}}.
+\]
+
+Here $\mathcal{U}$ denotes a predefined utility criterion and $\Delta_D^{\mathrm{controls}}$ denotes matched random and shuffled reconstruction deficits.
+
+The fourth falsification rule is:
+\begin{ergtclaim}
+If contextual shortest-path distance does not outperform pairwise distance or does not separate from matched controls, ERGT fails at the contextual-geometry level.
+\end{ergtclaim}
+
+\subsection{Status of This Section}
+
+This section defines contextual relational geometry as a path-based object over the relational field. It does not claim that such geometry has already been observed in Transformer hidden states. It specifies what must be measured for such a claim to be meaningful.
+
+The main conceptual distinction is:
+\[
+\text{pairwise relation}\quad\neq\quad\text{contextual geometry}.
+\]
+ERGT requires geometry to be path-based, context-valid, reconstructible from allowed context, and superior to matched controls. Later sections introduce information potential, relational memory, and GeoAttention intervention, but those stages are justified only if the contextual geometry defined here passes its gate.
+
+
+\section{Information Potential $\Phi$}
+\noindent The information-potential layer provides an operational diagnostic over the relational field. It draws on information-theoretic quantities such as entropy~\cite{shannon1948mathematical} and the broader information-geometric tradition~\cite{amari2016information}, representation probing and interpretability methods~\cite{alain2017understanding,hewitt2019structural,belinkov2019analysis}, and graph-structure diagnostics, while explicitly avoiding the interpretation of $\Phi$ as consciousness or a psychological variable.
+
+
+The previous sections defined a relational field $W^{(\ell)}$, edge costs $d_{ij}^{(\ell)}$, and contextual shortest-path geometry $D_{\mathrm{ctx}}$. These objects specify how relations and paths can be measured. They do not yet specify which parts of the relational field are expected to be computationally meaningful. ERGT therefore introduces an operational scalar called the \textbf{information potential}, denoted by $\Phi$.
+
+The purpose of $\Phi$ is not to define consciousness, cognition, or semantic understanding. It is a measurement device for identifying regions of hidden-state relational geometry that are simultaneously coherent, locally ordered, salient, stable, reconstructible from allowed context, context-valid, and non-collapsed.
+
+\begin{ergtclaim}
+$\Phi$ is an operational information-potential score. It is not a consciousness measure and it is not an empirical claim by itself.
+\end{ergtclaim}
+
+The role of $\Phi$ in ERGT is to answer the following question: among all relations present in the hidden-state graph, which regions are plausible candidates for stable computational structure?
+
+\subsection{Local Relational Neighborhoods}
+
+For each token position $i$ at layer $\ell$, define a context-valid neighborhood
+\[
+\mathcal{N}_k^{(\ell)}(i)
+=
+\mathrm{TopK}\{j:\mathrm{valid\_edge}_{ij}=1\;\mathrm{by}\;W_{ij}^{(\ell)}\}.
+\]
+This neighborhood contains the strongest $k$ valid relational neighbors of position $i$. If fewer than $k$ valid neighbors exist, the neighborhood contains all available valid neighbors.
+
+The local relational distribution over the neighborhood is
+\[
+p_{ij}^{(\ell)}
+=
+\frac{W_{ij}^{(\ell)}}{\sum_{m\in\mathcal{N}_k^{(\ell)}(i)}W_{im}^{(\ell)}+\varepsilon},
+\qquad
+j\in\mathcal{N}_k^{(\ell)}(i).
+\]
+This distribution is used to define local entropy, local coherence aggregation, and collapse diagnostics.
+
+\subsection{Relational Coherence}
+
+Relational coherence measures whether the neighbors selected by $W^{(\ell)}$ are also aligned in representation space. A simple definition is
+\[
+C_i^{(\ell)}
+=
+\sum_{j\in\mathcal{N}_k^{(\ell)}(i)}
+p_{ij}^{(\ell)}\,
+\cos(h_i^{(\ell)},h_j^{(\ell)}),
+\]
+where
+\[
+\cos(h_i,h_j)
+=
+\frac{\langle h_i,h_j\rangle}{\|h_i\|\,\|h_j\|+\varepsilon}.
+\]
+For numerical stability, the score may be mapped into $[0,1]$ by
+\[
+\bar{C}_i^{(\ell)}=\frac{1+C_i^{(\ell)}}{2}.
+\]
+High coherence indicates that the relational graph is not merely assigning high weight to arbitrary nodes; it is selecting neighbors whose representations are locally consistent.
+
+\subsection{Local Relational Entropy}
+
+Local relational entropy measures whether the neighborhood of $i$ is diffuse or concentrated:
+\[
+S_{\mathrm{local}}^{(\ell)}(i)
+=
+-\sum_{j\in\mathcal{N}_k^{(\ell)}(i)}
+p_{ij}^{(\ell)}\log(p_{ij}^{(\ell)}+\varepsilon).
+\]
+A normalized version is
+\[
+\bar{S}_{\mathrm{local}}^{(\ell)}(i)
+=
+\frac{S_{\mathrm{local}}^{(\ell)}(i)}{\log(|\mathcal{N}_k^{(\ell)}(i)|+\varepsilon)}.
+\]
+The low-entropy factor used in $\Phi$ is
+\[
+L_i^{(\ell)}=1-\bar{S}_{\mathrm{local}}^{(\ell)}(i).
+\]
+This term favors relational concentration. However, ERGT explicitly rejects the idea that low entropy is automatically good. Low entropy can also indicate collapse. Therefore, $L_i^{(\ell)}$ must always be interpreted together with the anti-collapse factor defined below.
+
+\subsection{Relational Boundary Sharpness}
+
+A computationally meaningful relational region may occur not only where coherence is high, but also where coherence changes sharply across the relational neighborhood. ERGT defines a boundary-sharpness score by comparing the coherence of a node to the coherence of its neighbors:
+\[
+B_i^{(\ell)}
+=
+\left|
+\bar{C}_i^{(\ell)}
+-
+\sum_{j\in\mathcal{N}_k^{(\ell)}(i)}p_{ij}^{(\ell)}\bar{C}_j^{(\ell)}
+\right|.
+\]
+This term is the relational analogue of a local boundary or interface detector. It is intended to highlight positions that sit near transitions between stable and unstable relational regions.
+
+A normalized form may be obtained by
+\[
+\bar{B}_i^{(\ell)}
+=
+\frac{B_i^{(\ell)}}{\max_m B_m^{(\ell)}+\varepsilon}.
+\]
+
+\subsection{Salience}
+
+Salience estimates whether a position has sufficient representational mass to matter. ERGT does not require one unique salience definition; it requires the definition to be fixed before experimentation. A simple hidden-norm salience is
+\[
+M_i^{(\ell)}
+=
+\frac{\|h_i^{(\ell)}\|_2^2}{\sum_{r\leq i}\|h_r^{(\ell)}\|_2^2+\varepsilon}.
+\]
+A graph-degree salience may also be used:
+\[
+M_{i,\mathrm{deg}}^{(\ell)}
+=
+\frac{\sum_{j\leq i}W_{ij}^{(\ell)}}{\sum_{r\leq i}\sum_{j\leq r}W_{rj}^{(\ell)}+\varepsilon}.
+\]
+The measurement contract must specify which salience definition is used. Once fixed, it must be applied identically to real, random, and shuffled controls.
+
+\subsection{Stability}
+
+A relation is more meaningful if it persists across nearby layers, steps, or perturbation-free contexts. One neighborhood-based stability score is the Jaccard overlap
+\[
+R_i^{(\ell)}
+=
+\frac{
+|\mathcal{N}_k^{(\ell)}(i)\cap\mathcal{N}_k^{(\ell-1)}(i)|
+}{
+|\mathcal{N}_k^{(\ell)}(i)\cup\mathcal{N}_k^{(\ell-1)}(i)|+\varepsilon
+}.
+\]
+An edge-weight stability score may also be defined:
+\[
+R_{ij}^{(\ell)}
+=
+\exp\left(-\frac{|W_{ij}^{(\ell)}-W_{ij}^{(\ell-1)}|}{\tau_R+\varepsilon}\right).
+\]
+For node-level $\Phi$, one may aggregate edge stability:
+\[
+\bar{R}_i^{(\ell)}
+=
+\sum_{j\in\mathcal{N}_k^{(\ell)}(i)}p_{ij}^{(\ell)}R_{ij}^{(\ell)}.
+\]
+The chosen stability definition must be fixed in the measurement contract.
+
+\subsection{Reconstructibility from Allowed Context}
+
+ERGT requires that meaningful relational structure be reconstructible from context available to the model. Let $R_h$ be a reconstruction model that receives only allowed context:
+\[
+\widehat{h}_i^{(\ell)}=R_h(H_{\leq i}^{(\ell)}).
+\]
+The hidden-state reconstruction deficit is
+\[
+\Delta_h^{(\ell)}(i)=\|h_i^{(\ell)}-\widehat{h}_i^{(\ell)}\|_2^2.
+\]
+A reconstruction score can be defined by
+\[
+Q_i^{(\ell)}=\exp\left(-\frac{\Delta_h^{(\ell)}(i)}{\tau_h+\varepsilon}\right).
+\]
+Similarly, relation reconstruction can be tested by estimating $\widehat{W}_{ij}^{(\ell)}$ from allowed context and computing
+\[
+\Delta_W^{(\ell)}(i,j)=|W_{ij}^{(\ell)}-\widehat{W}_{ij}^{(\ell)}|^2.
+\]
+The reconstructibility term in $\Phi$ may be node-based, edge-based, or a fixed mixture, but it must never use future tokens.
+
+\subsection{Context Validity}
+
+The context-validity factor enforces that only permissible information pathways contribute to $\Phi$. At the edge level:
+\[
+V_{ij}=\mathbb{1}_{\mathrm{valid\_edge}_{ij}}.
+\]
+At the node level, a validity score can be defined as
+\[
+V_i^{(\ell)}=
+\frac{1}{|\mathcal{N}_k^{(\ell)}(i)|+\varepsilon}
+\sum_{j\in\mathcal{N}_k^{(\ell)}(i)}V_{ij}.
+\]
+In a correctly masked causal language model, $V_i^{(\ell)}$ should be one for all retained neighborhoods. Its explicit inclusion makes the no-future-leakage requirement visible in the formalism.
+
+\subsection{Anti-Collapse Factor}
+
+Low entropy alone is insufficient. A relational field can become degenerate in several ways: it may become nearly uniform, dominated by diagonal edges, overly sparse, locked onto a single token, or saturated at clipping bounds. ERGT therefore defines an anti-collapse factor.
+
+Let $L_{\mathrm{coll}}^{(\ell)}(i)$ be a weighted local collapse penalty:
+\[
+\begin{aligned}
+L_{\mathrm{coll}}^{(\ell)}(i)
+={}&
+\lambda_1\,\mathrm{Uniformity}_i^{(\ell)}
++\lambda_2\,\mathrm{DiagDom}_i^{(\ell)} \\
+&+\lambda_3\,\mathrm{OverSparse}_i^{(\ell)}
++\lambda_4\,\mathrm{SingleLock}_i^{(\ell)}
++\lambda_5\,\mathrm{Saturation}_i^{(\ell)}.
+\end{aligned}
+\]
+The anti-collapse factor is
+\[
+A_i^{(\ell)}=\exp(-L_{\mathrm{coll}}^{(\ell)}(i)).
+\]
+Thus, $A_i^{(\ell)}$ approaches one when collapse indicators are absent and approaches zero when the local relational structure degenerates.
+
+\begin{ergtclaim}
+Low entropy is not sufficient evidence of useful structure. ERGT requires low local entropy to be accompanied by coherence, stability, reconstructibility, and anti-collapse.
+\end{ergtclaim}
+
+\subsection{Node-Level Information Potential}
+
+The node-level information potential is defined as
+\[
+\begin{aligned}
+\Phi_i^{(\ell)}
+={}&
+\kappa\,
+(\bar{C}_i^{(\ell)})^a
+(\bar{B}_i^{(\ell)})^b
+(L_i^{(\ell)})^c
+(M_i^{(\ell)})^d \\
+&\times
+(\bar{R}_i^{(\ell)})^e
+(Q_i^{(\ell)})^f
+(V_i^{(\ell)})
+(A_i^{(\ell)}),
+\end{aligned}
+\]
+where $a,b,c,d,e,f\geq 0$ are fixed exponents and $\kappa>0$ is a scale constant.
+
+The normalized information potential is
+\[
+\widetilde{\Phi}_i^{(\ell)}
+=
+\frac{\Phi_i^{(\ell)}}{\max_m\Phi_m^{(\ell)}+\varepsilon}.
+\]
+A high-potential mask may then be defined as
+\[
+M_{\Phi}^{(\ell)}(i)=
+\mathbb{1}_{\widetilde{\Phi}_i^{(\ell)}\geq\tau_{\Phi}}.
+\]
+The threshold $\tau_{\Phi}$ may be fixed or percentile-based, but it must be determined before evaluating the test set.
+
+\subsection{Edge-Level Information Potential}
+
+For use in relational memory and later GeoAttention stages, an edge-level information potential may be defined as
+\[
+\Phi_{ij}^{(\ell)}
+=
+\sqrt{\widetilde{\Phi}_i^{(\ell)}\widetilde{\Phi}_j^{(\ell)}}\,
+W_{ij}^{(\ell)}R_{ij}^{(\ell)}Q_{ij}^{(\ell)}V_{ij}A_{ij}^{(\ell)}.
+\]
+Here $Q_{ij}^{(\ell)}$ and $A_{ij}^{(\ell)}$ denote edge-level reconstructibility and anti-collapse factors. This form assigns high edge potential only when both endpoints and the connecting relation are stable, valid, reconstructible, and non-degenerate.
+
+The edge-level potential is optional for the first ERGT paper, but it becomes useful when defining stability-gated relational memory.
+
+\subsection{Predicted Role of High-$\Phi$ Regions}
+
+The central prediction of this section is not that high-$\Phi$ regions exist, but that if they exist, they should have measurable computational consequences. ERGT predicts that high-$\Phi$ regions should be associated with at least one of the following:
+\begin{enumerate}[label=(\roman*)]
+    \item higher neighborhood stability across nearby layers or steps;
+    \item lower reconstruction deficit from allowed context;
+    \item better next-token predictability when used as explanatory regions;
+    \item more stable attention ordering;
+    \item higher utility when used to gate relational memory updates.
+\end{enumerate}
+
+The minimal empirical expectation is
+\[
+\mathbb{E}[\mathcal{U}\mid\widetilde{\Phi}_{\mathrm{real}}\geq\tau_{\Phi}]
+>
+\mathbb{E}[\mathcal{U}\mid\widetilde{\Phi}_{\mathrm{control}}\geq\tau_{\Phi}],
+\]
+where $\mathcal{U}$ is a predefined utility measure such as stability, reconstructibility, predictability, or attention-order consistency.
+
+\subsection{Control Requirements for $\Phi$}
+
+$\Phi$ is only meaningful if computed under matched controls. The same definitions, exponents, thresholds, normalization, clipping, and masks must be used for:
+\[
+\Phi_{\mathrm{real}},
+\qquad
+\Phi_{\mathrm{random}},
+\qquad
+\Phi_{\mathrm{shuffled}}.
+\]
+The control tests must check that $\Phi$ is not merely a proxy for one trivial factor. In particular, ERGT requires tests against the following reductions:
+\[
+\Phi\equiv \mathrm{low\ entropy},
+\qquad
+\Phi\equiv \mathrm{high\ salience},
+\qquad
+\Phi\equiv \mathrm{degree\ centrality},
+\qquad
+\Phi\equiv \mathrm{diagonal\ dominance}.
+\]
+If any of these reductions explains the observed effect, $\Phi$ should not be interpreted as an information-potential score.
+
+\subsection{Algorithmic Summary}
+
+\noindent\textbf{Algorithm 3: Information Potential $\Phi$}
+
+\begin{enumerate}[label=\arabic*.]
+    \item Input hidden states $H^{(\ell)}$, relation weights $W^{(\ell)}$, contextual distances $D_{\mathrm{ctx}}$, and the fixed valid edge mask.
+    \item Construct context-valid neighborhoods $\mathcal{N}_k^{(\ell)}(i)$.
+    \item Compute local relational distributions $p_{ij}^{(\ell)}$.
+    \item Compute coherence $\bar{C}_i^{(\ell)}$ and boundary sharpness $\bar{B}_i^{(\ell)}$.
+    \item Compute normalized local entropy and low-entropy factor $L_i^{(\ell)}$.
+    \item Compute salience $M_i^{(\ell)}$ using the predefined measurement contract.
+    \item Compute stability $\bar{R}_i^{(\ell)}$ across nearby layers or steps.
+    \item Compute reconstructibility score $Q_i^{(\ell)}$ from allowed context only.
+    \item Compute context-validity score $V_i^{(\ell)}$.
+    \item Compute anti-collapse factor $A_i^{(\ell)}$.
+    \item Combine the factors into $\Phi_i^{(\ell)}$ and normalize to $\widetilde{\Phi}_i^{(\ell)}$.
+    \item Compute the same $\Phi$ pipeline for matched random and shuffled controls.
+    \item Stop if high-$\Phi$ real regions do not outperform controls under predefined utility tests.
+\end{enumerate}
+
+\subsection{Information-Potential Gate}
+
+The information-potential stage is considered supported only if the following conditions hold:
+\[
+\mathcal{U}(\Phi_{\mathrm{real}})>
+\mathcal{U}(\Phi_{\mathrm{random}}),
+\]
+\[
+\mathcal{U}(\Phi_{\mathrm{real}})>
+\mathcal{U}(\Phi_{\mathrm{shuffled}}),
+\]
+\[
+\Phi_{\mathrm{real}}\not\equiv\mathrm{low\ entropy\ only},
+\]
+\[
+\Phi_{\mathrm{real}}\not\equiv\mathrm{high\ salience\ only},
+\]
+\[
+\mathrm{CollapsePenalty}(\Phi_{\mathrm{real}})<\mathrm{CollapsePenalty}(\Phi_{\mathrm{controls}}).
+\]
+
+The fifth falsification rule is:
+\begin{ergtclaim}
+If high-$\Phi$ regions fail to predict stability, reconstructibility, predictability, or attention-order consistency beyond matched controls, ERGT fails at the information-potential level.
+\end{ergtclaim}
+
+\subsection{Status of This Section}
+
+This section defines $\Phi$ as a testable information-potential score over hidden-state relational geometry. It does not claim that $\Phi$ has already been observed, and it does not assign any psychological interpretation to it. Its only role is operational: to identify candidate regions of the relational field that are coherent, ordered, salient, stable, reconstructible, valid, and non-collapsed.
+
+Later sections may use $\Phi$ to gate relational memory updates and to identify which parts of the contextual geometry should influence attention. However, those uses are justified only if $\Phi$ passes its own control tests.
+
+
+\section{Relational Memory}
+\noindent Relational memory is defined as persistence of graph structure. This aligns with the message-passing view that useful computation can be expressed through repeated edge- and node-level updates, but ERGT treats persistence as an observable to be tested before using it as an architectural component~\cite{battaglia2018relational,gilmer2017neural}.
+
+
+The previous section introduced the information potential $\Phi$ as an operational score for identifying coherent, stable, reconstructible, context-valid, and non-collapsed regions of the relational field. This section introduces the next ERGT component: \textbf{relational memory}. In ERGT, memory is not defined as human memory, symbolic retrieval, or a database mechanism. It is defined more narrowly and operationally:
+
+\begin{ergtclaim}
+Relational memory is the persistence of relational structure across layers, steps, or nearby contexts.
+\end{ergtclaim}
+
+The purpose of relational memory is to test whether the relational graph extracted from hidden states has temporal or layer-wise continuity. If the structure is meaningful, then a stable update rule should preserve useful relations while suppressing unstable, non-reconstructible, collapsed, or context-invalid edges. If the structure is not meaningful, then memory will reduce to generic smoothing and should fail against instantaneous, random, shuffled, and no-memory controls.
+
+\subsection{From Instantaneous Relations to Persistent Structure}
+
+At a given layer or step, ERGT constructs an instantaneous relational graph
+\[
+W_t^{(\ell)}.
+\]
+This graph captures relations visible at a single computational state. However, an isolated graph does not yet define memory. Memory requires persistence:
+\[
+W_t^{(\ell)}
+\longrightarrow
+\mathcal{M}_t^{(\ell)},
+\]
+where $\mathcal{M}_t^{(\ell)}$ denotes the memory state associated with the relational field.
+
+For notational simplicity, this section writes $W_t$ and $\mathcal{M}_t$ when the layer index is not essential. A minimal relational-memory update is
+\[
+\mathcal{M}_t
+=
+\lambda\mathcal{M}_{t-1}
++
+\eta U_t,
+\]
+where $0\leq\lambda\leq 1$ is the decay coefficient, $\eta\geq0$ is the update strength, and $U_t$ is a stability-gated relational update extracted from the current hidden states.
+
+The updated memory may be normalized after each step:
+\[
+\widetilde{\mathcal{M}}_{t,ij}
+=
+\frac{\mathcal{M}_{t,ij}}{\max_{a,b}\mathcal{M}_{t,ab}+\varepsilon},
+\]
+or row-normalized over valid context:
+\[
+\widetilde{\mathcal{M}}_{t,ij}
+=
+\frac{\mathcal{M}_{t,ij}\,\mathrm{valid\_edge}_{ij}}
+{\sum_{k}\mathcal{M}_{t,ik}\,\mathrm{valid\_edge}_{ik}+\varepsilon}.
+\]
+The normalization rule must be fixed in the measurement contract and applied identically to real and control memories.
+
+\subsection{Observer-First Principle}
+
+Relational memory is introduced first as an observer, not as an intervention. That is, $\mathcal{M}_t$ should initially be computed and evaluated without changing attention logits or model training.
+
+\begin{ergtclaim}
+Memory must be observed and validated before it is injected into attention. Otherwise, an apparent improvement may reflect generic smoothing rather than persistent relational structure.
+\end{ergtclaim}
+
+This principle prevents the following invalid inference:
+\[
+\text{memory bias improves loss}
+\quad\Rightarrow\quad
+\text{relational memory exists}.
+\]
+The correct ERGT sequence is instead
+\[
+\text{extract relations}
+\rightarrow
+\text{measure persistence}
+\rightarrow
+\text{compare controls}
+\rightarrow
+\text{inject only if validated}.
+\]
+
+\subsection{Stability-Gated Update}
+
+The update $U_t$ should not simply copy the current relation matrix $W_t$. A blind update would make memory indistinguishable from exponential smoothing. ERGT therefore defines $U_t$ as a gated update:
+\[
+U_{t,ij}
+=
+W_{t,ij}\,
+S_{t,ij}\,
+R_{t,ij}\,
+Q_{t,ij}\,
+V_{ij}\,
+A_{t,ij},
+\]
+where each factor has a distinct role:
+\[
+S_{t,ij}=\text{similarity or relational strength},
+\]
+\[
+R_{t,ij}=\text{stability across nearby layers or steps},
+\]
+\[
+Q_{t,ij}=\text{reconstructibility from allowed context},
+\]
+\[
+V_{ij}=\text{context-valid edge mask},
+\]
+\[
+A_{t,ij}=\text{anti-collapse factor}.
+\]
+An optional information-potential gate can also be used:
+\[
+U_{t,ij}
+=
+W_{t,ij}\,\Phi_{t,ij}\,R_{t,ij}\,Q_{t,ij}\,V_{ij}\,A_{t,ij}.
+\]
+This form uses $\Phi$ to restrict updates to relational regions that are already coherent, locally ordered, salient, stable, reconstructible, context-valid, and non-collapsed.
+
+A simple stability term is
+\[
+R_{t,ij}
+=
+\exp\left(-\frac{|W_{t,ij}-W_{t-1,ij}|}{\tau_R+\varepsilon}\right),
+\]
+while a neighborhood-level stability score may be defined by Jaccard overlap:
+\[
+R_t(i)
+=
+\frac{|\mathcal{N}_k^t(i)\cap\mathcal{N}_k^{t-1}(i)|}
+{|\mathcal{N}_k^t(i)\cup\mathcal{N}_k^{t-1}(i)|+\varepsilon}.
+\]
+Both variants are valid, but the chosen definition must be fixed before evaluation.
+
+\subsection{Reconstructible Memory}
+
+ERGT requires memory updates to be reconstructible from allowed context. Let $\widehat{W}_{t,ij}$ be an estimate of the current relation produced from context available to position $i$:
+\[
+\widehat{W}_{t,ij}=R_W(H_{\leq i,t}).
+\]
+The relation reconstruction deficit is
+\[
+\Delta_{W,t}(i,j)=|W_{t,ij}-\widehat{W}_{t,ij}|^2.
+\]
+A reconstructibility gate can be defined as
+\[
+Q_{t,ij}
+=
+\exp\left(-\frac{\Delta_{W,t}(i,j)}{\tau_Q+\varepsilon}\right).
+\]
+Only relations with high reconstructibility should strongly contribute to memory. This prevents the memory graph from storing relations that are artifacts of inaccessible future information or unstable preprocessing.
+
+The no-future-leakage condition is therefore
+\[
+Q_{t,ij}\;\text{must be computed using only}\;H_{\leq i,t}.
+\]
+If $Q_{t,ij}$ uses future hidden states or future tokens, the memory test is invalid.
+
+\subsection{Anti-Collapse in Memory}
+
+Relational memory may collapse even if the instantaneous relation graph appears stable. Common collapse modes include uniform memory, diagonal dominance, excessive sparsity, single-token lock-in, and saturation at clipping bounds. ERGT therefore applies anti-collapse penalties at the memory level.
+
+Let
+\[
+\begin{aligned}
+L_{\mathrm{memcoll},t}
+={}&
+\mu_1\mathrm{Uniformity}(\mathcal{M}_t)
++
+\mu_2\mathrm{DiagDom}(\mathcal{M}_t)\\
+&+
+\mu_3\mathrm{OverSparse}(\mathcal{M}_t)
++
+\mu_4\mathrm{SingleLock}(\mathcal{M}_t)\\
+&+
+\mu_5\mathrm{Saturation}(\mathcal{M}_t).
+\end{aligned}
+\]
+Then define
+\[
+A_{\mathrm{mem},t}=\exp(-L_{\mathrm{memcoll},t}).
+\]
+A valid relational memory should maintain useful concentration without collapsing into a degenerate graph. Therefore, memory quality should never be judged by stability alone. A perfectly stable collapsed graph is not useful memory.
+
+\subsection{Memory-Derived Distance}
+
+Once a relational memory $\mathcal{M}_t$ is available, ERGT defines memory-derived edge cost:
+\[
+d_{t,ij}^{\mathrm{mem}}
+=
+-\log(\mathcal{M}_{t,ij}+\varepsilon).
+\]
+This distance is not yet the final geometry used by ERGT. It is the memory-level edge cost that later feeds contextual shortest-path geometry:
+\[
+\mathcal{M}_t
+\rightarrow
+d_t^{\mathrm{mem}}
+\rightarrow
+D_{\mathrm{ctx},t}^{\mathrm{mem}}.
+\]
+Thus, memory does not replace contextual geometry. It stabilizes the relational graph from which contextual geometry is computed.
+
+\subsection{Control Memories}
+
+The relational-memory hypothesis is meaningful only under strict controls. ERGT requires at least the following memory families:
+\[
+\mathcal{M}_t^{\mathrm{real}},
+\qquad
+\mathcal{M}_t^{\mathrm{random}},
+\qquad
+\mathcal{M}_t^{\mathrm{shuffled}},
+\]
+\[
+\mathcal{M}_t^{\mathrm{instantaneous}},
+\qquad
+\mathcal{M}_t^{\mathrm{smooth}},
+\qquad
+\mathcal{M}_t^{\mathrm{no\text{-}memory}}.
+\]
+The instantaneous control corresponds to setting the memory state equal to the current relation graph:
+\[
+\mathcal{M}_t^{\mathrm{instantaneous}}=W_t.
+\]
+The no-memory control removes persistence entirely. A generic smoothing control uses the same decay equation but without stability, reconstructibility, context-validity, $\Phi$, or anti-collapse gates.
+
+For ERGT to support relational memory, the real gated memory must outperform these controls under predefined metrics:
+\[
+\mathcal{U}(\mathcal{M}^{\mathrm{real}})>
+\mathcal{U}(\mathcal{M}^{\mathrm{random}}),
+\]
+\[
+\mathcal{U}(\mathcal{M}^{\mathrm{real}})>
+\mathcal{U}(\mathcal{M}^{\mathrm{shuffled}}),
+\]
+\[
+\mathcal{U}(\mathcal{M}^{\mathrm{real}})>
+\mathcal{U}(\mathcal{M}^{\mathrm{instantaneous}}),
+\]
+where $\mathcal{U}$ may measure stability, reconstructibility, contextual-path utility, or later attention utility.
+
+\subsection{Memory Utility Metrics}
+
+The memory observer stage should evaluate memory without changing the model. Useful metrics include:
+\begin{enumerate}[label=(\roman*)]
+    \item edge-weight stability across steps or layers;
+    \item neighborhood persistence;
+    \item reconstruction deficit from allowed context;
+    \item spectral stability of the memory graph;
+    \item anti-collapse score;
+    \item separation between real and control memories;
+    \item improvement in contextual shortest-path consistency.
+\end{enumerate}
+
+A minimal persistence score may be defined as
+\[
+\mathrm{Persist}(\mathcal{M})
+=
+\mathbb{E}_{t,i}
+\left[
+\frac{|\mathcal{N}_{k,t}^{\mathcal{M}}(i)\cap\mathcal{N}_{k,t-1}^{\mathcal{M}}(i)|}
+{|\mathcal{N}_{k,t}^{\mathcal{M}}(i)\cup\mathcal{N}_{k,t-1}^{\mathcal{M}}(i)|+\varepsilon}
+\right].
+\]
+A memory reconstructibility score may be defined as
+\[
+\mathrm{RecMem}(\mathcal{M})
+=
+\exp\left(-\frac{\mathbb{E}_{t,i,j}\Delta_{\mathcal{M},t}(i,j)}{\tau_M+\varepsilon}\right).
+\]
+A memory quality score may combine these terms:
+\[
+\mathcal{U}_{\mathrm{mem}}(\mathcal{M})
+=
+\mathrm{Persist}(\mathcal{M})\cdot
+\mathrm{RecMem}(\mathcal{M})\cdot
+A_{\mathrm{mem}}.
+\]
+This score is only a proposed observer metric; it is not itself an empirical result.
+
+\subsection{Algorithmic Summary}
+
+\noindent\textbf{Algorithm 4: Stability-Gated Relational Memory Observer}
+
+\begin{enumerate}[label=\arabic*.]
+    \item Input current relation graph $W_t$, previous memory $\mathcal{M}_{t-1}$, valid edge mask, and fixed measurement contracts.
+    \item Compute edge or neighborhood stability $R_{t,ij}$.
+    \item Compute reconstructibility score $Q_{t,ij}$ from allowed context only.
+    \item Compute context-validity mask $V_{ij}$.
+    \item Compute anti-collapse factor $A_{t,ij}$ or memory-level anti-collapse score.
+    \item Optionally compute edge-level information potential $\Phi_{t,ij}$.
+    \item Form the gated update $U_{t,ij}$.
+    \item Update memory by $\mathcal{M}_t=\lambda\mathcal{M}_{t-1}+\eta U_t$.
+    \item Normalize or clip $\mathcal{M}_t$ using the predefined policy.
+    \item Construct matched random, shuffled, instantaneous, generic-smoothing, and no-memory controls.
+    \item Evaluate memory utility metrics without modifying attention or training.
+    \item Stop if real memory does not outperform controls.
+\end{enumerate}
+
+\subsection{Relational-Memory Gate}
+
+The relational-memory stage is considered supported only if the following conditions hold:
+\[
+\mathcal{U}_{\mathrm{mem}}(\mathcal{M}^{\mathrm{real}})>
+\mathcal{U}_{\mathrm{mem}}(\mathcal{M}^{\mathrm{random}}),
+\]
+\[
+\mathcal{U}_{\mathrm{mem}}(\mathcal{M}^{\mathrm{real}})>
+\mathcal{U}_{\mathrm{mem}}(\mathcal{M}^{\mathrm{shuffled}}),
+\]
+\[
+\mathcal{U}_{\mathrm{mem}}(\mathcal{M}^{\mathrm{real}})>
+\mathcal{U}_{\mathrm{mem}}(\mathcal{M}^{\mathrm{instantaneous}}),
+\]
+\[
+\mathrm{Leakage}(\mathcal{M}^{\mathrm{real}})=0,
+\]
+\[
+\mathrm{Collapse}(\mathcal{M}^{\mathrm{real}})<\mathrm{Collapse}(\mathcal{M}^{\mathrm{controls}}).
+\]
+The sixth falsification rule is:
+\begin{ergtclaim}
+If real relational memory does not outperform random, shuffled, instantaneous, generic-smoothing, and no-memory controls, ERGT fails at the relational-memory level.
+\end{ergtclaim}
+
+\subsection{Status of This Section}
+
+This section defines relational memory as a persistence operator over hidden-state relational structure. It does not claim that such memory has already been observed. It also does not justify modifying attention yet. The purpose of this stage is to determine whether stable, reconstructible, non-collapsed relational structure persists beyond instantaneous relations and beyond matched controls.
+
+Only if this stage passes should ERGT proceed to memory-derived contextual shortest-path geometry and, later, GeoAttention as an intervention test.
+
+
+\section{GeoAttention as an Intervention}
+\noindent GeoAttention is related to relation-aware attention, relative-position attention, ALiBi-style distance penalties, and graph-structural encodings in Transformers~\cite{shaw2018self,press2021train,ying2021graphormer}. ERGT differs by requiring that the distance bias be derived from a real, stable, reconstructible relational geometry and by treating the attention modification as an intervention test rather than as the starting point.
+
+
+The preceding sections define the relational field, contextual shortest-path geometry, the information potential $\Phi$, and relational memory. ERGT now introduces its first intervention into the Transformer computation. This intervention is called \textbf{GeoAttention}. Its purpose is not to assume that relational geometry is useful, but to test whether a validated relational geometry can improve attention under strict controls.
+
+The central methodological rule is:
+\begin{ergtclaim}
+GeoAttention is an intervention test, not the starting assumption of ERGT.
+\end{ergtclaim}
+Thus, GeoAttention should only be evaluated after the relational graph, contextual geometry, information potential, and relational memory have passed their observer-level gates. If real relational structure fails to separate from matched controls, or if relational memory does not outperform instantaneous and no-memory baselines, then injecting geometry into attention is not justified.
+
+\subsection{Prerequisites for GeoAttention}
+
+Let $D_{\mathrm{stable}}$ denote the stable contextual distance used by GeoAttention. It is not a raw pairwise distance. It must be produced by the full validated ERGT pipeline:
+\[
+H
+\rightarrow
+W
+\rightarrow
+\mathcal{M}_t
+\rightarrow
+D_{\mathrm{ctx}}^{\mathrm{mem}}
+\rightarrow
+D_{\mathrm{stable}}.
+\]
+Here $H$ denotes hidden states, $W$ the relation graph, $\mathcal{M}_t$ the stability-gated relational memory, $D_{\mathrm{ctx}}^{\mathrm{mem}}$ the contextual shortest-path distance over memory-derived edge costs, and $D_{\mathrm{stable}}$ the normalized geometry supplied to attention.
+
+The intervention is admissible only if the following preconditions are satisfied:
+\begin{enumerate}[label=(\roman*)]
+    \item strict measurement contracts are fixed;
+    \item real relation graphs separate from random and shuffled controls;
+    \item relation graphs are non-degenerate and non-collapsed;
+    \item high-$\Phi$ regions predict stability, reconstructibility, attention order, or task-relevant structure;
+    \item real relational memory outperforms random, shuffled, instantaneous, generic-smoothing, and no-memory controls;
+    \item contextual shortest-path distance is finite only over valid context-respecting paths;
+    \item no future-token leakage is present.
+\end{enumerate}
+
+These conditions prevent GeoAttention from becoming an arbitrary attention bias. The distance injected into attention must be a validated relational object, not a post-hoc matrix constructed to improve a score.
+
+\subsection{From Stable Geometry to Attention Bias}
+
+Standard scaled dot-product attention computes logits
+\[
+L_{ij}^{\mathrm{base}}
+=
+\frac{Q_iK_j^\top}{\sqrt{d_h}},
+\]
+where $Q_i$ is the query vector at position $i$, $K_j$ is the key vector at position $j$, and $d_h$ is the head dimension.
+
+GeoAttention modifies these logits by subtracting a normalized stable relational distance:
+\[
+L_{ij}^{\mathrm{geo}}
+=
+\frac{Q_iK_j^\top}{\sqrt{d_h}}
+-
+\alpha\,\widetilde{D}_{\mathrm{stable}}(i,j)
++
+B_{ij}^{\mathrm{mask}}.
+\]
+Here $\alpha\geq 0$ controls the strength of the geometric bias, $\widetilde{D}_{\mathrm{stable}}$ is the normalized stable contextual distance, and $B_{ij}^{\mathrm{mask}}$ is the standard attention mask term, with invalid edges assigned a large negative value.
+
+The resulting attention distribution is
+\[
+A_{ij}^{\mathrm{geo}}
+=
+\frac{
+\exp(L_{ij}^{\mathrm{geo}})
+}{
+\sum_{k\leq i}\exp(L_{ik}^{\mathrm{geo}})+\varepsilon
+}.
+\]
+The sign convention is intentional. Short relational distances reduce the penalty and allow attention to flow more easily along stable contextual paths. Long relational distances are penalized. Therefore, GeoAttention favors tokens that are not only dot-product compatible but also close in the validated relational geometry.
+
+\subsection{Normalization of the Stable Distance}
+
+The raw contextual distance may vary across batches, heads, layers, and sequence lengths. Therefore, $D_{\mathrm{stable}}$ must be normalized before being injected into logits. A generic normalization is
+\[
+\widetilde{D}_{\mathrm{stable}}(i,j)
+=
+\frac{D_{\mathrm{stable}}(i,j)-\mu_D}{\sigma_D+\varepsilon},
+\]
+computed only over valid edges. A bounded alternative is
+\[
+\widetilde{D}_{\mathrm{stable}}(i,j)
+=
+\mathrm{clip}
+\left(
+\frac{D_{\mathrm{stable}}(i,j)}{q_p(D_{\mathrm{stable}})+\varepsilon},
+0,
+D_{\max}
+\right),
+\]
+where $q_p$ is a fixed quantile over valid edges and $D_{\max}$ is a predefined clipping threshold.
+
+The normalization policy must be shared across real, random, shuffled, instantaneous, pairwise, and no-memory variants. If each variant is normalized differently, the comparison is not a valid ERGT test.
+
+\subsection{Calibrating the Geometry-to-Dot-Product Ratio}
+
+GeoAttention should not win merely because it changes logit scale. To prevent this, ERGT calibrates the geometry-to-dot-product ratio. Define
+\[
+R_{\mathrm{geo/qk}}
+=
+\frac{
+\mathbb{E}_{(i,j)\in\mathcal{E}_{\mathrm{valid}}}
+|\alpha\widetilde{D}_{\mathrm{stable}}(i,j)|
+}{
+\mathbb{E}_{(i,j)\in\mathcal{E}_{\mathrm{valid}}}
+\left|\frac{Q_iK_j^\top}{\sqrt{d_h}}\right|+
+\varepsilon
+}.
+\]
+This ratio must be matched across all distance families. The control condition is
+\[
+R_{\mathrm{geo/qk}}^{\mathrm{real}}
+\approx
+R_{\mathrm{geo/qk}}^{\mathrm{random}}
+\approx
+R_{\mathrm{geo/qk}}^{\mathrm{shuffled}}
+\approx
+R_{\mathrm{geo/qk}}^{\mathrm{instantaneous}}
+\approx
+R_{\mathrm{geo/qk}}^{\mathrm{pairwise}}
+\approx
+R_{\mathrm{geo/qk}}^{\mathrm{no\text{-}memory}}.
+\]
+This ensures that any observed advantage comes from relational structure rather than from unequal bias magnitude.
+
+\subsection{GeoAttention Variants and Controls}
+
+ERGT requires the following intervention families:
+\[
+\mathrm{GeoAttn}(D_{\mathrm{real\ stable}}),
+\qquad
+\mathrm{GeoAttn}(D_{\mathrm{random\ stable}}),
+\]
+\[
+\mathrm{GeoAttn}(D_{\mathrm{shuffled\ stable}}),
+\qquad
+\mathrm{GeoAttn}(D_{\mathrm{instantaneous}}),
+\]
+\[
+\mathrm{GeoAttn}(D_{\mathrm{pairwise}}),
+\qquad
+\mathrm{GeoAttn}(D_{\mathrm{no\text{-}memory}}),
+\]
+plus a zero-geometry condition
+\[
+\mathrm{GeoAttn}(\alpha=0).
+\]
+The zero-geometry condition must recover the Transformer baseline:
+\[
+\mathrm{GeoAttn}(\alpha=0)
+\approx
+\mathrm{TransformerBaseline}.
+\]
+If this fails, the implementation is not a valid test of ERGT.
+
+The real stable condition should be compared against all controls. Baseline improvement alone is not sufficient. A random or shuffled geometry may also act as a regularizer or noise injection. ERGT is supported only if the real stable geometry outperforms structurally matched controls.
+
+\subsection{Intervention Metrics}
+
+GeoAttention may be evaluated through several metrics. The primary metric depends on the task, but must be defined before experiments. Candidate metrics include:
+\begin{enumerate}[label=(\roman*)]
+    \item validation language-modeling loss;
+    \item perplexity;
+    \item long-context retrieval accuracy;
+    \item attention alignment with known relevant positions;
+    \item stability of attention neighborhoods;
+    \item reduction of attention noise under matched compute;
+    \item reasoning-path consistency when tasks expose intermediate dependencies.
+\end{enumerate}
+
+Let $\mathcal{P}$ denote a predefined performance or utility metric. The core intervention inequalities are
+\[
+\mathcal{P}(D_{\mathrm{real\ stable}})
+>
+\mathcal{P}(D_{\mathrm{random\ stable}}),
+\]
+\[
+\mathcal{P}(D_{\mathrm{real\ stable}})
+>
+\mathcal{P}(D_{\mathrm{shuffled\ stable}}),
+\]
+\[
+\mathcal{P}(D_{\mathrm{real\ stable}})
+>
+\mathcal{P}(D_{\mathrm{instantaneous}}),
+\]
+\[
+\mathcal{P}(D_{\mathrm{real\ stable}})
+>
+\mathcal{P}(D_{\mathrm{pairwise}}),
+\]
+\[
+\mathcal{P}(D_{\mathrm{real\ stable}})
+>
+\mathcal{P}(D_{\mathrm{no\text{-}memory}}).
+\]
+The first two inequalities test whether geometry is real rather than random or shuffled. The third tests whether memory matters. The fourth tests whether shortest-path contextual geometry adds information beyond pairwise distance. The fifth tests whether the result depends on relational persistence.
+
+\subsection{Layerwise and Headwise Deployment}
+
+GeoAttention may be applied globally, layerwise, or headwise. In the most conservative formulation, the geometry is applied to a selected subset of layers and heads after observer-level evidence indicates where relational geometry is strongest. Let $\mathcal{H}_{\mathrm{geo}}$ be the set of heads receiving the geometric bias. Then
+\[
+L_{ij}^{(\ell,m)}
+=
+\frac{Q_i^{(\ell,m)}K_j^{(\ell,m)\top}}{\sqrt{d_h}}
+-
+\alpha_{\ell,m}\widetilde{D}_{\mathrm{stable}}^{(\ell,m)}(i,j)
++
+B_{ij}^{\mathrm{mask}},
+\]
+for $(\ell,m)\in\mathcal{H}_{\mathrm{geo}}$. Heads outside this set use standard attention.
+
+This design allows ERGT to test whether relational geometry is localized to particular layers or heads. It also prevents a failure mode in which a global geometric penalty overwhelms standard attention in heads where no validated geometry exists.
+
+\subsection{Training-Free and Training-Based Evaluation}
+
+ERGT separates two modes of evaluation.
+
+\paragraph{Training-free intervention.}
+A pretrained model is evaluated with geometry injected into attention while keeping model weights fixed. This tests whether the extracted geometry is immediately useful. It is a strict test because no parameter adaptation can compensate for a poor geometry.
+
+\paragraph{Training-based intervention.}
+A model is trained or fine-tuned with GeoAttention enabled. This tests whether the architecture can exploit relational geometry during learning. This mode is less conservative and therefore requires stronger controls, including random, shuffled, instantaneous, pairwise, no-memory, and $\alpha=0$ variants under matched compute.
+
+In a first ERGT study, the training-free intervention can serve as a diagnostic, while the training-based intervention can serve as a downstream architectural test.
+
+\subsection{Failure Modes}
+
+GeoAttention can fail in several informative ways:
+\begin{enumerate}[label=(\roman*)]
+    \item $D_{\mathrm{real\ stable}}$ does not outperform random or shuffled distances;
+    \item $D_{\mathrm{real\ stable}}$ performs no better than instantaneous distance;
+    \item shortest-path geometry performs no better than pairwise distance;
+    \item no-memory controls match real memory;
+    \item $\alpha=0$ does not recover the baseline;
+    \item performance improves but attention becomes collapsed or rigid;
+    \item future-token leakage is detected;
+    \item improvements do not replicate across seeds.
+\end{enumerate}
+
+Each failure identifies a different unsupported component of ERGT. Failure against random or shuffled controls weakens the claim that hidden states contain real relational geometry. Failure against instantaneous distance weakens the memory claim. Failure against pairwise distance weakens the path-geometry claim. Failure of $\alpha=0$ invalidates the implementation.
+
+\subsection{Algorithmic Summary}
+
+\noindent\textbf{Algorithm 5: GeoAttention as an Intervention Test}
+
+\begin{enumerate}[label=\arabic*.]
+    \item Input hidden states $H$, validated relation graph $W$, relational memory $\mathcal{M}_t$, and valid edge mask.
+    \item Construct memory-derived edge costs $d_{t,ij}^{\mathrm{mem}}=-\log(\mathcal{M}_{t,ij}+\varepsilon)$.
+    \item Compute contextual shortest-path distance $D_{\mathrm{ctx}}^{\mathrm{mem}}$ over valid edges.
+    \item Normalize and clip $D_{\mathrm{ctx}}^{\mathrm{mem}}$ using the fixed measurement contract to obtain $D_{\mathrm{stable}}$.
+    \item Calibrate $\alpha$ so that $R_{\mathrm{geo/qk}}$ is matched across distance families.
+    \item Compute GeoAttention logits
+    \[
+    L_{ij}^{\mathrm{geo}}=
+    \frac{Q_iK_j^\top}{\sqrt{d_h}}
+    -\alpha\widetilde{D}_{\mathrm{stable}}(i,j)
+    +B_{ij}^{\mathrm{mask}}.
+    \]
+    \item Evaluate the real stable geometry and all matched controls.
+    \item Verify that $\alpha=0$ recovers the Transformer baseline.
+    \item Stop if real stable geometry does not outperform random, shuffled, instantaneous, pairwise, and no-memory controls.
+\end{enumerate}
+
+\subsection{GeoAttention Gate}
+
+The intervention stage is considered supported only if
+\[
+\mathcal{P}(D_{\mathrm{real\ stable}})>
+\mathcal{P}(\mathrm{baseline}),
+\]
+\[
+\mathcal{P}(D_{\mathrm{real\ stable}})>
+\mathcal{P}(D_{\mathrm{random\ stable}}),
+\]
+\[
+\mathcal{P}(D_{\mathrm{real\ stable}})>
+\mathcal{P}(D_{\mathrm{shuffled\ stable}}),
+\]
+\[
+\mathcal{P}(D_{\mathrm{real\ stable}})>
+\mathcal{P}(D_{\mathrm{instantaneous}}),
+\]
+\[
+\mathcal{P}(D_{\mathrm{real\ stable}})>
+\mathcal{P}(D_{\mathrm{pairwise}}),
+\]
+\[
+\mathcal{P}(D_{\mathrm{real\ stable}})>
+\mathcal{P}(D_{\mathrm{no\text{-}memory}}),
+\]
+with
+\[
+\mathcal{P}(\alpha=0)\approx\mathcal{P}(\mathrm{baseline}),
+\]
+no future leakage, acceptable runtime and memory overhead, and replication across random seeds.
+
+The seventh falsification rule is:
+\begin{ergtclaim}
+If GeoAttention with real stable contextual geometry does not outperform baseline, random, shuffled, instantaneous, pairwise, and no-memory controls, ERGT fails at the intervention level.
+\end{ergtclaim}
+
+\subsection{Status of This Section}
+
+This section defines GeoAttention as the first controlled intervention in ERGT. It does not claim that GeoAttention has already been empirically validated. Its role is to specify the exact conditions under which relational geometry becomes computationally meaningful. If the intervention succeeds under strict controls, ERGT receives support as an operational framework for stable relational geometry in Transformer hidden states. If it fails, the failure localizes which earlier assumption is unsupported.
+
+% ------------------------------------------------------------
+% Step 9: Falsification Gates
+% ------------------------------------------------------------
+\setcounter{section}{8}
+\section{Falsification Gates}
+\noindent The gate structure is designed to make ERGT empirically falsifiable: each layer of the claim must survive matched controls before the next layer is interpreted. This follows the general methodological requirement that explanatory frameworks should expose clear failure conditions rather than relying only on positive benchmark improvements~\cite{popper1959logic}.
+
+\label{sec:falsification-gates}
+
+ERGT is intended to be a falsifiable framework, not a post-hoc interpretation of improved performance. The purpose of this section is to define the precise conditions under which ERGT receives empirical support, partial support, or rejection. Each gate corresponds to a necessary claim in the ERGT chain:
+\[
+H
+\rightarrow
+W
+\rightarrow
+d
+\rightarrow
+D_{\mathrm{ctx}}
+\rightarrow
+\mathcal{M}_t
+\rightarrow
+D_{\mathrm{stable}}
+\rightarrow
+\mathrm{GeoAttention}.
+\]
+No later gate should be interpreted unless all earlier gates have been satisfied. This ordering prevents a common failure mode: introducing a useful bias into attention and then retrospectively interpreting the improvement as evidence for relational geometry.
+
+\begin{ergtclaim}
+ERGT is supported only if real hidden-state geometry outperforms matched random, shuffled, instantaneous, pairwise, and no-memory controls under fixed measurement contracts and without future-token leakage.
+\end{ergtclaim}
+
+\subsection{Why Falsification Gates Are Necessary}
+
+A geometry extracted from hidden states can appear meaningful for many trivial reasons. It may reflect scale differences, masking artifacts, diagonal domination, normalization choices, leakage from future tokens, or generic smoothing effects. Therefore, an improvement over a baseline model is not by itself sufficient evidence for ERGT.
+
+The correct question is not merely whether a geometry-assisted attention mechanism improves validation loss. The correct question is whether the geometry extracted from real hidden states carries task-relevant structure that cannot be replicated by matched controls. Formally, ERGT requires that a real relational object $X_{\mathrm{real}}$ outperform a family of controlled alternatives:
+\[
+X_{\mathrm{real}}
+>
+\{X_{\mathrm{random}},X_{\mathrm{shuffled}},X_{\mathrm{instantaneous}},X_{\mathrm{pairwise}},X_{\mathrm{no\text{-}memory}}\}
+\]
+under the same validity mask, normalization, clipping policy, and attention-injection scale.
+
+\subsection{Gate 0: Measurement Validity}
+
+The first gate verifies that the measurement procedure itself is valid. ERGT cannot be evaluated if the relation graph, distance matrix, or information potential is computed under inconsistent policies.
+
+Let
+\[
+\mathcal{V}_{ij}
+=
+(j\leq i)
+\land
+(i\neq j)
+\land
+\mathrm{nonpadding}(i,j)
+\]
+be the valid-edge mask. Gate 0 is passed only if the following conditions hold:
+\begin{enumerate}[leftmargin=2em]
+    \item the same valid-edge mask $\mathcal{V}$ is used for real and control graphs;
+    \item diagonal policy is fixed;
+    \item causal policy is fixed;
+    \item normalization and clipping are fixed;
+    \item all metrics are computed only on valid edges;
+    \item no metric, reconstruction model, memory update, or attention bias uses future tokens.
+\end{enumerate}
+
+We define the measurement-validity indicator
+\[
+\mathbb{I}_{\mathrm{meas}}
+=
+\begin{cases}
+1, & \text{if all measurement contracts are satisfied},\\
+0, & \text{otherwise}.
+\end{cases}
+\]
+If $\mathbb{I}_{\mathrm{meas}}=0$, ERGT is not evaluated. The experiment is invalid rather than negative.
+
+\subsection{Gate 1: Relational Separability}
+
+The first substantive ERGT claim is that hidden states induce a non-random relational graph. This is tested by comparing the real relation graph against matched random and shuffled controls:
+\[
+W_{\mathrm{real}},
+\qquad
+W_{\mathrm{random}},
+\qquad
+W_{\mathrm{shuffled}}.
+\]
+The controls must match the real graph in valid region, diagonal policy, causal policy, normalization, clipping, and injection scale. The only intended difference is relational organization.
+
+Let $\Delta_{\mathrm{sep}}$ be a separation score, for example a distributional distance, classifier AUC, neighborhood-overlap gap, spectral gap, or stability gap between real and control graphs. Gate 1 is passed if
+\[
+\Delta_{\mathrm{sep}}(W_{\mathrm{real}},W_{\mathrm{random}})>\tau_{\mathrm{sep}}
+\]
+and
+\[
+\Delta_{\mathrm{sep}}(W_{\mathrm{real}},W_{\mathrm{shuffled}})>\tau_{\mathrm{sep}}.
+\]
+The corresponding indicator is
+\[
+\mathbb{I}_{\mathrm{sep}}
+=
+\mathbf{1}
+\left[
+\Delta_{\mathrm{sep}}^{\mathrm{real/random}}>\tau_{\mathrm{sep}}
+\land
+\Delta_{\mathrm{sep}}^{\mathrm{real/shuffled}}>\tau_{\mathrm{sep}}
+\right].
+\]
+If this gate fails, ERGT fails at the relational-field level. Later claims about geometry, memory, or GeoAttention are not justified.
+
+\subsection{Gate 2: Non-Collapse}
+
+A relation graph may be distinguishable from controls while still being degenerate. For example, it may be dominated by the diagonal, nearly uniform, excessively sparse, saturated, or locked onto a single token. Such structures can show low entropy while carrying little useful relational information.
+
+We therefore define a collapse penalty
+\[
+L_{\mathrm{collapse}}
+=
+\lambda_1 L_{\mathrm{diag}}
++
+\lambda_2 L_{\mathrm{uniform}}
++
+\lambda_3 L_{\mathrm{sparse}}
++
+\lambda_4 L_{\mathrm{lock}}
++
+\lambda_5 L_{\mathrm{saturation}}.
+\]
+The anti-collapse score is
+\[
+A_{\mathrm{collapse}}
+=
+\exp(-L_{\mathrm{collapse}}).
+\]
+Gate 2 is passed only if the real graph is both separable and non-degenerate:
+\[
+A_{\mathrm{collapse}}(W_{\mathrm{real}})>\tau_{\mathrm{collapse}}.
+\]
+The indicator is
+\[
+\mathbb{I}_{\mathrm{noncollapse}}
+=
+\mathbf{1}
+\left[
+A_{\mathrm{collapse}}(W_{\mathrm{real}})>\tau_{\mathrm{collapse}}
+\right].
+\]
+If this gate fails, the relational field may be an artifact of collapse rather than a useful relational substrate.
+
+\subsection{Gate 3: Reconstructibility}
+
+ERGT claims that meaningful relational structure should be reconstructible from the allowed context. For a causal language model, this means that hidden-state relations should not depend on future tokens or on information unavailable to the model at position $i$.
+
+Let $R$ be a reconstruction map using only allowed context:
+\[
+\hat{h}_i=R(H_{\leq i}).
+\]
+The hidden-state reconstruction deficit is
+\[
+\Delta_{\mathrm{rec}}(h_i)
+=
+\|h_i-\hat{h}_i\|^2.
+\]
+Similarly, relation reconstruction can be measured by
+\[
+\Delta_{\mathrm{rec}}(W_{ij})
+=
+|W_{ij}-\hat{W}_{ij}|^2,
+\qquad
+\hat{W}_{ij}=R_W(H_{\leq i}).
+\]
+Gate 3 is passed if the real relational structure has lower reconstruction deficit than matched controls:
+\[
+\Delta_{\mathrm{rec}}^{\mathrm{real}}
+<
+\Delta_{\mathrm{rec}}^{\mathrm{random}}
+-	au_{\mathrm{rec}}
+\]
+and
+\[
+\Delta_{\mathrm{rec}}^{\mathrm{real}}
+<
+\Delta_{\mathrm{rec}}^{\mathrm{shuffled}}
+-	au_{\mathrm{rec}}.
+\]
+The indicator is
+\[
+\mathbb{I}_{\mathrm{rec}}
+=
+\mathbf{1}
+\left[
+\Delta_{\mathrm{rec}}^{\mathrm{real}}
+<
+\min(\Delta_{\mathrm{rec}}^{\mathrm{random}},\Delta_{\mathrm{rec}}^{\mathrm{shuffled}})-\tau_{\mathrm{rec}}
+\right].
+\]
+If this gate fails, the relational geometry is not demonstrably encoded in the allowed computational context.
+
+\subsection{Gate 4: Information Potential Validity}
+
+The information potential $\Phi$ is intended to identify regions of hidden-state geometry that are coherent, locally ordered, salient, stable, reconstructible, context-valid, and non-collapsed. It is not sufficient for $\Phi$ to be large in low-entropy regions. High-$\Phi$ regions must predict useful computational structure.
+
+Gate 4 is passed if high-$\Phi$ regions show at least one of the following improvements over controls:
+\begin{enumerate}[leftmargin=2em]
+    \item higher neighborhood stability;
+    \item lower reconstruction deficit;
+    \item better token-level predictability;
+    \item more consistent attention ordering;
+    \item stronger response under controlled perturbation.
+\end{enumerate}
+
+Let $Y$ be one such target quantity. Gate 4 requires
+\[
+\mathrm{Score}(Y\mid \Phi_{\mathrm{high}})
+>
+\mathrm{Score}(Y\mid \Phi_{\mathrm{control}})+\tau_{\Phi}.
+\]
+The indicator is
+\[
+\mathbb{I}_{\Phi}
+=
+\mathbf{1}
+\left[
+\Phi_{\mathrm{high}}
+\text{ predicts stability, reconstruction, predictability, or attention order beyond controls}
+\right].
+\]
+If this gate fails, $\Phi$ remains a descriptive diagnostic rather than an operational information potential.
+
+\subsection{Gate 5: Relational Memory Persistence}
+
+Relational memory is defined as persistence of relational structure, not as human-like memory and not as retrieval storage. The memory state is
+\[
+\mathcal{M}_t
+=
+\lambda\mathcal{M}_{t-1}
++
+\eta U_t,
+\]
+where $U_t$ is a stability-gated update based on similarity, stability, reconstructibility, context validity, and anti-collapse.
+
+Gate 5 requires that real relational memory outperform memory controls:
+\[
+\mathcal{M}^{\mathrm{real}}
+>
+\mathcal{M}^{\mathrm{random}},
+\qquad
+\mathcal{M}^{\mathrm{real}}
+>
+\mathcal{M}^{\mathrm{shuffled}},
+\]
+\[
+\mathcal{M}^{\mathrm{real}}
+>
+\mathcal{M}^{\mathrm{instantaneous}},
+\qquad
+\mathcal{M}^{\mathrm{real}}
+>
+\mathcal{M}^{\mathrm{smooth}},
+\qquad
+\mathcal{M}^{\mathrm{real}}
+>
+\mathcal{M}^{\mathrm{no\text{-}memory}}.
+\]
+The indicator is
+\[
+\mathbb{I}_{\mathrm{mem}}
+=
+\mathbf{1}
+\left[
+\mathcal{M}^{\mathrm{real}}
+\text{ is more stable and useful than all memory controls}
+\right].
+\]
+If this gate fails, the memory component is likely generic smoothing rather than persistence of meaningful relational structure.
+
+\subsection{Gate 6: Contextual Path Advantage}
+
+The central geometric claim of ERGT is that contextual shortest-path geometry contains information not captured by pairwise distance. The edge cost
+\[
+d_{ij}=-\log(W_{ij}+\varepsilon)
+\]
+is not yet a geometry. The geometric object is
+\[
+D_{\mathrm{ctx}}(i,j)
+=
+\min_{\gamma:j\to i}
+\sum_{(a,b)\in\gamma}d_{ab},
+\]
+computed over valid context-respecting edges.
+
+Gate 6 requires that contextual path distance outperform pairwise and no-memory alternatives:
+\[
+D_{\mathrm{ctx}}^{\mathrm{real}}
+>
+D_{\mathrm{pairwise}}^{\mathrm{real}},
+\qquad
+D_{\mathrm{ctx}}^{\mathrm{real}}
+>
+D_{\mathrm{no\text{-}memory}}^{\mathrm{real}},
+\]
+and also outperform control geometries:
+\[
+D_{\mathrm{ctx}}^{\mathrm{real}}
+>
+D_{\mathrm{ctx}}^{\mathrm{random}},
+\qquad
+D_{\mathrm{ctx}}^{\mathrm{real}}
+>
+D_{\mathrm{ctx}}^{\mathrm{shuffled}}.
+\]
+The indicator is
+\[
+\mathbb{I}_{\mathrm{path}}
+=
+\mathbf{1}
+\left[
+\begin{array}{l}
+D_{\mathrm{ctx}}^{\mathrm{real}}\text{ improves stability, reconstruction,}\\
+\text{attention guidance, or prediction beyond path controls}
+\end{array}
+\right].
+\]
+If this gate fails, ERGT may still define useful relations, but not an operational path-based geometry.
+
+\subsection{Gate 7: Interventional Utility Through GeoAttention}
+
+The final gate tests whether ERGT geometry is computationally useful when injected into attention. GeoAttention uses
+\[
+L_{ij}^{\mathrm{geo}}
+=
+\frac{Q_iK_j^{\top}}{\sqrt{d_h}}
+-
+\alpha D_{\mathrm{stable}}(i,j).
+\]
+Gate 7 is passed only if real stable geometry outperforms all attention-level controls:
+\[
+\mathrm{GeoAttn}(D_{\mathrm{real\ stable}})
+>
+\mathrm{Baseline},
+\]
+\[
+\mathrm{GeoAttn}(D_{\mathrm{real\ stable}})
+>
+\mathrm{GeoAttn}(D_{\mathrm{random}}),
+\]
+\[
+\mathrm{GeoAttn}(D_{\mathrm{real\ stable}})
+>
+\mathrm{GeoAttn}(D_{\mathrm{shuffled}}),
+\]
+\[
+\mathrm{GeoAttn}(D_{\mathrm{real\ stable}})
+>
+\mathrm{GeoAttn}(D_{\mathrm{instantaneous}}),
+\]
+\[
+\mathrm{GeoAttn}(D_{\mathrm{real\ stable}})
+>
+\mathrm{GeoAttn}(D_{\mathrm{pairwise}}),
+\]
+and
+\[
+\mathrm{GeoAttn}(D_{\mathrm{real\ stable}})
+>
+\mathrm{GeoAttn}(D_{\mathrm{no\text{-}memory}}).
+\]
+A required sanity check is
+\[
+\alpha=0
+\quad\Rightarrow\quad
+\mathrm{GeoAttention}\approx\mathrm{Baseline}.
+\]
+The corresponding indicator is
+\[
+\mathbb{I}_{\mathrm{intervention}}
+=
+\mathbf{1}
+\left[
+\text{real stable GeoAttention beats baseline and all geometry controls}
+\right].
+\]
+If this gate fails, ERGT may remain an interpretability framework, but not an architecture-level improvement.
+
+\subsection{The ERGT Support Functional}
+
+We define the full ERGT gate product as
+\[
+\mathcal{G}_{\mathrm{ERGT}}
+=
+\mathbb{I}_{\mathrm{meas}}
+\cdot
+\mathbb{I}_{\mathrm{sep}}
+\cdot
+\mathbb{I}_{\mathrm{noncollapse}}
+\cdot
+\mathbb{I}_{\mathrm{rec}}
+\cdot
+\mathbb{I}_{\Phi}
+\cdot
+\mathbb{I}_{\mathrm{mem}}
+\cdot
+\mathbb{I}_{\mathrm{path}}
+\cdot
+\mathbb{I}_{\mathrm{intervention}}.
+\]
+
+\begin{ergtclaim}
+Strong empirical support for ERGT requires $\mathcal{G}_{\mathrm{ERGT}}=1$. If any factor is zero, the failed gate identifies the unsupported component of the hypothesis.
+\end{ergtclaim}
+
+This product is intentionally strict. A partial result may still be valuable, but it must be interpreted at the correct level. For example, if $\mathbb{I}_{\mathrm{sep}}=1$ and $\mathbb{I}_{\mathrm{rec}}=1$ but $\mathbb{I}_{\mathrm{intervention}}=0$, the experiment supports relational structure but not GeoAttention utility.
+
+\subsection{Failure Interpretation}
+
+Each failed gate has a specific interpretation:
+\begin{description}[leftmargin=2.8em, style=nextline]
+    \item[Measurement failure.] The experiment is invalid because masking, normalization, clipping, or leakage constraints were not controlled.
+    \item[Separability failure.] Hidden states do not produce relation graphs distinguishable from matched random or shuffled controls.
+    \item[Non-collapse failure.] The discovered structure is degenerate, such as diagonal-dominated, uniform, saturated, over-sparse, or single-token locked.
+    \item[Reconstructibility failure.] The relational structure is not recoverable from the allowed context and may not be causally available to the model.
+    \item[$\Phi$ failure.] The information potential does not predict stability, reconstruction, predictability, or attention order beyond controls.
+    \item[Memory failure.] The memory mechanism does not outperform instantaneous, smoothed, random, shuffled, or no-memory baselines.
+    \item[Path failure.] Shortest-path contextual geometry does not provide information beyond pairwise distance or no-memory distance.
+    \item[Intervention failure.] GeoAttention does not improve computation beyond baseline and control geometries.
+\end{description}
+
+These failure modes are not merely negative outcomes. They localize where the ERGT chain breaks.
+
+\subsection{Levels of Empirical Support}
+
+Because ERGT is a multi-stage hypothesis, results may support different levels of the framework:
+\begin{description}[leftmargin=2.8em, style=nextline]
+    \item[Level 0: Invalid evaluation.] Measurement contracts or leakage checks fail.
+    \item[Level 1: Relational evidence.] Real relation graphs separate from controls and are non-collapsed.
+    \item[Level 2: Contextual evidence.] Real relations are reconstructible from allowed context and high-$\Phi$ regions predict useful structure.
+    \item[Level 3: Memory evidence.] Stability-gated relational memory outperforms instantaneous and smoothing controls.
+    \item[Level 4: Geometric evidence.] Contextual shortest-path distance outperforms pairwise and no-memory alternatives.
+    \item[Level 5: Interventional evidence.] GeoAttention based on real stable geometry outperforms baseline and all geometry controls.
+\end{description}
+
+This hierarchy allows ERGT to be evaluated even before full architecture-level success. A study can provide valuable evidence for relational organization without yet validating GeoAttention.
+
+\subsection{Negative Results as Scientific Output}
+
+The framework is designed so that negative results are informative. If real hidden-state relations fail to separate from controls, then the relational-substrate hypothesis is weakened. If separability holds but path geometry fails, then hidden states may contain relations but not a useful navigable geometry. If path geometry succeeds but GeoAttention fails, then the geometry may be interpretable but not yet architecturally useful.
+
+Thus, ERGT is not a single all-or-nothing claim. It is a chain of hypotheses whose failures identify specific missing conditions. This makes the framework experimentally actionable even before empirical confirmation.
+
+\begin{ergtclaim}
+A successful ERGT experiment does not prove that Transformers reason geometrically in a universal sense. It supports the narrower claim that real hidden-state relations can form a stable, reconstructible, context-valid geometry that is more useful than matched controls for the tested model and task family.
+\end{ergtclaim}
+
+
+
+
+% ------------------------------------------------------------
+% Step 10: Expected Outcomes and Interpretations
+% ------------------------------------------------------------
+\setcounter{section}{9}
+\section{Expected Outcomes and Interpretations}
+\noindent The outcomes below are phrased as evidence levels rather than proofs. This is consistent with the paper's status as a theoretical and methodological proposal: the cited literature motivates the components, while ERGT's own claims require the future control hierarchy defined in this section.
+
+\label{sec:expected-outcomes}
+
+The previous section defined the falsification gates required for ERGT. This section explains how possible outcomes should be interpreted. Because ERGT is introduced as a theoretical and methodological framework rather than as an already confirmed empirical result, the main function of this section is to make the evidential logic explicit. A future experiment should not simply report whether performance improved. It should report which component of the ERGT chain was supported, weakened, or falsified.
+
+\begin{ergtclaim}
+The intended result of an ERGT study is not a single yes-or-no conclusion. It is a structured evidence profile showing where the chain from hidden states to relational geometry, memory, contextual paths, and GeoAttention succeeds or fails.
+\end{ergtclaim}
+
+The ERGT chain is
+\[
+H
+\rightarrow
+W
+\rightarrow
+d
+\rightarrow
+D_{\mathrm{ctx}}
+\rightarrow
+\mathcal{M}_t
+\rightarrow
+D_{\mathrm{stable}}
+\rightarrow
+\mathrm{GeoAttention}.
+\]
+Each arrow is a testable claim. Expected outcomes must therefore be interpreted locally before they are interpreted globally.
+
+\subsection{No Empirical Confirmation Is Claimed in Advance}
+
+This paper does not claim that ERGT has already been empirically confirmed. It claims that ERGT defines a testable route by which such confirmation could be obtained. The correct language is therefore conditional:
+\begin{itemize}[leftmargin=2em]
+    \item if real relation graphs separate from controls, the relational-substrate claim receives support;
+    \item if high-$\Phi$ regions predict stability, reconstruction, or attention order, the information-potential claim receives support;
+    \item if relational memory outperforms instantaneous and smoothing controls, the persistence claim receives support;
+    \item if contextual shortest-path distance outperforms pairwise distance, the geometric-path claim receives support;
+    \item if GeoAttention based on real stable geometry outperforms all controls, the interventional utility claim receives support.
+\end{itemize}
+
+The framework should not be interpreted as proven before these conditions are tested. ERGT is a proposal for what to measure, how to control it, and how to interpret the result.
+
+\subsection{Outcome 1: Relational Separability}
+
+The first expected outcome is that real hidden-state relations should be distinguishable from matched random and shuffled controls. Let
+\[
+W_{\mathrm{real}},\quad W_{\mathrm{random}},\quad W_{\mathrm{shuffled}}
+\]
+be relation graphs constructed under the same valid-edge mask, diagonal policy, normalization, clipping rule, and scale calibration. The expected positive result is
+\[
+\Delta_{\mathrm{sep}}(W_{\mathrm{real}},W_{\mathrm{random}})>\tau_{\mathrm{sep}}
+\]
+and
+\[
+\Delta_{\mathrm{sep}}(W_{\mathrm{real}},W_{\mathrm{shuffled}})>\tau_{\mathrm{sep}}.
+\]
+If this holds, the interpretation is narrow but important: hidden states contain relation structure that is not explained by the matched control procedures.
+
+If this fails, the ERGT chain should stop at the relational-field level. In that case, later claims about memory, contextual geometry, or GeoAttention are not justified because the first object in the chain has not been shown to contain non-random structure.
+
+\begin{ergtclaim}
+A positive separability result supports the existence of non-random relational organization in hidden states. It does not yet support memory, geometry, reasoning, or architectural usefulness.
+\end{ergtclaim}
+
+\subsection{Outcome 2: Non-Degenerate Structure}
+
+A relation graph may separate from controls while still being uninformative. The expected positive result is therefore not merely separability, but separability without collapse. ERGT expects the real graph to avoid the following degenerate regimes:
+\begin{itemize}[leftmargin=2em]
+    \item diagonal domination;
+    \item uniform relation weights;
+    \item over-sparsity;
+    \item saturation;
+    \item single-token lock-in;
+    \item entropy collapse.
+\end{itemize}
+
+A positive non-collapse result supports the claim that the real graph is a usable relational substrate. A negative result indicates that apparent structure may be an artifact of an overly concentrated or overly uniform relation matrix.
+
+This distinction is crucial because low entropy alone is not evidence of useful organization. Low entropy may indicate compression, but it may also indicate collapse. Therefore, every entropy-based result must be interpreted together with anti-collapse diagnostics.
+
+\subsection{Outcome 3: Reconstructibility from Allowed Context}
+
+ERGT expects meaningful relational structure to be reconstructible from the context available to the model. Let
+\[
+\hat{h}_i=R(H_{\leq i})
+\]
+be a reconstruction of the hidden state using only allowed context, and let
+\[
+\Delta_{\mathrm{rec}}(h_i)=\|h_i-\hat{h}_i\|^2.
+\]
+Similarly, relation reconstruction may be written as
+\[
+\Delta_{\mathrm{rec}}(W_{ij})=|W_{ij}-\hat{W}_{ij}|^2.
+\]
+The expected positive outcome is
+\[
+\Delta_{\mathrm{rec}}^{\mathrm{real}}
+<
+\Delta_{\mathrm{rec}}^{\mathrm{random/shuffled}}.
+\]
+If this holds, the interpretation is that real relational structure is more recoverable from the model's valid context than control structure. If it fails, the relation graph may not represent information actually available to the causal computation.
+
+\begin{ergtclaim}
+Reconstructibility is the bridge between observed relation structure and computational availability. A relation that cannot be reconstructed from allowed context should not be treated as evidence for usable ERGT geometry.
+\end{ergtclaim}
+
+\subsection{Outcome 4: Information Potential $\Phi$}
+
+The information potential $\Phi$ is expected to identify relation regions that are stable, locally ordered, reconstructible, and non-collapsed. The expected positive result is not simply that $\Phi$ can be computed, but that high-$\Phi$ regions predict useful properties:
+\[
+\Phi_{\mathrm{high}}
+\Rightarrow
+\text{higher stability},
+\]
+\[
+\Phi_{\mathrm{high}}
+\Rightarrow
+\text{lower reconstruction deficit},
+\]
+\[
+\Phi_{\mathrm{high}}
+\Rightarrow
+\text{better predictability or attention order}.
+\]
+If these correlations hold beyond random and shuffled controls, $\Phi$ receives support as an operational information-potential measure. If $\Phi$ only tracks low entropy or high salience, it is not sufficient. In that case, the definition must be revised to include stronger anti-collapse or reconstructibility factors.
+
+The correct interpretation of a positive $\Phi$ result is limited: it supports the usefulness of $\Phi$ as a selector of stable relational regions. It does not imply consciousness, subjective awareness, or human-like cognition.
+
+\subsection{Outcome 5: Relational Memory}
+
+ERGT defines memory as persistence of relational structure. The expected positive result is that the stability-gated memory
+\[
+\mathcal{M}_t
+=
+\lambda\mathcal{M}_{t-1}
++
+\eta U_t
+\]
+outperforms instantaneous, random, shuffled, generic smoothing, and no-memory controls. The required comparison is
+\[
+\mathcal{M}^{\mathrm{real}}_t
+>
+\mathcal{M}^{\mathrm{random}}_t,
+\]
+\[
+\mathcal{M}^{\mathrm{real}}_t
+>
+\mathcal{M}^{\mathrm{shuffled}}_t,
+\]
+\[
+\mathcal{M}^{\mathrm{real}}_t
+>
+\mathcal{M}^{\mathrm{instantaneous}},
+\]
+and
+\[
+\mathcal{M}^{\mathrm{real}}_t
+>
+\mathcal{M}^{\mathrm{smooth}}_t.
+\]
+If these inequalities hold, the interpretation is that real relation history contains useful persistent structure. If the real memory performs no better than instantaneous relations, the memory mechanism is unnecessary. If it performs no better than generic smoothing, the result supports smoothing rather than relational memory.
+
+\begin{ergtclaim}
+A relational-memory result is meaningful only if it beats both instantaneous structure and generic smoothing. Otherwise, memory has not been distinguished from temporal averaging.
+\end{ergtclaim}
+
+\subsection{Outcome 6: Contextual Shortest-Path Advantage}
+
+The geometric claim of ERGT requires more than pairwise relation weights. The expected positive result is that contextual shortest-path distance
+\[
+D_{\mathrm{ctx}}(i,j)
+=
+\min_{\gamma:j\to i}
+\sum_{(a,b)\in\gamma}d_{ab}
+\]
+provides more useful structure than pairwise distance:
+\[
+D_{\mathrm{ctx}}^{\mathrm{real}}
+>
+D_{\mathrm{pairwise}}^{\mathrm{real}}
+\]
+under appropriate metrics such as stability, reconstruction, attention guidance, or downstream validation.
+
+If this holds, the interpretation is that hidden-state relations contain path-based organization beyond direct similarity. This is the first point at which the word geometry becomes justified in the operational ERGT sense. If it fails, the model may contain relations but not navigable relational geometry.
+
+\subsection{Outcome 7: GeoAttention Utility}
+
+The strongest expected result is interventional. GeoAttention uses stable contextual distance as a bias:
+\[
+L_{ij}^{\mathrm{geo}}
+=
+\frac{Q_iK_j^\top}{\sqrt{d_h}}
+-
+\alpha D_{\mathrm{stable}}(i,j).
+\]
+The expected positive outcome is
+\[
+\mathrm{GeoAttn}(D_{\mathrm{real\ stable}})>
+\mathrm{Baseline},
+\]
+and also
+\[
+\mathrm{GeoAttn}(D_{\mathrm{real\ stable}})>
+\mathrm{GeoAttn}(D_{\mathrm{random}}),
+\]
+\[
+\mathrm{GeoAttn}(D_{\mathrm{real\ stable}})>
+\mathrm{GeoAttn}(D_{\mathrm{shuffled}}),
+\]
+\[
+\mathrm{GeoAttn}(D_{\mathrm{real\ stable}})>
+\mathrm{GeoAttn}(D_{\mathrm{instantaneous}}),
+\]
+\[
+\mathrm{GeoAttn}(D_{\mathrm{real\ stable}})>
+\mathrm{GeoAttn}(D_{\mathrm{pairwise}}),
+\]
+and
+\[
+\mathrm{GeoAttn}(D_{\mathrm{real\ stable}})>
+\mathrm{GeoAttn}(D_{\mathrm{no\text{-}memory}}).
+\]
+
+A positive result at this stage supports the architectural utility of ERGT. However, the interpretation remains conditional on task family, model scale, training setup, and control quality. A negative result does not necessarily invalidate earlier relational evidence; it may only show that the extracted geometry is interpretable but not yet useful as an attention intervention.
+
+\subsection{Interpreting Partial Support}
+
+ERGT should be interpreted as a chain of hypotheses rather than a single indivisible claim. The following partial outcomes are meaningful:
+\begin{description}[leftmargin=2.8em, style=nextline]
+    \item[Relational-only support.] Real graphs separate from controls and are non-collapsed, but reconstructibility or memory fails. This supports relational structure but not usable contextual geometry.
+    \item[Contextual support.] Real graphs are reconstructible and high-$\Phi$ regions predict useful structure, but memory fails. This supports context-valid relations but not persistence.
+    \item[Memory support.] Stability-gated memory outperforms instantaneous and smoothing controls, but shortest-path geometry fails. This supports persistence but not navigability.
+    \item[Geometric support.] Contextual shortest paths outperform pairwise distance, but GeoAttention fails. This supports interpretable geometry but not architectural utility.
+    \item[Interventional support.] Real stable contextual geometry improves GeoAttention beyond all controls. This is the strongest evidence level currently defined by ERGT.
+\end{description}
+
+This hierarchy prevents overclaiming. A study may legitimately support one level of ERGT while failing to support a stronger level.
+
+\subsection{Interpreting Negative Results}
+
+Negative results are not failures of the research program. They are informative outputs. For example:
+\begin{itemize}[leftmargin=2em]
+    \item if real graphs do not separate from controls, hidden-state relations may not contain stable non-random structure under the chosen construction;
+    \item if non-collapse fails, the relation definition may be degenerate;
+    \item if reconstructibility fails, the relation graph may not be causally available to the model;
+    \item if memory fails, persistence may not be present or the update rule may be too weak;
+    \item if path geometry fails, pairwise similarity may be sufficient for the tested tasks;
+    \item if GeoAttention fails, relational geometry may be interpretive rather than architecturally useful.
+\end{itemize}
+
+Thus, a negative result localizes the unsupported assumption. It should be reported as a meaningful scientific outcome rather than treated as a failed paper.
+
+\subsection{Recommended Reporting Format}
+
+A future ERGT experiment should report an evidence profile rather than only a final benchmark number. At minimum, the report should include:
+\begin{enumerate}[leftmargin=2em]
+    \item measurement-contract validation;
+    \item matched real, random, and shuffled relation statistics;
+    \item non-collapse diagnostics;
+    \item reconstruction deficits;
+    \item $\Phi$ correlations with stability, predictability, or attention order;
+    \item relational-memory comparisons against instantaneous and smoothing controls;
+    \item contextual shortest-path comparisons against pairwise and no-memory distances;
+    \item GeoAttention results against all geometry controls;
+    \item seed-level replication and confidence intervals;
+    \item explicit statement of which gates passed and which failed.
+\end{enumerate}
+
+This reporting format is designed to make ERGT evaluation reproducible and falsifiable.
+
+\subsection{Implications if ERGT Is Supported}
+
+If the full ERGT chain is supported, the result would justify the following restricted conclusion:
+\begin{ergtclaim}
+For the tested model and task family, hidden states support a stable, reconstructible, context-valid relational geometry that is more useful for attention than matched random, shuffled, instantaneous, pairwise, and no-memory alternatives.
+\end{ergtclaim}
+
+This conclusion would not prove a universal theory of intelligence. It would provide evidence that at least part of Transformer computation can be described through self-organized relational geometry. It would also motivate future work on reasoning as path navigation, memory as relational persistence, and attention as geometry-guided computation.
+
+\subsection{Conclusion of Expected-Outcomes Logic}
+
+The expected-outcomes logic of ERGT is intentionally conservative. It permits strong claims only when the full control hierarchy is satisfied. It also permits weaker but still valuable claims when only part of the chain is supported. This makes ERGT suitable as a research program before empirical confirmation: the framework defines not only what success would look like, but also how to interpret partial success and failure.
+
+The central conditional statement is:
+\begin{ergtclaim}
+If real hidden-state relations are separable, non-collapsed, reconstructible, stable across memory, superior under contextual shortest paths, and useful in GeoAttention beyond all matched controls, then ERGT receives empirical support as an operational theory of relational geometry in Transformer hidden states.
+\end{ergtclaim}
+
+
+
+\section*{References}
+\addcontentsline{toc}{section}{References}
+
+\begin{thebibliography}{99}
+
+\bibitem{vaswani2017attention}
+A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, L. Kaiser, and I. Polosukhin.
+\newblock Attention is all you need.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2017.
+\newblock \url{https://arxiv.org/abs/1706.03762}
+
+\bibitem{bahdanau2015neural}
+D. Bahdanau, K. Cho, and Y. Bengio.
+\newblock Neural machine translation by jointly learning to align and translate.
+\newblock In \emph{International Conference on Learning Representations}, 2015.
+\newblock \url{https://arxiv.org/abs/1409.0473}
+
+\bibitem{shaw2018self}
+P. Shaw, J. Uszkoreit, and A. Vaswani.
+\newblock Self-attention with relative position representations.
+\newblock In \emph{Proceedings of NAACL-HLT}, 2018.
+\newblock \url{https://aclanthology.org/N18-2074/}
+
+\bibitem{press2021train}
+O. Press, N. A. Smith, and M. Lewis.
+\newblock Train short, test long: Attention with linear biases enables input length extrapolation.
+\newblock arXiv preprint arXiv:2108.12409, 2021.
+\newblock \url{https://arxiv.org/abs/2108.12409}
+
+\bibitem{battaglia2018relational}
+P. W. Battaglia, J. B. Hamrick, V. Bapst, A. Sanchez-Gonzalez, V. Zambaldi, M. Malinowski, A. Tacchetti, D. Raposo, A. Santoro, R. Faulkner, and others.
+\newblock Relational inductive biases, deep learning, and graph networks.
+\newblock arXiv preprint arXiv:1806.01261, 2018.
+\newblock \url{https://arxiv.org/abs/1806.01261}
+
+\bibitem{scarselli2009graph}
+F. Scarselli, M. Gori, A. C. Tsoi, M. Hagenbuchner, and G. Monfardini.
+\newblock The graph neural network model.
+\newblock \emph{IEEE Transactions on Neural Networks}, 20(1):61--80, 2009.
+\newblock doi:10.1109/TNN.2008.2005605
+
+\bibitem{kipf2017semi}
+T. N. Kipf and M. Welling.
+\newblock Semi-supervised classification with graph convolutional networks.
+\newblock In \emph{International Conference on Learning Representations}, 2017.
+\newblock \url{https://arxiv.org/abs/1609.02907}
+
+\bibitem{gilmer2017neural}
+J. Gilmer, S. S. Schoenholz, P. F. Riley, O. Vinyals, and G. E. Dahl.
+\newblock Neural message passing for quantum chemistry.
+\newblock In \emph{Proceedings of the 34th International Conference on Machine Learning}, pages 1263--1272, 2017.
+\newblock \url{https://proceedings.mlr.press/v70/gilmer17a.html}
+
+\bibitem{velickovic2018graph}
+P. Velickovic, G. Cucurull, A. Casanova, A. Romero, P. Lio, and Y. Bengio.
+\newblock Graph attention networks.
+\newblock In \emph{International Conference on Learning Representations}, 2018.
+\newblock \url{https://arxiv.org/abs/1710.10903}
+
+\bibitem{bronstein2021geometric}
+M. M. Bronstein, J. Bruna, T. Cohen, and P. Velickovic.
+\newblock Geometric deep learning: Grids, groups, graphs, geodesics, and gauges.
+\newblock arXiv preprint arXiv:2104.13478, 2021.
+\newblock \url{https://arxiv.org/abs/2104.13478}
+
+\bibitem{ying2021graphormer}
+C. Ying, T. Cai, S. Luo, S. Zheng, G. Ke, D. He, Y. Shen, and T.-Y. Liu.
+\newblock Do transformers really perform badly for graph representation?
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2021.
+\newblock \url{https://openreview.net/forum?id=OeWooOxFwDa}
+
+\bibitem{hewitt2019structural}
+J. Hewitt and C. D. Manning.
+\newblock A structural probe for finding syntax in word representations.
+\newblock In \emph{Proceedings of NAACL-HLT}, pages 4129--4138, 2019.
+\newblock \url{https://aclanthology.org/N19-1419/}
+
+\bibitem{belinkov2019analysis}
+Y. Belinkov and J. Glass.
+\newblock Analysis methods in neural language processing: A survey.
+\newblock \emph{Transactions of the Association for Computational Linguistics}, 7:49--72, 2019.
+\newblock doi:10.1162/tacl\_a\_00254
+
+\bibitem{alain2017understanding}
+G. Alain and Y. Bengio.
+\newblock Understanding intermediate layers using linear classifier probes.
+\newblock In \emph{International Conference on Learning Representations Workshop}, 2017.
+\newblock \url{https://arxiv.org/abs/1610.01644}
+
+\bibitem{chung1997spectral}
+F. R. K. Chung.
+\newblock \emph{Spectral Graph Theory}.
+\newblock CBMS Regional Conference Series in Mathematics, No. 92. American Mathematical Society, 1997.
+\newblock \url{https://www.ams.org/books/cbms/092/}
+
+\bibitem{dijkstra1959note}
+E. W. Dijkstra.
+\newblock A note on two problems in connexion with graphs.
+\newblock \emph{Numerische Mathematik}, 1:269--271, 1959.
+\newblock doi:10.1007/BF01386390
+
+\bibitem{shannon1948mathematical}
+C. E. Shannon.
+\newblock A mathematical theory of communication.
+\newblock \emph{Bell System Technical Journal}, 27(3):379--423 and 27(4):623--656, 1948.
+\newblock doi:10.1002/j.1538-7305.1948.tb01338.x
+
+\bibitem{amari2016information}
+S. Amari.
+\newblock \emph{Information Geometry and Its Applications}.
+\newblock Springer, 2016.
+\newblock doi:10.1007/978-4-431-55978-8
+
+\bibitem{oversquashing2022}
+J. Topping, F. Di Giovanni, B. P. Chamberlain, X. Dong, and M. M. Bronstein.
+\newblock Understanding over-squashing and bottlenecks on graphs via curvature.
+\newblock In \emph{International Conference on Learning Representations}, 2022.
+\newblock \url{https://arxiv.org/abs/2111.14522}
+
+
+\bibitem{popper1959logic}
+K. R. Popper.
+\newblock \emph{The Logic of Scientific Discovery}.
+\newblock Hutchinson, 1959.
+
+\end{thebibliography}
+
+\end{document}
+

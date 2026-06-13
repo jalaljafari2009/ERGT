@@ -26,6 +26,9 @@ For a reader-facing position paper that explains the strengthened ERGT vision
 and the meaning of "intelligence space", see
 `docs/18_ergt_position_paper.md`.
 
+The longer article manuscript artifacts are kept in
+`docs/research_article/`.
+
 The updated movement standard is:
 
 ```text
