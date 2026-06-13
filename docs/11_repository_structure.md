@@ -89,6 +89,7 @@ Post-evidence adaptive control and Run-02 consolidation are captured in:
 docs/19_adaptive_competitive_alpha_plan.md
 docs/20_run02_evidence_consolidation.md
 docs/21_open_control_philosophy_contract.md
+docs/22_unified_telemetry_schema.md
 ```
 
 The original source notes remain at the repository root:

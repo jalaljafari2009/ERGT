@@ -1,0 +1,981 @@
+{
+  "adaptive_parameters": [
+    "alpha",
+    "causal_reachability",
+    "distance_norm_scale",
+    "gate_floor",
+    "memory_decay",
+    "memory_eta"
+  ],
+  "aliases": {
+    "alpha": [
+      "alpha_effective"
+    ],
+    "alpha_credit": [
+      "adaptive_score"
+    ],
+    "baseline_centered_improvement": [
+      "base_centered"
+    ],
+    "loss_slope_gain": [
+      "adaptive_slope_gain"
+    ],
+    "mean_max_probability": [
+      "attention_mean_max_probability"
+    ]
+  },
+  "categories": {
+    "adaptive_parameters": [
+      "alpha",
+      "alpha_previous",
+      "alpha_next",
+      "alpha_delta",
+      "alpha_decision",
+      "alpha_credit",
+      "alpha_risk_pressure",
+      "memory_decay_previous",
+      "memory_decay_next",
+      "memory_decay_delta",
+      "memory_decay_decision",
+      "memory_decay_credit",
+      "memory_decay_risk_pressure",
+      "memory_eta_previous",
+      "memory_eta_next",
+      "memory_eta_delta",
+      "memory_eta_decision",
+      "memory_eta_credit",
+      "memory_eta_risk_pressure",
+      "gate_floor_previous",
+      "gate_floor_next",
+      "gate_floor_delta",
+      "gate_floor_decision",
+      "gate_floor_credit",
+      "gate_floor_risk_pressure",
+      "distance_norm_scale_previous",
+      "distance_norm_scale_next",
+      "distance_norm_scale_delta",
+      "distance_norm_scale_decision",
+      "distance_norm_scale_credit",
+      "distance_norm_scale_risk_pressure",
+      "causal_reachability_previous",
+      "causal_reachability_next",
+      "causal_reachability_delta",
+      "causal_reachability_decision",
+      "causal_reachability_credit",
+      "causal_reachability_risk_pressure"
+    ],
+    "attention_rigidity": [
+      "qk_mean_abs",
+      "geo_mean_abs",
+      "geo_to_qk_ratio",
+      "attention_entropy",
+      "attention_entropy_drop",
+      "mean_max_probability",
+      "attention_sparsity_0_01",
+      "geo_qk_risk",
+      "entropy_risk",
+      "max_probability_risk",
+      "rigidity_risk",
+      "collapse_risk"
+    ],
+    "attribution": [
+      "adaptive_score",
+      "attribution_summary",
+      "change_budget",
+      "decision_summary",
+      "alpha_points_used"
+    ],
+    "control_separation": [
+      "real_vs_random_delta",
+      "real_vs_shuffled_delta",
+      "real_vs_no_memory_delta",
+      "real_vs_instantaneous_delta",
+      "control_separation",
+      "control_penalty",
+      "control_family_fairness_status"
+    ],
+    "data_model": [
+      "dataset_name",
+      "tokenizer",
+      "context_length",
+      "batch_size",
+      "n_layers",
+      "n_heads",
+      "hidden_dim"
+    ],
+    "geometry_distance": [
+      "distance_norm_scale",
+      "causal_reachability",
+      "max_causal_step",
+      "distance_mean",
+      "distance_std",
+      "spectral_entropy",
+      "effective_rank",
+      "future_leakage_detected"
+    ],
+    "identity": [
+      "telemetry_schema_version",
+      "run_id",
+      "phase",
+      "condition",
+      "control_family",
+      "step",
+      "eval_index",
+      "seed"
+    ],
+    "loss_trend": [
+      "train_loss",
+      "validation_loss",
+      "best_validation_loss",
+      "baseline_validation_loss",
+      "baseline_centered_improvement",
+      "late_window",
+      "loss_slope",
+      "baseline_loss_slope",
+      "loss_slope_gain",
+      "adaptive_advantage",
+      "trend_window_points"
+    ],
+    "memory_state": [
+      "memory_decay",
+      "memory_eta",
+      "gate_floor",
+      "memory_stability",
+      "memory_turnover",
+      "memory_edge_density",
+      "memory_persistence",
+      "memory_spectral_entropy",
+      "memory_effective_rank",
+      "memory_rigidity",
+      "noise_risk"
+    ],
+    "runtime": [
+      "learning_rate",
+      "grad_norm",
+      "tokens_processed",
+      "tokens_per_second",
+      "gpu_memory_gb",
+      "gpu_peak_memory_gb",
+      "elapsed_seconds",
+      "elapsed_minutes"
+    ],
+    "safety": [
+      "hard_stop_triggered",
+      "hard_stop_reason",
+      "nan_or_inf_detected",
+      "loss_explosion_detected",
+      "severe_attention_collapse_detected",
+      "control_unfairness_detected"
+    ]
+  },
+  "checks": {
+    "adaptive_parameter_change_fields_declared": true,
+    "every_catalog_field_has_category": true,
+    "every_category_field_has_catalog_entry": true,
+    "field_metadata_complete": true,
+    "hard_stop_fields_declared": true,
+    "minimum_live_fields_covered": true,
+    "no_duplicate_category_fields": true,
+    "open_control_required_fields_covered": true,
+    "run02_aliases_preserve_current_notebook_fields": true
+  },
+  "fields": {
+    "adaptive_advantage": {
+      "cadence": "every_eval_point",
+      "category": "loss_trend",
+      "meaning": "adaptive advantage",
+      "type": "number"
+    },
+    "adaptive_score": {
+      "cadence": "every_eval_point",
+      "category": "attribution",
+      "meaning": "adaptive score",
+      "type": "number"
+    },
+    "alpha": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "alpha",
+      "type": "number"
+    },
+    "alpha_credit": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "alpha credit",
+      "type": "number"
+    },
+    "alpha_decision": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "alpha decision",
+      "type": "string"
+    },
+    "alpha_delta": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "alpha delta",
+      "type": "number"
+    },
+    "alpha_next": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "alpha next",
+      "type": "number"
+    },
+    "alpha_points_used": {
+      "cadence": "every_eval_point",
+      "category": "attribution",
+      "meaning": "alpha points used",
+      "type": "integer"
+    },
+    "alpha_previous": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "alpha previous",
+      "type": "number"
+    },
+    "alpha_risk_pressure": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "alpha risk pressure",
+      "type": "number"
+    },
+    "attention_entropy": {
+      "cadence": "every_eval_point",
+      "category": "attention_rigidity",
+      "meaning": "attention entropy",
+      "type": "number"
+    },
+    "attention_entropy_drop": {
+      "cadence": "every_eval_point",
+      "category": "attention_rigidity",
+      "meaning": "attention entropy drop",
+      "type": "number"
+    },
+    "attention_sparsity_0_01": {
+      "cadence": "every_eval_point",
+      "category": "attention_rigidity",
+      "meaning": "attention sparsity 0 01",
+      "type": "number"
+    },
+    "attribution_summary": {
+      "cadence": "every_eval_point",
+      "category": "attribution",
+      "meaning": "attribution summary",
+      "type": "string"
+    },
+    "baseline_centered_improvement": {
+      "cadence": "every_eval_point",
+      "category": "loss_trend",
+      "meaning": "baseline centered improvement",
+      "type": "number"
+    },
+    "baseline_loss_slope": {
+      "cadence": "every_eval_point",
+      "category": "loss_trend",
+      "meaning": "baseline loss slope",
+      "type": "number"
+    },
+    "baseline_validation_loss": {
+      "cadence": "every_eval_point",
+      "category": "loss_trend",
+      "meaning": "baseline validation loss",
+      "type": "number"
+    },
+    "batch_size": {
+      "cadence": "run_start_and_eval",
+      "category": "data_model",
+      "meaning": "batch size",
+      "type": "integer"
+    },
+    "best_validation_loss": {
+      "cadence": "every_eval_point",
+      "category": "loss_trend",
+      "meaning": "best validation loss",
+      "type": "number"
+    },
+    "causal_reachability": {
+      "cadence": "every_eval_point",
+      "category": "geometry_distance",
+      "meaning": "causal reachability",
+      "type": "number"
+    },
+    "causal_reachability_credit": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "causal reachability credit",
+      "type": "number"
+    },
+    "causal_reachability_decision": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "causal reachability decision",
+      "type": "string"
+    },
+    "causal_reachability_delta": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "causal reachability delta",
+      "type": "number"
+    },
+    "causal_reachability_next": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "causal reachability next",
+      "type": "number"
+    },
+    "causal_reachability_previous": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "causal reachability previous",
+      "type": "number"
+    },
+    "causal_reachability_risk_pressure": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "causal reachability risk pressure",
+      "type": "number"
+    },
+    "change_budget": {
+      "cadence": "every_eval_point",
+      "category": "attribution",
+      "meaning": "change budget",
+      "type": "number"
+    },
+    "collapse_risk": {
+      "cadence": "every_eval_point",
+      "category": "attention_rigidity",
+      "meaning": "collapse risk",
+      "type": "number"
+    },
+    "condition": {
+      "cadence": "run_start_and_eval",
+      "category": "identity",
+      "meaning": "condition",
+      "type": "string"
+    },
+    "context_length": {
+      "cadence": "run_start_and_eval",
+      "category": "data_model",
+      "meaning": "context length",
+      "type": "integer"
+    },
+    "control_family": {
+      "cadence": "run_start_and_eval",
+      "category": "identity",
+      "meaning": "control family",
+      "type": "string"
+    },
+    "control_family_fairness_status": {
+      "cadence": "every_eval_point",
+      "category": "control_separation",
+      "meaning": "control family fairness status",
+      "type": "string"
+    },
+    "control_penalty": {
+      "cadence": "every_eval_point",
+      "category": "control_separation",
+      "meaning": "control penalty",
+      "type": "number"
+    },
+    "control_separation": {
+      "cadence": "every_eval_point",
+      "category": "control_separation",
+      "meaning": "control separation",
+      "type": "number"
+    },
+    "control_unfairness_detected": {
+      "cadence": "every_eval_point_and_failure",
+      "category": "safety",
+      "meaning": "control unfairness detected",
+      "type": "boolean"
+    },
+    "dataset_name": {
+      "cadence": "run_start_and_eval",
+      "category": "data_model",
+      "meaning": "dataset name",
+      "type": "string"
+    },
+    "decision_summary": {
+      "cadence": "every_eval_point",
+      "category": "attribution",
+      "meaning": "decision summary",
+      "type": "string"
+    },
+    "distance_mean": {
+      "cadence": "every_eval_point",
+      "category": "geometry_distance",
+      "meaning": "distance mean",
+      "type": "number"
+    },
+    "distance_norm_scale": {
+      "cadence": "every_eval_point",
+      "category": "geometry_distance",
+      "meaning": "distance norm scale",
+      "type": "number"
+    },
+    "distance_norm_scale_credit": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "distance norm scale credit",
+      "type": "number"
+    },
+    "distance_norm_scale_decision": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "distance norm scale decision",
+      "type": "string"
+    },
+    "distance_norm_scale_delta": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "distance norm scale delta",
+      "type": "number"
+    },
+    "distance_norm_scale_next": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "distance norm scale next",
+      "type": "number"
+    },
+    "distance_norm_scale_previous": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "distance norm scale previous",
+      "type": "number"
+    },
+    "distance_norm_scale_risk_pressure": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "distance norm scale risk pressure",
+      "type": "number"
+    },
+    "distance_std": {
+      "cadence": "every_eval_point",
+      "category": "geometry_distance",
+      "meaning": "distance std",
+      "type": "number"
+    },
+    "effective_rank": {
+      "cadence": "every_eval_point",
+      "category": "geometry_distance",
+      "meaning": "effective rank",
+      "type": "number"
+    },
+    "elapsed_minutes": {
+      "cadence": "every_eval_point",
+      "category": "runtime",
+      "meaning": "elapsed minutes",
+      "type": "number"
+    },
+    "elapsed_seconds": {
+      "cadence": "every_eval_point",
+      "category": "runtime",
+      "meaning": "elapsed seconds",
+      "type": "number"
+    },
+    "entropy_risk": {
+      "cadence": "every_eval_point",
+      "category": "attention_rigidity",
+      "meaning": "entropy risk",
+      "type": "number"
+    },
+    "eval_index": {
+      "cadence": "run_start_and_eval",
+      "category": "identity",
+      "meaning": "eval index",
+      "type": "integer"
+    },
+    "future_leakage_detected": {
+      "cadence": "every_eval_point",
+      "category": "geometry_distance",
+      "meaning": "future leakage detected",
+      "type": "boolean"
+    },
+    "gate_floor": {
+      "cadence": "every_eval_point",
+      "category": "memory_state",
+      "meaning": "gate floor",
+      "type": "number"
+    },
+    "gate_floor_credit": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "gate floor credit",
+      "type": "number"
+    },
+    "gate_floor_decision": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "gate floor decision",
+      "type": "string"
+    },
+    "gate_floor_delta": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "gate floor delta",
+      "type": "number"
+    },
+    "gate_floor_next": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "gate floor next",
+      "type": "number"
+    },
+    "gate_floor_previous": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "gate floor previous",
+      "type": "number"
+    },
+    "gate_floor_risk_pressure": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "gate floor risk pressure",
+      "type": "number"
+    },
+    "geo_mean_abs": {
+      "cadence": "every_eval_point",
+      "category": "attention_rigidity",
+      "meaning": "geo mean abs",
+      "type": "number"
+    },
+    "geo_qk_risk": {
+      "cadence": "every_eval_point",
+      "category": "attention_rigidity",
+      "meaning": "geo qk risk",
+      "type": "number"
+    },
+    "geo_to_qk_ratio": {
+      "cadence": "every_eval_point",
+      "category": "attention_rigidity",
+      "meaning": "geo to qk ratio",
+      "type": "number"
+    },
+    "gpu_memory_gb": {
+      "cadence": "every_eval_point",
+      "category": "runtime",
+      "meaning": "gpu memory gb",
+      "type": "number"
+    },
+    "gpu_peak_memory_gb": {
+      "cadence": "every_eval_point",
+      "category": "runtime",
+      "meaning": "gpu peak memory gb",
+      "type": "number"
+    },
+    "grad_norm": {
+      "cadence": "every_eval_point",
+      "category": "runtime",
+      "meaning": "grad norm",
+      "type": "number"
+    },
+    "hard_stop_reason": {
+      "cadence": "every_eval_point_and_failure",
+      "category": "safety",
+      "meaning": "hard stop reason",
+      "type": "string"
+    },
+    "hard_stop_triggered": {
+      "cadence": "every_eval_point_and_failure",
+      "category": "safety",
+      "meaning": "hard stop triggered",
+      "type": "boolean"
+    },
+    "hidden_dim": {
+      "cadence": "run_start_and_eval",
+      "category": "data_model",
+      "meaning": "hidden dim",
+      "type": "integer"
+    },
+    "late_window": {
+      "cadence": "every_eval_point",
+      "category": "loss_trend",
+      "meaning": "late window",
+      "type": "boolean"
+    },
+    "learning_rate": {
+      "cadence": "every_eval_point",
+      "category": "runtime",
+      "meaning": "learning rate",
+      "type": "number"
+    },
+    "loss_explosion_detected": {
+      "cadence": "every_eval_point_and_failure",
+      "category": "safety",
+      "meaning": "loss explosion detected",
+      "type": "boolean"
+    },
+    "loss_slope": {
+      "cadence": "every_eval_point",
+      "category": "loss_trend",
+      "meaning": "loss slope",
+      "type": "number"
+    },
+    "loss_slope_gain": {
+      "cadence": "every_eval_point",
+      "category": "loss_trend",
+      "meaning": "loss slope gain",
+      "type": "number"
+    },
+    "max_causal_step": {
+      "cadence": "every_eval_point",
+      "category": "geometry_distance",
+      "meaning": "max causal step",
+      "type": "integer"
+    },
+    "max_probability_risk": {
+      "cadence": "every_eval_point",
+      "category": "attention_rigidity",
+      "meaning": "max probability risk",
+      "type": "number"
+    },
+    "mean_max_probability": {
+      "cadence": "every_eval_point",
+      "category": "attention_rigidity",
+      "meaning": "mean max probability",
+      "type": "number"
+    },
+    "memory_decay": {
+      "cadence": "every_eval_point",
+      "category": "memory_state",
+      "meaning": "memory decay",
+      "type": "number"
+    },
+    "memory_decay_credit": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "memory decay credit",
+      "type": "number"
+    },
+    "memory_decay_decision": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "memory decay decision",
+      "type": "string"
+    },
+    "memory_decay_delta": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "memory decay delta",
+      "type": "number"
+    },
+    "memory_decay_next": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "memory decay next",
+      "type": "number"
+    },
+    "memory_decay_previous": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "memory decay previous",
+      "type": "number"
+    },
+    "memory_decay_risk_pressure": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "memory decay risk pressure",
+      "type": "number"
+    },
+    "memory_edge_density": {
+      "cadence": "every_eval_point",
+      "category": "memory_state",
+      "meaning": "memory edge density",
+      "type": "number"
+    },
+    "memory_effective_rank": {
+      "cadence": "every_eval_point",
+      "category": "memory_state",
+      "meaning": "memory effective rank",
+      "type": "number"
+    },
+    "memory_eta": {
+      "cadence": "every_eval_point",
+      "category": "memory_state",
+      "meaning": "memory eta",
+      "type": "number"
+    },
+    "memory_eta_credit": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "memory eta credit",
+      "type": "number"
+    },
+    "memory_eta_decision": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "memory eta decision",
+      "type": "string"
+    },
+    "memory_eta_delta": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "memory eta delta",
+      "type": "number"
+    },
+    "memory_eta_next": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "memory eta next",
+      "type": "number"
+    },
+    "memory_eta_previous": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "memory eta previous",
+      "type": "number"
+    },
+    "memory_eta_risk_pressure": {
+      "cadence": "every_eval_point",
+      "category": "adaptive_parameters",
+      "meaning": "memory eta risk pressure",
+      "type": "number"
+    },
+    "memory_persistence": {
+      "cadence": "every_eval_point",
+      "category": "memory_state",
+      "meaning": "memory persistence",
+      "type": "number"
+    },
+    "memory_rigidity": {
+      "cadence": "every_eval_point",
+      "category": "memory_state",
+      "meaning": "memory rigidity",
+      "type": "number"
+    },
+    "memory_spectral_entropy": {
+      "cadence": "every_eval_point",
+      "category": "memory_state",
+      "meaning": "memory spectral entropy",
+      "type": "number"
+    },
+    "memory_stability": {
+      "cadence": "every_eval_point",
+      "category": "memory_state",
+      "meaning": "memory stability",
+      "type": "number"
+    },
+    "memory_turnover": {
+      "cadence": "every_eval_point",
+      "category": "memory_state",
+      "meaning": "memory turnover",
+      "type": "number"
+    },
+    "n_heads": {
+      "cadence": "run_start_and_eval",
+      "category": "data_model",
+      "meaning": "n heads",
+      "type": "integer"
+    },
+    "n_layers": {
+      "cadence": "run_start_and_eval",
+      "category": "data_model",
+      "meaning": "n layers",
+      "type": "integer"
+    },
+    "nan_or_inf_detected": {
+      "cadence": "every_eval_point_and_failure",
+      "category": "safety",
+      "meaning": "nan or inf detected",
+      "type": "boolean"
+    },
+    "noise_risk": {
+      "cadence": "every_eval_point",
+      "category": "memory_state",
+      "meaning": "noise risk",
+      "type": "number"
+    },
+    "phase": {
+      "cadence": "run_start_and_eval",
+      "category": "identity",
+      "meaning": "phase",
+      "type": "string"
+    },
+    "qk_mean_abs": {
+      "cadence": "every_eval_point",
+      "category": "attention_rigidity",
+      "meaning": "qk mean abs",
+      "type": "number"
+    },
+    "real_vs_instantaneous_delta": {
+      "cadence": "every_eval_point",
+      "category": "control_separation",
+      "meaning": "real vs instantaneous delta",
+      "type": "number"
+    },
+    "real_vs_no_memory_delta": {
+      "cadence": "every_eval_point",
+      "category": "control_separation",
+      "meaning": "real vs no memory delta",
+      "type": "number"
+    },
+    "real_vs_random_delta": {
+      "cadence": "every_eval_point",
+      "category": "control_separation",
+      "meaning": "real vs random delta",
+      "type": "number"
+    },
+    "real_vs_shuffled_delta": {
+      "cadence": "every_eval_point",
+      "category": "control_separation",
+      "meaning": "real vs shuffled delta",
+      "type": "number"
+    },
+    "rigidity_risk": {
+      "cadence": "every_eval_point",
+      "category": "attention_rigidity",
+      "meaning": "rigidity risk",
+      "type": "number"
+    },
+    "run_id": {
+      "cadence": "run_start_and_eval",
+      "category": "identity",
+      "meaning": "run id",
+      "type": "string"
+    },
+    "seed": {
+      "cadence": "run_start_and_eval",
+      "category": "identity",
+      "meaning": "seed",
+      "type": "integer"
+    },
+    "severe_attention_collapse_detected": {
+      "cadence": "every_eval_point_and_failure",
+      "category": "safety",
+      "meaning": "severe attention collapse detected",
+      "type": "boolean"
+    },
+    "spectral_entropy": {
+      "cadence": "every_eval_point",
+      "category": "geometry_distance",
+      "meaning": "spectral entropy",
+      "type": "number"
+    },
+    "step": {
+      "cadence": "run_start_and_eval",
+      "category": "identity",
+      "meaning": "step",
+      "type": "integer"
+    },
+    "telemetry_schema_version": {
+      "cadence": "run_start_and_eval",
+      "category": "identity",
+      "meaning": "telemetry schema version",
+      "type": "string"
+    },
+    "tokenizer": {
+      "cadence": "run_start_and_eval",
+      "category": "data_model",
+      "meaning": "tokenizer",
+      "type": "string"
+    },
+    "tokens_per_second": {
+      "cadence": "every_eval_point",
+      "category": "runtime",
+      "meaning": "tokens per second",
+      "type": "number"
+    },
+    "tokens_processed": {
+      "cadence": "every_eval_point",
+      "category": "runtime",
+      "meaning": "tokens processed",
+      "type": "integer"
+    },
+    "train_loss": {
+      "cadence": "every_eval_point",
+      "category": "loss_trend",
+      "meaning": "train loss",
+      "type": "number"
+    },
+    "trend_window_points": {
+      "cadence": "every_eval_point",
+      "category": "loss_trend",
+      "meaning": "trend window points",
+      "type": "integer"
+    },
+    "validation_loss": {
+      "cadence": "every_eval_point",
+      "category": "loss_trend",
+      "meaning": "validation loss",
+      "type": "number"
+    }
+  },
+  "hard_stops": [
+    "control_unfairness",
+    "future_leakage",
+    "loss_explosion",
+    "nan_or_inf",
+    "severe_attention_collapse"
+  ],
+  "minimum_live_fields": [
+    "step",
+    "condition",
+    "validation_loss",
+    "alpha",
+    "alpha_next",
+    "alpha_delta",
+    "alpha_decision",
+    "loss_slope_gain",
+    "baseline_centered_improvement",
+    "geo_to_qk_ratio",
+    "attention_entropy",
+    "mean_max_probability",
+    "rigidity_risk",
+    "control_penalty"
+  ],
+  "next_required_step": "memory_state_instrumentation",
+  "open_control_required_telemetry": [
+    "validation_loss",
+    "baseline_centered_improvement",
+    "loss_slope_gain",
+    "control_separation",
+    "alpha",
+    "alpha_delta",
+    "memory_decay",
+    "memory_eta",
+    "gate_floor",
+    "distance_norm_scale",
+    "causal_reachability",
+    "geo_to_qk_ratio",
+    "attention_entropy",
+    "mean_max_probability",
+    "memory_stability",
+    "memory_turnover",
+    "spectral_entropy",
+    "effective_rank",
+    "rigidity_risk",
+    "noise_risk",
+    "control_penalty",
+    "attribution_summary"
+  ],
+  "purpose": "Define one live and machine-readable telemetry language for loss, attention, memory, geometry, controls, attribution, safety, and runtime.",
+  "run02_compatibility_fields": [
+    "step",
+    "condition",
+    "validation_loss",
+    "alpha_effective",
+    "alpha_next",
+    "alpha_delta",
+    "alpha_decision",
+    "adaptive_score",
+    "adaptive_slope_gain",
+    "adaptive_advantage",
+    "geo_to_qk_ratio",
+    "attention_entropy",
+    "mean_max_probability",
+    "geo_qk_risk",
+    "entropy_risk",
+    "max_probability_risk"
+  ],
+  "schema": "unified_telemetry_v1",
+  "soft_pressures": [
+    "attention_entropy_drop",
+    "control_penalty",
+    "geo_to_qk_ratio",
+    "mean_max_probability",
+    "memory_rigidity",
+    "memory_turnover"
+  ],
+  "status": "pass"
+}

@@ -40,6 +40,10 @@ The open-control philosophy for allowing growth and limitation to come from
 evidence rather than fixed scientific ceilings is defined in
 `docs/21_open_control_philosophy_contract.md`.
 
+The unified telemetry schema for loss, attention, memory, geometry, controls,
+attribution, safety, and runtime fields is defined in
+`docs/22_unified_telemetry_schema.md`.
+
 The updated movement standard is:
 
 ```text
