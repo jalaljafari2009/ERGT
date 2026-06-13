@@ -1,0 +1,108 @@
+{
+  "architecture_enabled": false,
+  "architecture_pipeline": [
+    "HiddenStates",
+    "RelationalGraph",
+    "Phi",
+    "DynamicGraphMemory",
+    "EmergentDistance",
+    "CausalGeometry",
+    "GeoAttention",
+    "PhysicsRegularizer"
+  ],
+  "blocked_by": [
+    "geoattention_v2_strict_training_gate_not_passed",
+    "auxiliary_physics_loss_not_ready_or_not_enabled"
+  ],
+  "checks": {
+    "architecture_not_integrated_before_gates": true,
+    "auxiliary_physics_loss_enabled": false,
+    "auxiliary_physics_loss_ready": false,
+    "geoattention_v2_mechanics_passed": true,
+    "geoattention_v2_strict_training_gate_passed": false,
+    "observer_stack_passed": true,
+    "required_reports_present": true
+  },
+  "integration_contract": {
+    "capacity_control": "complete architecture must beat matched-parameter controls, not just add capacity",
+    "evidence_rule": "role of W_t and D_causal must remain visible against no-memory, pairwise, random, shuffled, and matched-parameter baselines",
+    "goal": "integrate only validated components into a single architecture",
+    "required_pipeline": "HiddenStates -> RelationalGraph -> Phi -> DynamicGraphMemory -> EmergentDistance -> CausalGeometry -> GeoAttention -> PhysicsRegularizer"
+  },
+  "missing_reports": [],
+  "next_required_step": "run_geoattention_v2_training_controls",
+  "phase": "phase10_complete_ergt_architecture_gate",
+  "phase_statuses": {
+    "auxiliary_physics_loss_gate": {
+      "next_required_step": "run_geoattention_v2_training_controls",
+      "phase": "phase9_auxiliary_physics_loss_gate",
+      "status": "blocked"
+    },
+    "causal_shortest_path_geometry": {
+      "next_required_step": "geoattention_v2",
+      "phase": "phase7_causal_shortest_path_geometry",
+      "status": "pass"
+    },
+    "geoattention_v2": {
+      "next_required_step": "run_geoattention_v2_training_controls",
+      "phase": "phase8_geoattention_v2",
+      "status": "pass"
+    },
+    "information_potential_phi": {
+      "next_required_step": "reconstruction_gate",
+      "phase": "phase4_information_potential_phi",
+      "status": "pass"
+    },
+    "measurement_contracts": {
+      "next_required_step": "strict_W_level_controls",
+      "phase": "phase0_measurement_contracts",
+      "status": "pass"
+    },
+    "reconstruction_gate": {
+      "next_required_step": "relational_memory_observer",
+      "phase": "phase5_reconstruction_gate",
+      "status": "pass"
+    },
+    "relational_field_observer": {
+      "next_required_step": "resonant_response_observer",
+      "phase": "phase2_relational_field_observer",
+      "status": "pass"
+    },
+    "relational_memory_observer": {
+      "next_required_step": "causal_shortest_path_geometry",
+      "phase": "phase6_relational_memory_observer",
+      "status": "pass"
+    },
+    "resonant_response_observer": {
+      "next_required_step": "information_potential_phi",
+      "phase": "phase3_resonant_response_observer",
+      "status": "pass"
+    },
+    "strict_w_controls": {
+      "next_required_step": "relational_field_observer",
+      "phase": "phase1_strict_w_level_controls",
+      "status": "pass"
+    }
+  },
+  "required_comparisons": [
+    "transformer_baseline",
+    "ergt_without_memory",
+    "ergt_with_memory",
+    "ergt_with_causal_geometry",
+    "ergt_with_spectral_regularization",
+    "matched_parameter_gpt_style_baseline"
+  ],
+  "source_reports": {
+    "auxiliary_physics_loss_gate": "runs/auxiliary_physics_loss/auxiliary_physics_loss_gate_report.json",
+    "causal_shortest_path_geometry": "runs/observers/causal_shortest_path_geometry_report.json",
+    "geoattention_v2": "runs/geoattention_v2/geoattention_v2_report.json",
+    "information_potential_phi": "runs/observers/information_potential_report.json",
+    "measurement_contracts": "runs/contracts/measurement_contract_report.json",
+    "reconstruction_gate": "runs/observers/reconstruction_gate_report.json",
+    "relational_field_observer": "runs/observers/relational_field_observer_report.json",
+    "relational_memory_observer": "runs/observers/relational_memory_observer_report.json",
+    "resonant_response_observer": "runs/observers/resonant_response_observer_report.json",
+    "strict_w_controls": "runs/contracts/strict_w_controls_report.json"
+  },
+  "status": "blocked"
+}

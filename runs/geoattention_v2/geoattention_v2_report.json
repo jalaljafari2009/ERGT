@@ -1,0 +1,80 @@
+{
+  "alpha": 2.0,
+  "alpha_zero": {
+    "max_abs_delta": 0.0,
+    "mean_abs_delta": 0.0
+  },
+  "checks": {
+    "alpha_zero_matches_baseline": true,
+    "future_attention_forbidden": true,
+    "real_uses_memory_after_first_layer": true,
+    "required_controls_present": true,
+    "stable_causal_geometry_injected": true
+  },
+  "construction": "H -> W_t memory -> D_causal -> normalized D_stable -> attention",
+  "controls": {
+    "baseline_policy": "checked by alpha_zero weight-copy neutrality",
+    "families": [
+      "real_stable_causal_d",
+      "random_stable_causal_d",
+      "shuffled_stable_causal_d",
+      "instantaneous_real_d",
+      "pairwise_real_d",
+      "no_memory_real_d"
+    ]
+  },
+  "injection_formula": "logits = QK/sqrt(d) - alpha * D_stable",
+  "input_source": "synthetic_memory_smoke",
+  "metrics": {
+    "instantaneous_real_d": {
+      "attention_alignment_score": 0.3165000672977149,
+      "target_cosine": 0.6522819399833679,
+      "target_prediction_score": 0.10709116137810477,
+      "valid_attention_entropy": 0.1930280290544033
+    },
+    "no_memory_real_d": {
+      "attention_alignment_score": 0.3034895030097261,
+      "target_cosine": 0.6269578039646149,
+      "target_prediction_score": 0.09148113988985924,
+      "valid_attention_entropy": 0.14564188942313194
+    },
+    "pairwise_real_d": {
+      "attention_alignment_score": 0.2813224925689811,
+      "target_cosine": 0.5638228356838226,
+      "target_prediction_score": 0.06591252216738422,
+      "valid_attention_entropy": 0.025392362847924232
+    },
+    "random_stable_causal_d": {
+      "attention_alignment_score": 0.31840520950467427,
+      "target_cosine": 0.65504951775074,
+      "target_prediction_score": 0.10962904915194016,
+      "valid_attention_entropy": 0.19927158951759338
+    },
+    "real_stable_causal_d": {
+      "attention_alignment_score": 0.31640791371660437,
+      "target_cosine": 0.6521352827548981,
+      "target_prediction_score": 0.10697579568890894,
+      "valid_attention_entropy": 0.19275056943297386
+    },
+    "shuffled_stable_causal_d": {
+      "attention_alignment_score": 0.31785628409491873,
+      "target_cosine": 0.6543344557285309,
+      "target_prediction_score": 0.10881350158816465,
+      "valid_attention_entropy": 0.19697556644678116
+    }
+  },
+  "next_required_step": "run_geoattention_v2_training_controls",
+  "phase": "phase8_geoattention_v2",
+  "scientific_scope": "smoke_validates_geoattention_v2_injection_mechanics",
+  "seed": 2027,
+  "source_config": "configs/ergt_v1/phase3_ratio_matched/target_0_2/real_d_target_0_2_alpha_0_0682799_seed2027.json",
+  "status": "pass",
+  "strict_gate_checks": {
+    "real_stable_beats_instantaneous": false,
+    "real_stable_beats_no_memory": true,
+    "real_stable_beats_pairwise": true,
+    "real_stable_beats_random": false,
+    "real_stable_beats_shuffled": false
+  },
+  "strict_gate_status": "needs_training_run"
+}

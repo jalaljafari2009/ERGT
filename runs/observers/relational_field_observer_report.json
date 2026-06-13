@@ -1,0 +1,269 @@
+{
+  "checks": {
+    "all_layers_non_uniform": true,
+    "all_layers_not_saturated": true,
+    "all_layers_separate_from_random": true,
+    "all_layers_separate_from_shuffled": true,
+    "nearby_layers_stable": true
+  },
+  "controls": {
+    "control_generation_level": "W_level_before_distance_normalization",
+    "families": [
+      "real",
+      "random",
+      "shuffled"
+    ]
+  },
+  "input_source": "synthetic_structured_smoke",
+  "layers": {
+    "layer_0": {
+      "checks": {
+        "real_not_saturated": true,
+        "real_not_uniform": true,
+        "real_separates_from_random": true,
+        "real_separates_from_shuffled": true
+      },
+      "metrics": {
+        "random": {
+          "boundary_sharpness_mean": 0.35829728841781616,
+          "coherence_mean": 0.4732922911643982,
+          "distance_entropy": 3.1316137313842773,
+          "distance_variance": 0.6756553053855896,
+          "effective_rank_mean": 4.989049434661865,
+          "local_relational_entropy_mean": 0.9958698153495789,
+          "relational_entropy_mean": 0.8818985223770142,
+          "relational_entropy_std": 0.5522890090942383,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.6072442531585693,
+          "valid_weight_mean": 0.5818894505500793,
+          "valid_weight_variance": 0.0034529392141848803
+        },
+        "real": {
+          "boundary_sharpness_mean": 0.3673599362373352,
+          "coherence_mean": 0.4901752471923828,
+          "distance_entropy": 3.109253168106079,
+          "distance_variance": 0.6756635904312134,
+          "effective_rank_mean": 4.985410690307617,
+          "local_relational_entropy_mean": 0.996706485748291,
+          "relational_entropy_mean": 0.8820461630821228,
+          "relational_entropy_std": 0.5518855452537537,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.6065139770507812,
+          "valid_weight_mean": 0.5972473621368408,
+          "valid_weight_variance": 0.005017547868192196
+        },
+        "shuffled": {
+          "boundary_sharpness_mean": 0.34274959564208984,
+          "coherence_mean": 0.4746415913105011,
+          "distance_entropy": 3.1092529296875,
+          "distance_variance": 0.6756637096405029,
+          "effective_rank_mean": 4.987188816070557,
+          "local_relational_entropy_mean": 0.9985770583152771,
+          "relational_entropy_mean": 0.8835318684577942,
+          "relational_entropy_std": 0.5520955920219421,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.6068708896636963,
+          "valid_weight_mean": 0.5972473621368408,
+          "valid_weight_variance": 0.005017547868192196
+        }
+      },
+      "separation": {
+        "real_vs_random": {
+          "aggregate_abs_delta": 0.007665642670222691,
+          "deltas": {
+            "boundary_sharpness_mean": 0.009062647819519043,
+            "coherence_mean": 0.01688295602798462,
+            "distance_entropy": -0.022360563278198242,
+            "effective_rank_mean": -0.003638744354248047,
+            "local_relational_entropy_mean": 0.0008366703987121582,
+            "relational_entropy_mean": 0.00014764070510864258,
+            "spectral_entropy_mean": -0.0007302761077880859
+          }
+        },
+        "real_vs_shuffled": {
+          "aggregate_abs_delta": 0.00651936445917402,
+          "deltas": {
+            "boundary_sharpness_mean": 0.02461034059524536,
+            "coherence_mean": 0.015533655881881714,
+            "distance_entropy": 2.384185791015625e-07,
+            "effective_rank_mean": -0.0017781257629394531,
+            "local_relational_entropy_mean": -0.001870572566986084,
+            "relational_entropy_mean": -0.0014857053756713867,
+            "spectral_entropy_mean": -0.00035691261291503906
+          }
+        }
+      }
+    },
+    "layer_1": {
+      "checks": {
+        "real_not_saturated": true,
+        "real_not_uniform": true,
+        "real_separates_from_random": true,
+        "real_separates_from_shuffled": true
+      },
+      "metrics": {
+        "random": {
+          "boundary_sharpness_mean": 0.3434898853302002,
+          "coherence_mean": 0.47666943073272705,
+          "distance_entropy": 2.78071928024292,
+          "distance_variance": 0.6756605505943298,
+          "effective_rank_mean": 4.98789119720459,
+          "local_relational_entropy_mean": 0.9963779449462891,
+          "relational_entropy_mean": 0.8819267153739929,
+          "relational_entropy_std": 0.5520479679107666,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.607011318206787,
+          "valid_weight_mean": 0.5708900690078735,
+          "valid_weight_variance": 0.003041790332645178
+        },
+        "real": {
+          "boundary_sharpness_mean": 0.3569268584251404,
+          "coherence_mean": 0.4995245933532715,
+          "distance_entropy": 3.118083953857422,
+          "distance_variance": 0.6756635904312134,
+          "effective_rank_mean": 4.985523223876953,
+          "local_relational_entropy_mean": 0.9965741038322449,
+          "relational_entropy_mean": 0.8819546699523926,
+          "relational_entropy_std": 0.5518901348114014,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.606536626815796,
+          "valid_weight_mean": 0.599653959274292,
+          "valid_weight_variance": 0.004926364403218031
+        },
+        "shuffled": {
+          "boundary_sharpness_mean": 0.34350645542144775,
+          "coherence_mean": 0.4807389974594116,
+          "distance_entropy": 3.1180837154388428,
+          "distance_variance": 0.6756635904312134,
+          "effective_rank_mean": 4.988510608673096,
+          "local_relational_entropy_mean": 0.9954956769943237,
+          "relational_entropy_mean": 0.8817421793937683,
+          "relational_entropy_std": 0.5524173974990845,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.6071360111236572,
+          "valid_weight_mean": 0.5996540188789368,
+          "valid_weight_variance": 0.004926364403218031
+        }
+      },
+      "separation": {
+        "real_vs_random": {
+          "aggregate_abs_delta": 0.05381765535899571,
+          "deltas": {
+            "boundary_sharpness_mean": 0.013436973094940186,
+            "coherence_mean": 0.022855162620544434,
+            "distance_entropy": 0.33736467361450195,
+            "effective_rank_mean": -0.0023679733276367188,
+            "local_relational_entropy_mean": 0.00019615888595581055,
+            "relational_entropy_mean": 2.7954578399658203e-05,
+            "spectral_entropy_mean": -0.00047469139099121094
+          }
+        },
+        "real_vs_shuffled": {
+          "aggregate_abs_delta": 0.005297703402382987,
+          "deltas": {
+            "boundary_sharpness_mean": 0.013420403003692627,
+            "coherence_mean": 0.018785595893859863,
+            "distance_entropy": 2.384185791015625e-07,
+            "effective_rank_mean": -0.002987384796142578,
+            "local_relational_entropy_mean": 0.0010784268379211426,
+            "relational_entropy_mean": 0.00021249055862426758,
+            "spectral_entropy_mean": -0.0005993843078613281
+          }
+        }
+      }
+    },
+    "layer_2": {
+      "checks": {
+        "real_not_saturated": true,
+        "real_not_uniform": true,
+        "real_separates_from_random": true,
+        "real_separates_from_shuffled": true
+      },
+      "metrics": {
+        "random": {
+          "boundary_sharpness_mean": 0.3382314443588257,
+          "coherence_mean": 0.5013203620910645,
+          "distance_entropy": 3.2211978435516357,
+          "distance_variance": 0.6756635904312134,
+          "effective_rank_mean": 4.988678932189941,
+          "local_relational_entropy_mean": 0.9973262548446655,
+          "relational_entropy_mean": 0.8825438022613525,
+          "relational_entropy_std": 0.5519883036613464,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.6071697473526,
+          "valid_weight_mean": 0.6220714449882507,
+          "valid_weight_variance": 0.0051496741361916065
+        },
+        "real": {
+          "boundary_sharpness_mean": 0.3548676669597626,
+          "coherence_mean": 0.5171554684638977,
+          "distance_entropy": 3.1006531715393066,
+          "distance_variance": 0.6756627559661865,
+          "effective_rank_mean": 4.986218452453613,
+          "local_relational_entropy_mean": 0.9972036480903625,
+          "relational_entropy_mean": 0.8824917674064636,
+          "relational_entropy_std": 0.5521172285079956,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.6066761016845703,
+          "valid_weight_mean": 0.6047856211662292,
+          "valid_weight_variance": 0.0044256541877985
+        },
+        "shuffled": {
+          "boundary_sharpness_mean": 0.3232826590538025,
+          "coherence_mean": 0.49824216961860657,
+          "distance_entropy": 3.1006531715393066,
+          "distance_variance": 0.6756628155708313,
+          "effective_rank_mean": 4.988044738769531,
+          "local_relational_entropy_mean": 0.994040846824646,
+          "relational_entropy_mean": 0.8807068467140198,
+          "relational_entropy_std": 0.5523234605789185,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.6070421934127808,
+          "valid_weight_mean": 0.6047856211662292,
+          "valid_weight_variance": 0.0044256541877985
+        }
+      },
+      "separation": {
+        "real_vs_random": {
+          "aggregate_abs_delta": 0.02230639542852129,
+          "deltas": {
+            "boundary_sharpness_mean": 0.01663622260093689,
+            "coherence_mean": 0.015835106372833252,
+            "distance_entropy": -0.1205446720123291,
+            "effective_rank_mean": -0.002460479736328125,
+            "local_relational_entropy_mean": -0.00012260675430297852,
+            "relational_entropy_mean": -5.2034854888916016e-05,
+            "spectral_entropy_mean": -0.0004936456680297852
+          }
+        },
+        "real_vs_shuffled": {
+          "aggregate_abs_delta": 0.008234058107648577,
+          "deltas": {
+            "boundary_sharpness_mean": 0.03158500790596008,
+            "coherence_mean": 0.018913298845291138,
+            "distance_entropy": 0.0,
+            "effective_rank_mean": -0.0018262863159179688,
+            "local_relational_entropy_mean": 0.0031628012657165527,
+            "relational_entropy_mean": 0.0017849206924438477,
+            "spectral_entropy_mean": -0.0003660917282104492
+          }
+        }
+      }
+    }
+  },
+  "model_intervention": "none",
+  "next_required_step": "resonant_response_observer",
+  "observer_pipeline": "H -> W -> D",
+  "phase": "phase2_relational_field_observer",
+  "scientific_scope": "smoke_validates_observer_mechanics",
+  "seed": 2027,
+  "source_config": "configs/ergt_v1/phase3_ratio_matched/target_0_2/real_d_target_0_2_alpha_0_0682799_seed2027.json",
+  "stability": {
+    "mean_graph_cosine": 0.9999595284461975,
+    "mean_graph_frobenius": 0.03430879209190607,
+    "mean_neighborhood_overlap": 1.0,
+    "neighborhood_k": 2,
+    "pairs": 2
+  },
+  "status": "pass"
+}

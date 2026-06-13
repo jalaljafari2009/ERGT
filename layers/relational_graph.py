@@ -109,37 +109,157 @@ class RelationalGraph(nn.Module):
         raise ValueError(f"unsupported diagonal_policy: {self.config.diagonal_policy}")
 
 
-def make_shuffled_graph(
-    graph: torch.Tensor, generator: torch.Generator | None = None
+def make_valid_edge_mask_like(
+    graph: torch.Tensor,
+    attention_mask: torch.Tensor | None = None,
+    *,
+    causal: bool = True,
+    include_diagonal: bool = False,
 ) -> torch.Tensor:
-    """Shuffle graph entries within each `[sequence, sequence]` matrix."""
+    """Return the valid relation region for a graph-shaped tensor.
+
+    Rows are current positions `i`, columns are context positions `j`. For the
+    strict post-Phase-3 controls, only causal non-diagonal non-padding edges are
+    valid for control generation.
+    """
+
     if graph.dim() != 4:
         raise ValueError("graph must have shape [batch, heads, sequence, sequence]")
+    if graph.size(-1) != graph.size(-2):
+        raise ValueError("graph must be square in the last two dimensions")
 
-    flat = graph.reshape(*graph.shape[:2], -1)
-    shuffled = torch.empty_like(flat)
-    for batch_idx in range(flat.size(0)):
-        for head_idx in range(flat.size(1)):
-            permutation = torch.randperm(flat.size(-1), device=graph.device, generator=generator)
-            shuffled[batch_idx, head_idx] = flat[batch_idx, head_idx, permutation]
-    return shuffled.view_as(graph)
+    batch_size, heads, sequence_length, _ = graph.shape
+    positions = torch.arange(sequence_length, device=graph.device)
+    current = positions.view(sequence_length, 1)
+    context = positions.view(1, sequence_length)
+
+    valid = torch.ones(sequence_length, sequence_length, dtype=torch.bool, device=graph.device)
+    if causal:
+        valid &= context <= current
+    if not include_diagonal:
+        valid &= context != current
+
+    valid = valid.view(1, 1, sequence_length, sequence_length).expand(
+        batch_size,
+        heads,
+        sequence_length,
+        sequence_length,
+    )
+
+    if attention_mask is None:
+        return valid.clone()
+
+    if attention_mask.dim() != 2:
+        raise ValueError("attention_mask must have shape [batch, sequence]")
+    if attention_mask.shape != (batch_size, sequence_length):
+        raise ValueError("attention_mask shape must match graph batch and sequence dimensions")
+
+    nonpadding = attention_mask.to(dtype=torch.bool, device=graph.device)
+    pair_mask = nonpadding[:, None, :, None] & nonpadding[:, None, None, :]
+    return (valid & pair_mask).clone()
+
+
+def make_shuffled_graph(
+    graph: torch.Tensor,
+    generator: torch.Generator | None = None,
+    valid_edge_mask: torch.Tensor | None = None,
+) -> torch.Tensor:
+    """Shuffle graph entries within each `[sequence, sequence]` matrix.
+
+    When `valid_edge_mask` is provided, shuffling happens only inside that
+    region and all invalid entries are preserved exactly.
+    """
+
+    if graph.dim() != 4:
+        raise ValueError("graph must have shape [batch, heads, sequence, sequence]")
+    if valid_edge_mask is None:
+        flat = graph.reshape(*graph.shape[:2], -1)
+        shuffled = torch.empty_like(flat)
+        for batch_idx in range(flat.size(0)):
+            for head_idx in range(flat.size(1)):
+                permutation = torch.randperm(
+                    flat.size(-1),
+                    device=graph.device,
+                    generator=generator,
+                )
+                shuffled[batch_idx, head_idx] = flat[batch_idx, head_idx, permutation]
+        return shuffled.view_as(graph)
+
+    valid_edge_mask = _prepare_valid_edge_mask(graph, valid_edge_mask)
+    shuffled = graph.clone()
+    for batch_idx in range(graph.size(0)):
+        for head_idx in range(graph.size(1)):
+            mask = valid_edge_mask[batch_idx, head_idx] & torch.isfinite(graph[batch_idx, head_idx])
+            values = graph[batch_idx, head_idx][mask]
+            if values.numel() <= 1:
+                continue
+            permutation = torch.randperm(values.numel(), device=graph.device, generator=generator)
+            shuffled[batch_idx, head_idx][mask] = values[permutation]
+    return shuffled
 
 
 def make_random_graph_like(
     graph: torch.Tensor,
     generator: torch.Generator | None = None,
+    valid_edge_mask: torch.Tensor | None = None,
 ) -> torch.Tensor:
-    """Create a random graph with the same shape and approximate value range."""
+    """Create a random graph with matched shape and value scale.
+
+    When `valid_edge_mask` is provided, randomization happens only inside that
+    region by resampling valid real values with replacement. This preserves the
+    marginal scale while destroying relation arrangement.
+    """
+
     if graph.dim() != 4:
         raise ValueError("graph must have shape [batch, heads, sequence, sequence]")
+    if valid_edge_mask is None:
+        finite_graph = graph[torch.isfinite(graph)]
+        if finite_graph.numel() == 0:
+            return torch.rand(
+                graph.shape,
+                device=graph.device,
+                dtype=graph.dtype,
+                generator=generator,
+            )
 
-    finite_graph = graph[torch.isfinite(graph)]
-    if finite_graph.numel() == 0:
-        return torch.rand(graph.shape, device=graph.device, dtype=graph.dtype, generator=generator)
+        min_value = finite_graph.min()
+        max_value = finite_graph.max()
+        random_unit = torch.rand(
+            graph.shape, device=graph.device, dtype=graph.dtype, generator=generator
+        )
+        return min_value + random_unit * (max_value - min_value)
 
-    min_value = finite_graph.min()
-    max_value = finite_graph.max()
-    random_unit = torch.rand(
-        graph.shape, device=graph.device, dtype=graph.dtype, generator=generator
-    )
-    return min_value + random_unit * (max_value - min_value)
+    valid_edge_mask = _prepare_valid_edge_mask(graph, valid_edge_mask)
+    random_graph = graph.clone()
+    for batch_idx in range(graph.size(0)):
+        for head_idx in range(graph.size(1)):
+            mask = valid_edge_mask[batch_idx, head_idx] & torch.isfinite(graph[batch_idx, head_idx])
+            values = graph[batch_idx, head_idx][mask]
+            if values.numel() == 0:
+                continue
+            sample_indices = torch.randint(
+                values.numel(),
+                (values.numel(),),
+                device=graph.device,
+                generator=generator,
+            )
+            random_graph[batch_idx, head_idx][mask] = values[sample_indices]
+    return random_graph
+
+
+def _prepare_valid_edge_mask(graph: torch.Tensor, valid_edge_mask: torch.Tensor) -> torch.Tensor:
+    valid_edge_mask = valid_edge_mask.to(dtype=torch.bool, device=graph.device)
+    if valid_edge_mask.shape == graph.shape:
+        return valid_edge_mask
+    if valid_edge_mask.dim() != 4:
+        raise ValueError("valid_edge_mask must have shape [batch, heads, sequence, sequence]")
+    if (
+        valid_edge_mask.size(0) != graph.size(0)
+        or valid_edge_mask.shape[-2:] != graph.shape[-2:]
+    ):
+        raise ValueError("valid_edge_mask must match graph batch and sequence dimensions")
+    if valid_edge_mask.size(1) == 1:
+        return valid_edge_mask.expand_as(graph)
+    if valid_edge_mask.size(1) != graph.size(1):
+        raise ValueError("valid_edge_mask heads must be 1 or match graph heads")
+    return valid_edge_mask

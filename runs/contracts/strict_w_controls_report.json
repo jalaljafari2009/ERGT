@@ -1,0 +1,37 @@
+{
+  "checks": {
+    "controls_built_at_w_level": true,
+    "distance_diagonals_match": true,
+    "distance_finite_regions_match": true,
+    "future_distances_masked": true,
+    "random_changes_valid_edges": true,
+    "random_preserves_valid_range": true,
+    "same_valid_region_random": true,
+    "same_valid_region_shuffled": true,
+    "shuffled_changes_valid_edges": true,
+    "shuffled_preserves_valid_multiset": true
+  },
+  "control_pipeline": "H -> W_family -> valid_edge_mask -> D_family -> normalization -> clipping",
+  "distance": {
+    "causal_runtime_distance": true,
+    "clip_value": 5.0,
+    "diagonal_policy": "zero",
+    "normalization": "offdiag_zscore_clamp"
+  },
+  "graph": {
+    "invalid_edges": 34,
+    "shape": [
+      2,
+      1,
+      5,
+      5
+    ],
+    "valid_edges": 16
+  },
+  "invalid_pipeline": "H -> real D normalized -> random/shuffled D",
+  "next_required_step": "relational_field_observer",
+  "phase": "phase1_strict_w_level_controls",
+  "seed": 2027,
+  "source_config": "configs/ergt_v1/phase3_ratio_matched/target_0_2/real_d_target_0_2_alpha_0_0682799_seed2027.json",
+  "status": "pass"
+}

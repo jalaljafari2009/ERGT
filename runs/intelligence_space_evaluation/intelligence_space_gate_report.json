@@ -1,0 +1,69 @@
+{
+  "axes": [
+    "discovery",
+    "compression",
+    "stabilization",
+    "traversal"
+  ],
+  "axis_metrics": {
+    "compression": [
+      "effective_rank_without_collapse",
+      "spectral_concentration_without_entropy_collapse",
+      "anti_collapse_score"
+    ],
+    "discovery": [
+      "real_relation_separation_from_random",
+      "real_relation_separation_from_shuffled",
+      "task_relevant_edge_discovery"
+    ],
+    "stabilization": [
+      "layer_to_layer_relation_persistence",
+      "memory_stability_over_steps",
+      "paraphrase_path_stability"
+    ],
+    "traversal": [
+      "reasoning_path_task_alignment",
+      "multi_hop_path_consistency",
+      "counterfactual_edge_removal_sensitivity"
+    ]
+  },
+  "blocked_by": [
+    "reasoning_path_evaluation_not_ready"
+  ],
+  "checks": {
+    "all_axes_declared": true,
+    "claim_boundary_declared": true,
+    "controls_declared": true,
+    "intelligence_evaluation_not_run_before_reasoning": true,
+    "reasoning_path_evaluation_ready": false
+  },
+  "definition": "stable, compressible, causal, reconstructible relational geometry over hidden states",
+  "evaluation_contract": {
+    "claim_boundary": "this evaluation can support an ERGT intelligence-space claim; it does not prove consciousness or general intelligence",
+    "control_rule": "random, shuffled, no-memory, pairwise, and matched-parameter controls must not explain the same gains",
+    "positive_evidence": "real relational structures self-organize, stay reconstructible, improve reasoning-specific tasks, and survive controls",
+    "replication_rule": "effects must replicate across seeds and datasets"
+  },
+  "evaluation_enabled": false,
+  "next_required_step": "run_geoattention_v2_training_controls",
+  "operational_intelligence_definition": "discovery + compression + stabilization + traversal of relational structures",
+  "phase": "phase12_intelligence_space_evaluation_gate",
+  "required_controls": [
+    "transformer_baseline",
+    "random_geometry",
+    "shuffled_geometry",
+    "no_memory_geometry",
+    "pairwise_geometry",
+    "matched_parameter_baseline",
+    "replicated_seeds",
+    "replicated_datasets"
+  ],
+  "source_reasoning_path": {
+    "evaluation_enabled": false,
+    "next_required_step": "run_geoattention_v2_training_controls",
+    "phase": "phase11_reasoning_path_evaluation_gate",
+    "status": "blocked"
+  },
+  "source_report": "runs/reasoning_path_evaluation/reasoning_path_gate_report.json",
+  "status": "blocked"
+}

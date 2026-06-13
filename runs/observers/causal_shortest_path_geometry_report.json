@@ -1,0 +1,205 @@
+{
+  "checks": {
+    "causal_path_adds_contextual_signal": true,
+    "causal_path_beats_no_memory": true,
+    "causal_path_beats_pairwise": true,
+    "diagonal_zero": true,
+    "future_edges_forbidden": true,
+    "future_inputs_forbidden": true,
+    "memory_observer_used": true,
+    "model_intervention_none": true,
+    "real_causal_path_separates_from_random": true,
+    "real_causal_path_separates_from_shuffled": true,
+    "w_level_controls_used": true
+  },
+  "controls": {
+    "control_generation_level": "W_level_before_distance_normalization",
+    "families": [
+      "real_causal_path",
+      "random_causal_path",
+      "shuffled_causal_path",
+      "pairwise_real",
+      "instantaneous_pairwise",
+      "no_memory_pairwise"
+    ]
+  },
+  "geometry_formula": {
+    "direct_edge_policy": "valid causal edges with finite-speed max_causal_step; multi-step reachability is created only by shortest path",
+    "distance": "D_causal(i,j) = shortest path over valid causal edges",
+    "edge_cost": "edge_cost_ij = -log(W_t_ij + epsilon)",
+    "epsilon": 1e-06,
+    "max_causal_step": 1,
+    "memory_config": {
+      "anti_collapse_threshold": 0.1,
+      "decay": 0.7,
+      "eta": 0.3,
+      "gate_floor": 0.05,
+      "min_context_edges": 2
+    }
+  },
+  "input_source": "synthetic_memory_smoke",
+  "layers": {
+    "transition_0_to_1": {
+      "instantaneous_pairwise": {
+        "cosine_to_next_update": 0.6476650238037109,
+        "normalized_mse_to_next_update": 1.5596703197124004
+      },
+      "no_memory_pairwise": {
+        "cosine_to_next_update": 0.4707842469215393,
+        "normalized_mse_to_next_update": 3.1540748565395047
+      },
+      "pairwise_real": {
+        "cosine_to_next_update": 0.6476650238037109,
+        "normalized_mse_to_next_update": 1.5596703197124004
+      },
+      "random_causal_path": {
+        "cosine_to_next_update": 0.5929016470909119,
+        "normalized_mse_to_next_update": 1.8431206271260991
+      },
+      "real_causal_path": {
+        "cosine_to_next_update": 0.7043984532356262,
+        "normalized_mse_to_next_update": 1.3609738221039087
+      },
+      "shuffled_causal_path": {
+        "cosine_to_next_update": 0.4778929054737091,
+        "normalized_mse_to_next_update": 2.10419495888612
+      }
+    },
+    "transition_1_to_2": {
+      "instantaneous_pairwise": {
+        "cosine_to_next_update": 0.6269463300704956,
+        "normalized_mse_to_next_update": 1.5429643614218864
+      },
+      "no_memory_pairwise": {
+        "cosine_to_next_update": 0.451373815536499,
+        "normalized_mse_to_next_update": 2.9684829562129873
+      },
+      "pairwise_real": {
+        "cosine_to_next_update": 0.6262621879577637,
+        "normalized_mse_to_next_update": 1.5452897281936044
+      },
+      "random_causal_path": {
+        "cosine_to_next_update": 0.5716668367385864,
+        "normalized_mse_to_next_update": 1.7740049918713365
+      },
+      "real_causal_path": {
+        "cosine_to_next_update": 0.6842180490493774,
+        "normalized_mse_to_next_update": 1.3600429257237132
+      },
+      "shuffled_causal_path": {
+        "cosine_to_next_update": 0.6033762693405151,
+        "normalized_mse_to_next_update": 1.779841598128018
+      }
+    },
+    "transition_2_to_3": {
+      "instantaneous_pairwise": {
+        "cosine_to_next_update": 0.615510880947113,
+        "normalized_mse_to_next_update": 1.5087192034206331
+      },
+      "no_memory_pairwise": {
+        "cosine_to_next_update": 0.43476247787475586,
+        "normalized_mse_to_next_update": 2.9185259834691215
+      },
+      "pairwise_real": {
+        "cosine_to_next_update": 0.6163465976715088,
+        "normalized_mse_to_next_update": 1.505903921653364
+      },
+      "random_causal_path": {
+        "cosine_to_next_update": 0.5881733298301697,
+        "normalized_mse_to_next_update": 1.6522019137114028
+      },
+      "real_causal_path": {
+        "cosine_to_next_update": 0.6741811633110046,
+        "normalized_mse_to_next_update": 1.3291216407828834
+      },
+      "shuffled_causal_path": {
+        "cosine_to_next_update": 0.63740473985672,
+        "normalized_mse_to_next_update": 1.6169555934978102
+      }
+    },
+    "transition_3_to_4": {
+      "instantaneous_pairwise": {
+        "cosine_to_next_update": 0.6322250366210938,
+        "normalized_mse_to_next_update": 1.563836570573204
+      },
+      "no_memory_pairwise": {
+        "cosine_to_next_update": 0.45576101541519165,
+        "normalized_mse_to_next_update": 3.201090149241419
+      },
+      "pairwise_real": {
+        "cosine_to_next_update": 0.6321732997894287,
+        "normalized_mse_to_next_update": 1.5641914785456899
+      },
+      "random_causal_path": {
+        "cosine_to_next_update": 0.5920531749725342,
+        "normalized_mse_to_next_update": 1.7789114175249123
+      },
+      "real_causal_path": {
+        "cosine_to_next_update": 0.6863912343978882,
+        "normalized_mse_to_next_update": 1.3777079624511674
+      },
+      "shuffled_causal_path": {
+        "cosine_to_next_update": 0.6745673418045044,
+        "normalized_mse_to_next_update": 1.6064810874528026
+      }
+    }
+  },
+  "metrics": {
+    "instantaneous_pairwise": {
+      "finite_valid_fraction": 0.36000001430511475,
+      "geometry_quality_score": 0.4098747228047263,
+      "next_update_cosine": 0.6305868178606033,
+      "next_update_normalized_mse": 1.543797613782031,
+      "next_update_prediction_score": 0.39314184892557086,
+      "path_improvement_fraction": 0.0
+    },
+    "no_memory_pairwise": {
+      "finite_valid_fraction": 0.36000001430511475,
+      "geometry_quality_score": 0.28485995390930025,
+      "next_update_cosine": 0.45317038893699646,
+      "next_update_normalized_mse": 3.0605434863657583,
+      "next_update_prediction_score": 0.2464861004446175,
+      "path_improvement_fraction": 0.0
+    },
+    "pairwise_real": {
+      "finite_valid_fraction": 0.36000001430511475,
+      "geometry_quality_score": 0.4098857163879189,
+      "next_update_cosine": 0.630611777305603,
+      "next_update_normalized_mse": 1.5437638620262648,
+      "next_update_prediction_score": 0.3931504920563757,
+      "path_improvement_fraction": 0.0
+    },
+    "random_causal_path": {
+      "finite_valid_fraction": 1.0,
+      "geometry_quality_score": 0.44580288280852265,
+      "next_update_cosine": 0.5861987471580505,
+      "next_update_normalized_mse": 1.7620597375584377,
+      "next_update_prediction_score": 0.3622785382163818,
+      "path_improvement_fraction": 0.0
+    },
+    "real_causal_path": {
+      "finite_valid_fraction": 1.0,
+      "geometry_quality_score": 0.569188568673194,
+      "next_update_cosine": 0.6872972249984741,
+      "next_update_normalized_mse": 1.3569615877654182,
+      "next_update_prediction_score": 0.4242986615528852,
+      "path_improvement_fraction": 0.6399999856948853
+    },
+    "shuffled_causal_path": {
+      "finite_valid_fraction": 1.0,
+      "geometry_quality_score": 0.44863081230291935,
+      "next_update_cosine": 0.5983103141188622,
+      "next_update_normalized_mse": 1.7768683094911877,
+      "next_update_prediction_score": 0.36191497049673427,
+      "path_improvement_fraction": 0.0
+    }
+  },
+  "model_intervention": "none",
+  "next_required_step": "geoattention_v2",
+  "observer_pipeline": "H -> W_t memory -> edge_cost -> D_causal shortest path",
+  "phase": "phase7_causal_shortest_path_geometry",
+  "scientific_scope": "smoke_validates_causal_shortest_path_geometry_mechanics",
+  "seed": 2027,
+  "source_config": "configs/ergt_v1/phase3_ratio_matched/target_0_2/real_d_target_0_2_alpha_0_0682799_seed2027.json",
+  "status": "pass"
+}

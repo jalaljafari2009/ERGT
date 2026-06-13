@@ -1,0 +1,54 @@
+{
+  "blocked_by": [
+    "complete_ergt_architecture_not_ready"
+  ],
+  "candidate_metrics": [
+    "multi_hop_path_consistency",
+    "low_cost_path_answer_alignment",
+    "counterfactual_edge_removal_sensitivity",
+    "long_range_dependency_score",
+    "path_stability_across_paraphrases",
+    "compositional_task_performance"
+  ],
+  "checks": {
+    "complete_architecture_ready": false,
+    "controls_declared": true,
+    "metrics_declared": true,
+    "reasoning_evaluation_not_run_before_architecture": true,
+    "task_families_declared": true
+  },
+  "definition": "Reasoning = navigation of stable relational geometry",
+  "evaluation_contract": {
+    "claim_boundary": "reasoning-path evidence may support traversal analysis; it does not prove general intelligence",
+    "control_rule": "random, shuffled, no-memory, and pairwise paths must not explain the same behavior",
+    "counterfactual_rule": "removing high-Phi/high-stability edges should harm task behavior",
+    "path_source": "stable real D_causal paths from the complete architecture",
+    "positive_evidence": "real geometry paths are more stable and explanatory than controls"
+  },
+  "evaluation_enabled": false,
+  "next_required_step": "run_geoattention_v2_training_controls",
+  "phase": "phase11_reasoning_path_evaluation_gate",
+  "required_controls": [
+    "real_geometry_paths",
+    "random_geometry_paths",
+    "shuffled_geometry_paths",
+    "no_memory_paths",
+    "pairwise_paths",
+    "edge_removed_counterfactual"
+  ],
+  "source_complete_architecture": {
+    "architecture_enabled": false,
+    "next_required_step": "run_geoattention_v2_training_controls",
+    "phase": "phase10_complete_ergt_architecture_gate",
+    "status": "blocked"
+  },
+  "source_report": "runs/complete_ergt_architecture/complete_ergt_architecture_gate_report.json",
+  "status": "blocked",
+  "task_families": [
+    "multi_hop_retrieval",
+    "long_range_coreference",
+    "compositional_relations",
+    "paraphrase_stability",
+    "counterfactual_context_edges"
+  ]
+}

@@ -1,0 +1,296 @@
+{
+  "aggregate": {
+    "random": {
+      "hidden_deficit_mean": 0.14662490785121918,
+      "reconstructible_nodes": 21,
+      "relational_deficit_mean": 0.015308590605854988,
+      "total_deficit_mean": 0.16193349659442902
+    },
+    "real": {
+      "hidden_deficit_mean": 0.14662490785121918,
+      "reconstructible_nodes": 21,
+      "relational_deficit_mean": 0.012585620395839214,
+      "total_deficit_mean": 0.15921051800251007
+    },
+    "shuffled": {
+      "hidden_deficit_mean": 0.14662490785121918,
+      "reconstructible_nodes": 21,
+      "relational_deficit_mean": 0.012949151918292046,
+      "total_deficit_mean": 0.15957406163215637
+    }
+  },
+  "checks": {
+    "future_edges_forbidden": true,
+    "future_inputs_forbidden": true,
+    "high_phi_regions_reconstruct_better": true,
+    "model_intervention_none": true,
+    "real_relational_deficit_lt_random": true,
+    "real_relational_deficit_lt_shuffled": true,
+    "real_total_deficit_lt_random": true,
+    "real_total_deficit_lt_shuffled": true,
+    "source_context_sufficient": true,
+    "target_hidden_excluded_from_reconstructor": true,
+    "w_level_controls_used": true
+  },
+  "controls": {
+    "control_generation_level": "W_level_before_distance_normalization",
+    "families": [
+      "real",
+      "random",
+      "shuffled"
+    ]
+  },
+  "high_phi_alignment": {
+    "compared_nodes": 21.0,
+    "mean_delta_low_minus_high_total_deficit": 0.2785949074508001
+  },
+  "input_source": "synthetic_structured_smoke",
+  "layers": {
+    "layer_0": {
+      "comparison": {
+        "real_minus_random_relational_deficit": -0.0024105021730065346,
+        "real_minus_random_total_deficit": -0.00241050124168396,
+        "real_minus_shuffled_relational_deficit": 0.0023380937054753304,
+        "real_minus_shuffled_total_deficit": 0.0023380815982818604
+      },
+      "high_phi_alignment": {
+        "compared_nodes": 7.0,
+        "delta_low_minus_high_total_deficit": 0.2757304962724447,
+        "high_phi_total_deficit_mean": 0.004295790567994118,
+        "low_phi_total_deficit_mean": 0.28002628684043884
+      },
+      "random": {
+        "hidden_deficit": {
+          "max": 0.25427955389022827,
+          "mean": 0.14480505883693695,
+          "min": 0.003955605439841747,
+          "std": 0.121794193983078
+        },
+        "reconstructible_nodes": 7,
+        "relational_deficit": {
+          "max": 0.02530558407306671,
+          "mean": 0.015723561868071556,
+          "min": 0.008606472052633762,
+          "std": 0.005532545503228903
+        },
+        "total_deficit": {
+          "max": 0.2752690613269806,
+          "mean": 0.16052863001823425,
+          "min": 0.01301049254834652,
+          "std": 0.12576642632484436
+        }
+      },
+      "real": {
+        "hidden_deficit": {
+          "max": 0.25427955389022827,
+          "mean": 0.14480505883693695,
+          "min": 0.003955605439841747,
+          "std": 0.121794193983078
+        },
+        "reconstructible_nodes": 7,
+        "relational_deficit": {
+          "max": 0.03781244158744812,
+          "mean": 0.013313059695065022,
+          "min": 5.199354563956149e-05,
+          "std": 0.015808014199137688
+        },
+        "total_deficit": {
+          "max": 0.2920919954776764,
+          "mean": 0.1581181287765503,
+          "min": 0.004007598850876093,
+          "std": 0.1337539702653885
+        }
+      },
+      "shuffled": {
+        "hidden_deficit": {
+          "max": 0.25427955389022827,
+          "mean": 0.14480505883693695,
+          "min": 0.003955605439841747,
+          "std": 0.121794193983078
+        },
+        "reconstructible_nodes": 7,
+        "relational_deficit": {
+          "max": 0.0178639218211174,
+          "mean": 0.010974965989589691,
+          "min": 7.470671334885992e-06,
+          "std": 0.006195895839482546
+        },
+        "total_deficit": {
+          "max": 0.2661483883857727,
+          "mean": 0.15578004717826843,
+          "min": 0.007413862273097038,
+          "std": 0.12193221598863602
+        }
+      }
+    },
+    "layer_1": {
+      "comparison": {
+        "real_minus_random_relational_deficit": 0.0023011714220046997,
+        "real_minus_random_total_deficit": 0.0023011863231658936,
+        "real_minus_shuffled_relational_deficit": -0.00321107916533947,
+        "real_minus_shuffled_total_deficit": -0.0032110661268234253
+      },
+      "high_phi_alignment": {
+        "compared_nodes": 7.0,
+        "delta_low_minus_high_total_deficit": 0.27835211041383445,
+        "high_phi_total_deficit_mean": 0.0036999594885855913,
+        "low_phi_total_deficit_mean": 0.28205206990242004
+      },
+      "random": {
+        "hidden_deficit": {
+          "max": 0.2561964690685272,
+          "mean": 0.14639674127101898,
+          "min": 0.002606519963592291,
+          "std": 0.1236155778169632
+        },
+        "reconstructible_nodes": 7,
+        "relational_deficit": {
+          "max": 0.0201693344861269,
+          "mean": 0.010414637625217438,
+          "min": 0.001994704594835639,
+          "std": 0.006457412149757147
+        },
+        "total_deficit": {
+          "max": 0.27383407950401306,
+          "mean": 0.15681137144565582,
+          "min": 0.005151874851435423,
+          "std": 0.12493136525154114
+        }
+      },
+      "real": {
+        "hidden_deficit": {
+          "max": 0.2561964690685272,
+          "mean": 0.14639674127101898,
+          "min": 0.002606519963592291,
+          "std": 0.1236155778169632
+        },
+        "reconstructible_nodes": 7,
+        "relational_deficit": {
+          "max": 0.036662593483924866,
+          "mean": 0.012715809047222137,
+          "min": 9.936969945556484e-06,
+          "std": 0.01532893255352974
+        },
+        "total_deficit": {
+          "max": 0.2918330430984497,
+          "mean": 0.15911255776882172,
+          "min": 0.0026309904642403126,
+          "std": 0.13509546220302582
+        }
+      },
+      "shuffled": {
+        "hidden_deficit": {
+          "max": 0.2561964690685272,
+          "mean": 0.14639674127101898,
+          "min": 0.002606519963592291,
+          "std": 0.1236155778169632
+        },
+        "reconstructible_nodes": 7,
+        "relational_deficit": {
+          "max": 0.03503306210041046,
+          "mean": 0.015926888212561607,
+          "min": 1.5338599041569978e-05,
+          "std": 0.013428582809865475
+        },
+        "total_deficit": {
+          "max": 0.2886977791786194,
+          "mean": 0.16232362389564514,
+          "min": 0.00529926922172308,
+          "std": 0.13308802247047424
+        }
+      }
+    },
+    "layer_2": {
+      "comparison": {
+        "real_minus_random_relational_deficit": -0.008059577085077763,
+        "real_minus_random_total_deficit": -0.008059561252593994,
+        "real_minus_shuffled_relational_deficit": -0.0002176063135266304,
+        "real_minus_shuffled_total_deficit": -0.00021758675575256348
+      },
+      "high_phi_alignment": {
+        "compared_nodes": 7.0,
+        "delta_low_minus_high_total_deficit": 0.28170211566612124,
+        "high_phi_total_deficit_mean": 0.004872099030762911,
+        "low_phi_total_deficit_mean": 0.28657421469688416
+      },
+      "random": {
+        "hidden_deficit": {
+          "max": 0.2648923695087433,
+          "mean": 0.1486729383468628,
+          "min": 0.004710424691438675,
+          "std": 0.12480632960796356
+        },
+        "reconstructible_nodes": 7,
+        "relational_deficit": {
+          "max": 0.03358191251754761,
+          "mean": 0.01978757046163082,
+          "min": 0.008015783503651619,
+          "std": 0.008692614734172821
+        },
+        "total_deficit": {
+          "max": 0.2984742820262909,
+          "mean": 0.16846050322055817,
+          "min": 0.014500465244054794,
+          "std": 0.1270684152841568
+        }
+      },
+      "real": {
+        "hidden_deficit": {
+          "max": 0.2648923695087433,
+          "mean": 0.1486729383468628,
+          "min": 0.004710424691438675,
+          "std": 0.12480632960796356
+        },
+        "reconstructible_nodes": 7,
+        "relational_deficit": {
+          "max": 0.033503588289022446,
+          "mean": 0.011727993376553059,
+          "min": 2.5978335543186404e-05,
+          "std": 0.013849174603819847
+        },
+        "total_deficit": {
+          "max": 0.29839596152305603,
+          "mean": 0.16040094196796417,
+          "min": 0.004778998903930187,
+          "std": 0.1354706883430481
+        }
+      },
+      "shuffled": {
+        "hidden_deficit": {
+          "max": 0.2648923695087433,
+          "mean": 0.1486729383468628,
+          "min": 0.004710424691438675,
+          "std": 0.12480632960796356
+        },
+        "reconstructible_nodes": 7,
+        "relational_deficit": {
+          "max": 0.018995609134435654,
+          "mean": 0.011945599690079689,
+          "min": 0.005069306585937738,
+          "std": 0.005380616988986731
+        },
+        "total_deficit": {
+          "max": 0.2817491888999939,
+          "mean": 0.16061852872371674,
+          "min": 0.00979761965572834,
+          "std": 0.1289980262517929
+        }
+      }
+    }
+  },
+  "model_intervention": "none",
+  "next_required_step": "relational_memory_observer",
+  "observer_pipeline": "H_<i -> R_h(H_<i) -> R_W(H_<i) -> compare with h_i/W_i",
+  "phase": "phase5_reconstruction_gate",
+  "reconstruction_protocol": {
+    "future_policy": "future tokens and future relations are forbidden",
+    "hidden_reconstructor": "previous_valid_hidden_state_from_causal_prefix",
+    "min_context_edges": 2,
+    "relational_reconstructor": "relation row from predicted current hidden and allowed past hidden states",
+    "target_policy": "h_i and W_i are used only as scoring targets, not as reconstructor inputs"
+  },
+  "scientific_scope": "smoke_validates_reconstruction_gate_mechanics",
+  "seed": 2027,
+  "source_config": "configs/ergt_v1/phase3_ratio_matched/target_0_2/real_d_target_0_2_alpha_0_0682799_seed2027.json",
+  "status": "pass"
+}

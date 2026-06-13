@@ -1,0 +1,64 @@
+{
+  "checks": {
+    "causal_policy_forbids_future": true,
+    "clip_value_positive": true,
+    "controls_built_at_w_level": true,
+    "distance_diagonal_policy_fixed": true,
+    "future_inputs_forbidden": true,
+    "geo_to_qk_ratio_policy_fixed": true,
+    "graph_diagonal_policy_fixed": true,
+    "normalization_fixed": true,
+    "padding_policy_excludes_pairs": true,
+    "phi_formula_fixed": true,
+    "reconstruction_excludes_target": true,
+    "salience_definition_fixed": true,
+    "spectral_operator_fixed": true,
+    "valid_edge_mask_excludes_diagonal": true,
+    "valid_edge_mask_excludes_future": true,
+    "valid_edge_mask_excludes_padding_pairs": true,
+    "valid_edge_mask_has_edges": true,
+    "valid_edge_mask_shape": true,
+    "valid_edge_policy_fixed": true
+  },
+  "claim_boundaries": [
+    "hidden state != physical field",
+    "Phi != consciousness",
+    "causal mask != causal geometry",
+    "pairwise distance != full geometry",
+    "low entropy != good structure",
+    "baseline win != relational proof",
+    "EMA smoothing != meaningful memory"
+  ],
+  "contract": {
+    "causal_policy": "lower_triangular_no_future_edges",
+    "clip_value": 5.0,
+    "contract_version": "measurement_contract_v1",
+    "control_generation_level": "W_level_before_distance_normalization",
+    "distance_diagonal_policy": "zero",
+    "forbidden_metric_inputs": [
+      "future_tokens",
+      "target_hidden_state",
+      "future_relations"
+    ],
+    "geo_to_qk_ratio_policy": "report_and_match_before_comparison",
+    "graph_diagonal_policy": "keep_for_distance",
+    "normalization": "offdiag_zscore_clamp",
+    "padding_policy": "exclude_padding_pairs",
+    "phi_formula": "fixed_log_linear_anti_collapse_v1",
+    "reconstruction_protocol": "causal_prefix_excludes_target",
+    "salience_definition": "hidden_norm",
+    "spectral_operator": "symmetrized_normalized_laplacian",
+    "valid_edge_policy": "causal_lower_triangular_non_diagonal_non_padding"
+  },
+  "next_required_step": "strict_W_level_controls",
+  "phase": "phase0_measurement_contracts",
+  "source_config": "configs/ergt_v1/phase3_ratio_matched/target_0_2/real_d_target_0_2_alpha_0_0682799_seed2027.json",
+  "status": "pass",
+  "valid_edge_summary": {
+    "batch_size": 1,
+    "diagonal_edges_allowed": false,
+    "future_edges_allowed": false,
+    "sequence_length": 5,
+    "valid_edges": 6
+  }
+}

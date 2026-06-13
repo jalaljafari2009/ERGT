@@ -1,0 +1,202 @@
+{
+  "checks": {
+    "future_edges_forbidden": true,
+    "future_inputs_forbidden": true,
+    "model_intervention_none": true,
+    "real_memory_beats_generic_smoothing": true,
+    "real_memory_beats_instantaneous": true,
+    "real_memory_beats_no_memory": true,
+    "real_memory_beats_random_memory": true,
+    "real_memory_beats_shuffled_memory": true,
+    "real_memory_not_collapsed": true,
+    "w_level_controls_used": true
+  },
+  "controls": {
+    "control_generation_level": "W_level_before_distance_normalization",
+    "families": [
+      "real_memory",
+      "random_memory",
+      "shuffled_memory",
+      "instantaneous_eta_1",
+      "generic_smoothing",
+      "no_memory"
+    ]
+  },
+  "input_source": "synthetic_memory_smoke",
+  "layers": {
+    "transition_0_to_1": {
+      "generic_smoothing": {
+        "cosine_to_next_update": 0.8098111748695374,
+        "normalized_mse_to_next_update": 2.8682025018027275
+      },
+      "instantaneous_eta_1": {
+        "cosine_to_next_update": 0.9974518418312073,
+        "normalized_mse_to_next_update": 0.014534287583388168
+      },
+      "no_memory": {
+        "cosine_to_next_update": 0.8098111748695374,
+        "normalized_mse_to_next_update": 2.8682025018027275
+      },
+      "random_memory": {
+        "cosine_to_next_update": 0.8492250442504883,
+        "normalized_mse_to_next_update": 0.7588112106190382
+      },
+      "real_memory": {
+        "cosine_to_next_update": 0.9974518418312073,
+        "normalized_mse_to_next_update": 0.014534287583388168
+      },
+      "shuffled_memory": {
+        "cosine_to_next_update": 0.7499748468399048,
+        "normalized_mse_to_next_update": 1.183882362009227
+      }
+    },
+    "transition_1_to_2": {
+      "generic_smoothing": {
+        "cosine_to_next_update": 0.7914830446243286,
+        "normalized_mse_to_next_update": 2.562470540003701
+      },
+      "instantaneous_eta_1": {
+        "cosine_to_next_update": 0.9972309470176697,
+        "normalized_mse_to_next_update": 0.017669379438184255
+      },
+      "no_memory": {
+        "cosine_to_next_update": 0.7834426760673523,
+        "normalized_mse_to_next_update": 2.5818857708477583
+      },
+      "random_memory": {
+        "cosine_to_next_update": 0.812455952167511,
+        "normalized_mse_to_next_update": 0.8645802259243678
+      },
+      "real_memory": {
+        "cosine_to_next_update": 0.9970993399620056,
+        "normalized_mse_to_next_update": 0.01668548237353087
+      },
+      "shuffled_memory": {
+        "cosine_to_next_update": 0.8649599552154541,
+        "normalized_mse_to_next_update": 0.7722184083448872
+      }
+    },
+    "transition_2_to_3": {
+      "generic_smoothing": {
+        "cosine_to_next_update": 0.7792750597000122,
+        "normalized_mse_to_next_update": 2.542715338561318
+      },
+      "instantaneous_eta_1": {
+        "cosine_to_next_update": 0.995721161365509,
+        "normalized_mse_to_next_update": 0.020767953158846126
+      },
+      "no_memory": {
+        "cosine_to_next_update": 0.7810670137405396,
+        "normalized_mse_to_next_update": 2.544157564744832
+      },
+      "random_memory": {
+        "cosine_to_next_update": 0.8520186543464661,
+        "normalized_mse_to_next_update": 0.6695015318538923
+      },
+      "real_memory": {
+        "cosine_to_next_update": 0.9969263076782227,
+        "normalized_mse_to_next_update": 0.015848524881022733
+      },
+      "shuffled_memory": {
+        "cosine_to_next_update": 0.9259363412857056,
+        "normalized_mse_to_next_update": 0.5171422901886938
+      }
+    },
+    "transition_3_to_4": {
+      "generic_smoothing": {
+        "cosine_to_next_update": 0.7978184223175049,
+        "normalized_mse_to_next_update": 3.0424308949083017
+      },
+      "instantaneous_eta_1": {
+        "cosine_to_next_update": 0.9946829676628113,
+        "normalized_mse_to_next_update": 0.03861159175840894
+      },
+      "no_memory": {
+        "cosine_to_next_update": 0.7998745441436768,
+        "normalized_mse_to_next_update": 3.165051445495847
+      },
+      "random_memory": {
+        "cosine_to_next_update": 0.8465302586555481,
+        "normalized_mse_to_next_update": 0.7443761476601853
+      },
+      "real_memory": {
+        "cosine_to_next_update": 0.9957762360572815,
+        "normalized_mse_to_next_update": 0.027533763583579365
+      },
+      "shuffled_memory": {
+        "cosine_to_next_update": 0.944241464138031,
+        "normalized_mse_to_next_update": 0.4184390774916779
+      }
+    }
+  },
+  "memory_formula": {
+    "config": {
+      "anti_collapse_threshold": 0.1,
+      "decay": 0.7,
+      "eta": 0.3,
+      "gate_floor": 0.05,
+      "min_context_edges": 2
+    },
+    "formula": "W_mem_t = decay * W_mem_{t-1} + eta * stable_update_t",
+    "stable_update": "W_current * row_gate(Phi_t, reconstruction_t) over causal valid edges",
+    "target_for_scoring": "next real stable_update; used only for evaluation, never for memory update"
+  },
+  "metrics": {
+    "generic_smoothing": {
+      "anti_collapse_mean": 0.7512925028800964,
+      "memory_quality_score": 0.5940128083382916,
+      "next_update_cosine": 0.7945969253778458,
+      "next_update_normalized_mse": 2.753954818819012,
+      "next_update_prediction_score": 0.2672168373741202,
+      "temporal_stability_cosine": 0.9999337494373322
+    },
+    "instantaneous_eta_1": {
+      "anti_collapse_mean": 0.8933128356933594,
+      "memory_quality_score": 0.9776174094926121,
+      "next_update_cosine": 0.9962717294692993,
+      "next_update_normalized_mse": 0.02289580298470687,
+      "next_update_prediction_score": 0.9776974392490922,
+      "temporal_stability_cosine": 0.9962717294692993
+    },
+    "no_memory": {
+      "anti_collapse_mean": 0.7533232212066651,
+      "memory_quality_score": 0.5927671263146963,
+      "next_update_cosine": 0.7935488522052765,
+      "next_update_normalized_mse": 2.7898243207227913,
+      "next_update_prediction_score": 0.26498703173543925,
+      "temporal_stability_cosine": 0.999017134308815
+    },
+    "random_memory": {
+      "anti_collapse_mean": 0.9016778230667114,
+      "memory_quality_score": 0.7547734938223835,
+      "next_update_cosine": 0.8400574773550034,
+      "next_update_normalized_mse": 0.759317279014371,
+      "next_update_prediction_score": 0.569282907834688,
+      "temporal_stability_cosine": 0.9920701682567596
+    },
+    "real_memory": {
+      "anti_collapse_mean": 0.8899131298065186,
+      "memory_quality_score": 0.9799099321781923,
+      "next_update_cosine": 0.9968134313821793,
+      "next_update_normalized_mse": 0.018650514605380284,
+      "next_update_prediction_score": 0.9817162619960154,
+      "temporal_stability_cosine": 0.9997147172689438
+    },
+    "shuffled_memory": {
+      "anti_collapse_mean": 0.8909114956855774,
+      "memory_quality_score": 0.7708894592202131,
+      "next_update_cosine": 0.8712781518697739,
+      "next_update_normalized_mse": 0.7229205345086215,
+      "next_update_prediction_score": 0.5965747332520891,
+      "temporal_stability_cosine": 0.977600708603859
+    }
+  },
+  "model_intervention": "none",
+  "next_required_step": "causal_shortest_path_geometry",
+  "observer_pipeline": "H_t -> W_t family -> Phi/reconstruction gate -> stable_update -> memory",
+  "phase": "phase6_relational_memory_observer",
+  "scientific_scope": "smoke_validates_relational_memory_observer_mechanics",
+  "seed": 2027,
+  "source_config": "configs/ergt_v1/phase3_ratio_matched/target_0_2/real_d_target_0_2_alpha_0_0682799_seed2027.json",
+  "status": "pass"
+}

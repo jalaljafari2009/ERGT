@@ -83,9 +83,10 @@ class EmergentDistance(nn.Module):
             normalized = (safe_values - mean) / (std + self.config.epsilon)
             normalized = torch.where(valid_mask, normalized, distance)
             if mode == "offdiag_zscore_clamp":
-                normalized = torch.clamp(
+                clamped = torch.clamp(
                     normalized, -self.config.clip_value, self.config.clip_value
                 )
+                normalized = torch.where(valid_mask, clamped, distance)
             return normalized
 
         if mode == "mean_scale":
@@ -95,6 +96,14 @@ class EmergentDistance(nn.Module):
             return torch.where(valid_mask, normalized, distance)
 
         raise ValueError(f"unsupported normalization: {mode}")
+
+    def normalize_precomputed(self, distance: torch.Tensor) -> torch.Tensor:
+        """Normalize a distance tensor that was already built outside `forward`."""
+
+        self._validate_graph(distance)
+        distance = self._apply_diagonal_policy(distance)
+        distance = self.normalize(distance)
+        return self._apply_diagonal_policy(distance)
 
     def _apply_padding_mask(
         self,

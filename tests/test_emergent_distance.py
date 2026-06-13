@@ -119,6 +119,23 @@ def test_causal_runtime_distance_masks_future_positions() -> None:
     assert torch.isfinite(distance[0, 0, 2, 0])
 
 
+def test_causal_runtime_distance_preserves_future_inf_after_clamp() -> None:
+    distance_builder = EmergentDistance(
+        {
+            "normalization": "offdiag_zscore_clamp",
+            "clip_value": 5.0,
+            "diagonal_policy": "zero",
+            "causal_runtime_distance": True,
+        }
+    )
+
+    distance = distance_builder(sample_graph())
+
+    assert torch.isinf(distance[0, 0, 0, 1])
+    assert torch.isinf(distance[0, 0, 0, 2])
+    assert torch.isfinite(distance[0, 0, 2, 0])
+
+
 def test_random_and_shuffled_distance_controls_keep_shape_and_finiteness() -> None:
     distance = EmergentDistance({"normalization": "none", "diagonal_policy": "zero"})(
         sample_graph()

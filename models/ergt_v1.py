@@ -61,23 +61,38 @@ class ERGTBlock(nn.Module):
         attention_mask: torch.Tensor | None = None,
         need_weights: bool = False,
         return_diagnostics: bool = False,
+        geometry_memory: torch.Tensor | None = None,
+        return_geometry_state: bool = False,
     ) -> torch.Tensor | tuple[torch.Tensor, torch.Tensor] | dict[str, Any]:
         attn_input = self.ln_1(hidden_states)
-        if return_diagnostics:
+        if return_diagnostics or return_geometry_state:
             attn_result = self.attn(
                 attn_input,
                 attention_mask=attention_mask,
                 return_diagnostics=True,
+                geometry_memory=geometry_memory,
             )
             hidden_states = hidden_states + attn_result["output"]
             hidden_states = hidden_states + self.ffn(self.ln_2(hidden_states))
-            return {
+            result: dict[str, Any] = {
                 "hidden_states": hidden_states,
-                "attention_weights": attn_result["attention_weights"],
-                "distance": attn_result["distance"],
-                "qk_logits": attn_result["qk_logits"],
-                "diagnostics": attn_result["diagnostics"],
+                "geometry_memory": attn_result["geometry_memory"],
             }
+            if return_diagnostics or need_weights:
+                result.update(
+                    {
+                        "attention_weights": attn_result["attention_weights"],
+                    }
+                )
+            if return_diagnostics:
+                result.update(
+                    {
+                        "distance": attn_result["distance"],
+                        "qk_logits": attn_result["qk_logits"],
+                        "diagnostics": attn_result["diagnostics"],
+                    }
+                )
+            return result
 
         attn_result = self.attn(
             attn_input, attention_mask=attention_mask, need_weights=need_weights
@@ -118,6 +133,9 @@ class ERGTV1(nn.Module):
         for block in self.blocks:
             block.set_training_step(step)
 
+    def uses_geometry_memory(self) -> bool:
+        return any(block.attn.uses_geometry_memory() for block in self.blocks)
+
     def forward(
         self,
         input_ids: torch.Tensor,
@@ -146,28 +164,35 @@ class ERGTV1(nn.Module):
         all_hidden_states: list[torch.Tensor] = []
         all_attention_weights: list[torch.Tensor] = []
         all_geometry_diagnostics: list[dict[str, Any]] = []
+        geometry_memory = None
+        use_geometry_memory = self.uses_geometry_memory()
 
         for block in self.blocks:
             if return_hidden_states:
                 all_hidden_states.append(hidden_states)
 
-            if return_geometry_diagnostics:
+            if return_geometry_diagnostics or use_geometry_memory:
                 block_result = block(
                     hidden_states,
                     attention_mask=attention_mask,
-                    return_diagnostics=True,
+                    need_weights=return_attention_weights,
+                    return_diagnostics=return_geometry_diagnostics,
+                    geometry_memory=geometry_memory,
+                    return_geometry_state=use_geometry_memory,
                 )
                 hidden_states = block_result["hidden_states"]
+                geometry_memory = block_result.get("geometry_memory")
                 if return_attention_weights:
                     all_attention_weights.append(block_result["attention_weights"])
-                all_geometry_diagnostics.append(
-                    {
-                        "diagnostics": block_result["diagnostics"],
-                        "attention_weights": block_result["attention_weights"],
-                        "distance": block_result["distance"],
-                        "qk_logits": block_result["qk_logits"],
-                    }
-                )
+                if return_geometry_diagnostics:
+                    all_geometry_diagnostics.append(
+                        {
+                            "diagnostics": block_result["diagnostics"],
+                            "attention_weights": block_result["attention_weights"],
+                            "distance": block_result["distance"],
+                            "qk_logits": block_result["qk_logits"],
+                        }
+                    )
             elif return_attention_weights:
                 hidden_states, attention_weights = block(
                     hidden_states,
@@ -255,6 +280,7 @@ def _coerce_project_config(config: dict[str, Any]) -> ERGTV1Config:
 def _geo_attention_config(config: ERGTV1Config) -> GeoAttentionConfig:
     attention = config.attention or {}
     alpha = attention.get("alpha", {})
+    memory = attention.get("memory", {})
     return GeoAttentionConfig(
         n_heads=config.n_heads,
         hidden_dim=config.hidden_dim,
@@ -267,6 +293,11 @@ def _geo_attention_config(config: ERGTV1Config) -> GeoAttentionConfig:
         alpha_non_negative=bool(alpha.get("non_negative", True)),
         alpha_warmup_steps=int(alpha.get("warmup_steps", 0)),
         gradient_mode=attention.get("gradient_mode", "grad_d"),
+        memory_decay=float(memory.get("decay", 0.7)),
+        memory_eta=float(memory.get("eta", 0.3)),
+        memory_gate_floor=float(memory.get("gate_floor", 0.05)),
+        memory_min_context_edges=int(memory.get("min_context_edges", 2)),
+        max_causal_step=attention.get("max_causal_step", 1),
     )
 
 

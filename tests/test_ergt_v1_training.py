@@ -115,6 +115,35 @@ def test_geometry_diagnostics_include_attention_metrics() -> None:
     assert "attention_entropy" in diagnostics["summary"]
 
 
+def test_ergt_v1_geoattention_v2_carries_memory_between_layers() -> None:
+    torch.manual_seed(1)
+    config = tiny_ergt_config(Path("unused"))
+    config["model"]["vocab_size"] = 16
+    config["model"]["n_layers"] = 2
+    config["attention"]["distance_mode"] = "real_stable_causal_d"
+    config["attention"]["gradient_mode"] = "detached_d"
+    config["attention"]["max_causal_step"] = 1
+    config["attention"]["memory"] = {
+        "decay": 0.7,
+        "eta": 0.3,
+        "gate_floor": 0.05,
+        "min_context_edges": 2,
+    }
+    config["relational_graph"]["kernel"] = "sigmoid_cosine"
+    config["relational_graph"]["normalize_hidden"] = True
+    model = ERGTV1(config)
+    input_ids = torch.randint(0, 16, (2, 4))
+
+    outputs = model(input_ids, targets=input_ids, return_geometry_diagnostics=True)
+    diagnostics = outputs["geometry_diagnostics"]
+
+    assert len(diagnostics) == 2
+    assert diagnostics[0]["diagnostics"]["geometry_version"] == "v2"
+    assert diagnostics[0]["diagnostics"]["geometry_memory_used"] is False
+    assert diagnostics[1]["diagnostics"]["geometry_memory_used"] is True
+    assert torch.isfinite(outputs["loss"])
+
+
 @pytest.mark.parametrize(
     ("condition", "distance_mode", "alpha"),
     [

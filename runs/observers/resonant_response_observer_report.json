@@ -1,0 +1,239 @@
+{
+  "checks": {
+    "all_layers_real_response_beats_or_stabilizes_vs_controls": true,
+    "model_intervention_none": true,
+    "probe_reset_to_before_supported": true,
+    "response_not_scale_artifact": true,
+    "w_level_controls_used": true
+  },
+  "controls": {
+    "control_generation_level": "W_level_before_distance_normalization",
+    "families": [
+      "real",
+      "random",
+      "shuffled"
+    ]
+  },
+  "input_source": "synthetic_structured_smoke",
+  "layers": {
+    "layer_0": {
+      "comparison": {
+        "real_beats_or_stabilizes_vs_controls": true,
+        "real_minus_best_control_neighborhood_stability": 0.20833333333333337,
+        "real_minus_best_control_response_magnitude": -0.00946417876652309,
+        "real_more_stable_than_controls": true,
+        "real_stronger_than_controls": false
+      },
+      "responses": {
+        "random": {
+          "delta_phi_proxy": -0.0007688519595082644,
+          "graph_cosine": 0.9944344162940979,
+          "graph_frobenius": 0.37265145778656006,
+          "hidden_delta_norm": 0.0799551010131836,
+          "metric_deltas": {
+            "boundary_sharpness_mean": -0.010684162378311157,
+            "coherence_mean": 0.004390895366668701,
+            "distance_entropy": 0.055774688720703125,
+            "effective_rank_mean": -0.0007443428039550781,
+            "local_relational_entropy_mean": 0.0008194446563720703,
+            "relational_entropy_mean": -0.00010538101196289062,
+            "spectral_entropy_mean": -0.0001494884490966797
+          },
+          "metric_response_magnitude": 0.010381200483867101,
+          "neighborhood_stability": 0.75,
+          "phi_proxy_after": 0.0011926823488707312,
+          "phi_proxy_before": 0.0019615343083789955
+        },
+        "real": {
+          "delta_phi_proxy": -3.0186044919768397e-05,
+          "graph_cosine": 0.9999990463256836,
+          "graph_frobenius": 0.005496231373399496,
+          "hidden_delta_norm": 0.0799551010131836,
+          "metric_deltas": {
+            "boundary_sharpness_mean": -0.0002681612968444824,
+            "coherence_mean": 0.002538055181503296,
+            "distance_entropy": -0.003387928009033203,
+            "effective_rank_mean": 6.580352783203125e-05,
+            "local_relational_entropy_mean": 7.772445678710938e-05,
+            "relational_entropy_mean": 6.812810897827148e-05,
+            "spectral_entropy_mean": 1.33514404296875e-05
+          },
+          "metric_response_magnitude": 0.0009170217173440116,
+          "neighborhood_stability": 1.0,
+          "phi_proxy_after": 0.0015923134426193467,
+          "phi_proxy_before": 0.001622499487539115
+        },
+        "shuffled": {
+          "delta_phi_proxy": -0.00013336377851946575,
+          "graph_cosine": 0.9945344924926758,
+          "graph_frobenius": 0.3620399832725525,
+          "hidden_delta_norm": 0.0799551010131836,
+          "metric_deltas": {
+            "boundary_sharpness_mean": 0.020810693502426147,
+            "coherence_mean": 0.006348252296447754,
+            "distance_entropy": -0.0033876895904541016,
+            "effective_rank_mean": -0.0013794898986816406,
+            "local_relational_entropy_mean": -0.0006660223007202148,
+            "relational_entropy_mean": -0.0007250308990478516,
+            "spectral_entropy_mean": -0.0002770423889160156
+          },
+          "metric_response_magnitude": 0.004799174410956246,
+          "neighborhood_stability": 0.7916666666666666,
+          "phi_proxy_after": 0.0018352860278535164,
+          "phi_proxy_before": 0.001968649806372982
+        }
+      }
+    },
+    "layer_1": {
+      "comparison": {
+        "real_beats_or_stabilizes_vs_controls": true,
+        "real_minus_best_control_neighborhood_stability": 0.16666666666666663,
+        "real_minus_best_control_response_magnitude": -0.049359419516154704,
+        "real_more_stable_than_controls": true,
+        "real_stronger_than_controls": false
+      },
+      "responses": {
+        "random": {
+          "delta_phi_proxy": -0.0024015872823887506,
+          "graph_cosine": 0.9956435561180115,
+          "graph_frobenius": 0.3195648789405823,
+          "hidden_delta_norm": 0.07989120483398438,
+          "metric_deltas": {
+            "boundary_sharpness_mean": 0.026058673858642578,
+            "coherence_mean": 0.009228229522705078,
+            "distance_entropy": -0.30606794357299805,
+            "effective_rank_mean": 0.0030412673950195312,
+            "local_relational_entropy_mean": 0.004379689693450928,
+            "relational_entropy_mean": 0.002454221248626709,
+            "spectral_entropy_mean": 0.0006098747253417969
+          },
+          "metric_response_magnitude": 0.05026284285954067,
+          "neighborhood_stability": 0.7916666666666666,
+          "phi_proxy_after": 0.0010927352086106184,
+          "phi_proxy_before": 0.003494322490999369
+        },
+        "real": {
+          "delta_phi_proxy": -2.9122548462903047e-05,
+          "graph_cosine": 0.9999988079071045,
+          "graph_frobenius": 0.0059610758908092976,
+          "hidden_delta_norm": 0.07989120483398438,
+          "metric_deltas": {
+            "boundary_sharpness_mean": -0.0008708536624908447,
+            "coherence_mean": 0.002544701099395752,
+            "distance_entropy": -0.0026891231536865234,
+            "effective_rank_mean": 6.628036499023438e-05,
+            "local_relational_entropy_mean": 7.486343383789062e-05,
+            "relational_entropy_mean": 6.479024887084961e-05,
+            "spectral_entropy_mean": 1.33514404296875e-05
+          },
+          "metric_response_magnitude": 0.0009034233433859688,
+          "neighborhood_stability": 1.0,
+          "phi_proxy_after": 0.0016906274245312776,
+          "phi_proxy_before": 0.0017197499729941807
+        },
+        "shuffled": {
+          "delta_phi_proxy": -0.0007080185795817909,
+          "graph_cosine": 0.9961031675338745,
+          "graph_frobenius": 0.3066273331642151,
+          "hidden_delta_norm": 0.07989120483398438,
+          "metric_deltas": {
+            "boundary_sharpness_mean": -0.012243986129760742,
+            "coherence_mean": -0.0016367137432098389,
+            "distance_entropy": -0.0026891231536865234,
+            "effective_rank_mean": 0.0002727508544921875,
+            "local_relational_entropy_mean": 0.0007188320159912109,
+            "relational_entropy_mean": -0.00023919343948364258,
+            "spectral_entropy_mean": 5.507469177246094e-05
+          },
+          "metric_response_magnitude": 0.0025508105754852295,
+          "neighborhood_stability": 0.8333333333333334,
+          "phi_proxy_after": 0.0017484189897634095,
+          "phi_proxy_before": 0.0024564375693452004
+        }
+      }
+    },
+    "layer_2": {
+      "comparison": {
+        "real_beats_or_stabilizes_vs_controls": true,
+        "real_minus_best_control_neighborhood_stability": 0.16666666666666663,
+        "real_minus_best_control_response_magnitude": -0.024740193571363176,
+        "real_more_stable_than_controls": true,
+        "real_stronger_than_controls": false
+      },
+      "responses": {
+        "random": {
+          "delta_phi_proxy": -0.0006361780954360188,
+          "graph_cosine": 0.9950790405273438,
+          "graph_frobenius": 0.344195693731308,
+          "hidden_delta_norm": 0.07984364032745361,
+          "metric_deltas": {
+            "boundary_sharpness_mean": 0.003841996192932129,
+            "coherence_mean": 0.009855419397354126,
+            "distance_entropy": 0.16553330421447754,
+            "effective_rank_mean": -0.0014781951904296875,
+            "local_relational_entropy_mean": 0.0009620785713195801,
+            "relational_entropy_mean": 0.0007956027984619141,
+            "spectral_entropy_mean": -0.0002968311309814453
+          },
+          "metric_response_magnitude": 0.026109061070850918,
+          "neighborhood_stability": 0.8333333333333334,
+          "phi_proxy_after": 0.000893717534473146,
+          "phi_proxy_before": 0.0015298956299091648
+        },
+        "real": {
+          "delta_phi_proxy": -3.9130102799498365e-05,
+          "graph_cosine": 0.9999984502792358,
+          "graph_frobenius": 0.007834192365407944,
+          "hidden_delta_norm": 0.07984364032745361,
+          "metric_deltas": {
+            "boundary_sharpness_mean": -0.0013732612133026123,
+            "coherence_mean": 0.004313647747039795,
+            "distance_entropy": -0.0035762786865234375,
+            "effective_rank_mean": 0.00011205673217773438,
+            "local_relational_entropy_mean": 9.757280349731445e-05,
+            "relational_entropy_mean": 8.684396743774414e-05,
+            "spectral_entropy_mean": 2.2411346435546875e-05
+          },
+          "metric_response_magnitude": 0.0013688674994877406,
+          "neighborhood_stability": 1.0,
+          "phi_proxy_after": 0.0014134187329888418,
+          "phi_proxy_before": 0.0014525488357883401
+        },
+        "shuffled": {
+          "delta_phi_proxy": -0.0016723970046762361,
+          "graph_cosine": 0.9958478808403015,
+          "graph_frobenius": 0.3116520047187805,
+          "hidden_delta_norm": 0.07984364032745361,
+          "metric_deltas": {
+            "boundary_sharpness_mean": 0.019935190677642822,
+            "coherence_mean": 0.00904756784439087,
+            "distance_entropy": -0.003576517105102539,
+            "effective_rank_mean": 0.0011153221130371094,
+            "local_relational_entropy_mean": 0.002933323383331299,
+            "relational_entropy_mean": 0.001869797706604004,
+            "spectral_entropy_mean": 0.00022411346435546875
+          },
+          "metric_response_magnitude": 0.005528833184923444,
+          "neighborhood_stability": 0.7916666666666666,
+          "phi_proxy_after": 0.0008746317102541867,
+          "phi_proxy_before": 0.002547028714930423
+        }
+      }
+    }
+  },
+  "model_intervention": "none",
+  "next_required_step": "information_potential_phi",
+  "observer_pipeline": "H_before -> W/D/Phi_proxy_before -> perturb -> H_after -> W/D/Phi_proxy_after -> reset",
+  "perturbation": {
+    "max_hidden_norm_ratio": 1.0187146663665771,
+    "reset_max_abs_diff": 0.0,
+    "scale": 0.08,
+    "type": "resonant_similarity_boost"
+  },
+  "phase": "phase3_resonant_response_observer",
+  "response_control_policy": "W-level controls are regenerated after perturbation with an independent seed so fixed control permutations cannot explain response stability.",
+  "scientific_scope": "smoke_validates_response_observer_mechanics",
+  "seed": 2027,
+  "source_config": "configs/ergt_v1/phase3_ratio_matched/target_0_2/real_d_target_0_2_alpha_0_0682799_seed2027.json",
+  "status": "pass"
+}

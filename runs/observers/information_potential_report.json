@@ -1,0 +1,1090 @@
+{
+  "aggregate": {
+    "random": {
+      "anti_collapse_mean": 0.6846653819084167,
+      "causal_validity_mean": 1.0,
+      "coherence_gradient_mean": 0.4847394526004791,
+      "coherence_mean": 0.7424445152282715,
+      "low_local_entropy_mean": 0.003723833244293928,
+      "phi_mean": 0.0022769703064113855,
+      "reconstruction_score_mean": 0.4443294107913971,
+      "salience_mean": 0.49507442116737366,
+      "stability_mean": 0.7962962985038757
+    },
+    "real": {
+      "anti_collapse_mean": 0.6598994135856628,
+      "causal_validity_mean": 1.0,
+      "coherence_gradient_mean": 0.4889368414878845,
+      "coherence_mean": 0.7511425614356995,
+      "low_local_entropy_mean": 0.0024670737329870462,
+      "phi_mean": 0.0050347899086773396,
+      "reconstruction_score_mean": 0.4524446725845337,
+      "salience_mean": 0.49507442116737366,
+      "stability_mean": 1.0
+    },
+    "shuffled": {
+      "anti_collapse_mean": 0.67291259765625,
+      "causal_validity_mean": 1.0,
+      "coherence_gradient_mean": 0.49257370829582214,
+      "coherence_mean": 0.7448093891143799,
+      "low_local_entropy_mean": 0.002520631765946746,
+      "phi_mean": 0.0025547384284436703,
+      "reconstruction_score_mean": 0.4468502402305603,
+      "salience_mean": 0.49507442116737366,
+      "stability_mean": 0.8518518805503845
+    }
+  },
+  "checks": {
+    "anti_collapse_present": true,
+    "causal_validity_enforced": true,
+    "formula_registered": true,
+    "high_phi_not_from_collapse": true,
+    "high_phi_predicts_stability_or_order": true,
+    "model_intervention_none": true,
+    "phi_not_low_entropy_only": true,
+    "real_phi_separates_from_random": true,
+    "real_phi_separates_from_shuffled": true,
+    "reconstruction_score_present": true,
+    "w_level_controls_used": true
+  },
+  "component_diversity": {
+    "component_variance": {
+      "anti_collapse": 0.134249746799469,
+      "causal_validity": 0.0,
+      "coherence": 0.02096250094473362,
+      "coherence_gradient": 0.07980431616306305,
+      "low_local_entropy": 1.1530182746355422e-05,
+      "reconstruction_score": 0.08830085396766663,
+      "salience": 0.0467861108481884,
+      "stability": 0.0
+    },
+    "nontrivial_component_count": 6
+  },
+  "controls": {
+    "control_generation_level": "W_level_before_distance_normalization",
+    "families": [
+      "real",
+      "random",
+      "shuffled"
+    ]
+  },
+  "high_phi_alignment": {
+    "best_target_delta_high_minus_low": 0.005000660585210426,
+    "targets": {
+      "attention_order_proxy": {
+        "delta_high_minus_low": 0.005000660585210426,
+        "high_phi_mean": 0.00503291143104434,
+        "low_phi_mean": 3.2250845833914354e-05
+      },
+      "next_neighborhood_stability": {
+        "delta_high_minus_low": 0.0,
+        "high_phi_mean": 1.0,
+        "low_phi_mean": 1.0
+      },
+      "reconstruction_score": {
+        "delta_high_minus_low": -0.2559925317764282,
+        "high_phi_mean": 0.4447594881057739,
+        "low_phi_mean": 0.7007520198822021
+      }
+    },
+    "top_phi_anti_collapse_mean": 0.9721187949180603
+  },
+  "input_source": "synthetic_structured_smoke",
+  "layers": {
+    "layer_0": {
+      "comparison": {
+        "real_minus_random_phi_mean": 0.002949108136817813,
+        "real_minus_shuffled_phi_mean": 0.0025170249864459038
+      },
+      "random": {
+        "collapse_components": {
+          "anti_diagonal_domination": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "anti_entropy_collapse": {
+            "max": 1.0,
+            "mean": 0.4422312080860138,
+            "min": 0.10000000149011612,
+            "std": 0.3469054102897644
+          },
+          "anti_over_sparse": {
+            "max": 0.9994281530380249,
+            "mean": 0.7676184177398682,
+            "min": 0.0,
+            "std": 0.410556435585022
+          },
+          "anti_single_token_lock": {
+            "max": 1.0,
+            "mean": 0.7777777910232544,
+            "min": 1.7881393432617188e-07,
+            "std": 0.41573962569236755
+          },
+          "anti_uniform": {
+            "max": 1.0,
+            "mean": 0.7855923175811768,
+            "min": 0.25,
+            "std": 0.2978697121143341
+          }
+        },
+        "components": {
+          "anti_collapse": {
+            "max": 0.9945182204246521,
+            "mean": 0.6561217904090881,
+            "min": 0.0005371163133531809,
+            "std": 0.3655153512954712
+          },
+          "causal_validity": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "coherence": {
+            "max": 0.991968035697937,
+            "mean": 0.7366461753845215,
+            "min": 0.5712805986404419,
+            "std": 0.14794474840164185
+          },
+          "coherence_gradient": {
+            "max": 0.995975911617279,
+            "mean": 0.45234325528144836,
+            "min": 0.06166568771004677,
+            "std": 0.3129434287548065
+          },
+          "low_local_entropy": {
+            "max": 0.016907095909118652,
+            "mean": 0.003212352516129613,
+            "min": 0.0,
+            "std": 0.005332802888005972
+          },
+          "reconstruction_score": {
+            "max": 0.9693619608879089,
+            "mean": 0.4450075328350067,
+            "min": 0.1762022227048874,
+            "std": 0.2928130030632019
+          },
+          "salience": {
+            "max": 0.8680039644241333,
+            "mean": 0.49559450149536133,
+            "min": 0.21552418172359467,
+            "std": 0.21583306789398193
+          },
+          "stability": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          }
+        },
+        "field_metrics": {
+          "boundary_sharpness_mean": 0.35829728841781616,
+          "coherence_mean": 0.4732922911643982,
+          "distance_entropy": 3.1316137313842773,
+          "distance_variance": 0.6756553053855896,
+          "effective_rank_mean": 4.989049434661865,
+          "local_relational_entropy_mean": 0.9958698153495789,
+          "relational_entropy_mean": 0.8818985223770142,
+          "relational_entropy_std": 0.5522890090942383,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.6072442531585693,
+          "valid_weight_mean": 0.5818894505500793,
+          "valid_weight_variance": 0.0034529392141848803
+        },
+        "phi": {
+          "max": 0.007852702401578426,
+          "mean": 0.0022349331993609667,
+          "min": 2.3928974357545485e-08,
+          "std": 0.0025132547598332167
+        }
+      },
+      "real": {
+        "collapse_components": {
+          "anti_diagonal_domination": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "anti_entropy_collapse": {
+            "max": 1.0,
+            "mean": 0.44921526312828064,
+            "min": 0.10000000149011612,
+            "std": 0.33959442377090454
+          },
+          "anti_over_sparse": {
+            "max": 0.9992291927337646,
+            "mean": 0.7689816951751709,
+            "min": 0.0,
+            "std": 0.4111781120300293
+          },
+          "anti_single_token_lock": {
+            "max": 1.0,
+            "mean": 0.7777777910232544,
+            "min": 1.7881393432617188e-07,
+            "std": 0.41573962569236755
+          },
+          "anti_uniform": {
+            "max": 1.0,
+            "mean": 0.7822281718254089,
+            "min": 0.25,
+            "std": 0.29919302463531494
+          }
+        },
+        "components": {
+          "anti_collapse": {
+            "max": 0.9941197037696838,
+            "mean": 0.6605806350708008,
+            "min": 0.0005371163133531809,
+            "std": 0.3666103482246399
+          },
+          "causal_validity": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "coherence": {
+            "max": 0.991968035697937,
+            "mean": 0.7450876832008362,
+            "min": 0.5710343718528748,
+            "std": 0.14820680022239685
+          },
+          "coherence_gradient": {
+            "max": 0.995975911617279,
+            "mean": 0.4822683334350586,
+            "min": 0.25243598222732544,
+            "std": 0.28733736276626587
+          },
+          "low_local_entropy": {
+            "max": 0.009035110473632812,
+            "mean": 0.002561681903898716,
+            "min": 0.0,
+            "std": 0.0035081293899565935
+          },
+          "reconstruction_score": {
+            "max": 0.9677635431289673,
+            "mean": 0.4530365765094757,
+            "min": 0.16062387824058533,
+            "std": 0.29740002751350403
+          },
+          "salience": {
+            "max": 0.8680039644241333,
+            "mean": 0.49559450149536133,
+            "min": 0.21552418172359467,
+            "std": 0.21583306789398193
+          },
+          "stability": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          }
+        },
+        "field_metrics": {
+          "boundary_sharpness_mean": 0.3673599362373352,
+          "coherence_mean": 0.4901752471923828,
+          "distance_entropy": 3.109253168106079,
+          "distance_variance": 0.6756635904312134,
+          "effective_rank_mean": 4.985410690307617,
+          "local_relational_entropy_mean": 0.996706485748291,
+          "relational_entropy_mean": 0.8820461630821228,
+          "relational_entropy_std": 0.5518855452537537,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.6065139770507812,
+          "valid_weight_mean": 0.5972473621368408,
+          "valid_weight_variance": 0.005017547868192196
+        },
+        "phi": {
+          "max": 0.017492320388555527,
+          "mean": 0.00518404133617878,
+          "min": 2.3889572986490748e-08,
+          "std": 0.006958169862627983
+        }
+      },
+      "shuffled": {
+        "collapse_components": {
+          "anti_diagonal_domination": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "anti_entropy_collapse": {
+            "max": 1.0,
+            "mean": 0.34277570247650146,
+            "min": 0.10000000149011612,
+            "std": 0.2542586624622345
+          },
+          "anti_over_sparse": {
+            "max": 0.9999966621398926,
+            "mean": 0.7737025022506714,
+            "min": 0.0,
+            "std": 0.41361042857170105
+          },
+          "anti_single_token_lock": {
+            "max": 1.0,
+            "mean": 0.7777777910232544,
+            "min": 1.7881393432617188e-07,
+            "std": 0.41573962569236755
+          },
+          "anti_uniform": {
+            "max": 1.0,
+            "mean": 0.7536052465438843,
+            "min": 0.25,
+            "std": 0.3485666811466217
+          }
+        },
+        "components": {
+          "anti_collapse": {
+            "max": 0.9954238533973694,
+            "mean": 0.6192237734794617,
+            "min": 0.0005371163133531809,
+            "std": 0.34660106897354126
+          },
+          "causal_validity": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "coherence": {
+            "max": 0.991968035697937,
+            "mean": 0.7373208403587341,
+            "min": 0.5704846382141113,
+            "std": 0.14843790233135223
+          },
+          "coherence_gradient": {
+            "max": 0.995975911617279,
+            "mean": 0.4811778664588928,
+            "min": 0.24326209723949432,
+            "std": 0.2839735150337219
+          },
+          "low_local_entropy": {
+            "max": 0.005679428577423096,
+            "mean": 0.0011067257728427649,
+            "min": 0.0,
+            "std": 0.0016781347803771496
+          },
+          "reconstruction_score": {
+            "max": 0.9691670536994934,
+            "mean": 0.4451993703842163,
+            "min": 0.1739715337753296,
+            "std": 0.2924033999443054
+          },
+          "salience": {
+            "max": 0.8680039644241333,
+            "mean": 0.49559450149536133,
+            "min": 0.21552418172359467,
+            "std": 0.21583306789398193
+          },
+          "stability": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          }
+        },
+        "field_metrics": {
+          "boundary_sharpness_mean": 0.34274959564208984,
+          "coherence_mean": 0.4746415913105011,
+          "distance_entropy": 3.1092529296875,
+          "distance_variance": 0.6756637096405029,
+          "effective_rank_mean": 4.987188816070557,
+          "local_relational_entropy_mean": 0.9985770583152771,
+          "relational_entropy_mean": 0.8835318684577942,
+          "relational_entropy_std": 0.5520955920219421,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.6068708896636963,
+          "valid_weight_mean": 0.5972473621368408,
+          "valid_weight_variance": 0.005017547868192196
+        },
+        "phi": {
+          "max": 0.012572240084409714,
+          "mean": 0.002667016349732876,
+          "min": 2.3924181746792783e-08,
+          "std": 0.0038148260209709406
+        }
+      }
+    },
+    "layer_1": {
+      "comparison": {
+        "real_minus_random_phi_mean": 0.0032226231414824724,
+        "real_minus_shuffled_phi_mean": 0.0030630261171609163
+      },
+      "random": {
+        "collapse_components": {
+          "anti_diagonal_domination": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "anti_entropy_collapse": {
+            "max": 1.0,
+            "mean": 0.6452122926712036,
+            "min": 0.10000000149011612,
+            "std": 0.38711363077163696
+          },
+          "anti_over_sparse": {
+            "max": 0.9996578693389893,
+            "mean": 0.7604449391365051,
+            "min": 0.0,
+            "std": 0.4066965579986572
+          },
+          "anti_single_token_lock": {
+            "max": 1.0,
+            "mean": 0.7777777910232544,
+            "min": 1.7881393432617188e-07,
+            "std": 0.41573962569236755
+          },
+          "anti_uniform": {
+            "max": 1.0,
+            "mean": 0.7919377088546753,
+            "min": 0.25,
+            "std": 0.3116608262062073
+          }
+        },
+        "components": {
+          "anti_collapse": {
+            "max": 0.9953141212463379,
+            "mean": 0.7211701273918152,
+            "min": 0.0005371163133531809,
+            "std": 0.3976297080516815
+          },
+          "causal_validity": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "coherence": {
+            "max": 0.993960976600647,
+            "mean": 0.7423412203788757,
+            "min": 0.5761761665344238,
+            "std": 0.1458645910024643
+          },
+          "coherence_gradient": {
+            "max": 0.9969759583473206,
+            "mean": 0.4876236915588379,
+            "min": 0.12960578501224518,
+            "std": 0.2865115702152252
+          },
+          "low_local_entropy": {
+            "max": 0.017983555793762207,
+            "mean": 0.005572405178099871,
+            "min": 0.0,
+            "std": 0.0059453933499753475
+          },
+          "reconstruction_score": {
+            "max": 0.9742580056190491,
+            "mean": 0.4451090097427368,
+            "min": 0.1752757430076599,
+            "std": 0.2938338816165924
+          },
+          "salience": {
+            "max": 0.8605964779853821,
+            "mean": 0.4961521327495575,
+            "min": 0.20776717364788055,
+            "std": 0.21737127006053925
+          },
+          "stability": {
+            "max": 1.0,
+            "mean": 0.6666666865348816,
+            "min": 0.0,
+            "std": 0.3333333432674408
+          }
+        },
+        "field_metrics": {
+          "boundary_sharpness_mean": 0.32479986548423767,
+          "coherence_mean": 0.4846823513507843,
+          "distance_entropy": 3.2164275646209717,
+          "distance_variance": 0.6756649613380432,
+          "effective_rank_mean": 4.985552787780762,
+          "local_relational_entropy_mean": 0.9928354620933533,
+          "relational_entropy_mean": 0.8796880841255188,
+          "relational_entropy_std": 0.5516204833984375,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.606542706489563,
+          "valid_weight_mean": 0.609437882900238,
+          "valid_weight_variance": 0.006277107167989016
+        },
+        "phi": {
+          "max": 0.005025819875299931,
+          "mean": 0.0018805621657520533,
+          "min": 1.0554338653046003e-10,
+          "std": 0.0017186020268127322
+        }
+      },
+      "real": {
+        "collapse_components": {
+          "anti_diagonal_domination": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "anti_entropy_collapse": {
+            "max": 1.0,
+            "mean": 0.45024627447128296,
+            "min": 0.10000000149011612,
+            "std": 0.33789655566215515
+          },
+          "anti_over_sparse": {
+            "max": 0.9991468191146851,
+            "mean": 0.7686729431152344,
+            "min": 0.0,
+            "std": 0.41102680563926697
+          },
+          "anti_single_token_lock": {
+            "max": 1.0,
+            "mean": 0.7777777910232544,
+            "min": 1.7881393432617188e-07,
+            "std": 0.41573962569236755
+          },
+          "anti_uniform": {
+            "max": 1.0,
+            "mean": 0.8046622276306152,
+            "min": 0.25,
+            "std": 0.30492067337036133
+          }
+        },
+        "components": {
+          "anti_collapse": {
+            "max": 0.9938036203384399,
+            "mean": 0.665215253829956,
+            "min": 0.0005371163133531809,
+            "std": 0.3674093782901764
+          },
+          "causal_validity": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "coherence": {
+            "max": 0.993960976600647,
+            "mean": 0.749762237071991,
+            "min": 0.5779576897621155,
+            "std": 0.14516696333885193
+          },
+          "coherence_gradient": {
+            "max": 0.9969759583473206,
+            "mean": 0.4882664084434509,
+            "min": 0.26591944694519043,
+            "std": 0.2819967567920685
+          },
+          "low_local_entropy": {
+            "max": 0.009421169757843018,
+            "mean": 0.0026645991019904613,
+            "min": 0.0,
+            "std": 0.0036741802468895912
+          },
+          "reconstruction_score": {
+            "max": 0.9731232523918152,
+            "mean": 0.4518333077430725,
+            "min": 0.16417111456394196,
+            "std": 0.2977951467037201
+          },
+          "salience": {
+            "max": 0.8605964779853821,
+            "mean": 0.4961521327495575,
+            "min": 0.20776717364788055,
+            "std": 0.21737127006053925
+          },
+          "stability": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          }
+        },
+        "field_metrics": {
+          "boundary_sharpness_mean": 0.3569268584251404,
+          "coherence_mean": 0.4995245933532715,
+          "distance_entropy": 3.118083953857422,
+          "distance_variance": 0.6756635904312134,
+          "effective_rank_mean": 4.985523223876953,
+          "local_relational_entropy_mean": 0.9965741038322449,
+          "relational_entropy_mean": 0.8819546699523926,
+          "relational_entropy_std": 0.5518901348114014,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.606536626815796,
+          "valid_weight_mean": 0.599653959274292,
+          "valid_weight_variance": 0.004926364403218031
+        },
+        "phi": {
+          "max": 0.01700659841299057,
+          "mean": 0.005103185307234526,
+          "min": 2.3644870950079167e-08,
+          "std": 0.006771562620997429
+        }
+      },
+      "shuffled": {
+        "collapse_components": {
+          "anti_diagonal_domination": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "anti_entropy_collapse": {
+            "max": 1.0,
+            "mean": 0.4678839445114136,
+            "min": 0.10000000149011612,
+            "std": 0.34471315145492554
+          },
+          "anti_over_sparse": {
+            "max": 0.9988614320755005,
+            "mean": 0.7695680856704712,
+            "min": 0.0,
+            "std": 0.41146984696388245
+          },
+          "anti_single_token_lock": {
+            "max": 1.0,
+            "mean": 0.7777777910232544,
+            "min": 1.7881393432617188e-07,
+            "std": 0.41573962569236755
+          },
+          "anti_uniform": {
+            "max": 1.0,
+            "mean": 0.7994288206100464,
+            "min": 0.25,
+            "std": 0.29990699887275696
+          }
+        },
+        "components": {
+          "anti_collapse": {
+            "max": 0.9963545203208923,
+            "mean": 0.670722484588623,
+            "min": 0.0005371163133531809,
+            "std": 0.37042900919914246
+          },
+          "causal_validity": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "coherence": {
+            "max": 0.993960976600647,
+            "mean": 0.7448768615722656,
+            "min": 0.5780311226844788,
+            "std": 0.14570388197898865
+          },
+          "coherence_gradient": {
+            "max": 0.9969759583473206,
+            "mean": 0.4951540529727936,
+            "min": 0.2629754841327667,
+            "std": 0.27550774812698364
+          },
+          "low_local_entropy": {
+            "max": 0.01005399227142334,
+            "mean": 0.002376000164076686,
+            "min": 0.0,
+            "std": 0.0031904843635857105
+          },
+          "reconstruction_score": {
+            "max": 0.9739021062850952,
+            "mean": 0.44806134700775146,
+            "min": 0.17253832519054413,
+            "std": 0.29603713750839233
+          },
+          "salience": {
+            "max": 0.8605964779853821,
+            "mean": 0.4961521327495575,
+            "min": 0.20776717364788055,
+            "std": 0.21737127006053925
+          },
+          "stability": {
+            "max": 1.0,
+            "mean": 0.7222222089767456,
+            "min": 0.5,
+            "std": 0.24845199286937714
+          }
+        },
+        "field_metrics": {
+          "boundary_sharpness_mean": 0.3429986238479614,
+          "coherence_mean": 0.4897538423538208,
+          "distance_entropy": 3.1180834770202637,
+          "distance_variance": 0.6756635308265686,
+          "effective_rank_mean": 4.988591194152832,
+          "local_relational_entropy_mean": 0.9969450831413269,
+          "relational_entropy_mean": 0.8821473717689514,
+          "relational_entropy_std": 0.5517039895057678,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.6071518659591675,
+          "valid_weight_mean": 0.599653959274292,
+          "valid_weight_variance": 0.004926364403218031
+        },
+        "phi": {
+          "max": 0.008996125310659409,
+          "mean": 0.0020401591900736094,
+          "min": 2.3663774939564064e-08,
+          "std": 0.0026335977017879486
+        }
+      }
+    },
+    "layer_2": {
+      "comparison": {
+        "real_minus_random_phi_mean": 0.0021017289254814386,
+        "real_minus_shuffled_phi_mean": 0.0018601042684167624
+      },
+      "random": {
+        "collapse_components": {
+          "anti_diagonal_domination": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "anti_entropy_collapse": {
+            "max": 1.0,
+            "mean": 0.5185781121253967,
+            "min": 0.10000000149011612,
+            "std": 0.37119150161743164
+          },
+          "anti_over_sparse": {
+            "max": 0.999791145324707,
+            "mean": 0.769335150718689,
+            "min": 0.0,
+            "std": 0.4113011360168457
+          },
+          "anti_single_token_lock": {
+            "max": 1.0,
+            "mean": 0.7777777910232544,
+            "min": 1.7881393432617188e-07,
+            "std": 0.41573962569236755
+          },
+          "anti_uniform": {
+            "max": 1.0,
+            "mean": 0.762498676776886,
+            "min": 0.25,
+            "std": 0.31312233209609985
+          }
+        },
+        "components": {
+          "anti_collapse": {
+            "max": 0.9951364398002625,
+            "mean": 0.676704466342926,
+            "min": 0.0005371163133531809,
+            "std": 0.380085289478302
+          },
+          "causal_validity": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "coherence": {
+            "max": 0.9949552416801453,
+            "mean": 0.748346209526062,
+            "min": 0.5935448408126831,
+            "std": 0.1409219205379486
+          },
+          "coherence_gradient": {
+            "max": 0.9974744319915771,
+            "mean": 0.5142514705657959,
+            "min": 0.2748783826828003,
+            "std": 0.2685287594795227
+          },
+          "low_local_entropy": {
+            "max": 0.007310688495635986,
+            "mean": 0.0023867422714829445,
+            "min": 0.0,
+            "std": 0.002593070035800338
+          },
+          "reconstruction_score": {
+            "max": 0.9709159731864929,
+            "mean": 0.44287168979644775,
+            "min": 0.17860974371433258,
+            "std": 0.2902813255786896
+          },
+          "salience": {
+            "max": 0.8727077841758728,
+            "mean": 0.493476539850235,
+            "min": 0.2131514847278595,
+            "std": 0.21568533778190613
+          },
+          "stability": {
+            "max": 1.0,
+            "mean": 0.7222222089767456,
+            "min": 0.0,
+            "std": 0.34246745705604553
+          }
+        },
+        "field_metrics": {
+          "boundary_sharpness_mean": 0.33651086688041687,
+          "coherence_mean": 0.49669238924980164,
+          "distance_entropy": 2.9869043827056885,
+          "distance_variance": 0.6756612062454224,
+          "effective_rank_mean": 4.988681793212891,
+          "local_relational_entropy_mean": 0.9969313740730286,
+          "relational_entropy_mean": 0.8820889592170715,
+          "relational_entropy_std": 0.5515250563621521,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.6071703433990479,
+          "valid_weight_mean": 0.6014330387115479,
+          "valid_weight_variance": 0.003761071478947997
+        },
+        "phi": {
+          "max": 0.009975576773285866,
+          "mean": 0.0027154155541211367,
+          "min": 1.520850459457712e-11,
+          "std": 0.003397709457203746
+        }
+      },
+      "real": {
+        "collapse_components": {
+          "anti_diagonal_domination": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "anti_entropy_collapse": {
+            "max": 1.0,
+            "mean": 0.43874603509902954,
+            "min": 0.10000000149011612,
+            "std": 0.3382604420185089
+          },
+          "anti_over_sparse": {
+            "max": 0.9996552467346191,
+            "mean": 0.7702853083610535,
+            "min": 0.0,
+            "std": 0.41183334589004517
+          },
+          "anti_single_token_lock": {
+            "max": 1.0,
+            "mean": 0.7777777910232544,
+            "min": 1.7881393432617188e-07,
+            "std": 0.41573962569236755
+          },
+          "anti_uniform": {
+            "max": 1.0,
+            "mean": 0.7705934047698975,
+            "min": 0.25,
+            "std": 0.3072573244571686
+          }
+        },
+        "components": {
+          "anti_collapse": {
+            "max": 0.9950640201568604,
+            "mean": 0.6539022922515869,
+            "min": 0.0005371163133531809,
+            "std": 0.3650914132595062
+          },
+          "causal_validity": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "coherence": {
+            "max": 0.9949552416801453,
+            "mean": 0.7585777044296265,
+            "min": 0.594846785068512,
+            "std": 0.1405523121356964
+          },
+          "coherence_gradient": {
+            "max": 0.9974744319915771,
+            "mean": 0.49627575278282166,
+            "min": 0.264396071434021,
+            "std": 0.2779015302658081
+          },
+          "low_local_entropy": {
+            "max": 0.00753408670425415,
+            "mean": 0.002174940425902605,
+            "min": 0.0,
+            "std": 0.0029412019066512585
+          },
+          "reconstruction_score": {
+            "max": 0.9691749811172485,
+            "mean": 0.45246410369873047,
+            "min": 0.16099880635738373,
+            "std": 0.29626524448394775
+          },
+          "salience": {
+            "max": 0.8727077841758728,
+            "mean": 0.493476539850235,
+            "min": 0.2131514847278595,
+            "std": 0.21568533778190613
+          },
+          "stability": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          }
+        },
+        "field_metrics": {
+          "boundary_sharpness_mean": 0.3548676669597626,
+          "coherence_mean": 0.5171554684638977,
+          "distance_entropy": 3.1006531715393066,
+          "distance_variance": 0.6756627559661865,
+          "effective_rank_mean": 4.986218452453613,
+          "local_relational_entropy_mean": 0.9972036480903625,
+          "relational_entropy_mean": 0.8824917674064636,
+          "relational_entropy_std": 0.5521172285079956,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.6066761016845703,
+          "valid_weight_mean": 0.6047856211662292,
+          "valid_weight_variance": 0.0044256541877985
+        },
+        "phi": {
+          "max": 0.01610702835023403,
+          "mean": 0.004817144479602575,
+          "min": 2.3881918664869772e-08,
+          "std": 0.006444445811212063
+        }
+      },
+      "shuffled": {
+        "collapse_components": {
+          "anti_diagonal_domination": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "anti_entropy_collapse": {
+            "max": 1.0,
+            "mean": 0.6182677745819092,
+            "min": 0.10000000149011612,
+            "std": 0.3425871729850769
+          },
+          "anti_over_sparse": {
+            "max": 0.9956125020980835,
+            "mean": 0.7649576663970947,
+            "min": 0.0,
+            "std": 0.40899285674095154
+          },
+          "anti_single_token_lock": {
+            "max": 1.0,
+            "mean": 0.7777777910232544,
+            "min": 1.7881393432617188e-07,
+            "std": 0.41573962569236755
+          },
+          "anti_uniform": {
+            "max": 1.0,
+            "mean": 0.8333333134651184,
+            "min": 0.25,
+            "std": 0.31180477142333984
+          }
+        },
+        "components": {
+          "anti_collapse": {
+            "max": 0.995651125907898,
+            "mean": 0.7287917733192444,
+            "min": 0.0005371163133531809,
+            "std": 0.39305704832077026
+          },
+          "causal_validity": {
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0,
+            "std": 0.0
+          },
+          "coherence": {
+            "max": 0.9949552416801453,
+            "mean": 0.7522304058074951,
+            "min": 0.5969938635826111,
+            "std": 0.14105568826198578
+          },
+          "coherence_gradient": {
+            "max": 0.9974744319915771,
+            "mean": 0.5013893246650696,
+            "min": 0.22120070457458496,
+            "std": 0.27687227725982666
+          },
+          "low_local_entropy": {
+            "max": 0.014061272144317627,
+            "mean": 0.0040791695937514305,
+            "min": 0.0,
+            "std": 0.0042418986558914185
+          },
+          "reconstruction_score": {
+            "max": 0.9703089594841003,
+            "mean": 0.4472900927066803,
+            "min": 0.17260049283504486,
+            "std": 0.29355043172836304
+          },
+          "salience": {
+            "max": 0.8727077841758728,
+            "mean": 0.493476539850235,
+            "min": 0.2131514847278595,
+            "std": 0.21568533778190613
+          },
+          "stability": {
+            "max": 1.0,
+            "mean": 0.8333333134651184,
+            "min": 0.5,
+            "std": 0.2357022613286972
+          }
+        },
+        "field_metrics": {
+          "boundary_sharpness_mean": 0.3387332558631897,
+          "coherence_mean": 0.5044607520103455,
+          "distance_entropy": 3.1006531715393066,
+          "distance_variance": 0.6756628155708313,
+          "effective_rank_mean": 4.988215446472168,
+          "local_relational_entropy_mean": 0.9947553873062134,
+          "relational_entropy_mean": 0.8811007142066956,
+          "relational_entropy_std": 0.5521167516708374,
+          "saturation_fraction": 0.0,
+          "spectral_entropy_mean": 1.607076644897461,
+          "valid_weight_mean": 0.604785680770874,
+          "valid_weight_variance": 0.0044256541877985
+        },
+        "phi": {
+          "max": 0.005755477584898472,
+          "mean": 0.002957040211185813,
+          "min": 2.390985720523986e-08,
+          "std": 0.0019764008466154337
+        }
+      }
+    }
+  },
+  "low_entropy_correlation": 0.9908719062805176,
+  "model_intervention": "none",
+  "next_required_step": "reconstruction_gate",
+  "observer_pipeline": "H -> W_family -> Phi components -> fixed log-linear Phi score",
+  "phase": "phase4_information_potential_phi",
+  "phi_formula": {
+    "collapse_penalties": [
+      "anti_uniform",
+      "anti_over_sparse",
+      "anti_single_token_lock",
+      "anti_entropy_collapse",
+      "anti_diagonal_domination"
+    ],
+    "components": [
+      "coherence",
+      "coherence_gradient",
+      "low_local_entropy",
+      "salience",
+      "stability",
+      "reconstruction_score",
+      "causal_validity",
+      "anti_collapse"
+    ],
+    "name": "fixed_log_linear_anti_collapse_v1",
+    "reconstruction_score_policy": "causal_neighbor_hidden_reconstruction_proxy; target hidden is used only for scoring error, never as reconstruction input",
+    "salience_definition": "hidden_norm",
+    "score": "exp(sum_k weight_k * log(component_k + eps)) * causal_validity",
+    "weights": {
+      "anti_collapse": 1.0,
+      "coherence": 1.0,
+      "coherence_gradient": 0.5,
+      "low_local_entropy": 0.5,
+      "reconstruction_score": 1.0,
+      "salience": 0.5,
+      "stability": 1.0
+    }
+  },
+  "scientific_scope": "smoke_validates_phi_observer_mechanics",
+  "seed": 2027,
+  "source_config": "configs/ergt_v1/phase3_ratio_matched/target_0_2/real_d_target_0_2_alpha_0_0682799_seed2027.json",
+  "status": "pass"
+}
