@@ -1,0 +1,114 @@
+{
+  "checks": {
+    "active_failure_labels_mapped": true,
+    "all_documented_failure_labels_have_catalog_entries": true,
+    "decision_replay_record_present": true,
+    "failed_gate_blocks_stage26": true,
+    "noop_audit_allows_stage26_when_gate_passed": true,
+    "required_outputs_present": true,
+    "specific_revisions_present": true,
+    "synthetic_failures_map_to_revisions": true,
+    "validation_gates_present": true
+  },
+  "next_required_step": "longer_run_or_multi_seed_confirmation",
+  "required_failure_labels": [
+    "memory_starved",
+    "memory_noisy",
+    "memory_rigid",
+    "geometry_flattened",
+    "alpha_underpowered",
+    "alpha_overpowering",
+    "causal_reach_too_tight",
+    "causal_reach_too_loose",
+    "control_regularization_dominance",
+    "normalization_erased_contrast",
+    "attention_uniformity_drift",
+    "attention_control_like",
+    "attention_head_lock_in",
+    "meta_control_attention_misweighted",
+    "controller_conflict_unresolved"
+  ],
+  "required_outputs": [
+    "revision_mode",
+    "failure_labels",
+    "revision_plan",
+    "unmapped_failure_labels",
+    "controller_change_summary",
+    "rerun_protocol",
+    "decision_replay_record",
+    "stage26_readiness"
+  ],
+  "revision": {
+    "checks": {
+      "every_failure_label_mapped": true,
+      "replay_record_present": true,
+      "specific_revisions_present": true,
+      "stage26_blocked_until_revision": false,
+      "validation_gates_present": true
+    },
+    "controller_change_summary": {},
+    "decision_replay_record": {
+      "action": "no_controller_revision_required",
+      "source_decision": "pass_real_geometry_contract",
+      "source_stage": "stage24_decision_gate_real_geometry_vs_generic_regularization",
+      "source_status": "pass"
+    },
+    "failure_labels": [],
+    "next_required_step": "longer_run_or_multi_seed_confirmation",
+    "rerun_protocol": {
+      "next_validation": "longer_run_or_multi_seed_confirmation",
+      "reason": "stage-24 gate passed with no active failure labels",
+      "required": false
+    },
+    "revision_mode": "noop_audit",
+    "revision_plan": [],
+    "stage26_readiness": {
+      "ready": true,
+      "reason": "no unresolved R1/R2/R3 blocker remains in the guarded contract"
+    },
+    "unmapped_failure_labels": []
+  },
+  "scientific_scope": "revision mechanics gate; maps failed decision labels to concrete controller revisions and blocks stage 26 until failures are resolved",
+  "source_gate_status": "pass",
+  "stage": "stage25_controller_revision_loop",
+  "status": "pass",
+  "synthetic_failure_examples": [
+    {
+      "expected_label": "control_regularization_dominance",
+      "failure_labels": [
+        "baseline_only_evidence_insufficient",
+        "control_regularization_dominance",
+        "late_window_not_ready",
+        "normalization_erased_contrast",
+        "random_dominates_real",
+        "relation_specific_advantage_not_established"
+      ],
+      "name": "random_dominance",
+      "revision_mode": "apply_revisions",
+      "revision_plan_count": 6,
+      "status": "pass"
+    },
+    {
+      "expected_label": "future_leak_detected",
+      "failure_labels": [
+        "future_leak_detected"
+      ],
+      "name": "future_leak",
+      "revision_mode": "apply_revisions",
+      "revision_plan_count": 1,
+      "status": "pass"
+    },
+    {
+      "expected_label": "attention_control_like",
+      "failure_labels": [
+        "attention_behavior_not_separated_from_controls",
+        "attention_control_like",
+        "late_window_not_ready"
+      ],
+      "name": "attention_control_like",
+      "revision_mode": "apply_revisions",
+      "revision_plan_count": 3,
+      "status": "pass"
+    }
+  ]
+}

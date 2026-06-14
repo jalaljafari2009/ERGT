@@ -233,6 +233,7 @@ def test_train_ergt_adaptive_alpha_smoke_outputs_controller_metrics() -> None:
         sys.argv = old_argv
 
     results = json.loads((output_dir / "metrics.json").read_text(encoding="utf-8"))
+    saved_config = json.loads((output_dir / "config.json").read_text(encoding="utf-8"))
     progress_rows = [
         json.loads(line)
         for line in (output_dir / "progress_log.jsonl").read_text(encoding="utf-8").splitlines()
@@ -241,6 +242,7 @@ def test_train_ergt_adaptive_alpha_smoke_outputs_controller_metrics() -> None:
 
     assert math.isfinite(results["final_validation_loss"])
     assert "adaptive_alpha" in results
+    assert saved_config["attention"]["control_seed"] == 1
     assert len(progress_rows) == 2
     assert "adaptive_alpha" in progress_rows[-1]
     assert "alpha_next" in progress_rows[-1]
@@ -265,12 +267,23 @@ def test_progress_line_includes_adaptive_telemetry_fields() -> None:
             "adaptive_score": 0.0003,
             "adaptive_slope_gain": 0.0002,
             "adaptive_advantage": 0.001,
+            "control_rng_isolated": 1.0,
             "geo_to_qk_ratio": 0.06,
+            "geometry_takeover_score": 0.15,
             "geo_qk_risk": 0.0,
             "attention_entropy": 3.2,
+            "attention_entropy_normalized": 0.7,
             "entropy_risk": 0.1,
             "mean_max_probability": 0.2,
             "max_probability_risk": 0.0,
+            "head_attention_diversity": 0.4,
+            "rigidity_risk": 0.1,
+            "collapse_risk": 0.1,
+            "memory_stability": 0.8,
+            "memory_turnover": 0.02,
+            "memory_persistence": 0.9,
+            "memory_rigidity": 0.1,
+            "noise_risk": 0.2,
         }
     )
 
@@ -279,6 +292,17 @@ def test_progress_line_includes_adaptive_telemetry_fields() -> None:
     assert "d_alpha=0.0100" in line
     assert "slope=0.000200" in line
     assert "adv=0.001000" in line
+    assert "rngIso=1" in line
+    assert "gTake=0.150" in line
     assert "gRisk=0.000" in line
     assert "ent=3.200" in line
+    assert "nEnt=0.700" in line
     assert "maxp=0.200" in line
+    assert "hDiv=0.400" in line
+    assert "rigid=0.100" in line
+    assert "collapse=0.100" in line
+    assert "mStab=0.800" in line
+    assert "mTurn=0.020" in line
+    assert "mPers=0.900" in line
+    assert "mRigid=0.100" in line
+    assert "nRisk=0.200" in line

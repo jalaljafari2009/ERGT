@@ -1,0 +1,251 @@
+{
+  "checks": {
+    "attention_behavior_separated_from_controls": true,
+    "decision_window_is_post1000": true,
+    "generic_regularization_is_labeled": true,
+    "guarded_run_contract_ready": true,
+    "instantaneous_does_not_match_or_beat_stable_memory": true,
+    "no_memory_does_not_match_or_beat_real": true,
+    "random_advantage_analyzed": true,
+    "random_does_not_dominate_real": true,
+    "relation_specific_advantage_positive": true,
+    "required_outputs_present": true,
+    "revision_trigger_empty_for_pass": true,
+    "shuffled_distribution_bias_analyzed": true,
+    "shuffled_does_not_dominate_real": true
+  },
+  "comparison": {
+    "attention_behavior_comparison": {
+      "attention_separated_from_controls": true,
+      "collapse_warning": false,
+      "control_attention_behavior_scores": {
+        "alpha_zero": 0.355,
+        "baseline": 0.355,
+        "instantaneous": 0.355,
+        "no_memory": 0.355,
+        "random": 0.33,
+        "shuffled": 0.33
+      },
+      "control_like_attention_warning": false,
+      "minimum_attention_advantage": 0.12500000000000006,
+      "real_attention_behavior_score": 0.48000000000000004,
+      "real_minus_control_attention_score": {
+        "alpha_zero": 0.12500000000000006,
+        "baseline": 0.12500000000000006,
+        "instantaneous": 0.12500000000000006,
+        "no_memory": 0.12500000000000006,
+        "random": 0.15000000000000002,
+        "shuffled": 0.15000000000000002
+      },
+      "stage22_attention_safe": true,
+      "uniformity_drift_warning": false
+    },
+    "attribution_decision": "relation_specific_signal_supported",
+    "baseline_mean_validation_loss": 5.628550000000001,
+    "config": {
+      "alpha_zero_condition": "alpha_zero",
+      "baseline_condition": "baseline",
+      "decision_window": "1000_2000",
+      "dominance_margin": 0.0,
+      "instantaneous_condition": "instantaneous_real_d",
+      "min_attention_advantage": 0.0,
+      "min_relation_specific_advantage": 0.0,
+      "no_memory_condition": "no_memory_real_d",
+      "random_condition": "random_memory_d",
+      "real_condition": "real_memory_d",
+      "shuffled_condition": "shuffled_memory_d"
+    },
+    "control_profiles": {
+      "alpha_zero": {
+        "condition": "alpha_zero",
+        "control_beats_baseline": false,
+        "control_dominates_real": false,
+        "control_gain_share_of_real_gain": 0.0,
+        "gain_vs_baseline": 0.0,
+        "matched_points": 11,
+        "mean_validation_loss": 5.628550000000001,
+        "positive_delta_points": 11,
+        "real_minus_control_loss_gain": 0.16954545454545447
+      },
+      "instantaneous": {
+        "condition": "instantaneous_real_d",
+        "control_beats_baseline": true,
+        "control_dominates_real": false,
+        "control_gain_share_of_real_gain": 0.4302949061662205,
+        "gain_vs_baseline": 0.07295454545454572,
+        "matched_points": 11,
+        "mean_validation_loss": 5.555595454545455,
+        "positive_delta_points": 11,
+        "real_minus_control_loss_gain": 0.096590909090909
+      },
+      "no_memory": {
+        "condition": "no_memory_real_d",
+        "control_beats_baseline": true,
+        "control_dominates_real": false,
+        "control_gain_share_of_real_gain": 0.3465147453083147,
+        "gain_vs_baseline": 0.058750000000000746,
+        "matched_points": 11,
+        "mean_validation_loss": 5.5698,
+        "positive_delta_points": 11,
+        "real_minus_control_loss_gain": 0.11079545454545446
+      },
+      "random": {
+        "condition": "random_memory_d",
+        "control_beats_baseline": true,
+        "control_dominates_real": false,
+        "control_gain_share_of_real_gain": 0.3592493297587157,
+        "gain_vs_baseline": 0.06090909090909147,
+        "matched_points": 11,
+        "mean_validation_loss": 5.567640909090909,
+        "positive_delta_points": 11,
+        "real_minus_control_loss_gain": 0.10863636363636359
+      },
+      "shuffled": {
+        "condition": "shuffled_memory_d",
+        "control_beats_baseline": true,
+        "control_dominates_real": false,
+        "control_gain_share_of_real_gain": 0.30924932975871516,
+        "gain_vs_baseline": 0.052431818181818635,
+        "matched_points": 11,
+        "mean_validation_loss": 5.576118181818182,
+        "positive_delta_points": 11,
+        "real_minus_control_loss_gain": 0.11711363636363642
+      }
+    },
+    "decision_window": "1000_2000",
+    "generic_regularization_present": true,
+    "instantaneous_comparison": {
+      "condition": "instantaneous_real_d",
+      "control_dominates_real": false,
+      "control_gain_share_of_real_gain": 0.4302949061662205,
+      "explanation": "positive value means stable memory beats instantaneous real geometry",
+      "stable_memory_gain": 0.096590909090909,
+      "supports_real_memory_or_stability": true
+    },
+    "late_window_source": {
+      "attention_safe_for_late_decision": true,
+      "control_separation": 0.096590909090909,
+      "decision_window": "1000_2000",
+      "endpoint_loss_is_supporting_only": true,
+      "late_window_decision_ready": true,
+      "real_late_beats_all_controls": true,
+      "real_late_beats_baseline": true,
+      "real_late_slope": -0.000533909090909091,
+      "real_late_trend": "improving",
+      "real_late_window_points": 11,
+      "uses_post_1000_priority": true
+    },
+    "no_memory_comparison": {
+      "condition": "no_memory_real_d",
+      "control_dominates_real": false,
+      "control_gain_share_of_real_gain": 0.3465147453083147,
+      "explanation": "positive value means stable real memory adds value beyond real geometry without memory",
+      "memory_specific_gain": 0.11079545454545446,
+      "supports_real_memory_or_stability": true
+    },
+    "random_advantage_analysis": {
+      "condition": "random_memory_d",
+      "interpretation": "random_regularization_present_but_not_dominant",
+      "random_dominates_real": false,
+      "random_gain_share_of_real_gain": 0.3592493297587157,
+      "random_has_generic_baseline_advantage": true,
+      "real_advantage_over_random": 0.10863636363636359
+    },
+    "real_gain_vs_baseline": 0.1695454545454549,
+    "real_mean_validation_loss": 5.459004545454546,
+    "relation_specific_advantage_estimate": {
+      "advantage_by_control": {
+        "instantaneous": 0.096590909090909,
+        "no_memory": 0.11079545454545446,
+        "random": 0.10863636363636359,
+        "shuffled": 0.11711363636363642
+      },
+      "best_control_condition": "instantaneous_real_d",
+      "best_control_family": "instantaneous",
+      "best_control_gain_share_of_real_gain": 0.4302949061662205,
+      "best_control_gain_vs_baseline": 0.07295454545454572,
+      "estimate": 0.096590909090909,
+      "interpretation": "real_exceeds_best_generic_and_ablation_control",
+      "passes_relation_specific_threshold": true,
+      "real_gain_vs_baseline": 0.1695454545454549
+    },
+    "revision_triggers": [],
+    "shuffled_distribution_bias_analysis": {
+      "condition": "shuffled_memory_d",
+      "interpretation": "distribution_bias_present_but_not_dominant",
+      "real_advantage_over_shuffled": 0.11711363636363642,
+      "shuffled_dominates_real": false,
+      "shuffled_gain_share_of_real_gain": 0.30924932975871516,
+      "shuffled_has_distribution_bias_gain": true,
+      "shuffled_minus_random_gain": -0.008477272727272833
+    }
+  },
+  "decision_table": [
+    {
+      "condition": "random_memory_d",
+      "control_dominates_real": false,
+      "family": "random",
+      "gain_share_of_real_gain": 0.3592493297587157,
+      "gain_vs_baseline": 0.06090909090909147,
+      "matched_points": 11,
+      "positive_delta_points": 11,
+      "real_advantage_over_control": 0.10863636363636359
+    },
+    {
+      "condition": "shuffled_memory_d",
+      "control_dominates_real": false,
+      "family": "shuffled",
+      "gain_share_of_real_gain": 0.30924932975871516,
+      "gain_vs_baseline": 0.052431818181818635,
+      "matched_points": 11,
+      "positive_delta_points": 11,
+      "real_advantage_over_control": 0.11711363636363642
+    },
+    {
+      "condition": "no_memory_real_d",
+      "control_dominates_real": false,
+      "family": "no_memory",
+      "gain_share_of_real_gain": 0.3465147453083147,
+      "gain_vs_baseline": 0.058750000000000746,
+      "matched_points": 11,
+      "positive_delta_points": 11,
+      "real_advantage_over_control": 0.11079545454545446
+    },
+    {
+      "condition": "instantaneous_real_d",
+      "control_dominates_real": false,
+      "family": "instantaneous",
+      "gain_share_of_real_gain": 0.4302949061662205,
+      "gain_vs_baseline": 0.07295454545454572,
+      "matched_points": 11,
+      "positive_delta_points": 11,
+      "real_advantage_over_control": 0.096590909090909
+    }
+  ],
+  "guarded_summary": {
+    "all_conditions_have_identical_steps": true,
+    "all_conditions_reach_2000": true,
+    "condition_row_counts": {
+      "alpha_zero": 20,
+      "baseline": 20,
+      "instantaneous_real_d": 20,
+      "no_memory_real_d": 20,
+      "random_memory_d": 20,
+      "real_memory_d": 20,
+      "shuffled_memory_d": 20
+    }
+  },
+  "input_source": "guarded_2000_contract_replay",
+  "next_required_step": "decision_gate_real_geometry_vs_generic_regularization",
+  "required_outputs": [
+    "random_advantage_analysis",
+    "shuffled_distribution_bias_analysis",
+    "no_memory_comparison",
+    "instantaneous_comparison",
+    "relation_specific_advantage_estimate",
+    "attention_behavior_comparison"
+  ],
+  "scientific_scope": "late-window attribution comparison; separates real geometry from generic random regularization, shuffled distribution bias, no-memory ablation, instantaneous geometry, and attention-behavior controls",
+  "stage": "stage23_random_shuffled_no_memory_attribution_comparison",
+  "status": "pass"
+}

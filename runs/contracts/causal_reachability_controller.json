@@ -1,0 +1,1142 @@
+{
+  "checks": {
+    "can_expand_when_reach_is_too_tight": true,
+    "can_restrain_when_reach_is_noisy_or_collapsing": true,
+    "future_leak_is_validity_hard_stop": true,
+    "injected_evidence_ledger_present": true,
+    "ordinary_reach_risk_does_not_abort": true,
+    "parameter_trajectory_present": true,
+    "replay_records_present": true,
+    "required_causal_reachability_outputs_emitted": true,
+    "schema_declares_causal_reachability_fields": true,
+    "uses_controller_error_terms": true
+  },
+  "config": {
+    "initial_max_causal_step": 1,
+    "locality_too_tight_threshold": 0.7,
+    "max_collapse_for_expand": 0.35,
+    "max_control_reach_noise": 0.45,
+    "max_max_causal_step": 8,
+    "min_diversity_for_expand": 0.05,
+    "min_max_causal_step": 1,
+    "min_memory_stability_for_expand": 0.6,
+    "release_margin": 0.03,
+    "restraint_margin": 0.03,
+    "step_delta": 1,
+    "target_edge_survival": 0.45,
+    "uniformity_entropy_threshold": 0.92
+  },
+  "controller_design": "evidence_balance_causal_reachability",
+  "decisions": [
+    {
+      "attention_locality_spread_evidence": {
+        "attention_entropy_normalized": 0.58,
+        "attention_locality_score": 0.86,
+        "attention_too_local": true,
+        "attention_uniform": false,
+        "collapse_risk": 0.06,
+        "diversity_low": false,
+        "head_attention_diversity": 0.28,
+        "layer_attention_diversity": 0.22
+      },
+      "causal_reachability_credit": 2.226,
+      "causal_reachability_delta": 1,
+      "causal_reachability_risk_pressure": 0.08,
+      "control_reach_evidence": {
+        "best_control_advantage": 0.03,
+        "control_attention_not_separated": false,
+        "control_attention_separation": 0.24,
+        "control_dominates_real": false,
+        "control_reach_noise_score": 0.08,
+        "random_reach_advantage": 0.03,
+        "real_reach_advantage": 0.22,
+        "shuffled_reach_advantage": 0.02
+      },
+      "controller_state_snapshot": {
+        "derivative_error": 2.226,
+        "error": 2.226,
+        "expansion_score": 2.306,
+        "integral_error": 1.0,
+        "restraint_score": 0.08
+      },
+      "current_causal_reachability": 2,
+      "decision": "expand_reach",
+      "decision_replay_record": {
+        "config": {
+          "initial_max_causal_step": 1,
+          "locality_too_tight_threshold": 0.7,
+          "max_collapse_for_expand": 0.35,
+          "max_control_reach_noise": 0.45,
+          "max_max_causal_step": 8,
+          "min_diversity_for_expand": 0.05,
+          "min_max_causal_step": 1,
+          "min_memory_stability_for_expand": 0.6,
+          "release_margin": 0.03,
+          "restraint_margin": 0.03,
+          "step_delta": 1,
+          "target_edge_survival": 0.45,
+          "uniformity_entropy_threshold": 0.92
+        },
+        "controller": "causal_reachability_controller",
+        "decision": "expand_reach",
+        "observation": {
+          "attention_entropy_normalized": 0.58,
+          "attention_locality_score": 0.86,
+          "causal_edge_survival": 0.18,
+          "collapse_risk": 0.06,
+          "control_attention_separation": 0.24,
+          "control_reach_noise_score": 0.08,
+          "future_leak_score": 0.0,
+          "hard_stop_reason": null,
+          "hard_stop_triggered": false,
+          "head_attention_diversity": 0.28,
+          "layer_attention_diversity": 0.22,
+          "memory_stability": 0.82,
+          "random_reach_advantage": 0.03,
+          "reach_starvation_score": 0.78,
+          "real_reach_advantage": 0.22,
+          "shuffled_reach_advantage": 0.02,
+          "step": 100
+        },
+        "parameter_trajectory": {
+          "causal_reachability_delta": 1,
+          "causal_reachability_next": 2,
+          "causal_reachability_previous": 1,
+          "causal_reachability_proposed": 2
+        },
+        "state_before_decision": {
+          "derivative_error": 2.226,
+          "error": 2.226,
+          "expansion_score": 2.306,
+          "integral_error": 1.0,
+          "restraint_score": 0.08
+        }
+      },
+      "expansion_evidence": {
+        "attention_locality_pressure": 0.86,
+        "edge_survival_deficit": 0.27,
+        "reach_starvation_pressure": 0.78,
+        "real_reach_advantage": 0.22,
+        "stable_memory_reach_credit": 0.176
+      },
+      "future_leak_evidence": {
+        "future_leak_score": 0.0,
+        "hard_stop_triggered": false
+      },
+      "injected_evidence_ledger": {
+        "attention_locality_spread_evidence": {
+          "attention_entropy_normalized": 0.58,
+          "attention_locality_score": 0.86,
+          "attention_too_local": true,
+          "attention_uniform": false,
+          "collapse_risk": 0.06,
+          "diversity_low": false,
+          "head_attention_diversity": 0.28,
+          "layer_attention_diversity": 0.22
+        },
+        "control_reach_evidence": {
+          "best_control_advantage": 0.03,
+          "control_attention_not_separated": false,
+          "control_attention_separation": 0.24,
+          "control_dominates_real": false,
+          "control_reach_noise_score": 0.08,
+          "random_reach_advantage": 0.03,
+          "real_reach_advantage": 0.22,
+          "shuffled_reach_advantage": 0.02
+        },
+        "expansion_evidence": {
+          "attention_locality_pressure": 0.86,
+          "edge_survival_deficit": 0.27,
+          "reach_starvation_pressure": 0.78,
+          "real_reach_advantage": 0.22,
+          "stable_memory_reach_credit": 0.176
+        },
+        "future_leak_evidence": {
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false
+        },
+        "memory_readiness_evidence": {
+          "causal_edge_survival": 0.18,
+          "edge_survival_deficit": 0.27,
+          "memory_ready": true,
+          "memory_stability": 0.82,
+          "reach_starvation_score": 0.78,
+          "stability_surplus": 0.21999999999999997
+        },
+        "restraint_evidence": {
+          "attention_uniformity_pressure": 0.0,
+          "collapse_pressure": 0.0,
+          "control_attention_pressure": 0.0,
+          "control_dominance_pressure": 0.0,
+          "control_reach_noise_pressure": 0.08,
+          "diversity_collapse_pressure": 0.0,
+          "future_leak_pressure": 0.0,
+          "low_memory_stability_pressure": 0.0
+        }
+      },
+      "memory_readiness_evidence": {
+        "causal_edge_survival": 0.18,
+        "edge_survival_deficit": 0.27,
+        "memory_ready": true,
+        "memory_stability": 0.82,
+        "reach_starvation_score": 0.78,
+        "stability_surplus": 0.21999999999999997
+      },
+      "parameter_trajectory": {
+        "causal_reachability_delta": 1,
+        "causal_reachability_next": 2,
+        "causal_reachability_previous": 1,
+        "causal_reachability_proposed": 2
+      },
+      "previous_causal_reachability": 1,
+      "proposed_causal_reachability": 2,
+      "restraint_evidence": {
+        "attention_uniformity_pressure": 0.0,
+        "collapse_pressure": 0.0,
+        "control_attention_pressure": 0.0,
+        "control_dominance_pressure": 0.0,
+        "control_reach_noise_pressure": 0.08,
+        "diversity_collapse_pressure": 0.0,
+        "future_leak_pressure": 0.0,
+        "low_memory_stability_pressure": 0.0
+      },
+      "step": 100
+    },
+    {
+      "attention_locality_spread_evidence": {
+        "attention_entropy_normalized": 0.95,
+        "attention_locality_score": 0.3,
+        "attention_too_local": false,
+        "attention_uniform": true,
+        "collapse_risk": 0.58,
+        "diversity_low": true,
+        "head_attention_diversity": 0.04,
+        "layer_attention_diversity": 0.03
+      },
+      "causal_reachability_credit": -2.03,
+      "causal_reachability_delta": -1,
+      "causal_reachability_risk_pressure": 2.03,
+      "control_reach_evidence": {
+        "best_control_advantage": 0.12,
+        "control_attention_not_separated": true,
+        "control_attention_separation": -0.12,
+        "control_dominates_real": true,
+        "control_reach_noise_score": 0.74,
+        "random_reach_advantage": 0.12,
+        "real_reach_advantage": 0.02,
+        "shuffled_reach_advantage": 0.1
+      },
+      "controller_state_snapshot": {
+        "derivative_error": -4.256,
+        "error": -2.03,
+        "expansion_score": 0.0,
+        "integral_error": -1.0,
+        "restraint_score": 2.03
+      },
+      "current_causal_reachability": 1,
+      "decision": "restrain_reach",
+      "decision_replay_record": {
+        "config": {
+          "initial_max_causal_step": 1,
+          "locality_too_tight_threshold": 0.7,
+          "max_collapse_for_expand": 0.35,
+          "max_control_reach_noise": 0.45,
+          "max_max_causal_step": 8,
+          "min_diversity_for_expand": 0.05,
+          "min_max_causal_step": 1,
+          "min_memory_stability_for_expand": 0.6,
+          "release_margin": 0.03,
+          "restraint_margin": 0.03,
+          "step_delta": 1,
+          "target_edge_survival": 0.45,
+          "uniformity_entropy_threshold": 0.92
+        },
+        "controller": "causal_reachability_controller",
+        "decision": "restrain_reach",
+        "observation": {
+          "attention_entropy_normalized": 0.95,
+          "attention_locality_score": 0.3,
+          "causal_edge_survival": 0.72,
+          "collapse_risk": 0.58,
+          "control_attention_separation": -0.12,
+          "control_reach_noise_score": 0.74,
+          "future_leak_score": 0.0,
+          "hard_stop_reason": null,
+          "hard_stop_triggered": false,
+          "head_attention_diversity": 0.04,
+          "layer_attention_diversity": 0.03,
+          "memory_stability": 0.46,
+          "random_reach_advantage": 0.12,
+          "reach_starvation_score": 0.08,
+          "real_reach_advantage": 0.02,
+          "shuffled_reach_advantage": 0.1,
+          "step": 200
+        },
+        "parameter_trajectory": {
+          "causal_reachability_delta": -1,
+          "causal_reachability_next": 1,
+          "causal_reachability_previous": 2,
+          "causal_reachability_proposed": 1
+        },
+        "state_before_decision": {
+          "derivative_error": -4.256,
+          "error": -2.03,
+          "expansion_score": 0.0,
+          "integral_error": -1.0,
+          "restraint_score": 2.03
+        }
+      },
+      "expansion_evidence": {
+        "attention_locality_pressure": 0.0,
+        "edge_survival_deficit": 0.0,
+        "reach_starvation_pressure": 0.0,
+        "real_reach_advantage": 0.0,
+        "stable_memory_reach_credit": 0.0
+      },
+      "future_leak_evidence": {
+        "future_leak_score": 0.0,
+        "hard_stop_triggered": false
+      },
+      "injected_evidence_ledger": {
+        "attention_locality_spread_evidence": {
+          "attention_entropy_normalized": 0.95,
+          "attention_locality_score": 0.3,
+          "attention_too_local": false,
+          "attention_uniform": true,
+          "collapse_risk": 0.58,
+          "diversity_low": true,
+          "head_attention_diversity": 0.04,
+          "layer_attention_diversity": 0.03
+        },
+        "control_reach_evidence": {
+          "best_control_advantage": 0.12,
+          "control_attention_not_separated": true,
+          "control_attention_separation": -0.12,
+          "control_dominates_real": true,
+          "control_reach_noise_score": 0.74,
+          "random_reach_advantage": 0.12,
+          "real_reach_advantage": 0.02,
+          "shuffled_reach_advantage": 0.1
+        },
+        "expansion_evidence": {
+          "attention_locality_pressure": 0.0,
+          "edge_survival_deficit": 0.0,
+          "reach_starvation_pressure": 0.0,
+          "real_reach_advantage": 0.0,
+          "stable_memory_reach_credit": 0.0
+        },
+        "future_leak_evidence": {
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false
+        },
+        "memory_readiness_evidence": {
+          "causal_edge_survival": 0.72,
+          "edge_survival_deficit": 0.0,
+          "memory_ready": false,
+          "memory_stability": 0.46,
+          "reach_starvation_score": 0.08,
+          "stability_surplus": 0.0
+        },
+        "restraint_evidence": {
+          "attention_uniformity_pressure": 0.25,
+          "collapse_pressure": 0.42999999999999994,
+          "control_attention_pressure": 0.12,
+          "control_dominance_pressure": 0.09999999999999999,
+          "control_reach_noise_pressure": 0.74,
+          "diversity_collapse_pressure": 0.25,
+          "future_leak_pressure": 0.0,
+          "low_memory_stability_pressure": 0.13999999999999996
+        }
+      },
+      "memory_readiness_evidence": {
+        "causal_edge_survival": 0.72,
+        "edge_survival_deficit": 0.0,
+        "memory_ready": false,
+        "memory_stability": 0.46,
+        "reach_starvation_score": 0.08,
+        "stability_surplus": 0.0
+      },
+      "parameter_trajectory": {
+        "causal_reachability_delta": -1,
+        "causal_reachability_next": 1,
+        "causal_reachability_previous": 2,
+        "causal_reachability_proposed": 1
+      },
+      "previous_causal_reachability": 2,
+      "proposed_causal_reachability": 1,
+      "restraint_evidence": {
+        "attention_uniformity_pressure": 0.25,
+        "collapse_pressure": 0.42999999999999994,
+        "control_attention_pressure": 0.12,
+        "control_dominance_pressure": 0.09999999999999999,
+        "control_reach_noise_pressure": 0.74,
+        "diversity_collapse_pressure": 0.25,
+        "future_leak_pressure": 0.0,
+        "low_memory_stability_pressure": 0.13999999999999996
+      },
+      "step": 200
+    },
+    {
+      "attention_locality_spread_evidence": {
+        "attention_entropy_normalized": 0.7,
+        "attention_locality_score": 0.48,
+        "attention_too_local": false,
+        "attention_uniform": false,
+        "collapse_risk": 0.08,
+        "diversity_low": false,
+        "head_attention_diversity": 0.24,
+        "layer_attention_diversity": 0.2
+      },
+      "causal_reachability_credit": 0.08000000000000002,
+      "causal_reachability_delta": 1,
+      "causal_reachability_risk_pressure": 0.24,
+      "control_reach_evidence": {
+        "best_control_advantage": 0.03,
+        "control_attention_not_separated": false,
+        "control_attention_separation": 0.18,
+        "control_dominates_real": false,
+        "control_reach_noise_score": 0.24,
+        "random_reach_advantage": 0.03,
+        "real_reach_advantage": 0.08,
+        "shuffled_reach_advantage": 0.02
+      },
+      "controller_state_snapshot": {
+        "derivative_error": 2.11,
+        "error": 0.08000000000000002,
+        "expansion_score": 0.32,
+        "integral_error": -0.72,
+        "restraint_score": 0.24
+      },
+      "current_causal_reachability": 2,
+      "decision": "expand_reach",
+      "decision_replay_record": {
+        "config": {
+          "initial_max_causal_step": 1,
+          "locality_too_tight_threshold": 0.7,
+          "max_collapse_for_expand": 0.35,
+          "max_control_reach_noise": 0.45,
+          "max_max_causal_step": 8,
+          "min_diversity_for_expand": 0.05,
+          "min_max_causal_step": 1,
+          "min_memory_stability_for_expand": 0.6,
+          "release_margin": 0.03,
+          "restraint_margin": 0.03,
+          "step_delta": 1,
+          "target_edge_survival": 0.45,
+          "uniformity_entropy_threshold": 0.92
+        },
+        "controller": "causal_reachability_controller",
+        "decision": "expand_reach",
+        "observation": {
+          "attention_entropy_normalized": 0.7,
+          "attention_locality_score": 0.48,
+          "causal_edge_survival": 0.46,
+          "collapse_risk": 0.08,
+          "control_attention_separation": 0.18,
+          "control_reach_noise_score": 0.24,
+          "future_leak_score": 0.0,
+          "hard_stop_reason": null,
+          "hard_stop_triggered": false,
+          "head_attention_diversity": 0.24,
+          "layer_attention_diversity": 0.2,
+          "memory_stability": 0.7,
+          "random_reach_advantage": 0.03,
+          "reach_starvation_score": 0.16,
+          "real_reach_advantage": 0.08,
+          "shuffled_reach_advantage": 0.02,
+          "step": 300
+        },
+        "parameter_trajectory": {
+          "causal_reachability_delta": 1,
+          "causal_reachability_next": 2,
+          "causal_reachability_previous": 1,
+          "causal_reachability_proposed": 2
+        },
+        "state_before_decision": {
+          "derivative_error": 2.11,
+          "error": 0.08000000000000002,
+          "expansion_score": 0.32,
+          "integral_error": -0.72,
+          "restraint_score": 0.24
+        }
+      },
+      "expansion_evidence": {
+        "attention_locality_pressure": 0.0,
+        "edge_survival_deficit": 0.0,
+        "reach_starvation_pressure": 0.16,
+        "real_reach_advantage": 0.08,
+        "stable_memory_reach_credit": 0.07999999999999999
+      },
+      "future_leak_evidence": {
+        "future_leak_score": 0.0,
+        "hard_stop_triggered": false
+      },
+      "injected_evidence_ledger": {
+        "attention_locality_spread_evidence": {
+          "attention_entropy_normalized": 0.7,
+          "attention_locality_score": 0.48,
+          "attention_too_local": false,
+          "attention_uniform": false,
+          "collapse_risk": 0.08,
+          "diversity_low": false,
+          "head_attention_diversity": 0.24,
+          "layer_attention_diversity": 0.2
+        },
+        "control_reach_evidence": {
+          "best_control_advantage": 0.03,
+          "control_attention_not_separated": false,
+          "control_attention_separation": 0.18,
+          "control_dominates_real": false,
+          "control_reach_noise_score": 0.24,
+          "random_reach_advantage": 0.03,
+          "real_reach_advantage": 0.08,
+          "shuffled_reach_advantage": 0.02
+        },
+        "expansion_evidence": {
+          "attention_locality_pressure": 0.0,
+          "edge_survival_deficit": 0.0,
+          "reach_starvation_pressure": 0.16,
+          "real_reach_advantage": 0.08,
+          "stable_memory_reach_credit": 0.07999999999999999
+        },
+        "future_leak_evidence": {
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false
+        },
+        "memory_readiness_evidence": {
+          "causal_edge_survival": 0.46,
+          "edge_survival_deficit": 0.0,
+          "memory_ready": true,
+          "memory_stability": 0.7,
+          "reach_starvation_score": 0.16,
+          "stability_surplus": 0.09999999999999998
+        },
+        "restraint_evidence": {
+          "attention_uniformity_pressure": 0.0,
+          "collapse_pressure": 0.0,
+          "control_attention_pressure": 0.0,
+          "control_dominance_pressure": 0.0,
+          "control_reach_noise_pressure": 0.24,
+          "diversity_collapse_pressure": 0.0,
+          "future_leak_pressure": 0.0,
+          "low_memory_stability_pressure": 0.0
+        }
+      },
+      "memory_readiness_evidence": {
+        "causal_edge_survival": 0.46,
+        "edge_survival_deficit": 0.0,
+        "memory_ready": true,
+        "memory_stability": 0.7,
+        "reach_starvation_score": 0.16,
+        "stability_surplus": 0.09999999999999998
+      },
+      "parameter_trajectory": {
+        "causal_reachability_delta": 1,
+        "causal_reachability_next": 2,
+        "causal_reachability_previous": 1,
+        "causal_reachability_proposed": 2
+      },
+      "previous_causal_reachability": 1,
+      "proposed_causal_reachability": 2,
+      "restraint_evidence": {
+        "attention_uniformity_pressure": 0.0,
+        "collapse_pressure": 0.0,
+        "control_attention_pressure": 0.0,
+        "control_dominance_pressure": 0.0,
+        "control_reach_noise_pressure": 0.24,
+        "diversity_collapse_pressure": 0.0,
+        "future_leak_pressure": 0.0,
+        "low_memory_stability_pressure": 0.0
+      },
+      "step": 300
+    }
+  ],
+  "input_source": "synthetic_causal_reachability_controller_smoke",
+  "next_required_step": "normalization_and_distance_scale_controller",
+  "required_outputs": [
+    "current_causal_reachability",
+    "proposed_causal_reachability",
+    "causal_reachability_delta",
+    "causal_reachability_credit",
+    "causal_reachability_risk_pressure",
+    "future_leak_evidence",
+    "memory_readiness_evidence",
+    "attention_locality_spread_evidence",
+    "control_reach_evidence",
+    "expansion_evidence",
+    "restraint_evidence",
+    "parameter_trajectory",
+    "injected_evidence_ledger",
+    "controller_state_snapshot",
+    "decision_replay_record"
+  ],
+  "scientific_scope": "finite-speed causal reach search controller; ordinary reach risks become pressure while future leak remains a validity hard stop",
+  "stage": "stage12_causal_reachability_controller",
+  "status": "pass",
+  "summary": {
+    "config": {
+      "initial_max_causal_step": 1,
+      "locality_too_tight_threshold": 0.7,
+      "max_collapse_for_expand": 0.35,
+      "max_control_reach_noise": 0.45,
+      "max_max_causal_step": 8,
+      "min_diversity_for_expand": 0.05,
+      "min_max_causal_step": 1,
+      "min_memory_stability_for_expand": 0.6,
+      "release_margin": 0.03,
+      "restraint_margin": 0.03,
+      "step_delta": 1,
+      "target_edge_survival": 0.45,
+      "uniformity_entropy_threshold": 0.92
+    },
+    "controller_state_snapshot": {
+      "integral_error": -0.72,
+      "previous_error": 0.08000000000000002
+    },
+    "current_causal_reachability": 2,
+    "decisions": [
+      {
+        "attention_locality_spread_evidence": {
+          "attention_entropy_normalized": 0.58,
+          "attention_locality_score": 0.86,
+          "attention_too_local": true,
+          "attention_uniform": false,
+          "collapse_risk": 0.06,
+          "diversity_low": false,
+          "head_attention_diversity": 0.28,
+          "layer_attention_diversity": 0.22
+        },
+        "causal_reachability_credit": 2.226,
+        "causal_reachability_delta": 1,
+        "causal_reachability_risk_pressure": 0.08,
+        "control_reach_evidence": {
+          "best_control_advantage": 0.03,
+          "control_attention_not_separated": false,
+          "control_attention_separation": 0.24,
+          "control_dominates_real": false,
+          "control_reach_noise_score": 0.08,
+          "random_reach_advantage": 0.03,
+          "real_reach_advantage": 0.22,
+          "shuffled_reach_advantage": 0.02
+        },
+        "controller_state_snapshot": {
+          "derivative_error": 2.226,
+          "error": 2.226,
+          "expansion_score": 2.306,
+          "integral_error": 1.0,
+          "restraint_score": 0.08
+        },
+        "current_causal_reachability": 2,
+        "decision": "expand_reach",
+        "decision_replay_record": {
+          "config": {
+            "initial_max_causal_step": 1,
+            "locality_too_tight_threshold": 0.7,
+            "max_collapse_for_expand": 0.35,
+            "max_control_reach_noise": 0.45,
+            "max_max_causal_step": 8,
+            "min_diversity_for_expand": 0.05,
+            "min_max_causal_step": 1,
+            "min_memory_stability_for_expand": 0.6,
+            "release_margin": 0.03,
+            "restraint_margin": 0.03,
+            "step_delta": 1,
+            "target_edge_survival": 0.45,
+            "uniformity_entropy_threshold": 0.92
+          },
+          "controller": "causal_reachability_controller",
+          "decision": "expand_reach",
+          "observation": {
+            "attention_entropy_normalized": 0.58,
+            "attention_locality_score": 0.86,
+            "causal_edge_survival": 0.18,
+            "collapse_risk": 0.06,
+            "control_attention_separation": 0.24,
+            "control_reach_noise_score": 0.08,
+            "future_leak_score": 0.0,
+            "hard_stop_reason": null,
+            "hard_stop_triggered": false,
+            "head_attention_diversity": 0.28,
+            "layer_attention_diversity": 0.22,
+            "memory_stability": 0.82,
+            "random_reach_advantage": 0.03,
+            "reach_starvation_score": 0.78,
+            "real_reach_advantage": 0.22,
+            "shuffled_reach_advantage": 0.02,
+            "step": 100
+          },
+          "parameter_trajectory": {
+            "causal_reachability_delta": 1,
+            "causal_reachability_next": 2,
+            "causal_reachability_previous": 1,
+            "causal_reachability_proposed": 2
+          },
+          "state_before_decision": {
+            "derivative_error": 2.226,
+            "error": 2.226,
+            "expansion_score": 2.306,
+            "integral_error": 1.0,
+            "restraint_score": 0.08
+          }
+        },
+        "expansion_evidence": {
+          "attention_locality_pressure": 0.86,
+          "edge_survival_deficit": 0.27,
+          "reach_starvation_pressure": 0.78,
+          "real_reach_advantage": 0.22,
+          "stable_memory_reach_credit": 0.176
+        },
+        "future_leak_evidence": {
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false
+        },
+        "injected_evidence_ledger": {
+          "attention_locality_spread_evidence": {
+            "attention_entropy_normalized": 0.58,
+            "attention_locality_score": 0.86,
+            "attention_too_local": true,
+            "attention_uniform": false,
+            "collapse_risk": 0.06,
+            "diversity_low": false,
+            "head_attention_diversity": 0.28,
+            "layer_attention_diversity": 0.22
+          },
+          "control_reach_evidence": {
+            "best_control_advantage": 0.03,
+            "control_attention_not_separated": false,
+            "control_attention_separation": 0.24,
+            "control_dominates_real": false,
+            "control_reach_noise_score": 0.08,
+            "random_reach_advantage": 0.03,
+            "real_reach_advantage": 0.22,
+            "shuffled_reach_advantage": 0.02
+          },
+          "expansion_evidence": {
+            "attention_locality_pressure": 0.86,
+            "edge_survival_deficit": 0.27,
+            "reach_starvation_pressure": 0.78,
+            "real_reach_advantage": 0.22,
+            "stable_memory_reach_credit": 0.176
+          },
+          "future_leak_evidence": {
+            "future_leak_score": 0.0,
+            "hard_stop_triggered": false
+          },
+          "memory_readiness_evidence": {
+            "causal_edge_survival": 0.18,
+            "edge_survival_deficit": 0.27,
+            "memory_ready": true,
+            "memory_stability": 0.82,
+            "reach_starvation_score": 0.78,
+            "stability_surplus": 0.21999999999999997
+          },
+          "restraint_evidence": {
+            "attention_uniformity_pressure": 0.0,
+            "collapse_pressure": 0.0,
+            "control_attention_pressure": 0.0,
+            "control_dominance_pressure": 0.0,
+            "control_reach_noise_pressure": 0.08,
+            "diversity_collapse_pressure": 0.0,
+            "future_leak_pressure": 0.0,
+            "low_memory_stability_pressure": 0.0
+          }
+        },
+        "memory_readiness_evidence": {
+          "causal_edge_survival": 0.18,
+          "edge_survival_deficit": 0.27,
+          "memory_ready": true,
+          "memory_stability": 0.82,
+          "reach_starvation_score": 0.78,
+          "stability_surplus": 0.21999999999999997
+        },
+        "parameter_trajectory": {
+          "causal_reachability_delta": 1,
+          "causal_reachability_next": 2,
+          "causal_reachability_previous": 1,
+          "causal_reachability_proposed": 2
+        },
+        "previous_causal_reachability": 1,
+        "proposed_causal_reachability": 2,
+        "restraint_evidence": {
+          "attention_uniformity_pressure": 0.0,
+          "collapse_pressure": 0.0,
+          "control_attention_pressure": 0.0,
+          "control_dominance_pressure": 0.0,
+          "control_reach_noise_pressure": 0.08,
+          "diversity_collapse_pressure": 0.0,
+          "future_leak_pressure": 0.0,
+          "low_memory_stability_pressure": 0.0
+        },
+        "step": 100
+      },
+      {
+        "attention_locality_spread_evidence": {
+          "attention_entropy_normalized": 0.95,
+          "attention_locality_score": 0.3,
+          "attention_too_local": false,
+          "attention_uniform": true,
+          "collapse_risk": 0.58,
+          "diversity_low": true,
+          "head_attention_diversity": 0.04,
+          "layer_attention_diversity": 0.03
+        },
+        "causal_reachability_credit": -2.03,
+        "causal_reachability_delta": -1,
+        "causal_reachability_risk_pressure": 2.03,
+        "control_reach_evidence": {
+          "best_control_advantage": 0.12,
+          "control_attention_not_separated": true,
+          "control_attention_separation": -0.12,
+          "control_dominates_real": true,
+          "control_reach_noise_score": 0.74,
+          "random_reach_advantage": 0.12,
+          "real_reach_advantage": 0.02,
+          "shuffled_reach_advantage": 0.1
+        },
+        "controller_state_snapshot": {
+          "derivative_error": -4.256,
+          "error": -2.03,
+          "expansion_score": 0.0,
+          "integral_error": -1.0,
+          "restraint_score": 2.03
+        },
+        "current_causal_reachability": 1,
+        "decision": "restrain_reach",
+        "decision_replay_record": {
+          "config": {
+            "initial_max_causal_step": 1,
+            "locality_too_tight_threshold": 0.7,
+            "max_collapse_for_expand": 0.35,
+            "max_control_reach_noise": 0.45,
+            "max_max_causal_step": 8,
+            "min_diversity_for_expand": 0.05,
+            "min_max_causal_step": 1,
+            "min_memory_stability_for_expand": 0.6,
+            "release_margin": 0.03,
+            "restraint_margin": 0.03,
+            "step_delta": 1,
+            "target_edge_survival": 0.45,
+            "uniformity_entropy_threshold": 0.92
+          },
+          "controller": "causal_reachability_controller",
+          "decision": "restrain_reach",
+          "observation": {
+            "attention_entropy_normalized": 0.95,
+            "attention_locality_score": 0.3,
+            "causal_edge_survival": 0.72,
+            "collapse_risk": 0.58,
+            "control_attention_separation": -0.12,
+            "control_reach_noise_score": 0.74,
+            "future_leak_score": 0.0,
+            "hard_stop_reason": null,
+            "hard_stop_triggered": false,
+            "head_attention_diversity": 0.04,
+            "layer_attention_diversity": 0.03,
+            "memory_stability": 0.46,
+            "random_reach_advantage": 0.12,
+            "reach_starvation_score": 0.08,
+            "real_reach_advantage": 0.02,
+            "shuffled_reach_advantage": 0.1,
+            "step": 200
+          },
+          "parameter_trajectory": {
+            "causal_reachability_delta": -1,
+            "causal_reachability_next": 1,
+            "causal_reachability_previous": 2,
+            "causal_reachability_proposed": 1
+          },
+          "state_before_decision": {
+            "derivative_error": -4.256,
+            "error": -2.03,
+            "expansion_score": 0.0,
+            "integral_error": -1.0,
+            "restraint_score": 2.03
+          }
+        },
+        "expansion_evidence": {
+          "attention_locality_pressure": 0.0,
+          "edge_survival_deficit": 0.0,
+          "reach_starvation_pressure": 0.0,
+          "real_reach_advantage": 0.0,
+          "stable_memory_reach_credit": 0.0
+        },
+        "future_leak_evidence": {
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false
+        },
+        "injected_evidence_ledger": {
+          "attention_locality_spread_evidence": {
+            "attention_entropy_normalized": 0.95,
+            "attention_locality_score": 0.3,
+            "attention_too_local": false,
+            "attention_uniform": true,
+            "collapse_risk": 0.58,
+            "diversity_low": true,
+            "head_attention_diversity": 0.04,
+            "layer_attention_diversity": 0.03
+          },
+          "control_reach_evidence": {
+            "best_control_advantage": 0.12,
+            "control_attention_not_separated": true,
+            "control_attention_separation": -0.12,
+            "control_dominates_real": true,
+            "control_reach_noise_score": 0.74,
+            "random_reach_advantage": 0.12,
+            "real_reach_advantage": 0.02,
+            "shuffled_reach_advantage": 0.1
+          },
+          "expansion_evidence": {
+            "attention_locality_pressure": 0.0,
+            "edge_survival_deficit": 0.0,
+            "reach_starvation_pressure": 0.0,
+            "real_reach_advantage": 0.0,
+            "stable_memory_reach_credit": 0.0
+          },
+          "future_leak_evidence": {
+            "future_leak_score": 0.0,
+            "hard_stop_triggered": false
+          },
+          "memory_readiness_evidence": {
+            "causal_edge_survival": 0.72,
+            "edge_survival_deficit": 0.0,
+            "memory_ready": false,
+            "memory_stability": 0.46,
+            "reach_starvation_score": 0.08,
+            "stability_surplus": 0.0
+          },
+          "restraint_evidence": {
+            "attention_uniformity_pressure": 0.25,
+            "collapse_pressure": 0.42999999999999994,
+            "control_attention_pressure": 0.12,
+            "control_dominance_pressure": 0.09999999999999999,
+            "control_reach_noise_pressure": 0.74,
+            "diversity_collapse_pressure": 0.25,
+            "future_leak_pressure": 0.0,
+            "low_memory_stability_pressure": 0.13999999999999996
+          }
+        },
+        "memory_readiness_evidence": {
+          "causal_edge_survival": 0.72,
+          "edge_survival_deficit": 0.0,
+          "memory_ready": false,
+          "memory_stability": 0.46,
+          "reach_starvation_score": 0.08,
+          "stability_surplus": 0.0
+        },
+        "parameter_trajectory": {
+          "causal_reachability_delta": -1,
+          "causal_reachability_next": 1,
+          "causal_reachability_previous": 2,
+          "causal_reachability_proposed": 1
+        },
+        "previous_causal_reachability": 2,
+        "proposed_causal_reachability": 1,
+        "restraint_evidence": {
+          "attention_uniformity_pressure": 0.25,
+          "collapse_pressure": 0.42999999999999994,
+          "control_attention_pressure": 0.12,
+          "control_dominance_pressure": 0.09999999999999999,
+          "control_reach_noise_pressure": 0.74,
+          "diversity_collapse_pressure": 0.25,
+          "future_leak_pressure": 0.0,
+          "low_memory_stability_pressure": 0.13999999999999996
+        },
+        "step": 200
+      },
+      {
+        "attention_locality_spread_evidence": {
+          "attention_entropy_normalized": 0.7,
+          "attention_locality_score": 0.48,
+          "attention_too_local": false,
+          "attention_uniform": false,
+          "collapse_risk": 0.08,
+          "diversity_low": false,
+          "head_attention_diversity": 0.24,
+          "layer_attention_diversity": 0.2
+        },
+        "causal_reachability_credit": 0.08000000000000002,
+        "causal_reachability_delta": 1,
+        "causal_reachability_risk_pressure": 0.24,
+        "control_reach_evidence": {
+          "best_control_advantage": 0.03,
+          "control_attention_not_separated": false,
+          "control_attention_separation": 0.18,
+          "control_dominates_real": false,
+          "control_reach_noise_score": 0.24,
+          "random_reach_advantage": 0.03,
+          "real_reach_advantage": 0.08,
+          "shuffled_reach_advantage": 0.02
+        },
+        "controller_state_snapshot": {
+          "derivative_error": 2.11,
+          "error": 0.08000000000000002,
+          "expansion_score": 0.32,
+          "integral_error": -0.72,
+          "restraint_score": 0.24
+        },
+        "current_causal_reachability": 2,
+        "decision": "expand_reach",
+        "decision_replay_record": {
+          "config": {
+            "initial_max_causal_step": 1,
+            "locality_too_tight_threshold": 0.7,
+            "max_collapse_for_expand": 0.35,
+            "max_control_reach_noise": 0.45,
+            "max_max_causal_step": 8,
+            "min_diversity_for_expand": 0.05,
+            "min_max_causal_step": 1,
+            "min_memory_stability_for_expand": 0.6,
+            "release_margin": 0.03,
+            "restraint_margin": 0.03,
+            "step_delta": 1,
+            "target_edge_survival": 0.45,
+            "uniformity_entropy_threshold": 0.92
+          },
+          "controller": "causal_reachability_controller",
+          "decision": "expand_reach",
+          "observation": {
+            "attention_entropy_normalized": 0.7,
+            "attention_locality_score": 0.48,
+            "causal_edge_survival": 0.46,
+            "collapse_risk": 0.08,
+            "control_attention_separation": 0.18,
+            "control_reach_noise_score": 0.24,
+            "future_leak_score": 0.0,
+            "hard_stop_reason": null,
+            "hard_stop_triggered": false,
+            "head_attention_diversity": 0.24,
+            "layer_attention_diversity": 0.2,
+            "memory_stability": 0.7,
+            "random_reach_advantage": 0.03,
+            "reach_starvation_score": 0.16,
+            "real_reach_advantage": 0.08,
+            "shuffled_reach_advantage": 0.02,
+            "step": 300
+          },
+          "parameter_trajectory": {
+            "causal_reachability_delta": 1,
+            "causal_reachability_next": 2,
+            "causal_reachability_previous": 1,
+            "causal_reachability_proposed": 2
+          },
+          "state_before_decision": {
+            "derivative_error": 2.11,
+            "error": 0.08000000000000002,
+            "expansion_score": 0.32,
+            "integral_error": -0.72,
+            "restraint_score": 0.24
+          }
+        },
+        "expansion_evidence": {
+          "attention_locality_pressure": 0.0,
+          "edge_survival_deficit": 0.0,
+          "reach_starvation_pressure": 0.16,
+          "real_reach_advantage": 0.08,
+          "stable_memory_reach_credit": 0.07999999999999999
+        },
+        "future_leak_evidence": {
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false
+        },
+        "injected_evidence_ledger": {
+          "attention_locality_spread_evidence": {
+            "attention_entropy_normalized": 0.7,
+            "attention_locality_score": 0.48,
+            "attention_too_local": false,
+            "attention_uniform": false,
+            "collapse_risk": 0.08,
+            "diversity_low": false,
+            "head_attention_diversity": 0.24,
+            "layer_attention_diversity": 0.2
+          },
+          "control_reach_evidence": {
+            "best_control_advantage": 0.03,
+            "control_attention_not_separated": false,
+            "control_attention_separation": 0.18,
+            "control_dominates_real": false,
+            "control_reach_noise_score": 0.24,
+            "random_reach_advantage": 0.03,
+            "real_reach_advantage": 0.08,
+            "shuffled_reach_advantage": 0.02
+          },
+          "expansion_evidence": {
+            "attention_locality_pressure": 0.0,
+            "edge_survival_deficit": 0.0,
+            "reach_starvation_pressure": 0.16,
+            "real_reach_advantage": 0.08,
+            "stable_memory_reach_credit": 0.07999999999999999
+          },
+          "future_leak_evidence": {
+            "future_leak_score": 0.0,
+            "hard_stop_triggered": false
+          },
+          "memory_readiness_evidence": {
+            "causal_edge_survival": 0.46,
+            "edge_survival_deficit": 0.0,
+            "memory_ready": true,
+            "memory_stability": 0.7,
+            "reach_starvation_score": 0.16,
+            "stability_surplus": 0.09999999999999998
+          },
+          "restraint_evidence": {
+            "attention_uniformity_pressure": 0.0,
+            "collapse_pressure": 0.0,
+            "control_attention_pressure": 0.0,
+            "control_dominance_pressure": 0.0,
+            "control_reach_noise_pressure": 0.24,
+            "diversity_collapse_pressure": 0.0,
+            "future_leak_pressure": 0.0,
+            "low_memory_stability_pressure": 0.0
+          }
+        },
+        "memory_readiness_evidence": {
+          "causal_edge_survival": 0.46,
+          "edge_survival_deficit": 0.0,
+          "memory_ready": true,
+          "memory_stability": 0.7,
+          "reach_starvation_score": 0.16,
+          "stability_surplus": 0.09999999999999998
+        },
+        "parameter_trajectory": {
+          "causal_reachability_delta": 1,
+          "causal_reachability_next": 2,
+          "causal_reachability_previous": 1,
+          "causal_reachability_proposed": 2
+        },
+        "previous_causal_reachability": 1,
+        "proposed_causal_reachability": 2,
+        "restraint_evidence": {
+          "attention_uniformity_pressure": 0.0,
+          "collapse_pressure": 0.0,
+          "control_attention_pressure": 0.0,
+          "control_dominance_pressure": 0.0,
+          "control_reach_noise_pressure": 0.24,
+          "diversity_collapse_pressure": 0.0,
+          "future_leak_pressure": 0.0,
+          "low_memory_stability_pressure": 0.0
+        },
+        "step": 300
+      }
+    ],
+    "parameter_trajectory": [
+      {
+        "causal_reachability_delta": 1,
+        "causal_reachability_next": 2,
+        "causal_reachability_previous": 1,
+        "causal_reachability_proposed": 2
+      },
+      {
+        "causal_reachability_delta": -1,
+        "causal_reachability_next": 1,
+        "causal_reachability_previous": 2,
+        "causal_reachability_proposed": 1
+      },
+      {
+        "causal_reachability_delta": 1,
+        "causal_reachability_next": 2,
+        "causal_reachability_previous": 1,
+        "causal_reachability_proposed": 2
+      }
+    ]
+  }
+}

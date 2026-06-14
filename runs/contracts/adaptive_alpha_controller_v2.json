@@ -1,0 +1,960 @@
+{
+  "checks": {
+    "control_family_can_restrain_growth": true,
+    "injected_evidence_ledger_present": true,
+    "ordinary_risk_does_not_abort": true,
+    "parameter_trajectory_present": true,
+    "release_growth_possible": true,
+    "replay_records_present": true,
+    "required_alpha_outputs_emitted": true,
+    "restraint_shrink_possible": true,
+    "uses_pid_error_terms": true
+  },
+  "config": {
+    "collapse_weight": 0.5,
+    "control_family_weight": 0.6,
+    "derivative_gain": 0.01,
+    "ema_delta_weight": 0.5,
+    "geo_qk_pressure_weight": 0.2,
+    "initial_alpha": 0.02,
+    "integral_decay": 0.85,
+    "integral_gain": 0.02,
+    "integral_limit": 1.0,
+    "late_window_weight": 0.4,
+    "max_alpha": 0.5,
+    "max_delta_per_decision": 0.02,
+    "min_alpha": 0.0,
+    "post_1000_weight": 0.4,
+    "proportional_gain": 0.06,
+    "release_margin": 0.02,
+    "rigidity_weight": 0.35,
+    "shrink_margin": -0.02,
+    "slope_weight": 1.0,
+    "target_geo_to_qk_ratio": 0.1
+  },
+  "controller_design": "pid_inspired_evidence_balance",
+  "decisions": [
+    {
+      "alpha_delta": 0.02,
+      "control_family_evidence": {
+        "control_dominates_real": false,
+        "control_penalty": 0.0,
+        "random_loss_slope_gain": 0.02,
+        "real_loss_slope_gain": 0.12,
+        "shuffled_loss_slope_gain": 0.01
+      },
+      "controller_state_snapshot": {
+        "derivative_error": 0.0,
+        "error": 0.5365000000000001,
+        "integral_error": 0.5365000000000001,
+        "raw_delta": 0.04292000000000001,
+        "release_score": 0.5640000000000001,
+        "restraint_score": 0.027499999999999997
+      },
+      "current_alpha": 0.04,
+      "decision": "grow_pid_release",
+      "decision_replay_record": {
+        "config": {
+          "collapse_weight": 0.5,
+          "control_family_weight": 0.6,
+          "derivative_gain": 0.01,
+          "ema_delta_weight": 0.5,
+          "geo_qk_pressure_weight": 0.2,
+          "initial_alpha": 0.02,
+          "integral_decay": 0.85,
+          "integral_gain": 0.02,
+          "integral_limit": 1.0,
+          "late_window_weight": 0.4,
+          "max_alpha": 0.5,
+          "max_delta_per_decision": 0.02,
+          "min_alpha": 0.0,
+          "post_1000_weight": 0.4,
+          "proportional_gain": 0.06,
+          "release_margin": 0.02,
+          "rigidity_weight": 0.35,
+          "shrink_margin": -0.02,
+          "slope_weight": 1.0,
+          "target_geo_to_qk_ratio": 0.1
+        },
+        "controller": "adaptive_alpha_v2_pid_inspired",
+        "decision": "grow_pid_release",
+        "observation": {
+          "collapse_risk": 0.02,
+          "control_penalty": 0.0,
+          "ema_loss_delta": 0.08,
+          "geo_to_qk_ratio": 0.06,
+          "hard_stop_reason": null,
+          "hard_stop_triggered": false,
+          "late_window_slope": -0.01,
+          "loss_slope_gain": 0.12,
+          "post_1000_trend": "improving",
+          "random_loss_slope_gain": 0.02,
+          "rigidity_risk": 0.05,
+          "shuffled_loss_slope_gain": 0.01,
+          "step": 100
+        },
+        "parameter_trajectory": {
+          "alpha_delta": 0.02,
+          "alpha_next": 0.04,
+          "alpha_previous": 0.02,
+          "alpha_proposed": 0.04
+        },
+        "state_before_decision": {
+          "derivative_error": 0.0,
+          "error": 0.5365000000000001,
+          "integral_error": 0.5365000000000001,
+          "raw_delta": 0.04292000000000001,
+          "release_score": 0.5640000000000001,
+          "restraint_score": 0.027499999999999997
+        }
+      },
+      "injected_evidence_ledger": {
+        "control_family_evidence": {
+          "control_dominates_real": false,
+          "control_penalty": 0.0,
+          "random_loss_slope_gain": 0.02,
+          "real_loss_slope_gain": 0.12,
+          "shuffled_loss_slope_gain": 0.01
+        },
+        "release_evidence": {
+          "ema_loss_delta": 0.04,
+          "late_window_improving": 0.004,
+          "loss_slope_gain": 0.12,
+          "post_1000_improving": 0.4
+        },
+        "restraint_evidence": {
+          "collapse_pressure": 0.01,
+          "control_family_dominance": 0.0,
+          "control_penalty": 0.0,
+          "geo_qk_pressure": 0.0,
+          "rigidity_pressure": 0.017499999999999998
+        },
+        "rigidity_evidence": {
+          "collapse_risk": 0.02,
+          "hard_stop_triggered": false,
+          "rigidity_risk": 0.05
+        },
+        "slope_evidence": {
+          "ema_loss_delta": 0.08,
+          "late_window_slope": -0.01,
+          "loss_slope_gain": 0.12,
+          "post_1000_trend": "improving"
+        }
+      },
+      "next_alpha": 0.04,
+      "parameter_trajectory": {
+        "alpha_delta": 0.02,
+        "alpha_next": 0.04,
+        "alpha_previous": 0.02,
+        "alpha_proposed": 0.04
+      },
+      "previous_alpha": 0.02,
+      "proposed_alpha": 0.04,
+      "release_evidence": {
+        "ema_loss_delta": 0.04,
+        "late_window_improving": 0.004,
+        "loss_slope_gain": 0.12,
+        "post_1000_improving": 0.4
+      },
+      "restraint_evidence": {
+        "collapse_pressure": 0.01,
+        "control_family_dominance": 0.0,
+        "control_penalty": 0.0,
+        "geo_qk_pressure": 0.0,
+        "rigidity_pressure": 0.017499999999999998
+      },
+      "rigidity_evidence": {
+        "collapse_risk": 0.02,
+        "hard_stop_triggered": false,
+        "rigidity_risk": 0.05
+      },
+      "slope_evidence": {
+        "ema_loss_delta": 0.08,
+        "late_window_slope": -0.01,
+        "loss_slope_gain": 0.12,
+        "post_1000_trend": "improving"
+      },
+      "step": 100
+    },
+    {
+      "alpha_delta": 0.019999999999999997,
+      "control_family_evidence": {
+        "control_dominates_real": false,
+        "control_penalty": 0.02,
+        "random_loss_slope_gain": 0.03,
+        "real_loss_slope_gain": 0.1,
+        "shuffled_loss_slope_gain": 0.02
+      },
+      "controller_state_snapshot": {
+        "derivative_error": -0.07030000000000008,
+        "error": 0.4662,
+        "integral_error": 0.9222250000000001,
+        "raw_delta": 0.0457135,
+        "release_score": 0.5382,
+        "restraint_score": 0.072
+      },
+      "current_alpha": 0.06,
+      "decision": "grow_pid_release",
+      "decision_replay_record": {
+        "config": {
+          "collapse_weight": 0.5,
+          "control_family_weight": 0.6,
+          "derivative_gain": 0.01,
+          "ema_delta_weight": 0.5,
+          "geo_qk_pressure_weight": 0.2,
+          "initial_alpha": 0.02,
+          "integral_decay": 0.85,
+          "integral_gain": 0.02,
+          "integral_limit": 1.0,
+          "late_window_weight": 0.4,
+          "max_alpha": 0.5,
+          "max_delta_per_decision": 0.02,
+          "min_alpha": 0.0,
+          "post_1000_weight": 0.4,
+          "proportional_gain": 0.06,
+          "release_margin": 0.02,
+          "rigidity_weight": 0.35,
+          "shrink_margin": -0.02,
+          "slope_weight": 1.0,
+          "target_geo_to_qk_ratio": 0.1
+        },
+        "controller": "adaptive_alpha_v2_pid_inspired",
+        "decision": "grow_pid_release",
+        "observation": {
+          "collapse_risk": 0.05,
+          "control_penalty": 0.02,
+          "ema_loss_delta": 0.07,
+          "geo_to_qk_ratio": 0.09,
+          "hard_stop_reason": null,
+          "hard_stop_triggered": false,
+          "late_window_slope": -0.008,
+          "loss_slope_gain": 0.1,
+          "post_1000_trend": "improving",
+          "random_loss_slope_gain": 0.03,
+          "rigidity_risk": 0.1,
+          "shuffled_loss_slope_gain": 0.02,
+          "step": 200
+        },
+        "parameter_trajectory": {
+          "alpha_delta": 0.019999999999999997,
+          "alpha_next": 0.06,
+          "alpha_previous": 0.04,
+          "alpha_proposed": 0.06
+        },
+        "state_before_decision": {
+          "derivative_error": -0.07030000000000008,
+          "error": 0.4662,
+          "integral_error": 0.9222250000000001,
+          "raw_delta": 0.0457135,
+          "release_score": 0.5382,
+          "restraint_score": 0.072
+        }
+      },
+      "injected_evidence_ledger": {
+        "control_family_evidence": {
+          "control_dominates_real": false,
+          "control_penalty": 0.02,
+          "random_loss_slope_gain": 0.03,
+          "real_loss_slope_gain": 0.1,
+          "shuffled_loss_slope_gain": 0.02
+        },
+        "release_evidence": {
+          "ema_loss_delta": 0.035,
+          "late_window_improving": 0.0032,
+          "loss_slope_gain": 0.1,
+          "post_1000_improving": 0.4
+        },
+        "restraint_evidence": {
+          "collapse_pressure": 0.025,
+          "control_family_dominance": 0.0,
+          "control_penalty": 0.012,
+          "geo_qk_pressure": 0.0,
+          "rigidity_pressure": 0.034999999999999996
+        },
+        "rigidity_evidence": {
+          "collapse_risk": 0.05,
+          "hard_stop_triggered": false,
+          "rigidity_risk": 0.1
+        },
+        "slope_evidence": {
+          "ema_loss_delta": 0.07,
+          "late_window_slope": -0.008,
+          "loss_slope_gain": 0.1,
+          "post_1000_trend": "improving"
+        }
+      },
+      "next_alpha": 0.06,
+      "parameter_trajectory": {
+        "alpha_delta": 0.019999999999999997,
+        "alpha_next": 0.06,
+        "alpha_previous": 0.04,
+        "alpha_proposed": 0.06
+      },
+      "previous_alpha": 0.04,
+      "proposed_alpha": 0.06,
+      "release_evidence": {
+        "ema_loss_delta": 0.035,
+        "late_window_improving": 0.0032,
+        "loss_slope_gain": 0.1,
+        "post_1000_improving": 0.4
+      },
+      "restraint_evidence": {
+        "collapse_pressure": 0.025,
+        "control_family_dominance": 0.0,
+        "control_penalty": 0.012,
+        "geo_qk_pressure": 0.0,
+        "rigidity_pressure": 0.034999999999999996
+      },
+      "rigidity_evidence": {
+        "collapse_risk": 0.05,
+        "hard_stop_triggered": false,
+        "rigidity_risk": 0.1
+      },
+      "slope_evidence": {
+        "ema_loss_delta": 0.07,
+        "late_window_slope": -0.008,
+        "loss_slope_gain": 0.1,
+        "post_1000_trend": "improving"
+      },
+      "step": 200
+    },
+    {
+      "alpha_delta": -0.020000000000000004,
+      "control_family_evidence": {
+        "control_dominates_real": true,
+        "control_penalty": 0.1,
+        "random_loss_slope_gain": 0.08,
+        "real_loss_slope_gain": 0.01,
+        "shuffled_loss_slope_gain": 0.06
+      },
+      "controller_state_snapshot": {
+        "derivative_error": -0.8331999999999999,
+        "error": -0.36699999999999994,
+        "integral_error": 0.4168912500000001,
+        "raw_delta": -0.02201417499999999,
+        "release_score": 0.015,
+        "restraint_score": 0.38199999999999995
+      },
+      "current_alpha": 0.039999999999999994,
+      "decision": "shrink_pid_restraint",
+      "decision_replay_record": {
+        "config": {
+          "collapse_weight": 0.5,
+          "control_family_weight": 0.6,
+          "derivative_gain": 0.01,
+          "ema_delta_weight": 0.5,
+          "geo_qk_pressure_weight": 0.2,
+          "initial_alpha": 0.02,
+          "integral_decay": 0.85,
+          "integral_gain": 0.02,
+          "integral_limit": 1.0,
+          "late_window_weight": 0.4,
+          "max_alpha": 0.5,
+          "max_delta_per_decision": 0.02,
+          "min_alpha": 0.0,
+          "post_1000_weight": 0.4,
+          "proportional_gain": 0.06,
+          "release_margin": 0.02,
+          "rigidity_weight": 0.35,
+          "shrink_margin": -0.02,
+          "slope_weight": 1.0,
+          "target_geo_to_qk_ratio": 0.1
+        },
+        "controller": "adaptive_alpha_v2_pid_inspired",
+        "decision": "shrink_pid_restraint",
+        "observation": {
+          "collapse_risk": 0.1,
+          "control_penalty": 0.1,
+          "ema_loss_delta": 0.01,
+          "geo_to_qk_ratio": 0.18,
+          "hard_stop_reason": null,
+          "hard_stop_triggered": false,
+          "late_window_slope": 0.002,
+          "loss_slope_gain": 0.01,
+          "post_1000_trend": "flat",
+          "random_loss_slope_gain": 0.08,
+          "rigidity_risk": 0.2,
+          "shuffled_loss_slope_gain": 0.06,
+          "step": 300
+        },
+        "parameter_trajectory": {
+          "alpha_delta": -0.020000000000000004,
+          "alpha_next": 0.039999999999999994,
+          "alpha_previous": 0.06,
+          "alpha_proposed": 0.039999999999999994
+        },
+        "state_before_decision": {
+          "derivative_error": -0.8331999999999999,
+          "error": -0.36699999999999994,
+          "integral_error": 0.4168912500000001,
+          "raw_delta": -0.02201417499999999,
+          "release_score": 0.015,
+          "restraint_score": 0.38199999999999995
+        }
+      },
+      "injected_evidence_ledger": {
+        "control_family_evidence": {
+          "control_dominates_real": true,
+          "control_penalty": 0.1,
+          "random_loss_slope_gain": 0.08,
+          "real_loss_slope_gain": 0.01,
+          "shuffled_loss_slope_gain": 0.06
+        },
+        "release_evidence": {
+          "ema_loss_delta": 0.005,
+          "late_window_improving": 0.0,
+          "loss_slope_gain": 0.01,
+          "post_1000_improving": 0.0
+        },
+        "restraint_evidence": {
+          "collapse_pressure": 0.05,
+          "control_family_dominance": 0.042,
+          "control_penalty": 0.06,
+          "geo_qk_pressure": 0.15999999999999998,
+          "rigidity_pressure": 0.06999999999999999
+        },
+        "rigidity_evidence": {
+          "collapse_risk": 0.1,
+          "hard_stop_triggered": false,
+          "rigidity_risk": 0.2
+        },
+        "slope_evidence": {
+          "ema_loss_delta": 0.01,
+          "late_window_slope": 0.002,
+          "loss_slope_gain": 0.01,
+          "post_1000_trend": "flat"
+        }
+      },
+      "next_alpha": 0.039999999999999994,
+      "parameter_trajectory": {
+        "alpha_delta": -0.020000000000000004,
+        "alpha_next": 0.039999999999999994,
+        "alpha_previous": 0.06,
+        "alpha_proposed": 0.039999999999999994
+      },
+      "previous_alpha": 0.06,
+      "proposed_alpha": 0.039999999999999994,
+      "release_evidence": {
+        "ema_loss_delta": 0.005,
+        "late_window_improving": 0.0,
+        "loss_slope_gain": 0.01,
+        "post_1000_improving": 0.0
+      },
+      "restraint_evidence": {
+        "collapse_pressure": 0.05,
+        "control_family_dominance": 0.042,
+        "control_penalty": 0.06,
+        "geo_qk_pressure": 0.15999999999999998,
+        "rigidity_pressure": 0.06999999999999999
+      },
+      "rigidity_evidence": {
+        "collapse_risk": 0.1,
+        "hard_stop_triggered": false,
+        "rigidity_risk": 0.2
+      },
+      "slope_evidence": {
+        "ema_loss_delta": 0.01,
+        "late_window_slope": 0.002,
+        "loss_slope_gain": 0.01,
+        "post_1000_trend": "flat"
+      },
+      "step": 300
+    }
+  ],
+  "input_source": "synthetic_alpha_v2_smoke",
+  "next_required_step": "adaptive_memory_controller",
+  "required_outputs": [
+    "current_alpha",
+    "proposed_alpha",
+    "alpha_delta",
+    "release_evidence",
+    "restraint_evidence",
+    "slope_evidence",
+    "rigidity_evidence",
+    "control_family_evidence",
+    "parameter_trajectory",
+    "injected_evidence_ledger",
+    "controller_state_snapshot",
+    "decision_replay_record"
+  ],
+  "scientific_scope": "alpha search controller; ordinary risk signals become pressure, while every decision remains replayable",
+  "stage": "stage9_adaptive_alpha_controller_v2",
+  "status": "pass",
+  "summary": {
+    "config": {
+      "collapse_weight": 0.5,
+      "control_family_weight": 0.6,
+      "derivative_gain": 0.01,
+      "ema_delta_weight": 0.5,
+      "geo_qk_pressure_weight": 0.2,
+      "initial_alpha": 0.02,
+      "integral_decay": 0.85,
+      "integral_gain": 0.02,
+      "integral_limit": 1.0,
+      "late_window_weight": 0.4,
+      "max_alpha": 0.5,
+      "max_delta_per_decision": 0.02,
+      "min_alpha": 0.0,
+      "post_1000_weight": 0.4,
+      "proportional_gain": 0.06,
+      "release_margin": 0.02,
+      "rigidity_weight": 0.35,
+      "shrink_margin": -0.02,
+      "slope_weight": 1.0,
+      "target_geo_to_qk_ratio": 0.1
+    },
+    "controller_state_snapshot": {
+      "integral_error": 0.4168912500000001,
+      "previous_error": -0.36699999999999994
+    },
+    "current_alpha": 0.039999999999999994,
+    "decisions": [
+      {
+        "alpha_delta": 0.02,
+        "control_family_evidence": {
+          "control_dominates_real": false,
+          "control_penalty": 0.0,
+          "random_loss_slope_gain": 0.02,
+          "real_loss_slope_gain": 0.12,
+          "shuffled_loss_slope_gain": 0.01
+        },
+        "controller_state_snapshot": {
+          "derivative_error": 0.0,
+          "error": 0.5365000000000001,
+          "integral_error": 0.5365000000000001,
+          "raw_delta": 0.04292000000000001,
+          "release_score": 0.5640000000000001,
+          "restraint_score": 0.027499999999999997
+        },
+        "current_alpha": 0.04,
+        "decision": "grow_pid_release",
+        "decision_replay_record": {
+          "config": {
+            "collapse_weight": 0.5,
+            "control_family_weight": 0.6,
+            "derivative_gain": 0.01,
+            "ema_delta_weight": 0.5,
+            "geo_qk_pressure_weight": 0.2,
+            "initial_alpha": 0.02,
+            "integral_decay": 0.85,
+            "integral_gain": 0.02,
+            "integral_limit": 1.0,
+            "late_window_weight": 0.4,
+            "max_alpha": 0.5,
+            "max_delta_per_decision": 0.02,
+            "min_alpha": 0.0,
+            "post_1000_weight": 0.4,
+            "proportional_gain": 0.06,
+            "release_margin": 0.02,
+            "rigidity_weight": 0.35,
+            "shrink_margin": -0.02,
+            "slope_weight": 1.0,
+            "target_geo_to_qk_ratio": 0.1
+          },
+          "controller": "adaptive_alpha_v2_pid_inspired",
+          "decision": "grow_pid_release",
+          "observation": {
+            "collapse_risk": 0.02,
+            "control_penalty": 0.0,
+            "ema_loss_delta": 0.08,
+            "geo_to_qk_ratio": 0.06,
+            "hard_stop_reason": null,
+            "hard_stop_triggered": false,
+            "late_window_slope": -0.01,
+            "loss_slope_gain": 0.12,
+            "post_1000_trend": "improving",
+            "random_loss_slope_gain": 0.02,
+            "rigidity_risk": 0.05,
+            "shuffled_loss_slope_gain": 0.01,
+            "step": 100
+          },
+          "parameter_trajectory": {
+            "alpha_delta": 0.02,
+            "alpha_next": 0.04,
+            "alpha_previous": 0.02,
+            "alpha_proposed": 0.04
+          },
+          "state_before_decision": {
+            "derivative_error": 0.0,
+            "error": 0.5365000000000001,
+            "integral_error": 0.5365000000000001,
+            "raw_delta": 0.04292000000000001,
+            "release_score": 0.5640000000000001,
+            "restraint_score": 0.027499999999999997
+          }
+        },
+        "injected_evidence_ledger": {
+          "control_family_evidence": {
+            "control_dominates_real": false,
+            "control_penalty": 0.0,
+            "random_loss_slope_gain": 0.02,
+            "real_loss_slope_gain": 0.12,
+            "shuffled_loss_slope_gain": 0.01
+          },
+          "release_evidence": {
+            "ema_loss_delta": 0.04,
+            "late_window_improving": 0.004,
+            "loss_slope_gain": 0.12,
+            "post_1000_improving": 0.4
+          },
+          "restraint_evidence": {
+            "collapse_pressure": 0.01,
+            "control_family_dominance": 0.0,
+            "control_penalty": 0.0,
+            "geo_qk_pressure": 0.0,
+            "rigidity_pressure": 0.017499999999999998
+          },
+          "rigidity_evidence": {
+            "collapse_risk": 0.02,
+            "hard_stop_triggered": false,
+            "rigidity_risk": 0.05
+          },
+          "slope_evidence": {
+            "ema_loss_delta": 0.08,
+            "late_window_slope": -0.01,
+            "loss_slope_gain": 0.12,
+            "post_1000_trend": "improving"
+          }
+        },
+        "next_alpha": 0.04,
+        "parameter_trajectory": {
+          "alpha_delta": 0.02,
+          "alpha_next": 0.04,
+          "alpha_previous": 0.02,
+          "alpha_proposed": 0.04
+        },
+        "previous_alpha": 0.02,
+        "proposed_alpha": 0.04,
+        "release_evidence": {
+          "ema_loss_delta": 0.04,
+          "late_window_improving": 0.004,
+          "loss_slope_gain": 0.12,
+          "post_1000_improving": 0.4
+        },
+        "restraint_evidence": {
+          "collapse_pressure": 0.01,
+          "control_family_dominance": 0.0,
+          "control_penalty": 0.0,
+          "geo_qk_pressure": 0.0,
+          "rigidity_pressure": 0.017499999999999998
+        },
+        "rigidity_evidence": {
+          "collapse_risk": 0.02,
+          "hard_stop_triggered": false,
+          "rigidity_risk": 0.05
+        },
+        "slope_evidence": {
+          "ema_loss_delta": 0.08,
+          "late_window_slope": -0.01,
+          "loss_slope_gain": 0.12,
+          "post_1000_trend": "improving"
+        },
+        "step": 100
+      },
+      {
+        "alpha_delta": 0.019999999999999997,
+        "control_family_evidence": {
+          "control_dominates_real": false,
+          "control_penalty": 0.02,
+          "random_loss_slope_gain": 0.03,
+          "real_loss_slope_gain": 0.1,
+          "shuffled_loss_slope_gain": 0.02
+        },
+        "controller_state_snapshot": {
+          "derivative_error": -0.07030000000000008,
+          "error": 0.4662,
+          "integral_error": 0.9222250000000001,
+          "raw_delta": 0.0457135,
+          "release_score": 0.5382,
+          "restraint_score": 0.072
+        },
+        "current_alpha": 0.06,
+        "decision": "grow_pid_release",
+        "decision_replay_record": {
+          "config": {
+            "collapse_weight": 0.5,
+            "control_family_weight": 0.6,
+            "derivative_gain": 0.01,
+            "ema_delta_weight": 0.5,
+            "geo_qk_pressure_weight": 0.2,
+            "initial_alpha": 0.02,
+            "integral_decay": 0.85,
+            "integral_gain": 0.02,
+            "integral_limit": 1.0,
+            "late_window_weight": 0.4,
+            "max_alpha": 0.5,
+            "max_delta_per_decision": 0.02,
+            "min_alpha": 0.0,
+            "post_1000_weight": 0.4,
+            "proportional_gain": 0.06,
+            "release_margin": 0.02,
+            "rigidity_weight": 0.35,
+            "shrink_margin": -0.02,
+            "slope_weight": 1.0,
+            "target_geo_to_qk_ratio": 0.1
+          },
+          "controller": "adaptive_alpha_v2_pid_inspired",
+          "decision": "grow_pid_release",
+          "observation": {
+            "collapse_risk": 0.05,
+            "control_penalty": 0.02,
+            "ema_loss_delta": 0.07,
+            "geo_to_qk_ratio": 0.09,
+            "hard_stop_reason": null,
+            "hard_stop_triggered": false,
+            "late_window_slope": -0.008,
+            "loss_slope_gain": 0.1,
+            "post_1000_trend": "improving",
+            "random_loss_slope_gain": 0.03,
+            "rigidity_risk": 0.1,
+            "shuffled_loss_slope_gain": 0.02,
+            "step": 200
+          },
+          "parameter_trajectory": {
+            "alpha_delta": 0.019999999999999997,
+            "alpha_next": 0.06,
+            "alpha_previous": 0.04,
+            "alpha_proposed": 0.06
+          },
+          "state_before_decision": {
+            "derivative_error": -0.07030000000000008,
+            "error": 0.4662,
+            "integral_error": 0.9222250000000001,
+            "raw_delta": 0.0457135,
+            "release_score": 0.5382,
+            "restraint_score": 0.072
+          }
+        },
+        "injected_evidence_ledger": {
+          "control_family_evidence": {
+            "control_dominates_real": false,
+            "control_penalty": 0.02,
+            "random_loss_slope_gain": 0.03,
+            "real_loss_slope_gain": 0.1,
+            "shuffled_loss_slope_gain": 0.02
+          },
+          "release_evidence": {
+            "ema_loss_delta": 0.035,
+            "late_window_improving": 0.0032,
+            "loss_slope_gain": 0.1,
+            "post_1000_improving": 0.4
+          },
+          "restraint_evidence": {
+            "collapse_pressure": 0.025,
+            "control_family_dominance": 0.0,
+            "control_penalty": 0.012,
+            "geo_qk_pressure": 0.0,
+            "rigidity_pressure": 0.034999999999999996
+          },
+          "rigidity_evidence": {
+            "collapse_risk": 0.05,
+            "hard_stop_triggered": false,
+            "rigidity_risk": 0.1
+          },
+          "slope_evidence": {
+            "ema_loss_delta": 0.07,
+            "late_window_slope": -0.008,
+            "loss_slope_gain": 0.1,
+            "post_1000_trend": "improving"
+          }
+        },
+        "next_alpha": 0.06,
+        "parameter_trajectory": {
+          "alpha_delta": 0.019999999999999997,
+          "alpha_next": 0.06,
+          "alpha_previous": 0.04,
+          "alpha_proposed": 0.06
+        },
+        "previous_alpha": 0.04,
+        "proposed_alpha": 0.06,
+        "release_evidence": {
+          "ema_loss_delta": 0.035,
+          "late_window_improving": 0.0032,
+          "loss_slope_gain": 0.1,
+          "post_1000_improving": 0.4
+        },
+        "restraint_evidence": {
+          "collapse_pressure": 0.025,
+          "control_family_dominance": 0.0,
+          "control_penalty": 0.012,
+          "geo_qk_pressure": 0.0,
+          "rigidity_pressure": 0.034999999999999996
+        },
+        "rigidity_evidence": {
+          "collapse_risk": 0.05,
+          "hard_stop_triggered": false,
+          "rigidity_risk": 0.1
+        },
+        "slope_evidence": {
+          "ema_loss_delta": 0.07,
+          "late_window_slope": -0.008,
+          "loss_slope_gain": 0.1,
+          "post_1000_trend": "improving"
+        },
+        "step": 200
+      },
+      {
+        "alpha_delta": -0.020000000000000004,
+        "control_family_evidence": {
+          "control_dominates_real": true,
+          "control_penalty": 0.1,
+          "random_loss_slope_gain": 0.08,
+          "real_loss_slope_gain": 0.01,
+          "shuffled_loss_slope_gain": 0.06
+        },
+        "controller_state_snapshot": {
+          "derivative_error": -0.8331999999999999,
+          "error": -0.36699999999999994,
+          "integral_error": 0.4168912500000001,
+          "raw_delta": -0.02201417499999999,
+          "release_score": 0.015,
+          "restraint_score": 0.38199999999999995
+        },
+        "current_alpha": 0.039999999999999994,
+        "decision": "shrink_pid_restraint",
+        "decision_replay_record": {
+          "config": {
+            "collapse_weight": 0.5,
+            "control_family_weight": 0.6,
+            "derivative_gain": 0.01,
+            "ema_delta_weight": 0.5,
+            "geo_qk_pressure_weight": 0.2,
+            "initial_alpha": 0.02,
+            "integral_decay": 0.85,
+            "integral_gain": 0.02,
+            "integral_limit": 1.0,
+            "late_window_weight": 0.4,
+            "max_alpha": 0.5,
+            "max_delta_per_decision": 0.02,
+            "min_alpha": 0.0,
+            "post_1000_weight": 0.4,
+            "proportional_gain": 0.06,
+            "release_margin": 0.02,
+            "rigidity_weight": 0.35,
+            "shrink_margin": -0.02,
+            "slope_weight": 1.0,
+            "target_geo_to_qk_ratio": 0.1
+          },
+          "controller": "adaptive_alpha_v2_pid_inspired",
+          "decision": "shrink_pid_restraint",
+          "observation": {
+            "collapse_risk": 0.1,
+            "control_penalty": 0.1,
+            "ema_loss_delta": 0.01,
+            "geo_to_qk_ratio": 0.18,
+            "hard_stop_reason": null,
+            "hard_stop_triggered": false,
+            "late_window_slope": 0.002,
+            "loss_slope_gain": 0.01,
+            "post_1000_trend": "flat",
+            "random_loss_slope_gain": 0.08,
+            "rigidity_risk": 0.2,
+            "shuffled_loss_slope_gain": 0.06,
+            "step": 300
+          },
+          "parameter_trajectory": {
+            "alpha_delta": -0.020000000000000004,
+            "alpha_next": 0.039999999999999994,
+            "alpha_previous": 0.06,
+            "alpha_proposed": 0.039999999999999994
+          },
+          "state_before_decision": {
+            "derivative_error": -0.8331999999999999,
+            "error": -0.36699999999999994,
+            "integral_error": 0.4168912500000001,
+            "raw_delta": -0.02201417499999999,
+            "release_score": 0.015,
+            "restraint_score": 0.38199999999999995
+          }
+        },
+        "injected_evidence_ledger": {
+          "control_family_evidence": {
+            "control_dominates_real": true,
+            "control_penalty": 0.1,
+            "random_loss_slope_gain": 0.08,
+            "real_loss_slope_gain": 0.01,
+            "shuffled_loss_slope_gain": 0.06
+          },
+          "release_evidence": {
+            "ema_loss_delta": 0.005,
+            "late_window_improving": 0.0,
+            "loss_slope_gain": 0.01,
+            "post_1000_improving": 0.0
+          },
+          "restraint_evidence": {
+            "collapse_pressure": 0.05,
+            "control_family_dominance": 0.042,
+            "control_penalty": 0.06,
+            "geo_qk_pressure": 0.15999999999999998,
+            "rigidity_pressure": 0.06999999999999999
+          },
+          "rigidity_evidence": {
+            "collapse_risk": 0.1,
+            "hard_stop_triggered": false,
+            "rigidity_risk": 0.2
+          },
+          "slope_evidence": {
+            "ema_loss_delta": 0.01,
+            "late_window_slope": 0.002,
+            "loss_slope_gain": 0.01,
+            "post_1000_trend": "flat"
+          }
+        },
+        "next_alpha": 0.039999999999999994,
+        "parameter_trajectory": {
+          "alpha_delta": -0.020000000000000004,
+          "alpha_next": 0.039999999999999994,
+          "alpha_previous": 0.06,
+          "alpha_proposed": 0.039999999999999994
+        },
+        "previous_alpha": 0.06,
+        "proposed_alpha": 0.039999999999999994,
+        "release_evidence": {
+          "ema_loss_delta": 0.005,
+          "late_window_improving": 0.0,
+          "loss_slope_gain": 0.01,
+          "post_1000_improving": 0.0
+        },
+        "restraint_evidence": {
+          "collapse_pressure": 0.05,
+          "control_family_dominance": 0.042,
+          "control_penalty": 0.06,
+          "geo_qk_pressure": 0.15999999999999998,
+          "rigidity_pressure": 0.06999999999999999
+        },
+        "rigidity_evidence": {
+          "collapse_risk": 0.1,
+          "hard_stop_triggered": false,
+          "rigidity_risk": 0.2
+        },
+        "slope_evidence": {
+          "ema_loss_delta": 0.01,
+          "late_window_slope": 0.002,
+          "loss_slope_gain": 0.01,
+          "post_1000_trend": "flat"
+        },
+        "step": 300
+      }
+    ],
+    "parameter_trajectory": [
+      {
+        "alpha_delta": 0.02,
+        "alpha_next": 0.04,
+        "alpha_previous": 0.02,
+        "alpha_proposed": 0.04
+      },
+      {
+        "alpha_delta": 0.019999999999999997,
+        "alpha_next": 0.06,
+        "alpha_previous": 0.04,
+        "alpha_proposed": 0.06
+      },
+      {
+        "alpha_delta": -0.020000000000000004,
+        "alpha_next": 0.039999999999999994,
+        "alpha_previous": 0.06,
+        "alpha_proposed": 0.039999999999999994
+      }
+    ]
+  }
+}

@@ -1,0 +1,1303 @@
+{
+  "analysis": {
+    "analysis_rule": "Use the 1000-2000 decision window first; endpoint loss is supporting context only and cannot override late-window loss or attention behavior.",
+    "attention_window_analysis": {
+      "0_500": {
+        "attention_safe_for_window_decision": true,
+        "best_control_attention_score": 0.271,
+        "collapse_warning": false,
+        "control_like_attention_warning": false,
+        "real_attention_advantage": 0.06499999999999995,
+        "real_attention_score": 0.33599999999999997,
+        "uniformity_drift_warning": false
+      },
+      "1000_1500": {
+        "attention_safe_for_window_decision": true,
+        "best_control_attention_score": 0.33749999999999997,
+        "collapse_warning": false,
+        "control_like_attention_warning": false,
+        "real_attention_advantage": 0.11249999999999999,
+        "real_attention_score": 0.44999999999999996,
+        "uniformity_drift_warning": false
+      },
+      "1000_2000": {
+        "attention_safe_for_window_decision": true,
+        "best_control_attention_score": 0.355,
+        "collapse_warning": false,
+        "control_like_attention_warning": false,
+        "real_attention_advantage": 0.12500000000000006,
+        "real_attention_score": 0.48000000000000004,
+        "uniformity_drift_warning": false
+      },
+      "1500_2000": {
+        "attention_safe_for_window_decision": true,
+        "best_control_attention_score": 0.3725,
+        "collapse_warning": false,
+        "control_like_attention_warning": false,
+        "real_attention_advantage": 0.1375,
+        "real_attention_score": 0.51,
+        "uniformity_drift_warning": false
+      },
+      "500_1000": {
+        "attention_safe_for_window_decision": true,
+        "best_control_attention_score": 0.3025,
+        "collapse_warning": false,
+        "control_like_attention_warning": false,
+        "real_attention_advantage": 0.08749999999999997,
+        "real_attention_score": 0.38999999999999996,
+        "uniformity_drift_warning": false
+      }
+    },
+    "condition_window_summaries": {
+      "0_500": {
+        "alpha_zero": {
+          "attention_entropy_slope": -0.00012000000000000011,
+          "collapse_event_count": 0,
+          "end_step": 500,
+          "max_geo_to_qk_ratio": 0.0,
+          "max_mean_max_probability": 0.195,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.271,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.164,
+          "mean_baseline_centered_improvement": 0.0,
+          "mean_geo_to_qk_ratio": 0.0,
+          "mean_max_probability": 0.189,
+          "mean_memory_persistence": 0.404,
+          "mean_memory_stability": 0.387,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 6.1613500000000005,
+          "points": 5,
+          "start_step": 100,
+          "validation_slope": -0.0005010000000000004
+        },
+        "baseline": {
+          "attention_entropy_slope": -0.00012000000000000011,
+          "collapse_event_count": 0,
+          "end_step": 500,
+          "max_geo_to_qk_ratio": 0.0,
+          "max_mean_max_probability": 0.195,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.271,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.164,
+          "mean_baseline_centered_improvement": 0.0,
+          "mean_geo_to_qk_ratio": 0.0,
+          "mean_max_probability": 0.189,
+          "mean_memory_persistence": 0.404,
+          "mean_memory_stability": 0.387,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 6.1613500000000005,
+          "points": 5,
+          "start_step": 100,
+          "validation_slope": -0.0005010000000000004
+        },
+        "instantaneous_real_d": {
+          "attention_entropy_slope": -0.00012000000000000011,
+          "collapse_event_count": 0,
+          "end_step": 500,
+          "max_geo_to_qk_ratio": 0.045125,
+          "max_mean_max_probability": 0.195,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.271,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.164,
+          "mean_baseline_centered_improvement": 0.0375,
+          "mean_geo_to_qk_ratio": 0.042374999999999996,
+          "mean_max_probability": 0.189,
+          "mean_memory_persistence": 0.404,
+          "mean_memory_stability": 0.387,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 6.12385,
+          "points": 5,
+          "start_step": 100,
+          "validation_slope": -0.0005260000000000016
+        },
+        "no_memory_real_d": {
+          "attention_entropy_slope": -0.00012000000000000011,
+          "collapse_event_count": 0,
+          "end_step": 500,
+          "max_geo_to_qk_ratio": 0.045125,
+          "max_mean_max_probability": 0.195,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.271,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.164,
+          "mean_baseline_centered_improvement": 0.0317499999999999,
+          "mean_geo_to_qk_ratio": 0.042374999999999996,
+          "mean_max_probability": 0.189,
+          "mean_memory_persistence": 0.404,
+          "mean_memory_stability": 0.387,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 6.129600000000001,
+          "points": 5,
+          "start_step": 100,
+          "validation_slope": -0.0005234999999999993
+        },
+        "random_memory_d": {
+          "attention_entropy_slope": -0.00012000000000000011,
+          "collapse_event_count": 0,
+          "end_step": 500,
+          "max_geo_to_qk_ratio": 0.045125,
+          "max_mean_max_probability": 0.195,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.258,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.164,
+          "mean_baseline_centered_improvement": 0.025999999999999978,
+          "mean_geo_to_qk_ratio": 0.042374999999999996,
+          "mean_max_probability": 0.189,
+          "mean_memory_persistence": 0.404,
+          "mean_memory_stability": 0.364,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 6.135350000000001,
+          "points": 5,
+          "start_step": 100,
+          "validation_slope": -0.000521
+        },
+        "real_memory_d": {
+          "attention_entropy_slope": -0.00012000000000000011,
+          "collapse_event_count": 0,
+          "end_step": 500,
+          "max_geo_to_qk_ratio": 0.05475,
+          "max_mean_max_probability": 0.215,
+          "max_rigidity_risk": 0.098,
+          "mean_attention_behavior_score": 0.33599999999999997,
+          "mean_attention_behavior_separation": 0.05800000000000001,
+          "mean_attention_entropy": 3.084,
+          "mean_baseline_centered_improvement": 0.054999999999999896,
+          "mean_geo_to_qk_ratio": 0.04925,
+          "mean_max_probability": 0.209,
+          "mean_memory_persistence": 0.46499999999999997,
+          "mean_memory_stability": 0.454,
+          "mean_rigidity_risk": 0.094,
+          "mean_validation_loss": 6.106350000000001,
+          "points": 5,
+          "start_step": 100,
+          "validation_slope": -0.000551000000000001
+        },
+        "shuffled_memory_d": {
+          "attention_entropy_slope": -0.00012000000000000011,
+          "collapse_event_count": 0,
+          "end_step": 500,
+          "max_geo_to_qk_ratio": 0.045125,
+          "max_mean_max_probability": 0.195,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.258,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.164,
+          "mean_baseline_centered_improvement": 0.023249999999999993,
+          "mean_geo_to_qk_ratio": 0.042374999999999996,
+          "mean_max_probability": 0.189,
+          "mean_memory_persistence": 0.404,
+          "mean_memory_stability": 0.364,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 6.1381,
+          "points": 5,
+          "start_step": 100,
+          "validation_slope": -0.0005185000000000004
+        }
+      },
+      "1000_1500": {
+        "alpha_zero": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 1500,
+          "max_geo_to_qk_ratio": 0.0,
+          "max_mean_max_probability": 0.22499999999999998,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.33749999999999997,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.0500000000000003,
+          "mean_baseline_centered_improvement": 0.0,
+          "mean_geo_to_qk_ratio": 0.0,
+          "mean_max_probability": 0.2175,
+          "mean_memory_persistence": 0.48,
+          "mean_memory_stability": 0.4725,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.726425,
+          "points": 6,
+          "start_step": 1000,
+          "validation_slope": -0.0004155
+        },
+        "baseline": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 1500,
+          "max_geo_to_qk_ratio": 0.0,
+          "max_mean_max_probability": 0.22499999999999998,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.33749999999999997,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.0500000000000003,
+          "mean_baseline_centered_improvement": 0.0,
+          "mean_geo_to_qk_ratio": 0.0,
+          "mean_max_probability": 0.2175,
+          "mean_memory_persistence": 0.48,
+          "mean_memory_stability": 0.4725,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.726425,
+          "points": 6,
+          "start_step": 1000,
+          "validation_slope": -0.0004155
+        },
+        "instantaneous_real_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 1500,
+          "max_geo_to_qk_ratio": 0.058875,
+          "max_mean_max_probability": 0.22499999999999998,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.33749999999999997,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.0500000000000003,
+          "mean_baseline_centered_improvement": 0.0644318181818182,
+          "mean_geo_to_qk_ratio": 0.0554375,
+          "mean_max_probability": 0.2175,
+          "mean_memory_persistence": 0.48,
+          "mean_memory_stability": 0.4725,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.661993181818183,
+          "points": 6,
+          "start_step": 1000,
+          "validation_slope": -0.0004495909090909095
+        },
+        "no_memory_real_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 1500,
+          "max_geo_to_qk_ratio": 0.058875,
+          "max_mean_max_probability": 0.22499999999999998,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.33749999999999997,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.0500000000000003,
+          "mean_baseline_centered_improvement": 0.05312499999999994,
+          "mean_geo_to_qk_ratio": 0.0554375,
+          "mean_max_probability": 0.2175,
+          "mean_memory_persistence": 0.48,
+          "mean_memory_stability": 0.4725,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.6733,
+          "points": 6,
+          "start_step": 1000,
+          "validation_slope": -0.0004379999999999989
+        },
+        "random_memory_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 1500,
+          "max_geo_to_qk_ratio": 0.058875,
+          "max_mean_max_probability": 0.22499999999999998,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.315,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.0500000000000003,
+          "mean_baseline_centered_improvement": 0.05136363636363628,
+          "mean_geo_to_qk_ratio": 0.0554375,
+          "mean_max_probability": 0.2175,
+          "mean_memory_persistence": 0.48,
+          "mean_memory_stability": 0.44,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.675061363636364,
+          "points": 6,
+          "start_step": 1000,
+          "validation_slope": -0.00045368181818181727
+        },
+        "real_memory_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 1500,
+          "max_geo_to_qk_ratio": 0.09225,
+          "max_mean_max_probability": 0.24499999999999997,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.44999999999999996,
+          "mean_attention_behavior_separation": 0.115,
+          "mean_attention_entropy": 2.97,
+          "mean_baseline_centered_improvement": 0.13431818181818178,
+          "mean_geo_to_qk_ratio": 0.08537499999999999,
+          "mean_max_probability": 0.23749999999999996,
+          "mean_memory_persistence": 0.6075,
+          "mean_memory_stability": 0.6250000000000001,
+          "mean_rigidity_risk": 0.07500000000000001,
+          "mean_validation_loss": 5.5921068181818185,
+          "points": 6,
+          "start_step": 1000,
+          "validation_slope": -0.0005564090909090919
+        },
+        "shuffled_memory_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 1500,
+          "max_geo_to_qk_ratio": 0.058875,
+          "max_mean_max_probability": 0.22499999999999998,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.315,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.0500000000000003,
+          "mean_baseline_centered_improvement": 0.0446477272727274,
+          "mean_geo_to_qk_ratio": 0.0554375,
+          "mean_max_probability": 0.2175,
+          "mean_memory_persistence": 0.48,
+          "mean_memory_stability": 0.44,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.681777272727273,
+          "points": 6,
+          "start_step": 1000,
+          "validation_slope": -0.0004466363636363617
+        }
+      },
+      "1000_2000": {
+        "alpha_zero": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 2000,
+          "max_geo_to_qk_ratio": 0.0,
+          "max_mean_max_probability": 0.24,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.355,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.02,
+          "mean_baseline_centered_improvement": 0.0,
+          "mean_geo_to_qk_ratio": 0.0,
+          "mean_max_probability": 0.225,
+          "mean_memory_persistence": 0.5,
+          "mean_memory_stability": 0.49500000000000005,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.628550000000001,
+          "points": 11,
+          "start_step": 1000,
+          "validation_slope": -0.00039299999999999985
+        },
+        "baseline": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 2000,
+          "max_geo_to_qk_ratio": 0.0,
+          "max_mean_max_probability": 0.24,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.355,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.02,
+          "mean_baseline_centered_improvement": 0.0,
+          "mean_geo_to_qk_ratio": 0.0,
+          "mean_max_probability": 0.225,
+          "mean_memory_persistence": 0.5,
+          "mean_memory_stability": 0.49500000000000005,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.628550000000001,
+          "points": 11,
+          "start_step": 1000,
+          "validation_slope": -0.00039299999999999985
+        },
+        "instantaneous_real_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 2000,
+          "max_geo_to_qk_ratio": 0.06575,
+          "max_mean_max_probability": 0.24,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.355,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.02,
+          "mean_baseline_centered_improvement": 0.07295454545454548,
+          "mean_geo_to_qk_ratio": 0.058875000000000004,
+          "mean_max_probability": 0.225,
+          "mean_memory_persistence": 0.5,
+          "mean_memory_stability": 0.49500000000000005,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.555595454545455,
+          "points": 11,
+          "start_step": 1000,
+          "validation_slope": -0.00042709090909090903
+        },
+        "no_memory_real_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 2000,
+          "max_geo_to_qk_ratio": 0.06575,
+          "max_mean_max_probability": 0.24,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.355,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.02,
+          "mean_baseline_centered_improvement": 0.05875000000000002,
+          "mean_geo_to_qk_ratio": 0.058875000000000004,
+          "mean_max_probability": 0.225,
+          "mean_memory_persistence": 0.5,
+          "mean_memory_stability": 0.49500000000000005,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.5698,
+          "points": 11,
+          "start_step": 1000,
+          "validation_slope": -0.0004155
+        },
+        "random_memory_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 2000,
+          "max_geo_to_qk_ratio": 0.06575,
+          "max_mean_max_probability": 0.24,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.33,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.02,
+          "mean_baseline_centered_improvement": 0.060909090909090906,
+          "mean_geo_to_qk_ratio": 0.058875000000000004,
+          "mean_max_probability": 0.225,
+          "mean_memory_persistence": 0.5,
+          "mean_memory_stability": 0.46,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.567640909090909,
+          "points": 11,
+          "start_step": 1000,
+          "validation_slope": -0.00043118181818181824
+        },
+        "real_memory_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 2000,
+          "max_geo_to_qk_ratio": 0.106,
+          "max_mean_max_probability": 0.26,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.48000000000000004,
+          "mean_attention_behavior_separation": 0.13,
+          "mean_attention_entropy": 2.9399999999999995,
+          "mean_baseline_centered_improvement": 0.16954545454545447,
+          "mean_geo_to_qk_ratio": 0.09225,
+          "mean_max_probability": 0.245,
+          "mean_memory_persistence": 0.645,
+          "mean_memory_stability": 0.67,
+          "mean_rigidity_risk": 0.07,
+          "mean_validation_loss": 5.459004545454546,
+          "points": 11,
+          "start_step": 1000,
+          "validation_slope": -0.000533909090909091
+        },
+        "shuffled_memory_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 2000,
+          "max_geo_to_qk_ratio": 0.06575,
+          "max_mean_max_probability": 0.24,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.33,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.02,
+          "mean_baseline_centered_improvement": 0.05243181818181807,
+          "mean_geo_to_qk_ratio": 0.058875000000000004,
+          "mean_max_probability": 0.225,
+          "mean_memory_persistence": 0.5,
+          "mean_memory_stability": 0.46,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.576118181818182,
+          "points": 11,
+          "start_step": 1000,
+          "validation_slope": -0.0004241363636363625
+        }
+      },
+      "1500_2000": {
+        "alpha_zero": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 2000,
+          "max_geo_to_qk_ratio": 0.0,
+          "max_mean_max_probability": 0.24,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.3725,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 2.99,
+          "mean_baseline_centered_improvement": 0.0,
+          "mean_geo_to_qk_ratio": 0.0,
+          "mean_max_probability": 0.2325,
+          "mean_memory_persistence": 0.52,
+          "mean_memory_stability": 0.5175,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.5299249999999995,
+          "points": 6,
+          "start_step": 1500,
+          "validation_slope": -0.0003705000000000001
+        },
+        "baseline": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 2000,
+          "max_geo_to_qk_ratio": 0.0,
+          "max_mean_max_probability": 0.24,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.3725,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 2.99,
+          "mean_baseline_centered_improvement": 0.0,
+          "mean_geo_to_qk_ratio": 0.0,
+          "mean_max_probability": 0.2325,
+          "mean_memory_persistence": 0.52,
+          "mean_memory_stability": 0.5175,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.5299249999999995,
+          "points": 6,
+          "start_step": 1500,
+          "validation_slope": -0.0003705000000000001
+        },
+        "instantaneous_real_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 2000,
+          "max_geo_to_qk_ratio": 0.06575,
+          "max_mean_max_probability": 0.24,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.3725,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 2.99,
+          "mean_baseline_centered_improvement": 0.08147727272727279,
+          "mean_geo_to_qk_ratio": 0.0623125,
+          "mean_max_probability": 0.2325,
+          "mean_memory_persistence": 0.52,
+          "mean_memory_stability": 0.5175,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.448447727272728,
+          "points": 6,
+          "start_step": 1500,
+          "validation_slope": -0.0004045909090909089
+        },
+        "no_memory_real_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 2000,
+          "max_geo_to_qk_ratio": 0.06575,
+          "max_mean_max_probability": 0.24,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.3725,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 2.99,
+          "mean_baseline_centered_improvement": 0.06437500000000007,
+          "mean_geo_to_qk_ratio": 0.0623125,
+          "mean_max_probability": 0.2325,
+          "mean_memory_persistence": 0.52,
+          "mean_memory_stability": 0.5175,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.46555,
+          "points": 6,
+          "start_step": 1500,
+          "validation_slope": -0.00039300000000000093
+        },
+        "random_memory_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 2000,
+          "max_geo_to_qk_ratio": 0.06575,
+          "max_mean_max_probability": 0.24,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.345,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 2.99,
+          "mean_baseline_centered_improvement": 0.07045454545454548,
+          "mean_geo_to_qk_ratio": 0.0623125,
+          "mean_max_probability": 0.2325,
+          "mean_memory_persistence": 0.52,
+          "mean_memory_stability": 0.48000000000000004,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.459470454545454,
+          "points": 6,
+          "start_step": 1500,
+          "validation_slope": -0.0004086818181818193
+        },
+        "real_memory_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 2000,
+          "max_geo_to_qk_ratio": 0.106,
+          "max_mean_max_probability": 0.26,
+          "max_rigidity_risk": 0.07,
+          "mean_attention_behavior_score": 0.51,
+          "mean_attention_behavior_separation": 0.145,
+          "mean_attention_entropy": 2.91,
+          "mean_baseline_centered_improvement": 0.20477272727272725,
+          "mean_geo_to_qk_ratio": 0.099125,
+          "mean_max_probability": 0.2525,
+          "mean_memory_persistence": 0.6825,
+          "mean_memory_stability": 0.715,
+          "mean_rigidity_risk": 0.065,
+          "mean_validation_loss": 5.325152272727273,
+          "points": 6,
+          "start_step": 1500,
+          "validation_slope": -0.0005114090909090908
+        },
+        "shuffled_memory_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 2000,
+          "max_geo_to_qk_ratio": 0.06575,
+          "max_mean_max_probability": 0.24,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.345,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 2.99,
+          "mean_baseline_centered_improvement": 0.06021590909090868,
+          "mean_geo_to_qk_ratio": 0.0623125,
+          "mean_max_probability": 0.2325,
+          "mean_memory_persistence": 0.52,
+          "mean_memory_stability": 0.48000000000000004,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.469709090909092,
+          "points": 6,
+          "start_step": 1500,
+          "validation_slope": -0.00040163636363636383
+        }
+      },
+      "500_1000": {
+        "alpha_zero": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 1000,
+          "max_geo_to_qk_ratio": 0.0,
+          "max_mean_max_probability": 0.21,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.3025,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.11,
+          "mean_baseline_centered_improvement": 0.0,
+          "mean_geo_to_qk_ratio": 0.0,
+          "mean_max_probability": 0.20249999999999999,
+          "mean_memory_persistence": 0.44,
+          "mean_memory_stability": 0.4275,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.945425,
+          "points": 6,
+          "start_step": 500,
+          "validation_slope": -0.0004605000000000002
+        },
+        "baseline": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 1000,
+          "max_geo_to_qk_ratio": 0.0,
+          "max_mean_max_probability": 0.21,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.3025,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.11,
+          "mean_baseline_centered_improvement": 0.0,
+          "mean_geo_to_qk_ratio": 0.0,
+          "mean_max_probability": 0.20249999999999999,
+          "mean_memory_persistence": 0.44,
+          "mean_memory_stability": 0.4275,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.945425,
+          "points": 6,
+          "start_step": 500,
+          "validation_slope": -0.0004605000000000002
+        },
+        "instantaneous_real_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 1000,
+          "max_geo_to_qk_ratio": 0.052000000000000005,
+          "max_mean_max_probability": 0.21,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.3025,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.11,
+          "mean_baseline_centered_improvement": 0.04890151515151523,
+          "mean_geo_to_qk_ratio": 0.0485625,
+          "mean_max_probability": 0.20249999999999999,
+          "mean_memory_persistence": 0.44,
+          "mean_memory_stability": 0.4275,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.896523484848484,
+          "points": 6,
+          "start_step": 500,
+          "validation_slope": -0.0004867987012987006
+        },
+        "no_memory_real_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 1000,
+          "max_geo_to_qk_ratio": 0.052000000000000005,
+          "max_mean_max_probability": 0.21,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.3025,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.11,
+          "mean_baseline_centered_improvement": 0.04187500000000011,
+          "mean_geo_to_qk_ratio": 0.0485625,
+          "mean_max_probability": 0.20249999999999999,
+          "mean_memory_persistence": 0.44,
+          "mean_memory_stability": 0.4275,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.90355,
+          "points": 6,
+          "start_step": 500,
+          "validation_slope": -0.0004830000000000011
+        },
+        "random_memory_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 1000,
+          "max_geo_to_qk_ratio": 0.052000000000000005,
+          "max_mean_max_probability": 0.21,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.285,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.11,
+          "mean_baseline_centered_improvement": 0.035303030303030315,
+          "mean_geo_to_qk_ratio": 0.0485625,
+          "mean_max_probability": 0.20249999999999999,
+          "mean_memory_persistence": 0.44,
+          "mean_memory_stability": 0.4000000000000001,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.91012196969697,
+          "points": 6,
+          "start_step": 500,
+          "validation_slope": -0.0004830974025974028
+        },
+        "real_memory_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 1000,
+          "max_geo_to_qk_ratio": 0.0785,
+          "max_mean_max_probability": 0.22999999999999998,
+          "max_rigidity_risk": 0.09000000000000001,
+          "mean_attention_behavior_score": 0.38999999999999996,
+          "mean_attention_behavior_separation": 0.085,
+          "mean_attention_entropy": 3.03,
+          "mean_baseline_centered_improvement": 0.0790151515151516,
+          "mean_geo_to_qk_ratio": 0.06329166666666668,
+          "mean_max_probability": 0.2225,
+          "mean_memory_persistence": 0.5325,
+          "mean_memory_stability": 0.535,
+          "mean_rigidity_risk": 0.085,
+          "mean_validation_loss": 5.866409848484849,
+          "points": 6,
+          "start_step": 500,
+          "validation_slope": -0.0005234870129870117
+        },
+        "shuffled_memory_d": {
+          "attention_entropy_slope": -0.0001200000000000001,
+          "collapse_event_count": 0,
+          "end_step": 1000,
+          "max_geo_to_qk_ratio": 0.052000000000000005,
+          "max_mean_max_probability": 0.21,
+          "max_rigidity_risk": 0.08,
+          "mean_attention_behavior_score": 0.285,
+          "mean_attention_behavior_separation": 0.02,
+          "mean_attention_entropy": 3.11,
+          "mean_baseline_centered_improvement": 0.03135227272727281,
+          "mean_geo_to_qk_ratio": 0.0485625,
+          "mean_max_probability": 0.20249999999999999,
+          "mean_memory_persistence": 0.44,
+          "mean_memory_stability": 0.4000000000000001,
+          "mean_rigidity_risk": 0.08,
+          "mean_validation_loss": 5.914072727272727,
+          "points": 6,
+          "start_step": 500,
+          "validation_slope": -0.00047994805194805323
+        }
+      }
+    },
+    "config": {
+      "baseline_condition": "baseline",
+      "control_conditions": [
+        "alpha_zero",
+        "random_memory_d",
+        "shuffled_memory_d",
+        "no_memory_real_d",
+        "instantaneous_real_d"
+      ],
+      "decision_window": "1000_2000",
+      "max_mean_max_probability": 0.55,
+      "max_rigidity_risk": 0.45,
+      "min_attention_advantage": 0.0,
+      "min_attention_entropy": 1.8,
+      "min_window_points": 2,
+      "post_1000_start": 1000,
+      "real_condition": "real_memory_d",
+      "windows": {
+        "0_500": {
+          "end_step": 500,
+          "start_step": 0
+        },
+        "1000_1500": {
+          "end_step": 1500,
+          "start_step": 1000
+        },
+        "1000_2000": {
+          "end_step": 2000,
+          "start_step": 1000
+        },
+        "1500_2000": {
+          "end_step": 2000,
+          "start_step": 1500
+        },
+        "500_1000": {
+          "end_step": 1000,
+          "start_step": 500
+        }
+      }
+    },
+    "endpoint_supporting_summary": {
+      "endpoint_is_not_decision_source": true,
+      "endpoints": {
+        "alpha_zero": {
+          "attention_entropy": 2.96,
+          "geo_to_qk_ratio": 0.0,
+          "rigidity_risk": 0.08,
+          "step": 2000,
+          "validation_loss": 5.4388000000000005
+        },
+        "baseline": {
+          "attention_entropy": 2.96,
+          "geo_to_qk_ratio": 0.0,
+          "rigidity_risk": 0.08,
+          "step": 2000,
+          "validation_loss": 5.4388000000000005
+        },
+        "instantaneous_real_d": {
+          "attention_entropy": 2.96,
+          "geo_to_qk_ratio": 0.06575,
+          "rigidity_risk": 0.08,
+          "step": 2000,
+          "validation_loss": 5.348800000000001
+        },
+        "no_memory_real_d": {
+          "attention_entropy": 2.96,
+          "geo_to_qk_ratio": 0.06575,
+          "rigidity_risk": 0.08,
+          "step": 2000,
+          "validation_loss": 5.3688
+        },
+        "random_memory_d": {
+          "attention_entropy": 2.96,
+          "geo_to_qk_ratio": 0.06575,
+          "rigidity_risk": 0.08,
+          "step": 2000,
+          "validation_loss": 5.3588000000000005
+        },
+        "real_memory_d": {
+          "attention_entropy": 2.88,
+          "geo_to_qk_ratio": 0.106,
+          "rigidity_risk": 0.060000000000000005,
+          "step": 2000,
+          "validation_loss": 5.1988
+        },
+        "shuffled_memory_d": {
+          "attention_entropy": 2.96,
+          "geo_to_qk_ratio": 0.06575,
+          "rigidity_risk": 0.08,
+          "step": 2000,
+          "validation_loss": 5.370800000000001
+        }
+      },
+      "real_endpoint": {
+        "attention_entropy": 2.88,
+        "geo_to_qk_ratio": 0.106,
+        "rigidity_risk": 0.060000000000000005,
+        "step": 2000,
+        "validation_loss": 5.1988
+      }
+    },
+    "post_1000_decision_summary": {
+      "attention_safe_for_late_decision": true,
+      "control_separation": 0.096590909090909,
+      "decision_window": "1000_2000",
+      "endpoint_loss_is_supporting_only": true,
+      "late_window_decision_ready": true,
+      "real_late_beats_all_controls": true,
+      "real_late_beats_baseline": true,
+      "real_late_slope": -0.000533909090909091,
+      "real_late_trend": "improving",
+      "real_late_window_points": 11,
+      "uses_post_1000_priority": true
+    },
+    "real_vs_control_window_deltas": {
+      "0_500": {
+        "control_separation": 0.017499999999999894,
+        "deltas": {
+          "alpha_zero": {
+            "mean_delta": 0.054999999999999896,
+            "min_delta": 0.04499999999999993,
+            "points": 5,
+            "positive_delta_points": 5
+          },
+          "baseline": {
+            "mean_delta": 0.054999999999999896,
+            "min_delta": 0.04499999999999993,
+            "points": 5,
+            "positive_delta_points": 5
+          },
+          "instantaneous_real_d": {
+            "mean_delta": 0.017499999999999894,
+            "min_delta": 0.012500000000000178,
+            "points": 5,
+            "positive_delta_points": 5
+          },
+          "no_memory_real_d": {
+            "mean_delta": 0.023249999999999993,
+            "min_delta": 0.01774999999999949,
+            "points": 5,
+            "positive_delta_points": 5
+          },
+          "random_memory_d": {
+            "mean_delta": 0.028999999999999915,
+            "min_delta": 0.022999999999999687,
+            "points": 5,
+            "positive_delta_points": 5
+          },
+          "shuffled_memory_d": {
+            "mean_delta": 0.0317499999999999,
+            "min_delta": 0.025249999999999773,
+            "points": 5,
+            "positive_delta_points": 5
+          }
+        },
+        "matched_points": 5,
+        "matched_steps": [
+          100,
+          200,
+          300,
+          400,
+          500
+        ],
+        "real_beats_all_controls": true
+      },
+      "1000_1500": {
+        "control_separation": 0.06988636363636358,
+        "deltas": {
+          "alpha_zero": {
+            "mean_delta": 0.13431818181818178,
+            "min_delta": 0.09909090909090867,
+            "points": 6,
+            "positive_delta_points": 6
+          },
+          "baseline": {
+            "mean_delta": 0.13431818181818178,
+            "min_delta": 0.09909090909090867,
+            "points": 6,
+            "positive_delta_points": 6
+          },
+          "instantaneous_real_d": {
+            "mean_delta": 0.06988636363636358,
+            "min_delta": 0.04318181818181799,
+            "points": 6,
+            "positive_delta_points": 6
+          },
+          "no_memory_real_d": {
+            "mean_delta": 0.08119318181818184,
+            "min_delta": 0.051590909090908355,
+            "points": 6,
+            "positive_delta_points": 6
+          },
+          "random_memory_d": {
+            "mean_delta": 0.0829545454545455,
+            "min_delta": 0.0572727272727267,
+            "points": 6,
+            "positive_delta_points": 6
+          },
+          "shuffled_memory_d": {
+            "mean_delta": 0.08967045454545437,
+            "min_delta": 0.06222727272727191,
+            "points": 6,
+            "positive_delta_points": 6
+          }
+        },
+        "matched_points": 6,
+        "matched_steps": [
+          1000,
+          1100,
+          1200,
+          1300,
+          1400,
+          1500
+        ],
+        "real_beats_all_controls": true
+      },
+      "1000_2000": {
+        "control_separation": 0.096590909090909,
+        "deltas": {
+          "alpha_zero": {
+            "mean_delta": 0.16954545454545447,
+            "min_delta": 0.09909090909090867,
+            "points": 11,
+            "positive_delta_points": 11
+          },
+          "baseline": {
+            "mean_delta": 0.16954545454545447,
+            "min_delta": 0.09909090909090867,
+            "points": 11,
+            "positive_delta_points": 11
+          },
+          "instantaneous_real_d": {
+            "mean_delta": 0.096590909090909,
+            "min_delta": 0.04318181818181799,
+            "points": 11,
+            "positive_delta_points": 11
+          },
+          "no_memory_real_d": {
+            "mean_delta": 0.11079545454545446,
+            "min_delta": 0.051590909090908355,
+            "points": 11,
+            "positive_delta_points": 11
+          },
+          "random_memory_d": {
+            "mean_delta": 0.10863636363636359,
+            "min_delta": 0.0572727272727267,
+            "points": 11,
+            "positive_delta_points": 11
+          },
+          "shuffled_memory_d": {
+            "mean_delta": 0.11711363636363642,
+            "min_delta": 0.06222727272727191,
+            "points": 11,
+            "positive_delta_points": 11
+          }
+        },
+        "matched_points": 11,
+        "matched_steps": [
+          1000,
+          1100,
+          1200,
+          1300,
+          1400,
+          1500,
+          1600,
+          1700,
+          1800,
+          1900,
+          2000
+        ],
+        "real_beats_all_controls": true
+      },
+      "1500_2000": {
+        "control_separation": 0.12329545454545447,
+        "deltas": {
+          "alpha_zero": {
+            "mean_delta": 0.20477272727272725,
+            "min_delta": 0.1695454545454549,
+            "points": 6,
+            "positive_delta_points": 6
+          },
+          "baseline": {
+            "mean_delta": 0.20477272727272725,
+            "min_delta": 0.1695454545454549,
+            "points": 6,
+            "positive_delta_points": 6
+          },
+          "instantaneous_real_d": {
+            "mean_delta": 0.12329545454545447,
+            "min_delta": 0.09659090909090917,
+            "points": 6,
+            "positive_delta_points": 6
+          },
+          "no_memory_real_d": {
+            "mean_delta": 0.14039772727272717,
+            "min_delta": 0.11079545454545503,
+            "points": 6,
+            "positive_delta_points": 6
+          },
+          "random_memory_d": {
+            "mean_delta": 0.13431818181818178,
+            "min_delta": 0.10863636363636431,
+            "points": 6,
+            "positive_delta_points": 6
+          },
+          "shuffled_memory_d": {
+            "mean_delta": 0.14455681818181856,
+            "min_delta": 0.11711363636363714,
+            "points": 6,
+            "positive_delta_points": 6
+          }
+        },
+        "matched_points": 6,
+        "matched_steps": [
+          1500,
+          1600,
+          1700,
+          1800,
+          1900,
+          2000
+        ],
+        "real_beats_all_controls": true
+      },
+      "500_1000": {
+        "control_separation": 0.03011363636363636,
+        "deltas": {
+          "alpha_zero": {
+            "mean_delta": 0.0790151515151516,
+            "min_delta": 0.06500000000000039,
+            "points": 6,
+            "positive_delta_points": 6
+          },
+          "baseline": {
+            "mean_delta": 0.0790151515151516,
+            "min_delta": 0.06500000000000039,
+            "points": 6,
+            "positive_delta_points": 6
+          },
+          "instantaneous_real_d": {
+            "mean_delta": 0.03011363636363636,
+            "min_delta": 0.022499999999999964,
+            "points": 6,
+            "positive_delta_points": 6
+          },
+          "no_memory_real_d": {
+            "mean_delta": 0.03714015151515149,
+            "min_delta": 0.028750000000000497,
+            "points": 6,
+            "positive_delta_points": 6
+          },
+          "random_memory_d": {
+            "mean_delta": 0.04371212121212128,
+            "min_delta": 0.03500000000000014,
+            "points": 6,
+            "positive_delta_points": 6
+          },
+          "shuffled_memory_d": {
+            "mean_delta": 0.04766287878787878,
+            "min_delta": 0.03825000000000056,
+            "points": 6,
+            "positive_delta_points": 6
+          }
+        },
+        "matched_points": 6,
+        "matched_steps": [
+          500,
+          600,
+          700,
+          800,
+          900,
+          1000
+        ],
+        "real_beats_all_controls": true
+      }
+    },
+    "windows": {
+      "0_500": {
+        "end_step": 500,
+        "start_step": 0
+      },
+      "1000_1500": {
+        "end_step": 1500,
+        "start_step": 1000
+      },
+      "1000_2000": {
+        "end_step": 2000,
+        "start_step": 1000
+      },
+      "1500_2000": {
+        "end_step": 2000,
+        "start_step": 1500
+      },
+      "500_1000": {
+        "end_step": 1000,
+        "start_step": 500
+      }
+    }
+  },
+  "checks": {
+    "all_windows_have_condition_points": true,
+    "attention_analyzed_for_all_windows": true,
+    "decision_prioritizes_post_1000": true,
+    "decision_window_is_1000_2000": true,
+    "endpoint_loss_is_supporting_only": true,
+    "guarded_run_contract_ready": true,
+    "late_attention_no_uniformity_drift": true,
+    "late_attention_not_collapsed": true,
+    "late_attention_not_control_like": true,
+    "late_window_decision_ready": true,
+    "late_window_matched_controls_available": true,
+    "real_late_beats_all_controls": true,
+    "real_late_beats_baseline": true,
+    "real_late_window_improving": true,
+    "real_late_window_trend_available": true,
+    "required_windows_present": true
+  },
+  "decision_table": [
+    {
+      "attention_advantage": 0.06499999999999995,
+      "attention_safe": true,
+      "control_separation": 0.017499999999999894,
+      "real_beats_all_controls": true,
+      "real_mean_validation_loss": 6.106350000000001,
+      "real_points": 5,
+      "real_trend": "improving",
+      "real_validation_slope": -0.000551000000000001,
+      "window": "0_500"
+    },
+    {
+      "attention_advantage": 0.08749999999999997,
+      "attention_safe": true,
+      "control_separation": 0.03011363636363636,
+      "real_beats_all_controls": true,
+      "real_mean_validation_loss": 5.866409848484849,
+      "real_points": 6,
+      "real_trend": "improving",
+      "real_validation_slope": -0.0005234870129870117,
+      "window": "500_1000"
+    },
+    {
+      "attention_advantage": 0.11249999999999999,
+      "attention_safe": true,
+      "control_separation": 0.06988636363636358,
+      "real_beats_all_controls": true,
+      "real_mean_validation_loss": 5.5921068181818185,
+      "real_points": 6,
+      "real_trend": "improving",
+      "real_validation_slope": -0.0005564090909090919,
+      "window": "1000_1500"
+    },
+    {
+      "attention_advantage": 0.1375,
+      "attention_safe": true,
+      "control_separation": 0.12329545454545447,
+      "real_beats_all_controls": true,
+      "real_mean_validation_loss": 5.325152272727273,
+      "real_points": 6,
+      "real_trend": "improving",
+      "real_validation_slope": -0.0005114090909090908,
+      "window": "1500_2000"
+    },
+    {
+      "attention_advantage": 0.12500000000000006,
+      "attention_safe": true,
+      "control_separation": 0.096590909090909,
+      "real_beats_all_controls": true,
+      "real_mean_validation_loss": 5.459004545454546,
+      "real_points": 11,
+      "real_trend": "improving",
+      "real_validation_slope": -0.000533909090909091,
+      "window": "1000_2000"
+    }
+  ],
+  "guarded_summary": {
+    "all_conditions_have_identical_steps": true,
+    "all_conditions_reach_2000": true,
+    "condition_row_counts": {
+      "alpha_zero": 20,
+      "baseline": 20,
+      "instantaneous_real_d": 20,
+      "no_memory_real_d": 20,
+      "random_memory_d": 20,
+      "real_memory_d": 20,
+      "shuffled_memory_d": 20
+    }
+  },
+  "input_source": "guarded_2000_contract_replay",
+  "next_required_step": "random_shuffled_no_memory_attribution_comparison",
+  "required_outputs": [
+    "condition_window_summaries",
+    "real_vs_control_window_deltas",
+    "attention_window_analysis",
+    "post_1000_decision_summary",
+    "endpoint_supporting_summary"
+  ],
+  "required_windows": [
+    "0_500",
+    "500_1000",
+    "1000_1500",
+    "1500_2000",
+    "1000_2000"
+  ],
+  "scientific_scope": "late-window analysis contract; prioritizes post-1000 windows and checks attention behavior in the same windows so endpoint loss cannot hide collapse, uniformity drift, or control-like attention",
+  "stage": "stage22_late_window_post1000_analysis",
+  "status": "pass"
+}

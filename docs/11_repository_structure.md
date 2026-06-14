@@ -90,6 +90,30 @@ docs/19_adaptive_competitive_alpha_plan.md
 docs/20_run02_evidence_consolidation.md
 docs/21_open_control_philosophy_contract.md
 docs/22_unified_telemetry_schema.md
+docs/23_memory_state_instrumentation.md
+docs/24_active_adaptive_execution_plan.md
+docs/25_attention_rigidity_and_collapse_monitor.md
+docs/26_control_family_fairness_audit_v2.md
+docs/27_loss_slope_and_trend_analyzer.md
+docs/28_parameter_attribution_probe.md
+docs/29_adaptive_alpha_controller_v2.md
+docs/30_adaptive_memory_controller.md
+docs/31_gate_floor_and_noise_controller.md
+docs/32_causal_reachability_controller.md
+docs/33_normalization_and_distance_scale_controller.md
+docs/34_joint_parameter_budget_allocator.md
+docs/35_control_separation_scoring.md
+docs/36_meta_control_attention_observer.md
+docs/37_open_adaptive_relational_control_trainer.md
+docs/38_live_100_step_diagnostic_table.md
+docs/39_adaptive_notebook_ergt_03.md
+docs/40_short_smoke_failure_safety_validation.md
+docs/41_guarded_2000_step_adaptive_run.md
+docs/42_late_window_post1000_analysis.md
+docs/43_random_shuffled_no_memory_attribution.md
+docs/44_decision_gate_real_geometry.md
+docs/45_controller_revision_loop.md
+docs/46_longer_run_multi_seed_confirmation.md
 ```
 
 The original source notes remain at the repository root:

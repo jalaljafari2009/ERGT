@@ -5,7 +5,6 @@ from __future__ import annotations
 import argparse
 import json
 import math
-import shutil
 import sys
 import time
 from dataclasses import asdict
@@ -39,6 +38,7 @@ from experiments.train_baseline import default_data_dir, learning_rate_for_step 
 from experiments.train_ergt_v1 import (  # noqa: E402
     build_ergt_model_config,
     build_optimizer,
+    ensure_attention_control_seed,
     evaluate,
     load_prepared_or_raise,
     save_checkpoint,
@@ -78,13 +78,14 @@ def main() -> None:
     config = load_json(config_path)
 
     seed = int(config["run"].get("seed", 1337))
+    ensure_attention_control_seed(config, seed)
     set_seed(seed)
 
     device = torch.device(args.device or ("cuda" if torch.cuda.is_available() else "cpu"))
     output_dir = Path(config["run"]["output_dir"])
     output_dir.mkdir(parents=True, exist_ok=True)
     (output_dir / "checkpoints").mkdir(exist_ok=True)
-    shutil.copyfile(config_path, output_dir / "config.json")
+    save_json(output_dir / "config.json", config)
 
     data_dir = Path(args.data_dir) if args.data_dir else default_data_dir(config)
     train_dataset, validation_dataset, metadata = load_prepared_or_raise(data_dir)

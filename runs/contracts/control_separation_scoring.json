@@ -1,0 +1,420 @@
+{
+  "checks": {
+    "attention_behavior_separation_is_reported": true,
+    "decision_replay_records_present": true,
+    "final_score_passes_only_when_real_beats_all_controls": true,
+    "final_score_requires_complete_matched_controls": true,
+    "matched_steps_are_late_window_only_for_claim": true,
+    "partial_live_score_is_not_claim_eligible": true,
+    "partial_live_uses_real_vs_baseline_without_controls": true,
+    "random_or_shuffled_dominance_blocks_claim": true,
+    "required_control_separation_outputs_emitted": true,
+    "schema_declares_control_separation_fields": true
+  },
+  "config": {
+    "attention_pass_margin": 0.0,
+    "baseline_condition": "baseline",
+    "control_conditions": {
+      "alpha_zero": "alpha_zero",
+      "instantaneous": "instantaneous_real_d",
+      "no_memory": "no_memory_real_d",
+      "random": "random_memory_d",
+      "shuffled": "shuffled_memory_d"
+    },
+    "late_window_start": 1000,
+    "min_matched_points": 2,
+    "pass_margin": 0.0,
+    "real_condition": "real_memory_d"
+  },
+  "failing_control_example": {
+    "attention_behavior_separation": 0.13333333333333333,
+    "available_control_families": [
+      "baseline",
+      "alpha_zero",
+      "random",
+      "shuffled",
+      "no_memory",
+      "instantaneous"
+    ],
+    "claim_eligibility": "eligible_complete_controls",
+    "control_family_status": {
+      "alpha_zero": "available",
+      "baseline": "available",
+      "instantaneous": "available",
+      "no_memory": "available",
+      "random": "available",
+      "shuffled": "available"
+    },
+    "control_penalty": 0.03666666666666677,
+    "control_separation": -0.03666666666666677,
+    "control_separation_mode": "final_matched",
+    "control_separation_status": "fail_controls_not_separated",
+    "decision_replay_record": {
+      "control_family_status": {
+        "alpha_zero": "available",
+        "baseline": "available",
+        "instantaneous": "available",
+        "no_memory": "available",
+        "random": "available",
+        "shuffled": "available"
+      },
+      "current_step": 2000,
+      "current_step_limit": null,
+      "decision": "fail_controls_not_separated",
+      "matched_control_steps": [
+        500,
+        1000,
+        1500,
+        2000
+      ],
+      "mode": "final_matched",
+      "pending_control_families": [],
+      "rule": "baseline-only live gains are controller pressure; final claim requires matched late-window real-vs-control separation"
+    },
+    "final_matched_score": {
+      "attention_behavior_separation": 0.13333333333333333,
+      "control_penalty": 0.03666666666666677,
+      "control_separation": -0.03666666666666677,
+      "matched_steps": [
+        1000,
+        1500,
+        2000
+      ],
+      "mean_deltas": {
+        "alpha_zero": 0.22000000000000006,
+        "baseline": 0.23000000000000012,
+        "instantaneous": 0.12666666666666662,
+        "no_memory": 0.16000000000000014,
+        "random": -0.03666666666666677,
+        "shuffled": 0.15666666666666687
+      },
+      "per_step": [
+        {
+          "attention_behavior_separation": 0.10999999999999999,
+          "real_vs_alpha_zero_delta": 0.16000000000000014,
+          "real_vs_baseline_delta": 0.16999999999999993,
+          "real_vs_instantaneous_delta": 0.08000000000000007,
+          "real_vs_no_memory_delta": 0.11000000000000032,
+          "real_vs_random_delta": -0.03000000000000025,
+          "real_vs_shuffled_delta": 0.1200000000000001,
+          "step": 1000
+        },
+        {
+          "attention_behavior_separation": 0.14,
+          "real_vs_alpha_zero_delta": 0.22999999999999954,
+          "real_vs_baseline_delta": 0.2400000000000002,
+          "real_vs_instantaneous_delta": 0.13999999999999968,
+          "real_vs_no_memory_delta": 0.16999999999999993,
+          "real_vs_random_delta": -0.040000000000000036,
+          "real_vs_shuffled_delta": 0.16000000000000014,
+          "step": 1500
+        },
+        {
+          "attention_behavior_separation": 0.15,
+          "real_vs_alpha_zero_delta": 0.27000000000000046,
+          "real_vs_baseline_delta": 0.28000000000000025,
+          "real_vs_instantaneous_delta": 0.16000000000000014,
+          "real_vs_no_memory_delta": 0.20000000000000018,
+          "real_vs_random_delta": -0.040000000000000036,
+          "real_vs_shuffled_delta": 0.1900000000000004,
+          "step": 2000
+        }
+      ]
+    },
+    "generic_regularization_warning": "real_not_separated_from_random",
+    "matched_control_steps": [
+      500,
+      1000,
+      1500,
+      2000
+    ],
+    "matched_control_window": {
+      "end_step": 2000,
+      "points": 3,
+      "start_step": 1000
+    },
+    "mode": "final_matched",
+    "partial_live_score": {
+      "available_control_families": [
+        "baseline",
+        "alpha_zero",
+        "random",
+        "shuffled",
+        "no_memory",
+        "instantaneous"
+      ],
+      "claim_eligibility": "eligible_complete_controls",
+      "control_separation": -0.03666666666666677,
+      "pending_control_families": [],
+      "real_vs_alpha_zero_delta": 0.22000000000000006,
+      "real_vs_baseline_delta": 0.23000000000000012,
+      "real_vs_instantaneous_delta": 0.12666666666666662,
+      "real_vs_no_memory_delta": 0.16000000000000014,
+      "real_vs_random_delta": -0.03666666666666677,
+      "real_vs_shuffled_delta": 0.15666666666666687,
+      "scientific_claim_credit": 0.0,
+      "step": 2000
+    },
+    "pending_control_families": [],
+    "real_vs_alpha_zero_delta": 0.22000000000000006,
+    "real_vs_baseline_delta": 0.23000000000000012,
+    "real_vs_instantaneous_delta": 0.12666666666666662,
+    "real_vs_no_memory_delta": 0.16000000000000014,
+    "real_vs_random_delta": -0.03666666666666677,
+    "real_vs_shuffled_delta": 0.15666666666666687,
+    "scientific_claim_credit": 0.0
+  },
+  "final_matched_example": {
+    "attention_behavior_separation": 0.17333333333333334,
+    "available_control_families": [
+      "baseline",
+      "alpha_zero",
+      "random",
+      "shuffled",
+      "no_memory",
+      "instantaneous"
+    ],
+    "claim_eligibility": "eligible_complete_controls",
+    "control_family_status": {
+      "alpha_zero": "available",
+      "baseline": "available",
+      "instantaneous": "available",
+      "no_memory": "available",
+      "random": "available",
+      "shuffled": "available"
+    },
+    "control_penalty": 0.0,
+    "control_separation": 0.12666666666666662,
+    "control_separation_mode": "final_matched",
+    "control_separation_status": "pass_real_geometry_separated",
+    "decision_replay_record": {
+      "control_family_status": {
+        "alpha_zero": "available",
+        "baseline": "available",
+        "instantaneous": "available",
+        "no_memory": "available",
+        "random": "available",
+        "shuffled": "available"
+      },
+      "current_step": 2000,
+      "current_step_limit": null,
+      "decision": "pass_real_geometry_separated",
+      "matched_control_steps": [
+        500,
+        1000,
+        1500,
+        2000
+      ],
+      "mode": "final_matched",
+      "pending_control_families": [],
+      "rule": "baseline-only live gains are controller pressure; final claim requires matched late-window real-vs-control separation"
+    },
+    "final_matched_score": {
+      "attention_behavior_separation": 0.17333333333333334,
+      "control_penalty": 0.0,
+      "control_separation": 0.12666666666666662,
+      "matched_steps": [
+        1000,
+        1500,
+        2000
+      ],
+      "mean_deltas": {
+        "alpha_zero": 0.22000000000000006,
+        "baseline": 0.23000000000000012,
+        "instantaneous": 0.12666666666666662,
+        "no_memory": 0.16000000000000014,
+        "random": 0.14333333333333323,
+        "shuffled": 0.15666666666666687
+      },
+      "per_step": [
+        {
+          "attention_behavior_separation": 0.15,
+          "real_vs_alpha_zero_delta": 0.16000000000000014,
+          "real_vs_baseline_delta": 0.16999999999999993,
+          "real_vs_instantaneous_delta": 0.08000000000000007,
+          "real_vs_no_memory_delta": 0.11000000000000032,
+          "real_vs_random_delta": 0.09999999999999964,
+          "real_vs_shuffled_delta": 0.1200000000000001,
+          "step": 1000
+        },
+        {
+          "attention_behavior_separation": 0.18000000000000002,
+          "real_vs_alpha_zero_delta": 0.22999999999999954,
+          "real_vs_baseline_delta": 0.2400000000000002,
+          "real_vs_instantaneous_delta": 0.13999999999999968,
+          "real_vs_no_memory_delta": 0.16999999999999993,
+          "real_vs_random_delta": 0.15000000000000036,
+          "real_vs_shuffled_delta": 0.16000000000000014,
+          "step": 1500
+        },
+        {
+          "attention_behavior_separation": 0.18999999999999997,
+          "real_vs_alpha_zero_delta": 0.27000000000000046,
+          "real_vs_baseline_delta": 0.28000000000000025,
+          "real_vs_instantaneous_delta": 0.16000000000000014,
+          "real_vs_no_memory_delta": 0.20000000000000018,
+          "real_vs_random_delta": 0.17999999999999972,
+          "real_vs_shuffled_delta": 0.1900000000000004,
+          "step": 2000
+        }
+      ]
+    },
+    "generic_regularization_warning": "none",
+    "matched_control_steps": [
+      500,
+      1000,
+      1500,
+      2000
+    ],
+    "matched_control_window": {
+      "end_step": 2000,
+      "points": 3,
+      "start_step": 1000
+    },
+    "mode": "final_matched",
+    "partial_live_score": {
+      "available_control_families": [
+        "baseline",
+        "alpha_zero",
+        "random",
+        "shuffled",
+        "no_memory",
+        "instantaneous"
+      ],
+      "claim_eligibility": "eligible_complete_controls",
+      "control_separation": 0.12666666666666662,
+      "pending_control_families": [],
+      "real_vs_alpha_zero_delta": 0.22000000000000006,
+      "real_vs_baseline_delta": 0.23000000000000012,
+      "real_vs_instantaneous_delta": 0.12666666666666662,
+      "real_vs_no_memory_delta": 0.16000000000000014,
+      "real_vs_random_delta": 0.14333333333333323,
+      "real_vs_shuffled_delta": 0.15666666666666687,
+      "scientific_claim_credit": 0.12666666666666662,
+      "step": 2000
+    },
+    "pending_control_families": [],
+    "real_vs_alpha_zero_delta": 0.22000000000000006,
+    "real_vs_baseline_delta": 0.23000000000000012,
+    "real_vs_instantaneous_delta": 0.12666666666666662,
+    "real_vs_no_memory_delta": 0.16000000000000014,
+    "real_vs_random_delta": 0.14333333333333323,
+    "real_vs_shuffled_delta": 0.15666666666666687,
+    "scientific_claim_credit": 0.12666666666666662
+  },
+  "next_required_step": "meta_control_attention_observer",
+  "partial_live_example": {
+    "attention_behavior_separation": 0.1,
+    "available_control_families": [
+      "baseline"
+    ],
+    "claim_eligibility": "not_eligible_pending_controls",
+    "control_family_status": {
+      "alpha_zero": "pending",
+      "baseline": "available",
+      "instantaneous": "pending",
+      "no_memory": "pending",
+      "random": "pending",
+      "shuffled": "pending"
+    },
+    "control_penalty": 0.0,
+    "control_separation": 0.11000000000000032,
+    "control_separation_mode": "partial_live",
+    "control_separation_status": "partial_signal_only",
+    "decision_replay_record": {
+      "control_family_status": {
+        "alpha_zero": "pending",
+        "baseline": "available",
+        "instantaneous": "pending",
+        "no_memory": "pending",
+        "random": "pending",
+        "shuffled": "pending"
+      },
+      "current_step": 1000,
+      "current_step_limit": 1000,
+      "decision": "partial_signal_only",
+      "matched_control_steps": [],
+      "mode": "partial_live",
+      "pending_control_families": [
+        "alpha_zero",
+        "random",
+        "shuffled",
+        "no_memory",
+        "instantaneous"
+      ],
+      "rule": "baseline-only live gains are controller pressure; final claim requires matched late-window real-vs-control separation"
+    },
+    "final_matched_score": null,
+    "generic_regularization_warning": "baseline_only_signal_pending_controls",
+    "matched_control_steps": [],
+    "matched_control_window": {
+      "end_step": null,
+      "points": 0,
+      "start_step": null
+    },
+    "mode": "partial_live",
+    "partial_live_score": {
+      "available_control_families": [
+        "baseline"
+      ],
+      "claim_eligibility": "not_eligible_pending_controls",
+      "control_separation": 0.11000000000000032,
+      "pending_control_families": [
+        "alpha_zero",
+        "random",
+        "shuffled",
+        "no_memory",
+        "instantaneous"
+      ],
+      "real_vs_alpha_zero_delta": null,
+      "real_vs_baseline_delta": 0.11000000000000032,
+      "real_vs_instantaneous_delta": null,
+      "real_vs_no_memory_delta": null,
+      "real_vs_random_delta": null,
+      "real_vs_shuffled_delta": null,
+      "scientific_claim_credit": 0.0,
+      "step": 1000
+    },
+    "pending_control_families": [
+      "alpha_zero",
+      "random",
+      "shuffled",
+      "no_memory",
+      "instantaneous"
+    ],
+    "real_vs_alpha_zero_delta": null,
+    "real_vs_baseline_delta": 0.11000000000000032,
+    "real_vs_instantaneous_delta": null,
+    "real_vs_no_memory_delta": null,
+    "real_vs_random_delta": null,
+    "real_vs_shuffled_delta": null,
+    "scientific_claim_credit": 0.0
+  },
+  "required_outputs": [
+    "control_separation_mode",
+    "claim_eligibility",
+    "control_separation_status",
+    "scientific_claim_credit",
+    "available_control_families",
+    "pending_control_families",
+    "control_family_status",
+    "matched_control_steps",
+    "matched_control_window",
+    "real_vs_baseline_delta",
+    "real_vs_alpha_zero_delta",
+    "real_vs_random_delta",
+    "real_vs_shuffled_delta",
+    "real_vs_no_memory_delta",
+    "real_vs_instantaneous_delta",
+    "control_separation",
+    "control_penalty",
+    "generic_regularization_warning",
+    "attention_behavior_separation",
+    "partial_live_score",
+    "final_matched_score",
+    "decision_replay_record"
+  ],
+  "scientific_scope": "partial live scoring during sequential runs plus final matched late-window control separation after all controls exist",
+  "stage": "stage15_control_separation_scoring",
+  "status": "pass"
+}

@@ -152,6 +152,64 @@ def test_geo_attention_distance_modes_run_and_are_finite() -> None:
         assert torch.isfinite(result["attention_weights"]).all()
 
 
+def test_random_and_shuffled_controls_do_not_advance_global_rng_state() -> None:
+    torch.manual_seed(1)
+    hidden_states = torch.randn(2, 5, 16)
+
+    for distance_mode in ["random_d", "shuffled_d", "random_stable_causal_d"]:
+        attention = geo_attention_v2(distance_mode=distance_mode)
+        attention.set_training_step(17)
+
+        torch.manual_seed(999)
+        before = torch.random.get_rng_state()
+        attention.compute_control_graph(hidden_states)
+        after = torch.random.get_rng_state()
+
+        assert torch.equal(before, after)
+
+
+def test_random_control_forward_consumes_same_dropout_rng_as_real_control() -> None:
+    torch.manual_seed(1)
+    real = GeoAttention(
+        GeoAttentionConfig(
+            n_heads=2,
+            hidden_dim=16,
+            dropout=0.2,
+            distance_mode="real_d",
+            alpha_initial_value=0.1,
+            gradient_mode="detached_d",
+        ),
+        distance_config={"normalization": "offdiag_zscore_clamp", "diagonal_policy": "zero"},
+    )
+    random = GeoAttention(
+        GeoAttentionConfig(
+            n_heads=2,
+            hidden_dim=16,
+            dropout=0.2,
+            distance_mode="random_d",
+            alpha_initial_value=0.1,
+            gradient_mode="detached_d",
+            control_seed=2027,
+        ),
+        distance_config={"normalization": "offdiag_zscore_clamp", "diagonal_policy": "zero"},
+    )
+    random.qkv_proj.load_state_dict(real.qkv_proj.state_dict())
+    random.out_proj.load_state_dict(real.out_proj.state_dict())
+    hidden_states = torch.randn(2, 5, 16)
+    real.train()
+    random.train()
+
+    torch.manual_seed(999)
+    real(hidden_states)
+    real_after = torch.random.get_rng_state()
+
+    torch.manual_seed(999)
+    random(hidden_states)
+    random_after = torch.random.get_rng_state()
+
+    assert torch.equal(real_after, random_after)
+
+
 def test_geo_attention_v2_distance_modes_run_and_report_geometry_metadata() -> None:
     torch.manual_seed(1)
     hidden_states = torch.randn(2, 5, 16)
@@ -192,6 +250,17 @@ def test_geo_attention_v2_memory_blends_previous_layer_geometry() -> None:
     assert first["diagnostics"]["geometry_memory_used"] is False
     assert second["diagnostics"]["geometry_memory_used"] is True
     assert not torch.allclose(first["geometry_memory"], second["geometry_memory"])
+    for key in [
+        "memory_stability",
+        "memory_turnover",
+        "memory_persistence",
+        "memory_spectral_entropy",
+        "memory_effective_rank",
+        "memory_rigidity",
+        "noise_risk",
+    ]:
+        assert key in second["diagnostics"]
+        assert torch.isfinite(torch.tensor(second["diagnostics"][key]))
 
 
 def test_geo_attention_bias_penalizes_unreachable_past_distance() -> None:

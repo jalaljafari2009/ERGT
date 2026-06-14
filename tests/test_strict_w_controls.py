@@ -64,9 +64,15 @@ def test_geo_attention_random_and_shuffled_modes_use_w_level_controls() -> None:
         real_graph = attention.relational_graph(hidden_states, attention_mask)
         control_graph = attention.compute_control_graph(hidden_states, attention_mask)
         valid_edge_mask = make_valid_edge_mask_like(real_graph, attention_mask)
+        result = attention(hidden_states, attention_mask, return_diagnostics=True)
 
         assert torch.allclose(real_graph[~valid_edge_mask], control_graph[~valid_edge_mask])
         assert not torch.allclose(real_graph[valid_edge_mask], control_graph[valid_edge_mask])
+        assert result["diagnostics"]["control_rng_isolated"] is True
+        assert (
+            result["diagnostics"]["control_isolation_contract"]["control_rng"]
+            == "isolated_local_generator"
+        )
 
 
 def test_strict_w_controls_report_passes() -> None:

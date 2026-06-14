@@ -6,7 +6,6 @@ import argparse
 import json
 import math
 import random
-import shutil
 import sys
 import time
 from pathlib import Path
@@ -63,13 +62,14 @@ def main() -> None:
     config = load_json(config_path)
 
     seed = int(config["run"].get("seed", 1337))
+    ensure_attention_control_seed(config, seed)
     set_seed(seed)
 
     device = torch.device(args.device or ("cuda" if torch.cuda.is_available() else "cpu"))
     output_dir = Path(config["run"]["output_dir"])
     output_dir.mkdir(parents=True, exist_ok=True)
     (output_dir / "checkpoints").mkdir(exist_ok=True)
-    shutil.copyfile(config_path, output_dir / "config.json")
+    save_json(output_dir / "config.json", config)
 
     data_dir = Path(args.data_dir) if args.data_dir else default_data_dir(config)
     train_dataset, validation_dataset, metadata = load_prepared_or_raise(data_dir)
@@ -263,6 +263,13 @@ def set_seed(seed: int) -> None:
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
+
+
+def ensure_attention_control_seed(config: dict[str, Any], seed: int) -> None:
+    """Persist the W-control RNG seed used by random/shuffled conditions."""
+
+    attention = config.setdefault("attention", {})
+    attention.setdefault("control_seed", int(seed))
 
 
 def load_prepared_or_raise(data_dir: Path):

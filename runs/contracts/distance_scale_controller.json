@@ -1,0 +1,1253 @@
+{
+  "checks": {
+    "can_decrease_when_scale_is_noisy_or_clipped": true,
+    "can_increase_when_real_contrast_is_erased": true,
+    "clipping_and_control_become_restraint_pressure": true,
+    "future_leak_is_validity_hard_stop": true,
+    "injected_evidence_ledger_present": true,
+    "normalization_erasure_becomes_release_pressure": true,
+    "ordinary_distance_risk_does_not_abort": true,
+    "parameter_trajectory_present": true,
+    "replay_records_present": true,
+    "required_distance_scale_outputs_emitted": true,
+    "schema_declares_distance_scale_fields": true,
+    "uses_controller_error_terms": true
+  },
+  "config": {
+    "initial_distance_norm_scale": 1.0,
+    "max_clipping_saturation_rate": 0.2,
+    "max_collapse_for_increase": 0.35,
+    "max_distance_norm_scale": 4.0,
+    "max_geo_to_qk_ratio": 0.18,
+    "max_post_norm_std": 1.8,
+    "min_distance_norm_scale": 0.25,
+    "min_geo_to_qk_ratio": 0.03,
+    "min_post_norm_contrast": 0.2,
+    "min_post_norm_std": 0.25,
+    "min_pre_norm_contrast": 0.15,
+    "release_margin": 0.03,
+    "restraint_margin": 0.03,
+    "scale_step": 0.1,
+    "target_contrast_retention": 0.65,
+    "uniformity_entropy_threshold": 0.92
+  },
+  "controller_design": "evidence_balance_normalization_distance_scale",
+  "decisions": [
+    {
+      "attention_safety_evidence": {
+        "attention_entropy_normalized": 0.58,
+        "attention_uniform": false,
+        "collapse_high": false,
+        "collapse_risk": 0.05,
+        "future_leak_score": 0.0,
+        "hard_stop_triggered": false
+      },
+      "clipping_evidence": {
+        "clipping_high": false,
+        "clipping_saturation_pressure": 0.0,
+        "clipping_saturation_rate": 0.03
+      },
+      "contrast_evidence": {
+        "contrast_available_before_normalization": true,
+        "contrast_erased_by_normalization": true,
+        "contrast_retention_deficit": 0.45,
+        "distance_contrast_retention": 0.2,
+        "normalization_erasure_score": 0.53,
+        "post_norm_contrast_deficit": 0.08000000000000002,
+        "post_norm_distance_contrast": 0.12,
+        "pre_norm_distance_contrast": 0.6
+      },
+      "control_distance_evidence": {
+        "best_control_advantage": 0.03,
+        "control_dominates_real": false,
+        "random_distance_advantage": 0.03,
+        "real_distance_advantage": 0.22,
+        "shuffled_distance_advantage": 0.02
+      },
+      "controller_state_snapshot": {
+        "derivative_error": 1.25,
+        "error": 1.25,
+        "integral_error": 1.0,
+        "release_score": 1.25,
+        "restraint_score": 0.0
+      },
+      "current_distance_norm_scale": 1.1,
+      "decision": "increase_distance_scale",
+      "decision_replay_record": {
+        "config": {
+          "initial_distance_norm_scale": 1.0,
+          "max_clipping_saturation_rate": 0.2,
+          "max_collapse_for_increase": 0.35,
+          "max_distance_norm_scale": 4.0,
+          "max_geo_to_qk_ratio": 0.18,
+          "max_post_norm_std": 1.8,
+          "min_distance_norm_scale": 0.25,
+          "min_geo_to_qk_ratio": 0.03,
+          "min_post_norm_contrast": 0.2,
+          "min_post_norm_std": 0.25,
+          "min_pre_norm_contrast": 0.15,
+          "release_margin": 0.03,
+          "restraint_margin": 0.03,
+          "scale_step": 0.1,
+          "target_contrast_retention": 0.65,
+          "uniformity_entropy_threshold": 0.92
+        },
+        "controller": "normalization_distance_scale_controller",
+        "decision": "increase_distance_scale",
+        "observation": {
+          "attention_entropy_normalized": 0.58,
+          "clipping_saturation_rate": 0.03,
+          "collapse_risk": 0.05,
+          "distance_std_post_norm": 0.35,
+          "distance_std_pre_norm": 1.1,
+          "future_leak_score": 0.0,
+          "geo_to_qk_ratio": 0.015,
+          "hard_stop_reason": null,
+          "hard_stop_triggered": false,
+          "post_norm_distance_contrast": 0.12,
+          "pre_norm_distance_contrast": 0.6,
+          "random_distance_advantage": 0.03,
+          "real_distance_advantage": 0.22,
+          "shuffled_distance_advantage": 0.02,
+          "step": 100
+        },
+        "parameter_trajectory": {
+          "distance_norm_scale_delta": 0.10000000000000009,
+          "distance_norm_scale_next": 1.1,
+          "distance_norm_scale_previous": 1.0,
+          "distance_norm_scale_proposed": 1.1
+        },
+        "state_before_decision": {
+          "derivative_error": 1.25,
+          "error": 1.25,
+          "integral_error": 1.0,
+          "release_score": 1.25,
+          "restraint_score": 0.0
+        }
+      },
+      "distance_norm_scale_credit": 1.25,
+      "distance_norm_scale_delta": 0.10000000000000009,
+      "distance_norm_scale_risk_pressure": 0.0,
+      "injected_evidence_ledger": {
+        "attention_safety_evidence": {
+          "attention_entropy_normalized": 0.58,
+          "attention_uniform": false,
+          "collapse_high": false,
+          "collapse_risk": 0.05,
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false
+        },
+        "clipping_evidence": {
+          "clipping_high": false,
+          "clipping_saturation_pressure": 0.0,
+          "clipping_saturation_rate": 0.03
+        },
+        "contrast_evidence": {
+          "contrast_available_before_normalization": true,
+          "contrast_erased_by_normalization": true,
+          "contrast_retention_deficit": 0.45,
+          "distance_contrast_retention": 0.2,
+          "normalization_erasure_score": 0.53,
+          "post_norm_contrast_deficit": 0.08000000000000002,
+          "post_norm_distance_contrast": 0.12,
+          "pre_norm_distance_contrast": 0.6
+        },
+        "control_distance_evidence": {
+          "best_control_advantage": 0.03,
+          "control_dominates_real": false,
+          "random_distance_advantage": 0.03,
+          "real_distance_advantage": 0.22,
+          "shuffled_distance_advantage": 0.02
+        },
+        "release_evidence": {
+          "contrast_erasure_pressure": 0.53,
+          "geo_underpowered_pressure": 0.5,
+          "real_distance_advantage": 0.22
+        },
+        "restraint_evidence": {
+          "attention_uniformity_pressure": 0.0,
+          "clipping_saturation_pressure": 0.0,
+          "collapse_pressure": 0.0,
+          "control_dominance_pressure": 0.0,
+          "future_leak_pressure": 0.0,
+          "geo_overpowered_pressure": 0.0,
+          "no_pre_norm_signal_pressure": 0.0,
+          "post_norm_std_high_pressure": 0.0,
+          "post_norm_std_low_pressure": 0.0
+        },
+        "scale_evidence": {
+          "distance_std_post_norm": 0.35,
+          "distance_std_pre_norm": 1.1,
+          "geo_overpowered": false,
+          "geo_overpowered_pressure": 0.0,
+          "geo_to_qk_ratio": 0.015,
+          "geo_underpowered": true,
+          "geo_underpowered_pressure": 0.5,
+          "post_std_high_pressure": 0.0,
+          "post_std_low_pressure": 0.0
+        }
+      },
+      "parameter_trajectory": {
+        "distance_norm_scale_delta": 0.10000000000000009,
+        "distance_norm_scale_next": 1.1,
+        "distance_norm_scale_previous": 1.0,
+        "distance_norm_scale_proposed": 1.1
+      },
+      "previous_distance_norm_scale": 1.0,
+      "proposed_distance_norm_scale": 1.1,
+      "release_evidence": {
+        "contrast_erasure_pressure": 0.53,
+        "geo_underpowered_pressure": 0.5,
+        "real_distance_advantage": 0.22
+      },
+      "restraint_evidence": {
+        "attention_uniformity_pressure": 0.0,
+        "clipping_saturation_pressure": 0.0,
+        "collapse_pressure": 0.0,
+        "control_dominance_pressure": 0.0,
+        "future_leak_pressure": 0.0,
+        "geo_overpowered_pressure": 0.0,
+        "no_pre_norm_signal_pressure": 0.0,
+        "post_norm_std_high_pressure": 0.0,
+        "post_norm_std_low_pressure": 0.0
+      },
+      "scale_evidence": {
+        "distance_std_post_norm": 0.35,
+        "distance_std_pre_norm": 1.1,
+        "geo_overpowered": false,
+        "geo_overpowered_pressure": 0.0,
+        "geo_to_qk_ratio": 0.015,
+        "geo_underpowered": true,
+        "geo_underpowered_pressure": 0.5,
+        "post_std_high_pressure": 0.0,
+        "post_std_low_pressure": 0.0
+      },
+      "step": 100
+    },
+    {
+      "attention_safety_evidence": {
+        "attention_entropy_normalized": 0.95,
+        "attention_uniform": true,
+        "collapse_high": true,
+        "collapse_risk": 0.55,
+        "future_leak_score": 0.0,
+        "hard_stop_triggered": false
+      },
+      "clipping_evidence": {
+        "clipping_high": true,
+        "clipping_saturation_pressure": 0.26,
+        "clipping_saturation_rate": 0.46
+      },
+      "contrast_evidence": {
+        "contrast_available_before_normalization": false,
+        "contrast_erased_by_normalization": false,
+        "contrast_retention_deficit": 0.15000000000000002,
+        "distance_contrast_retention": 0.5,
+        "normalization_erasure_score": 0.31000000000000005,
+        "post_norm_contrast_deficit": 0.16,
+        "post_norm_distance_contrast": 0.04,
+        "pre_norm_distance_contrast": 0.08
+      },
+      "control_distance_evidence": {
+        "best_control_advantage": 0.12,
+        "control_dominates_real": true,
+        "random_distance_advantage": 0.12,
+        "real_distance_advantage": 0.02,
+        "shuffled_distance_advantage": 0.1
+      },
+      "controller_state_snapshot": {
+        "derivative_error": -3.454444444444445,
+        "error": -2.204444444444445,
+        "integral_error": -1.0,
+        "release_score": 0.0,
+        "restraint_score": 2.204444444444445
+      },
+      "current_distance_norm_scale": 1.0,
+      "decision": "decrease_distance_scale",
+      "decision_replay_record": {
+        "config": {
+          "initial_distance_norm_scale": 1.0,
+          "max_clipping_saturation_rate": 0.2,
+          "max_collapse_for_increase": 0.35,
+          "max_distance_norm_scale": 4.0,
+          "max_geo_to_qk_ratio": 0.18,
+          "max_post_norm_std": 1.8,
+          "min_distance_norm_scale": 0.25,
+          "min_geo_to_qk_ratio": 0.03,
+          "min_post_norm_contrast": 0.2,
+          "min_post_norm_std": 0.25,
+          "min_pre_norm_contrast": 0.15,
+          "release_margin": 0.03,
+          "restraint_margin": 0.03,
+          "scale_step": 0.1,
+          "target_contrast_retention": 0.65,
+          "uniformity_entropy_threshold": 0.92
+        },
+        "controller": "normalization_distance_scale_controller",
+        "decision": "decrease_distance_scale",
+        "observation": {
+          "attention_entropy_normalized": 0.95,
+          "clipping_saturation_rate": 0.46,
+          "collapse_risk": 0.55,
+          "distance_std_post_norm": 2.2,
+          "distance_std_pre_norm": 0.16,
+          "future_leak_score": 0.0,
+          "geo_to_qk_ratio": 0.26,
+          "hard_stop_reason": null,
+          "hard_stop_triggered": false,
+          "post_norm_distance_contrast": 0.04,
+          "pre_norm_distance_contrast": 0.08,
+          "random_distance_advantage": 0.12,
+          "real_distance_advantage": 0.02,
+          "shuffled_distance_advantage": 0.1,
+          "step": 200
+        },
+        "parameter_trajectory": {
+          "distance_norm_scale_delta": -0.10000000000000009,
+          "distance_norm_scale_next": 1.0,
+          "distance_norm_scale_previous": 1.1,
+          "distance_norm_scale_proposed": 1.0
+        },
+        "state_before_decision": {
+          "derivative_error": -3.454444444444445,
+          "error": -2.204444444444445,
+          "integral_error": -1.0,
+          "release_score": 0.0,
+          "restraint_score": 2.204444444444445
+        }
+      },
+      "distance_norm_scale_credit": -2.204444444444445,
+      "distance_norm_scale_delta": -0.10000000000000009,
+      "distance_norm_scale_risk_pressure": 2.204444444444445,
+      "injected_evidence_ledger": {
+        "attention_safety_evidence": {
+          "attention_entropy_normalized": 0.95,
+          "attention_uniform": true,
+          "collapse_high": true,
+          "collapse_risk": 0.55,
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false
+        },
+        "clipping_evidence": {
+          "clipping_high": true,
+          "clipping_saturation_pressure": 0.26,
+          "clipping_saturation_rate": 0.46
+        },
+        "contrast_evidence": {
+          "contrast_available_before_normalization": false,
+          "contrast_erased_by_normalization": false,
+          "contrast_retention_deficit": 0.15000000000000002,
+          "distance_contrast_retention": 0.5,
+          "normalization_erasure_score": 0.31000000000000005,
+          "post_norm_contrast_deficit": 0.16,
+          "post_norm_distance_contrast": 0.04,
+          "pre_norm_distance_contrast": 0.08
+        },
+        "control_distance_evidence": {
+          "best_control_advantage": 0.12,
+          "control_dominates_real": true,
+          "random_distance_advantage": 0.12,
+          "real_distance_advantage": 0.02,
+          "shuffled_distance_advantage": 0.1
+        },
+        "release_evidence": {
+          "contrast_erasure_pressure": 0.0,
+          "geo_underpowered_pressure": 0.0,
+          "real_distance_advantage": 0.0
+        },
+        "restraint_evidence": {
+          "attention_uniformity_pressure": 0.25,
+          "clipping_saturation_pressure": 0.26,
+          "collapse_pressure": 0.4,
+          "control_dominance_pressure": 0.09999999999999999,
+          "future_leak_pressure": 0.0,
+          "geo_overpowered_pressure": 0.44444444444444453,
+          "no_pre_norm_signal_pressure": 0.35,
+          "post_norm_std_high_pressure": 0.40000000000000013,
+          "post_norm_std_low_pressure": 0.0
+        },
+        "scale_evidence": {
+          "distance_std_post_norm": 2.2,
+          "distance_std_pre_norm": 0.16,
+          "geo_overpowered": true,
+          "geo_overpowered_pressure": 0.44444444444444453,
+          "geo_to_qk_ratio": 0.26,
+          "geo_underpowered": false,
+          "geo_underpowered_pressure": 0.0,
+          "post_std_high_pressure": 0.40000000000000013,
+          "post_std_low_pressure": 0.0
+        }
+      },
+      "parameter_trajectory": {
+        "distance_norm_scale_delta": -0.10000000000000009,
+        "distance_norm_scale_next": 1.0,
+        "distance_norm_scale_previous": 1.1,
+        "distance_norm_scale_proposed": 1.0
+      },
+      "previous_distance_norm_scale": 1.1,
+      "proposed_distance_norm_scale": 1.0,
+      "release_evidence": {
+        "contrast_erasure_pressure": 0.0,
+        "geo_underpowered_pressure": 0.0,
+        "real_distance_advantage": 0.0
+      },
+      "restraint_evidence": {
+        "attention_uniformity_pressure": 0.25,
+        "clipping_saturation_pressure": 0.26,
+        "collapse_pressure": 0.4,
+        "control_dominance_pressure": 0.09999999999999999,
+        "future_leak_pressure": 0.0,
+        "geo_overpowered_pressure": 0.44444444444444453,
+        "no_pre_norm_signal_pressure": 0.35,
+        "post_norm_std_high_pressure": 0.40000000000000013,
+        "post_norm_std_low_pressure": 0.0
+      },
+      "scale_evidence": {
+        "distance_std_post_norm": 2.2,
+        "distance_std_pre_norm": 0.16,
+        "geo_overpowered": true,
+        "geo_overpowered_pressure": 0.44444444444444453,
+        "geo_to_qk_ratio": 0.26,
+        "geo_underpowered": false,
+        "geo_underpowered_pressure": 0.0,
+        "post_std_high_pressure": 0.40000000000000013,
+        "post_std_low_pressure": 0.0
+      },
+      "step": 200
+    },
+    {
+      "attention_safety_evidence": {
+        "attention_entropy_normalized": 0.7,
+        "attention_uniform": false,
+        "collapse_high": false,
+        "collapse_risk": 0.08,
+        "future_leak_score": 0.0,
+        "hard_stop_triggered": false
+      },
+      "clipping_evidence": {
+        "clipping_high": false,
+        "clipping_saturation_pressure": 0.0,
+        "clipping_saturation_rate": 0.05
+      },
+      "contrast_evidence": {
+        "contrast_available_before_normalization": true,
+        "contrast_erased_by_normalization": false,
+        "contrast_retention_deficit": 0.0,
+        "distance_contrast_retention": 0.8095238095238096,
+        "normalization_erasure_score": 0.0,
+        "post_norm_contrast_deficit": 0.0,
+        "post_norm_distance_contrast": 0.34,
+        "pre_norm_distance_contrast": 0.42
+      },
+      "control_distance_evidence": {
+        "best_control_advantage": 0.03,
+        "control_dominates_real": false,
+        "random_distance_advantage": 0.03,
+        "real_distance_advantage": 0.04,
+        "shuffled_distance_advantage": 0.02
+      },
+      "controller_state_snapshot": {
+        "derivative_error": 2.204444444444445,
+        "error": 0.0,
+        "integral_error": -0.8,
+        "release_score": 0.0,
+        "restraint_score": 0.0
+      },
+      "current_distance_norm_scale": 1.0,
+      "decision": "hold_distance_scale",
+      "decision_replay_record": {
+        "config": {
+          "initial_distance_norm_scale": 1.0,
+          "max_clipping_saturation_rate": 0.2,
+          "max_collapse_for_increase": 0.35,
+          "max_distance_norm_scale": 4.0,
+          "max_geo_to_qk_ratio": 0.18,
+          "max_post_norm_std": 1.8,
+          "min_distance_norm_scale": 0.25,
+          "min_geo_to_qk_ratio": 0.03,
+          "min_post_norm_contrast": 0.2,
+          "min_post_norm_std": 0.25,
+          "min_pre_norm_contrast": 0.15,
+          "release_margin": 0.03,
+          "restraint_margin": 0.03,
+          "scale_step": 0.1,
+          "target_contrast_retention": 0.65,
+          "uniformity_entropy_threshold": 0.92
+        },
+        "controller": "normalization_distance_scale_controller",
+        "decision": "hold_distance_scale",
+        "observation": {
+          "attention_entropy_normalized": 0.7,
+          "clipping_saturation_rate": 0.05,
+          "collapse_risk": 0.08,
+          "distance_std_post_norm": 0.9,
+          "distance_std_pre_norm": 0.9,
+          "future_leak_score": 0.0,
+          "geo_to_qk_ratio": 0.08,
+          "hard_stop_reason": null,
+          "hard_stop_triggered": false,
+          "post_norm_distance_contrast": 0.34,
+          "pre_norm_distance_contrast": 0.42,
+          "random_distance_advantage": 0.03,
+          "real_distance_advantage": 0.04,
+          "shuffled_distance_advantage": 0.02,
+          "step": 300
+        },
+        "parameter_trajectory": {
+          "distance_norm_scale_delta": 0.0,
+          "distance_norm_scale_next": 1.0,
+          "distance_norm_scale_previous": 1.0,
+          "distance_norm_scale_proposed": 1.0
+        },
+        "state_before_decision": {
+          "derivative_error": 2.204444444444445,
+          "error": 0.0,
+          "integral_error": -0.8,
+          "release_score": 0.0,
+          "restraint_score": 0.0
+        }
+      },
+      "distance_norm_scale_credit": 0.0,
+      "distance_norm_scale_delta": 0.0,
+      "distance_norm_scale_risk_pressure": 0.0,
+      "injected_evidence_ledger": {
+        "attention_safety_evidence": {
+          "attention_entropy_normalized": 0.7,
+          "attention_uniform": false,
+          "collapse_high": false,
+          "collapse_risk": 0.08,
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false
+        },
+        "clipping_evidence": {
+          "clipping_high": false,
+          "clipping_saturation_pressure": 0.0,
+          "clipping_saturation_rate": 0.05
+        },
+        "contrast_evidence": {
+          "contrast_available_before_normalization": true,
+          "contrast_erased_by_normalization": false,
+          "contrast_retention_deficit": 0.0,
+          "distance_contrast_retention": 0.8095238095238096,
+          "normalization_erasure_score": 0.0,
+          "post_norm_contrast_deficit": 0.0,
+          "post_norm_distance_contrast": 0.34,
+          "pre_norm_distance_contrast": 0.42
+        },
+        "control_distance_evidence": {
+          "best_control_advantage": 0.03,
+          "control_dominates_real": false,
+          "random_distance_advantage": 0.03,
+          "real_distance_advantage": 0.04,
+          "shuffled_distance_advantage": 0.02
+        },
+        "release_evidence": {
+          "contrast_erasure_pressure": 0.0,
+          "geo_underpowered_pressure": 0.0,
+          "real_distance_advantage": 0.0
+        },
+        "restraint_evidence": {
+          "attention_uniformity_pressure": 0.0,
+          "clipping_saturation_pressure": 0.0,
+          "collapse_pressure": 0.0,
+          "control_dominance_pressure": 0.0,
+          "future_leak_pressure": 0.0,
+          "geo_overpowered_pressure": 0.0,
+          "no_pre_norm_signal_pressure": 0.0,
+          "post_norm_std_high_pressure": 0.0,
+          "post_norm_std_low_pressure": 0.0
+        },
+        "scale_evidence": {
+          "distance_std_post_norm": 0.9,
+          "distance_std_pre_norm": 0.9,
+          "geo_overpowered": false,
+          "geo_overpowered_pressure": 0.0,
+          "geo_to_qk_ratio": 0.08,
+          "geo_underpowered": false,
+          "geo_underpowered_pressure": 0.0,
+          "post_std_high_pressure": 0.0,
+          "post_std_low_pressure": 0.0
+        }
+      },
+      "parameter_trajectory": {
+        "distance_norm_scale_delta": 0.0,
+        "distance_norm_scale_next": 1.0,
+        "distance_norm_scale_previous": 1.0,
+        "distance_norm_scale_proposed": 1.0
+      },
+      "previous_distance_norm_scale": 1.0,
+      "proposed_distance_norm_scale": 1.0,
+      "release_evidence": {
+        "contrast_erasure_pressure": 0.0,
+        "geo_underpowered_pressure": 0.0,
+        "real_distance_advantage": 0.0
+      },
+      "restraint_evidence": {
+        "attention_uniformity_pressure": 0.0,
+        "clipping_saturation_pressure": 0.0,
+        "collapse_pressure": 0.0,
+        "control_dominance_pressure": 0.0,
+        "future_leak_pressure": 0.0,
+        "geo_overpowered_pressure": 0.0,
+        "no_pre_norm_signal_pressure": 0.0,
+        "post_norm_std_high_pressure": 0.0,
+        "post_norm_std_low_pressure": 0.0
+      },
+      "scale_evidence": {
+        "distance_std_post_norm": 0.9,
+        "distance_std_pre_norm": 0.9,
+        "geo_overpowered": false,
+        "geo_overpowered_pressure": 0.0,
+        "geo_to_qk_ratio": 0.08,
+        "geo_underpowered": false,
+        "geo_underpowered_pressure": 0.0,
+        "post_std_high_pressure": 0.0,
+        "post_std_low_pressure": 0.0
+      },
+      "step": 300
+    }
+  ],
+  "input_source": "synthetic_distance_scale_controller_smoke",
+  "next_required_step": "joint_parameter_budget_allocator",
+  "required_outputs": [
+    "current_distance_norm_scale",
+    "proposed_distance_norm_scale",
+    "distance_norm_scale_delta",
+    "distance_norm_scale_credit",
+    "distance_norm_scale_risk_pressure",
+    "contrast_evidence",
+    "scale_evidence",
+    "clipping_evidence",
+    "control_distance_evidence",
+    "attention_safety_evidence",
+    "release_evidence",
+    "restraint_evidence",
+    "parameter_trajectory",
+    "injected_evidence_ledger",
+    "controller_state_snapshot",
+    "decision_replay_record"
+  ],
+  "scientific_scope": "distance-scale search controller; contrast erasure, clipping, control dominance, and attention safety become replayable evidence",
+  "stage": "stage13_normalization_and_distance_scale_controller",
+  "status": "pass",
+  "summary": {
+    "config": {
+      "initial_distance_norm_scale": 1.0,
+      "max_clipping_saturation_rate": 0.2,
+      "max_collapse_for_increase": 0.35,
+      "max_distance_norm_scale": 4.0,
+      "max_geo_to_qk_ratio": 0.18,
+      "max_post_norm_std": 1.8,
+      "min_distance_norm_scale": 0.25,
+      "min_geo_to_qk_ratio": 0.03,
+      "min_post_norm_contrast": 0.2,
+      "min_post_norm_std": 0.25,
+      "min_pre_norm_contrast": 0.15,
+      "release_margin": 0.03,
+      "restraint_margin": 0.03,
+      "scale_step": 0.1,
+      "target_contrast_retention": 0.65,
+      "uniformity_entropy_threshold": 0.92
+    },
+    "controller_state_snapshot": {
+      "integral_error": -0.8,
+      "previous_error": 0.0
+    },
+    "current_distance_norm_scale": 1.0,
+    "decisions": [
+      {
+        "attention_safety_evidence": {
+          "attention_entropy_normalized": 0.58,
+          "attention_uniform": false,
+          "collapse_high": false,
+          "collapse_risk": 0.05,
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false
+        },
+        "clipping_evidence": {
+          "clipping_high": false,
+          "clipping_saturation_pressure": 0.0,
+          "clipping_saturation_rate": 0.03
+        },
+        "contrast_evidence": {
+          "contrast_available_before_normalization": true,
+          "contrast_erased_by_normalization": true,
+          "contrast_retention_deficit": 0.45,
+          "distance_contrast_retention": 0.2,
+          "normalization_erasure_score": 0.53,
+          "post_norm_contrast_deficit": 0.08000000000000002,
+          "post_norm_distance_contrast": 0.12,
+          "pre_norm_distance_contrast": 0.6
+        },
+        "control_distance_evidence": {
+          "best_control_advantage": 0.03,
+          "control_dominates_real": false,
+          "random_distance_advantage": 0.03,
+          "real_distance_advantage": 0.22,
+          "shuffled_distance_advantage": 0.02
+        },
+        "controller_state_snapshot": {
+          "derivative_error": 1.25,
+          "error": 1.25,
+          "integral_error": 1.0,
+          "release_score": 1.25,
+          "restraint_score": 0.0
+        },
+        "current_distance_norm_scale": 1.1,
+        "decision": "increase_distance_scale",
+        "decision_replay_record": {
+          "config": {
+            "initial_distance_norm_scale": 1.0,
+            "max_clipping_saturation_rate": 0.2,
+            "max_collapse_for_increase": 0.35,
+            "max_distance_norm_scale": 4.0,
+            "max_geo_to_qk_ratio": 0.18,
+            "max_post_norm_std": 1.8,
+            "min_distance_norm_scale": 0.25,
+            "min_geo_to_qk_ratio": 0.03,
+            "min_post_norm_contrast": 0.2,
+            "min_post_norm_std": 0.25,
+            "min_pre_norm_contrast": 0.15,
+            "release_margin": 0.03,
+            "restraint_margin": 0.03,
+            "scale_step": 0.1,
+            "target_contrast_retention": 0.65,
+            "uniformity_entropy_threshold": 0.92
+          },
+          "controller": "normalization_distance_scale_controller",
+          "decision": "increase_distance_scale",
+          "observation": {
+            "attention_entropy_normalized": 0.58,
+            "clipping_saturation_rate": 0.03,
+            "collapse_risk": 0.05,
+            "distance_std_post_norm": 0.35,
+            "distance_std_pre_norm": 1.1,
+            "future_leak_score": 0.0,
+            "geo_to_qk_ratio": 0.015,
+            "hard_stop_reason": null,
+            "hard_stop_triggered": false,
+            "post_norm_distance_contrast": 0.12,
+            "pre_norm_distance_contrast": 0.6,
+            "random_distance_advantage": 0.03,
+            "real_distance_advantage": 0.22,
+            "shuffled_distance_advantage": 0.02,
+            "step": 100
+          },
+          "parameter_trajectory": {
+            "distance_norm_scale_delta": 0.10000000000000009,
+            "distance_norm_scale_next": 1.1,
+            "distance_norm_scale_previous": 1.0,
+            "distance_norm_scale_proposed": 1.1
+          },
+          "state_before_decision": {
+            "derivative_error": 1.25,
+            "error": 1.25,
+            "integral_error": 1.0,
+            "release_score": 1.25,
+            "restraint_score": 0.0
+          }
+        },
+        "distance_norm_scale_credit": 1.25,
+        "distance_norm_scale_delta": 0.10000000000000009,
+        "distance_norm_scale_risk_pressure": 0.0,
+        "injected_evidence_ledger": {
+          "attention_safety_evidence": {
+            "attention_entropy_normalized": 0.58,
+            "attention_uniform": false,
+            "collapse_high": false,
+            "collapse_risk": 0.05,
+            "future_leak_score": 0.0,
+            "hard_stop_triggered": false
+          },
+          "clipping_evidence": {
+            "clipping_high": false,
+            "clipping_saturation_pressure": 0.0,
+            "clipping_saturation_rate": 0.03
+          },
+          "contrast_evidence": {
+            "contrast_available_before_normalization": true,
+            "contrast_erased_by_normalization": true,
+            "contrast_retention_deficit": 0.45,
+            "distance_contrast_retention": 0.2,
+            "normalization_erasure_score": 0.53,
+            "post_norm_contrast_deficit": 0.08000000000000002,
+            "post_norm_distance_contrast": 0.12,
+            "pre_norm_distance_contrast": 0.6
+          },
+          "control_distance_evidence": {
+            "best_control_advantage": 0.03,
+            "control_dominates_real": false,
+            "random_distance_advantage": 0.03,
+            "real_distance_advantage": 0.22,
+            "shuffled_distance_advantage": 0.02
+          },
+          "release_evidence": {
+            "contrast_erasure_pressure": 0.53,
+            "geo_underpowered_pressure": 0.5,
+            "real_distance_advantage": 0.22
+          },
+          "restraint_evidence": {
+            "attention_uniformity_pressure": 0.0,
+            "clipping_saturation_pressure": 0.0,
+            "collapse_pressure": 0.0,
+            "control_dominance_pressure": 0.0,
+            "future_leak_pressure": 0.0,
+            "geo_overpowered_pressure": 0.0,
+            "no_pre_norm_signal_pressure": 0.0,
+            "post_norm_std_high_pressure": 0.0,
+            "post_norm_std_low_pressure": 0.0
+          },
+          "scale_evidence": {
+            "distance_std_post_norm": 0.35,
+            "distance_std_pre_norm": 1.1,
+            "geo_overpowered": false,
+            "geo_overpowered_pressure": 0.0,
+            "geo_to_qk_ratio": 0.015,
+            "geo_underpowered": true,
+            "geo_underpowered_pressure": 0.5,
+            "post_std_high_pressure": 0.0,
+            "post_std_low_pressure": 0.0
+          }
+        },
+        "parameter_trajectory": {
+          "distance_norm_scale_delta": 0.10000000000000009,
+          "distance_norm_scale_next": 1.1,
+          "distance_norm_scale_previous": 1.0,
+          "distance_norm_scale_proposed": 1.1
+        },
+        "previous_distance_norm_scale": 1.0,
+        "proposed_distance_norm_scale": 1.1,
+        "release_evidence": {
+          "contrast_erasure_pressure": 0.53,
+          "geo_underpowered_pressure": 0.5,
+          "real_distance_advantage": 0.22
+        },
+        "restraint_evidence": {
+          "attention_uniformity_pressure": 0.0,
+          "clipping_saturation_pressure": 0.0,
+          "collapse_pressure": 0.0,
+          "control_dominance_pressure": 0.0,
+          "future_leak_pressure": 0.0,
+          "geo_overpowered_pressure": 0.0,
+          "no_pre_norm_signal_pressure": 0.0,
+          "post_norm_std_high_pressure": 0.0,
+          "post_norm_std_low_pressure": 0.0
+        },
+        "scale_evidence": {
+          "distance_std_post_norm": 0.35,
+          "distance_std_pre_norm": 1.1,
+          "geo_overpowered": false,
+          "geo_overpowered_pressure": 0.0,
+          "geo_to_qk_ratio": 0.015,
+          "geo_underpowered": true,
+          "geo_underpowered_pressure": 0.5,
+          "post_std_high_pressure": 0.0,
+          "post_std_low_pressure": 0.0
+        },
+        "step": 100
+      },
+      {
+        "attention_safety_evidence": {
+          "attention_entropy_normalized": 0.95,
+          "attention_uniform": true,
+          "collapse_high": true,
+          "collapse_risk": 0.55,
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false
+        },
+        "clipping_evidence": {
+          "clipping_high": true,
+          "clipping_saturation_pressure": 0.26,
+          "clipping_saturation_rate": 0.46
+        },
+        "contrast_evidence": {
+          "contrast_available_before_normalization": false,
+          "contrast_erased_by_normalization": false,
+          "contrast_retention_deficit": 0.15000000000000002,
+          "distance_contrast_retention": 0.5,
+          "normalization_erasure_score": 0.31000000000000005,
+          "post_norm_contrast_deficit": 0.16,
+          "post_norm_distance_contrast": 0.04,
+          "pre_norm_distance_contrast": 0.08
+        },
+        "control_distance_evidence": {
+          "best_control_advantage": 0.12,
+          "control_dominates_real": true,
+          "random_distance_advantage": 0.12,
+          "real_distance_advantage": 0.02,
+          "shuffled_distance_advantage": 0.1
+        },
+        "controller_state_snapshot": {
+          "derivative_error": -3.454444444444445,
+          "error": -2.204444444444445,
+          "integral_error": -1.0,
+          "release_score": 0.0,
+          "restraint_score": 2.204444444444445
+        },
+        "current_distance_norm_scale": 1.0,
+        "decision": "decrease_distance_scale",
+        "decision_replay_record": {
+          "config": {
+            "initial_distance_norm_scale": 1.0,
+            "max_clipping_saturation_rate": 0.2,
+            "max_collapse_for_increase": 0.35,
+            "max_distance_norm_scale": 4.0,
+            "max_geo_to_qk_ratio": 0.18,
+            "max_post_norm_std": 1.8,
+            "min_distance_norm_scale": 0.25,
+            "min_geo_to_qk_ratio": 0.03,
+            "min_post_norm_contrast": 0.2,
+            "min_post_norm_std": 0.25,
+            "min_pre_norm_contrast": 0.15,
+            "release_margin": 0.03,
+            "restraint_margin": 0.03,
+            "scale_step": 0.1,
+            "target_contrast_retention": 0.65,
+            "uniformity_entropy_threshold": 0.92
+          },
+          "controller": "normalization_distance_scale_controller",
+          "decision": "decrease_distance_scale",
+          "observation": {
+            "attention_entropy_normalized": 0.95,
+            "clipping_saturation_rate": 0.46,
+            "collapse_risk": 0.55,
+            "distance_std_post_norm": 2.2,
+            "distance_std_pre_norm": 0.16,
+            "future_leak_score": 0.0,
+            "geo_to_qk_ratio": 0.26,
+            "hard_stop_reason": null,
+            "hard_stop_triggered": false,
+            "post_norm_distance_contrast": 0.04,
+            "pre_norm_distance_contrast": 0.08,
+            "random_distance_advantage": 0.12,
+            "real_distance_advantage": 0.02,
+            "shuffled_distance_advantage": 0.1,
+            "step": 200
+          },
+          "parameter_trajectory": {
+            "distance_norm_scale_delta": -0.10000000000000009,
+            "distance_norm_scale_next": 1.0,
+            "distance_norm_scale_previous": 1.1,
+            "distance_norm_scale_proposed": 1.0
+          },
+          "state_before_decision": {
+            "derivative_error": -3.454444444444445,
+            "error": -2.204444444444445,
+            "integral_error": -1.0,
+            "release_score": 0.0,
+            "restraint_score": 2.204444444444445
+          }
+        },
+        "distance_norm_scale_credit": -2.204444444444445,
+        "distance_norm_scale_delta": -0.10000000000000009,
+        "distance_norm_scale_risk_pressure": 2.204444444444445,
+        "injected_evidence_ledger": {
+          "attention_safety_evidence": {
+            "attention_entropy_normalized": 0.95,
+            "attention_uniform": true,
+            "collapse_high": true,
+            "collapse_risk": 0.55,
+            "future_leak_score": 0.0,
+            "hard_stop_triggered": false
+          },
+          "clipping_evidence": {
+            "clipping_high": true,
+            "clipping_saturation_pressure": 0.26,
+            "clipping_saturation_rate": 0.46
+          },
+          "contrast_evidence": {
+            "contrast_available_before_normalization": false,
+            "contrast_erased_by_normalization": false,
+            "contrast_retention_deficit": 0.15000000000000002,
+            "distance_contrast_retention": 0.5,
+            "normalization_erasure_score": 0.31000000000000005,
+            "post_norm_contrast_deficit": 0.16,
+            "post_norm_distance_contrast": 0.04,
+            "pre_norm_distance_contrast": 0.08
+          },
+          "control_distance_evidence": {
+            "best_control_advantage": 0.12,
+            "control_dominates_real": true,
+            "random_distance_advantage": 0.12,
+            "real_distance_advantage": 0.02,
+            "shuffled_distance_advantage": 0.1
+          },
+          "release_evidence": {
+            "contrast_erasure_pressure": 0.0,
+            "geo_underpowered_pressure": 0.0,
+            "real_distance_advantage": 0.0
+          },
+          "restraint_evidence": {
+            "attention_uniformity_pressure": 0.25,
+            "clipping_saturation_pressure": 0.26,
+            "collapse_pressure": 0.4,
+            "control_dominance_pressure": 0.09999999999999999,
+            "future_leak_pressure": 0.0,
+            "geo_overpowered_pressure": 0.44444444444444453,
+            "no_pre_norm_signal_pressure": 0.35,
+            "post_norm_std_high_pressure": 0.40000000000000013,
+            "post_norm_std_low_pressure": 0.0
+          },
+          "scale_evidence": {
+            "distance_std_post_norm": 2.2,
+            "distance_std_pre_norm": 0.16,
+            "geo_overpowered": true,
+            "geo_overpowered_pressure": 0.44444444444444453,
+            "geo_to_qk_ratio": 0.26,
+            "geo_underpowered": false,
+            "geo_underpowered_pressure": 0.0,
+            "post_std_high_pressure": 0.40000000000000013,
+            "post_std_low_pressure": 0.0
+          }
+        },
+        "parameter_trajectory": {
+          "distance_norm_scale_delta": -0.10000000000000009,
+          "distance_norm_scale_next": 1.0,
+          "distance_norm_scale_previous": 1.1,
+          "distance_norm_scale_proposed": 1.0
+        },
+        "previous_distance_norm_scale": 1.1,
+        "proposed_distance_norm_scale": 1.0,
+        "release_evidence": {
+          "contrast_erasure_pressure": 0.0,
+          "geo_underpowered_pressure": 0.0,
+          "real_distance_advantage": 0.0
+        },
+        "restraint_evidence": {
+          "attention_uniformity_pressure": 0.25,
+          "clipping_saturation_pressure": 0.26,
+          "collapse_pressure": 0.4,
+          "control_dominance_pressure": 0.09999999999999999,
+          "future_leak_pressure": 0.0,
+          "geo_overpowered_pressure": 0.44444444444444453,
+          "no_pre_norm_signal_pressure": 0.35,
+          "post_norm_std_high_pressure": 0.40000000000000013,
+          "post_norm_std_low_pressure": 0.0
+        },
+        "scale_evidence": {
+          "distance_std_post_norm": 2.2,
+          "distance_std_pre_norm": 0.16,
+          "geo_overpowered": true,
+          "geo_overpowered_pressure": 0.44444444444444453,
+          "geo_to_qk_ratio": 0.26,
+          "geo_underpowered": false,
+          "geo_underpowered_pressure": 0.0,
+          "post_std_high_pressure": 0.40000000000000013,
+          "post_std_low_pressure": 0.0
+        },
+        "step": 200
+      },
+      {
+        "attention_safety_evidence": {
+          "attention_entropy_normalized": 0.7,
+          "attention_uniform": false,
+          "collapse_high": false,
+          "collapse_risk": 0.08,
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false
+        },
+        "clipping_evidence": {
+          "clipping_high": false,
+          "clipping_saturation_pressure": 0.0,
+          "clipping_saturation_rate": 0.05
+        },
+        "contrast_evidence": {
+          "contrast_available_before_normalization": true,
+          "contrast_erased_by_normalization": false,
+          "contrast_retention_deficit": 0.0,
+          "distance_contrast_retention": 0.8095238095238096,
+          "normalization_erasure_score": 0.0,
+          "post_norm_contrast_deficit": 0.0,
+          "post_norm_distance_contrast": 0.34,
+          "pre_norm_distance_contrast": 0.42
+        },
+        "control_distance_evidence": {
+          "best_control_advantage": 0.03,
+          "control_dominates_real": false,
+          "random_distance_advantage": 0.03,
+          "real_distance_advantage": 0.04,
+          "shuffled_distance_advantage": 0.02
+        },
+        "controller_state_snapshot": {
+          "derivative_error": 2.204444444444445,
+          "error": 0.0,
+          "integral_error": -0.8,
+          "release_score": 0.0,
+          "restraint_score": 0.0
+        },
+        "current_distance_norm_scale": 1.0,
+        "decision": "hold_distance_scale",
+        "decision_replay_record": {
+          "config": {
+            "initial_distance_norm_scale": 1.0,
+            "max_clipping_saturation_rate": 0.2,
+            "max_collapse_for_increase": 0.35,
+            "max_distance_norm_scale": 4.0,
+            "max_geo_to_qk_ratio": 0.18,
+            "max_post_norm_std": 1.8,
+            "min_distance_norm_scale": 0.25,
+            "min_geo_to_qk_ratio": 0.03,
+            "min_post_norm_contrast": 0.2,
+            "min_post_norm_std": 0.25,
+            "min_pre_norm_contrast": 0.15,
+            "release_margin": 0.03,
+            "restraint_margin": 0.03,
+            "scale_step": 0.1,
+            "target_contrast_retention": 0.65,
+            "uniformity_entropy_threshold": 0.92
+          },
+          "controller": "normalization_distance_scale_controller",
+          "decision": "hold_distance_scale",
+          "observation": {
+            "attention_entropy_normalized": 0.7,
+            "clipping_saturation_rate": 0.05,
+            "collapse_risk": 0.08,
+            "distance_std_post_norm": 0.9,
+            "distance_std_pre_norm": 0.9,
+            "future_leak_score": 0.0,
+            "geo_to_qk_ratio": 0.08,
+            "hard_stop_reason": null,
+            "hard_stop_triggered": false,
+            "post_norm_distance_contrast": 0.34,
+            "pre_norm_distance_contrast": 0.42,
+            "random_distance_advantage": 0.03,
+            "real_distance_advantage": 0.04,
+            "shuffled_distance_advantage": 0.02,
+            "step": 300
+          },
+          "parameter_trajectory": {
+            "distance_norm_scale_delta": 0.0,
+            "distance_norm_scale_next": 1.0,
+            "distance_norm_scale_previous": 1.0,
+            "distance_norm_scale_proposed": 1.0
+          },
+          "state_before_decision": {
+            "derivative_error": 2.204444444444445,
+            "error": 0.0,
+            "integral_error": -0.8,
+            "release_score": 0.0,
+            "restraint_score": 0.0
+          }
+        },
+        "distance_norm_scale_credit": 0.0,
+        "distance_norm_scale_delta": 0.0,
+        "distance_norm_scale_risk_pressure": 0.0,
+        "injected_evidence_ledger": {
+          "attention_safety_evidence": {
+            "attention_entropy_normalized": 0.7,
+            "attention_uniform": false,
+            "collapse_high": false,
+            "collapse_risk": 0.08,
+            "future_leak_score": 0.0,
+            "hard_stop_triggered": false
+          },
+          "clipping_evidence": {
+            "clipping_high": false,
+            "clipping_saturation_pressure": 0.0,
+            "clipping_saturation_rate": 0.05
+          },
+          "contrast_evidence": {
+            "contrast_available_before_normalization": true,
+            "contrast_erased_by_normalization": false,
+            "contrast_retention_deficit": 0.0,
+            "distance_contrast_retention": 0.8095238095238096,
+            "normalization_erasure_score": 0.0,
+            "post_norm_contrast_deficit": 0.0,
+            "post_norm_distance_contrast": 0.34,
+            "pre_norm_distance_contrast": 0.42
+          },
+          "control_distance_evidence": {
+            "best_control_advantage": 0.03,
+            "control_dominates_real": false,
+            "random_distance_advantage": 0.03,
+            "real_distance_advantage": 0.04,
+            "shuffled_distance_advantage": 0.02
+          },
+          "release_evidence": {
+            "contrast_erasure_pressure": 0.0,
+            "geo_underpowered_pressure": 0.0,
+            "real_distance_advantage": 0.0
+          },
+          "restraint_evidence": {
+            "attention_uniformity_pressure": 0.0,
+            "clipping_saturation_pressure": 0.0,
+            "collapse_pressure": 0.0,
+            "control_dominance_pressure": 0.0,
+            "future_leak_pressure": 0.0,
+            "geo_overpowered_pressure": 0.0,
+            "no_pre_norm_signal_pressure": 0.0,
+            "post_norm_std_high_pressure": 0.0,
+            "post_norm_std_low_pressure": 0.0
+          },
+          "scale_evidence": {
+            "distance_std_post_norm": 0.9,
+            "distance_std_pre_norm": 0.9,
+            "geo_overpowered": false,
+            "geo_overpowered_pressure": 0.0,
+            "geo_to_qk_ratio": 0.08,
+            "geo_underpowered": false,
+            "geo_underpowered_pressure": 0.0,
+            "post_std_high_pressure": 0.0,
+            "post_std_low_pressure": 0.0
+          }
+        },
+        "parameter_trajectory": {
+          "distance_norm_scale_delta": 0.0,
+          "distance_norm_scale_next": 1.0,
+          "distance_norm_scale_previous": 1.0,
+          "distance_norm_scale_proposed": 1.0
+        },
+        "previous_distance_norm_scale": 1.0,
+        "proposed_distance_norm_scale": 1.0,
+        "release_evidence": {
+          "contrast_erasure_pressure": 0.0,
+          "geo_underpowered_pressure": 0.0,
+          "real_distance_advantage": 0.0
+        },
+        "restraint_evidence": {
+          "attention_uniformity_pressure": 0.0,
+          "clipping_saturation_pressure": 0.0,
+          "collapse_pressure": 0.0,
+          "control_dominance_pressure": 0.0,
+          "future_leak_pressure": 0.0,
+          "geo_overpowered_pressure": 0.0,
+          "no_pre_norm_signal_pressure": 0.0,
+          "post_norm_std_high_pressure": 0.0,
+          "post_norm_std_low_pressure": 0.0
+        },
+        "scale_evidence": {
+          "distance_std_post_norm": 0.9,
+          "distance_std_pre_norm": 0.9,
+          "geo_overpowered": false,
+          "geo_overpowered_pressure": 0.0,
+          "geo_to_qk_ratio": 0.08,
+          "geo_underpowered": false,
+          "geo_underpowered_pressure": 0.0,
+          "post_std_high_pressure": 0.0,
+          "post_std_low_pressure": 0.0
+        },
+        "step": 300
+      }
+    ],
+    "parameter_trajectory": [
+      {
+        "distance_norm_scale_delta": 0.10000000000000009,
+        "distance_norm_scale_next": 1.1,
+        "distance_norm_scale_previous": 1.0,
+        "distance_norm_scale_proposed": 1.1
+      },
+      {
+        "distance_norm_scale_delta": -0.10000000000000009,
+        "distance_norm_scale_next": 1.0,
+        "distance_norm_scale_previous": 1.1,
+        "distance_norm_scale_proposed": 1.0
+      },
+      {
+        "distance_norm_scale_delta": 0.0,
+        "distance_norm_scale_next": 1.0,
+        "distance_norm_scale_previous": 1.0,
+        "distance_norm_scale_proposed": 1.0
+      }
+    ]
+  }
+}

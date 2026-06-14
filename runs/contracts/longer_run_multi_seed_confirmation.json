@@ -1,0 +1,444 @@
+{
+  "aggregate_confirmation_summary": {
+    "all_profiles_pass": true,
+    "longer_run_profile_passes": true,
+    "multi_seed_profile_passes": true,
+    "profile_results": {
+      "longer_single_seed_5000": {
+        "all_seeds_pass": true,
+        "median_relation_specific_advantage": 0.0962499999999995,
+        "minimum_relation_specific_advantage": 0.0962499999999995,
+        "passing_seed_count": 1,
+        "seed_count": 1
+      },
+      "multi_seed_2000": {
+        "all_seeds_pass": true,
+        "median_relation_specific_advantage": 0.09905000000000008,
+        "minimum_relation_specific_advantage": 0.0962499999999995,
+        "passing_seed_count": 3,
+        "seed_count": 3
+      }
+    }
+  },
+  "checks": {
+    "all_required_conditions_in_manifest": true,
+    "anti_overclaim_boundary_present": true,
+    "decision_gate_passed": true,
+    "guarded_2000_passed": true,
+    "late_window_passed": true,
+    "lightweight_artifact_policy": true,
+    "longer_profile_declared": true,
+    "longer_run_profile_passes": true,
+    "matched_confirmation_windows_present": true,
+    "multi_seed_has_required_seed_count": true,
+    "multi_seed_profile_declared": true,
+    "multi_seed_profile_passes": true,
+    "no_random_or_shuffled_dominance": true,
+    "real_beats_all_controls_every_seed": true,
+    "required_outputs_present": true,
+    "revision_loop_ready_for_stage26": true,
+    "short_smoke_passed": true
+  },
+  "config": {
+    "artifact_bundle_name": "ergt_04_confirmation_report_bundle.zip",
+    "baseline_condition": "baseline",
+    "conditions": [
+      "baseline",
+      "alpha_zero",
+      "real_memory_d",
+      "random_memory_d",
+      "shuffled_memory_d",
+      "no_memory_real_d",
+      "instantaneous_real_d"
+    ],
+    "eval_interval": 100,
+    "live_display_interval": 100,
+    "longer_profile": "longer_single_seed_5000",
+    "max_future_leak_score": 0.0,
+    "min_control_advantage": 0.0,
+    "min_median_relation_advantage": 0.0,
+    "min_seed_count": 3,
+    "primary_multi_seed_profile": "multi_seed_2000",
+    "profiles": [
+      "longer_single_seed_5000",
+      "multi_seed_2000"
+    ],
+    "real_condition": "real_memory_d"
+  },
+  "confirmation_run_manifest": {
+    "artifact_bundle_name": "ergt_04_confirmation_report_bundle.zip",
+    "checkpoint_artifacts_excluded": true,
+    "decision_rule": "every seed must show real stable causal geometry beating baseline, alpha-zero, random, shuffled, no-memory, and instantaneous controls inside that profile's decision window",
+    "lightweight_review_artifacts_only": true,
+    "no_peek_rule": "each seed/profile runs conditions sequentially; live real rows cannot read later random, shuffled, no-memory, or instantaneous controls",
+    "profiles": [
+      {
+        "conditions": [
+          "baseline",
+          "alpha_zero",
+          "real_memory_d",
+          "random_memory_d",
+          "shuffled_memory_d",
+          "no_memory_real_d",
+          "instantaneous_real_d"
+        ],
+        "decision_window": {
+          "end_step": 5000,
+          "start_step": 2500
+        },
+        "eval_interval": 100,
+        "live_display_interval": 100,
+        "max_steps": 5000,
+        "profile": "longer_single_seed_5000",
+        "purpose": "single-seed longer-run persistence check",
+        "required_per_step_fields": [
+          "validation_loss",
+          "geo_to_qk_ratio",
+          "attention_entropy",
+          "mean_max_probability",
+          "memory_stability",
+          "memory_persistence",
+          "distance_contrast_retention",
+          "future_leak_score",
+          "attention_behavior_score"
+        ],
+        "run_order": [
+          "baseline",
+          "alpha_zero",
+          "real_memory_d",
+          "random_memory_d",
+          "shuffled_memory_d",
+          "no_memory_real_d",
+          "instantaneous_real_d"
+        ],
+        "seeds": [
+          2027
+        ]
+      },
+      {
+        "conditions": [
+          "baseline",
+          "alpha_zero",
+          "real_memory_d",
+          "random_memory_d",
+          "shuffled_memory_d",
+          "no_memory_real_d",
+          "instantaneous_real_d"
+        ],
+        "decision_window": {
+          "end_step": 2000,
+          "start_step": 1000
+        },
+        "eval_interval": 100,
+        "live_display_interval": 100,
+        "max_steps": 2000,
+        "profile": "multi_seed_2000",
+        "purpose": "matched multi-seed robustness check",
+        "required_per_step_fields": [
+          "validation_loss",
+          "geo_to_qk_ratio",
+          "attention_entropy",
+          "mean_max_probability",
+          "memory_stability",
+          "memory_persistence",
+          "distance_contrast_retention",
+          "future_leak_score",
+          "attention_behavior_score"
+        ],
+        "run_order": [
+          "baseline",
+          "alpha_zero",
+          "real_memory_d",
+          "random_memory_d",
+          "shuffled_memory_d",
+          "no_memory_real_d",
+          "instantaneous_real_d"
+        ],
+        "seeds": [
+          2027,
+          2028,
+          2029
+        ]
+      }
+    ]
+  },
+  "next_required_step": "run_real_longer_or_multi_seed_confirmation",
+  "prerequisite_gate_summary": {
+    "decision_gate": {
+      "passed": true,
+      "stage": "stage24_decision_gate_real_geometry_vs_generic_regularization",
+      "status": "pass"
+    },
+    "guarded_2000": {
+      "passed": true,
+      "stage": "stage21_guarded_2000_step_adaptive_run",
+      "status": "pass"
+    },
+    "late_window": {
+      "passed": true,
+      "stage": "stage22_late_window_post1000_analysis",
+      "status": "pass"
+    },
+    "revision_loop": {
+      "passed": true,
+      "revision_mode": "noop_audit",
+      "stage": "stage25_controller_revision_loop",
+      "stage26_ready": true,
+      "status": "pass"
+    },
+    "short_smoke": {
+      "passed": true,
+      "stage": "stage20_short_smoke_failure_safety_validation",
+      "status": "pass"
+    }
+  },
+  "profile_seed_summaries": [
+    {
+      "condition_points": {
+        "alpha_zero": 26,
+        "baseline": 26,
+        "instantaneous_real_d": 26,
+        "no_memory_real_d": 26,
+        "random_memory_d": 26,
+        "real_memory_d": 26,
+        "shuffled_memory_d": 26
+      },
+      "decision_window": {
+        "end_step": 5000,
+        "start_step": 2500
+      },
+      "max_future_leak_score": 0.0,
+      "mean_attention_behavior_score": {
+        "alpha_zero": 0.375,
+        "baseline": 0.375,
+        "instantaneous_real_d": 0.375,
+        "no_memory_real_d": 0.375,
+        "random_memory_d": 0.34750000000000003,
+        "real_memory_d": 0.525,
+        "shuffled_memory_d": 0.34750000000000003
+      },
+      "mean_geo_to_qk_ratio": {
+        "alpha_zero": 0.0,
+        "baseline": 0.0,
+        "instantaneous_real_d": 0.06506250000000001,
+        "no_memory_real_d": 0.06506250000000001,
+        "random_memory_d": 0.06506250000000001,
+        "real_memory_d": 0.10550000000000001,
+        "shuffled_memory_d": 0.06506250000000001
+      },
+      "mean_validation_loss": {
+        "alpha_zero": 5.720999999999999,
+        "baseline": 5.720999999999999,
+        "instantaneous_real_d": 5.63725,
+        "no_memory_real_d": 5.649749999999999,
+        "random_memory_d": 5.6522499999999996,
+        "real_memory_d": 5.541,
+        "shuffled_memory_d": 5.66025
+      },
+      "profile": "longer_single_seed_5000",
+      "random_dominates_real": false,
+      "real_beats_all_controls": true,
+      "real_vs_control_deltas": {
+        "alpha_zero": 0.17999999999999883,
+        "baseline": 0.17999999999999883,
+        "instantaneous_real_d": 0.0962499999999995,
+        "no_memory_real_d": 0.10874999999999879,
+        "random_memory_d": 0.11124999999999918,
+        "shuffled_memory_d": 0.11924999999999919
+      },
+      "relation_specific_advantage": 0.0962499999999995,
+      "seed": 2027,
+      "shuffled_dominates_real": false
+    },
+    {
+      "condition_points": {
+        "alpha_zero": 11,
+        "baseline": 11,
+        "instantaneous_real_d": 11,
+        "no_memory_real_d": 11,
+        "random_memory_d": 11,
+        "real_memory_d": 11,
+        "shuffled_memory_d": 11
+      },
+      "decision_window": {
+        "end_step": 2000,
+        "start_step": 1000
+      },
+      "max_future_leak_score": 0.0,
+      "mean_attention_behavior_score": {
+        "alpha_zero": 0.375,
+        "baseline": 0.375,
+        "instantaneous_real_d": 0.375,
+        "no_memory_real_d": 0.375,
+        "random_memory_d": 0.34750000000000003,
+        "real_memory_d": 0.525,
+        "shuffled_memory_d": 0.34750000000000003
+      },
+      "mean_geo_to_qk_ratio": {
+        "alpha_zero": 0.0,
+        "baseline": 0.0,
+        "instantaneous_real_d": 0.06506250000000001,
+        "no_memory_real_d": 0.06506250000000001,
+        "random_memory_d": 0.06506250000000001,
+        "real_memory_d": 0.10550000000000001,
+        "shuffled_memory_d": 0.06506250000000001
+      },
+      "mean_validation_loss": {
+        "alpha_zero": 5.7212499999999995,
+        "baseline": 5.7212499999999995,
+        "instantaneous_real_d": 5.637499999999999,
+        "no_memory_real_d": 5.6499999999999995,
+        "random_memory_d": 5.6525,
+        "real_memory_d": 5.54125,
+        "shuffled_memory_d": 5.6605
+      },
+      "profile": "multi_seed_2000",
+      "random_dominates_real": false,
+      "real_beats_all_controls": true,
+      "real_vs_control_deltas": {
+        "alpha_zero": 0.17999999999999972,
+        "baseline": 0.17999999999999972,
+        "instantaneous_real_d": 0.0962499999999995,
+        "no_memory_real_d": 0.10874999999999968,
+        "random_memory_d": 0.11125000000000007,
+        "shuffled_memory_d": 0.11925000000000008
+      },
+      "relation_specific_advantage": 0.0962499999999995,
+      "seed": 2027,
+      "shuffled_dominates_real": false
+    },
+    {
+      "condition_points": {
+        "alpha_zero": 11,
+        "baseline": 11,
+        "instantaneous_real_d": 11,
+        "no_memory_real_d": 11,
+        "random_memory_d": 11,
+        "real_memory_d": 11,
+        "shuffled_memory_d": 11
+      },
+      "decision_window": {
+        "end_step": 2000,
+        "start_step": 1000
+      },
+      "max_future_leak_score": 0.0,
+      "mean_attention_behavior_score": {
+        "alpha_zero": 0.375,
+        "baseline": 0.375,
+        "instantaneous_real_d": 0.375,
+        "no_memory_real_d": 0.375,
+        "random_memory_d": 0.34750000000000003,
+        "real_memory_d": 0.525,
+        "shuffled_memory_d": 0.34750000000000003
+      },
+      "mean_geo_to_qk_ratio": {
+        "alpha_zero": 0.0,
+        "baseline": 0.0,
+        "instantaneous_real_d": 0.06506250000000001,
+        "no_memory_real_d": 0.06506250000000001,
+        "random_memory_d": 0.06506250000000001,
+        "real_memory_d": 0.10550000000000001,
+        "shuffled_memory_d": 0.06506250000000001
+      },
+      "mean_validation_loss": {
+        "alpha_zero": 5.72725,
+        "baseline": 5.72725,
+        "instantaneous_real_d": 5.6423,
+        "no_memory_real_d": 5.6548,
+        "random_memory_d": 5.6571,
+        "real_memory_d": 5.54325,
+        "shuffled_memory_d": 5.665500000000001
+      },
+      "profile": "multi_seed_2000",
+      "random_dominates_real": false,
+      "real_beats_all_controls": true,
+      "real_vs_control_deltas": {
+        "alpha_zero": 0.18400000000000016,
+        "baseline": 0.18400000000000016,
+        "instantaneous_real_d": 0.09905000000000008,
+        "no_memory_real_d": 0.11155000000000026,
+        "random_memory_d": 0.11385000000000023,
+        "shuffled_memory_d": 0.12225000000000108
+      },
+      "relation_specific_advantage": 0.09905000000000008,
+      "seed": 2028,
+      "shuffled_dominates_real": false
+    },
+    {
+      "condition_points": {
+        "alpha_zero": 11,
+        "baseline": 11,
+        "instantaneous_real_d": 11,
+        "no_memory_real_d": 11,
+        "random_memory_d": 11,
+        "real_memory_d": 11,
+        "shuffled_memory_d": 11
+      },
+      "decision_window": {
+        "end_step": 2000,
+        "start_step": 1000
+      },
+      "max_future_leak_score": 0.0,
+      "mean_attention_behavior_score": {
+        "alpha_zero": 0.375,
+        "baseline": 0.375,
+        "instantaneous_real_d": 0.375,
+        "no_memory_real_d": 0.375,
+        "random_memory_d": 0.34750000000000003,
+        "real_memory_d": 0.525,
+        "shuffled_memory_d": 0.34750000000000003
+      },
+      "mean_geo_to_qk_ratio": {
+        "alpha_zero": 0.0,
+        "baseline": 0.0,
+        "instantaneous_real_d": 0.06506250000000001,
+        "no_memory_real_d": 0.06506250000000001,
+        "random_memory_d": 0.06506250000000001,
+        "real_memory_d": 0.10550000000000001,
+        "shuffled_memory_d": 0.06506250000000001
+      },
+      "mean_validation_loss": {
+        "alpha_zero": 5.733249999999999,
+        "baseline": 5.733249999999999,
+        "instantaneous_real_d": 5.647099999999999,
+        "no_memory_real_d": 5.659599999999999,
+        "random_memory_d": 5.6617,
+        "real_memory_d": 5.545249999999999,
+        "shuffled_memory_d": 5.670499999999999
+      },
+      "profile": "multi_seed_2000",
+      "random_dominates_real": false,
+      "real_beats_all_controls": true,
+      "real_vs_control_deltas": {
+        "alpha_zero": 0.18799999999999972,
+        "baseline": 0.18799999999999972,
+        "instantaneous_real_d": 0.10184999999999977,
+        "no_memory_real_d": 0.11434999999999995,
+        "random_memory_d": 0.11645000000000039,
+        "shuffled_memory_d": 0.12524999999999942
+      },
+      "relation_specific_advantage": 0.10184999999999977,
+      "seed": 2029,
+      "shuffled_dominates_real": false
+    }
+  ],
+  "random_shuffled_dominance_audit": {
+    "random_dominance_cases": [],
+    "random_or_shuffled_dominance_detected": false,
+    "shuffled_dominance_cases": []
+  },
+  "real_confirmation_boundary": "This replay validates confirmation mechanics only. Real longer-run or multi-seed telemetry is still required before stronger claims.",
+  "required_outputs": [
+    "confirmation_run_manifest",
+    "prerequisite_gate_summary",
+    "profile_seed_summaries",
+    "aggregate_confirmation_summary",
+    "random_shuffled_dominance_audit",
+    "stage26_decision",
+    "real_confirmation_boundary"
+  ],
+  "scientific_scope": "confirmation contract and readiness gate; defines longer-run and multi-seed matched-control confirmation and blocks real scientific claims until actual telemetry satisfies the same rules",
+  "stage": "stage26_longer_run_or_multi_seed_confirmation",
+  "stage26_decision": "confirmation_contract_ready",
+  "status": "pass"
+}

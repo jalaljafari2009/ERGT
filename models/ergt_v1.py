@@ -41,11 +41,11 @@ class ERGTV1Config:
 
 
 class ERGTBlock(nn.Module):
-    def __init__(self, config: ERGTV1Config) -> None:
+    def __init__(self, config: ERGTV1Config, *, layer_index: int) -> None:
         super().__init__()
         self.ln_1 = nn.LayerNorm(config.hidden_dim, bias=config.bias)
         self.attn = GeoAttention(
-            _geo_attention_config(config),
+            _geo_attention_config(config, layer_index=layer_index),
             relational_graph_config=config.relational_graph,
             distance_config=_distance_config(config),
         )
@@ -122,7 +122,9 @@ class ERGTV1(nn.Module):
         self.token_embedding = nn.Embedding(config.vocab_size, config.hidden_dim)
         self.position_embedding = nn.Embedding(config.context_length, config.hidden_dim)
         self.dropout = nn.Dropout(config.dropout)
-        self.blocks = nn.ModuleList([ERGTBlock(config) for _ in range(config.n_layers)])
+        self.blocks = nn.ModuleList(
+            [ERGTBlock(config, layer_index=index) for index in range(config.n_layers)]
+        )
         self.final_ln = nn.LayerNorm(config.hidden_dim, bias=config.bias)
         self.lm_head = nn.Linear(config.hidden_dim, config.vocab_size, bias=False)
 
@@ -262,6 +264,11 @@ def _coerce_project_config(config: dict[str, Any]) -> ERGTV1Config:
         context_length = config.get("dataset", {}).get("context_length")
     if context_length is None:
         raise ValueError("context_length must be provided in model or dataset config")
+    attention = dict(config.get("attention") or {})
+    run_seed = config.get("run", {}).get("seed")
+    if "control_seed" not in attention and run_seed is not None:
+        attention["control_seed"] = int(run_seed)
+
     return ERGTV1Config(
         vocab_size=int(model["vocab_size"]),
         context_length=int(context_length),
@@ -271,16 +278,17 @@ def _coerce_project_config(config: dict[str, Any]) -> ERGTV1Config:
         ffn_dim=int(model.get("ffn_dim", 1024)),
         dropout=float(model.get("dropout", 0.1)),
         bias=bool(model.get("bias", True)),
-        attention=config.get("attention"),
+        attention=attention,
         relational_graph=config.get("relational_graph"),
         distance=config.get("distance"),
     )
 
 
-def _geo_attention_config(config: ERGTV1Config) -> GeoAttentionConfig:
+def _geo_attention_config(config: ERGTV1Config, *, layer_index: int) -> GeoAttentionConfig:
     attention = config.attention or {}
     alpha = attention.get("alpha", {})
     memory = attention.get("memory", {})
+    control_seed_offset = int(attention.get("control_seed_offset", 0)) + layer_index
     return GeoAttentionConfig(
         n_heads=config.n_heads,
         hidden_dim=config.hidden_dim,
@@ -298,6 +306,8 @@ def _geo_attention_config(config: ERGTV1Config) -> GeoAttentionConfig:
         memory_gate_floor=float(memory.get("gate_floor", 0.05)),
         memory_min_context_edges=int(memory.get("min_context_edges", 2)),
         max_causal_step=attention.get("max_causal_step", 1),
+        control_seed=int(attention.get("control_seed", 0)),
+        control_seed_offset=control_seed_offset,
     )
 
 

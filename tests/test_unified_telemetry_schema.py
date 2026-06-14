@@ -50,7 +50,17 @@ def test_unified_telemetry_record_validation_accepts_aliases() -> None:
         "attention_entropy": 3.1,
         "mean_max_probability": 0.2,
         "rigidity_risk": 0.0,
+        "collapse_risk": 0.0,
+        "gate_floor": 0.05,
+        "gate_floor_next": 0.05,
+        "gate_floor_delta": 0.0,
+        "gate_floor_decision": "hold_gate_floor",
+        "gate_floor_credit": 0.0,
+        "gate_floor_risk_pressure": 0.0,
         "control_penalty": 0.0,
+        "control_rng_isolated": True,
+        "trainer_status": "running",
+        "trainer_fail_fast_triggered": False,
     }
 
     result = validate_telemetry_record(record)

@@ -44,6 +44,77 @@ The unified telemetry schema for loss, attention, memory, geometry, controls,
 attribution, safety, and runtime fields is defined in
 `docs/22_unified_telemetry_schema.md`.
 
+Memory-state instrumentation for layer-local GeoAttention v2 memory is defined
+in `docs/23_memory_state_instrumentation.md`.
+
+The active adaptive execution ledger, including stage status, remaining work,
+and inserted mid-run notes, is `docs/24_active_adaptive_execution_plan.md`.
+
+Attention-rigidity and collapse monitoring for adaptive geometry is defined in
+`docs/25_attention_rigidity_and_collapse_monitor.md`.
+
+The gate-floor and noise controller for adaptive edge filtering is defined in
+`docs/31_gate_floor_and_noise_controller.md`.
+
+The causal reachability controller for finite-speed past-only geometry is
+defined in `docs/32_causal_reachability_controller.md`.
+
+The normalization and distance-scale controller for preserving real distance
+contrast is defined in `docs/33_normalization_and_distance_scale_controller.md`.
+
+The joint parameter budget allocator, which prevents independent controllers
+from fighting each other or silently overpowering attention, is defined in
+`docs/34_joint_parameter_budget_allocator.md`.
+
+Control separation scoring, including partial live scoring during sequential
+runs and final matched late-window scoring after controls exist, is defined in
+`docs/35_control_separation_scoring.md`.
+
+The observer-only meta-control attention layer, including missing-aware masking
+for sequential runs and offline matched replay, is defined in
+`docs/36_meta_control_attention_observer.md`.
+
+The open adaptive relational control trainer, which merges sequential telemetry,
+control separation, meta-control observation, fail-fast safety, live logging, and
+lightweight artifacts, is defined in
+`docs/37_open_adaptive_relational_control_trainer.md`.
+
+The live 100-step diagnostic table, including markdown rows and plot-ready
+payloads for adaptive notebook execution, is defined in
+`docs/38_live_100_step_diagnostic_table.md`.
+
+The ERGT-03 adaptive relational control notebook, including fail-fast export,
+fixed lightweight bundle naming, live 100-step display, and Colab runtime
+shutdown hooks, is defined in `docs/39_adaptive_notebook_ergt_03.md`.
+
+The short smoke and failure-safety gate that must pass before a guarded 2000-step
+adaptive run is defined in
+`docs/40_short_smoke_failure_safety_validation.md`.
+
+The guarded 2000-step adaptive run contract, covering all required conditions,
+100-step comparable telemetry, and late-window readiness, is defined in
+`docs/41_guarded_2000_step_adaptive_run.md`.
+
+Late-window and post-1000 analysis, including matched control windows and
+attention safety checks, is defined in
+`docs/42_late_window_post1000_analysis.md`.
+
+Random/shuffled/no-memory attribution comparison, which separates real geometry
+from generic regularization and ablation effects, is defined in
+`docs/43_random_shuffled_no_memory_attribution.md`.
+
+The real geometry decision gate, which requires real stable causal geometry to
+beat all controls while clearing R1/R2/R3 audits, is defined in
+`docs/44_decision_gate_real_geometry.md`.
+
+The controller revision loop, which maps failed gate labels to concrete
+controller revisions and rerun protocols, is defined in
+`docs/45_controller_revision_loop.md`.
+
+The longer-run and multi-seed confirmation contract, including required profiles,
+seeds, controls, and artifact policy, is defined in
+`docs/46_longer_run_multi_seed_confirmation.md`.
+
 The updated movement standard is:
 
 ```text

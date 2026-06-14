@@ -35,6 +35,19 @@ def test_open_control_contract_declares_growth_and_restraint_for_parameters() ->
         assert parameter["hard_ceiling_is_scientific_claim"] is False
 
 
+def test_open_control_contract_requires_search_trajectory_and_replay_records() -> None:
+    report = build_open_control_philosophy_contract()
+
+    assert report["checks"]["telemetry_records_parameter_search_and_injected_evidence"]
+    assert report["checks"]["controller_obligations_prevent_soft_flag_abort"]
+    assert report["checks"]["controller_obligations_require_full_parameter_trajectory"]
+    assert report["checks"]["controller_obligations_require_decision_replay"]
+    assert report["checks"]["controller_obligations_require_search_not_static_gate"]
+    assert "parameter_trajectory" in report["required_telemetry"]
+    assert "injected_evidence_ledger" in report["required_telemetry"]
+    assert "decision_replay_record" in report["required_telemetry"]
+
+
 def test_open_control_contract_fails_if_geo_qk_is_made_hard_stop() -> None:
     report = build_open_control_philosophy_contract()
     report["hard_stops"]["geo_to_qk_ratio"] = {"reason": "bad hard ceiling"}

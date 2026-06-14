@@ -1,0 +1,204 @@
+{
+  "checks": {
+    "all_estimates_finite_or_none": true,
+    "ambiguous_interactions_flagged_when_present": true,
+    "changed_parameters_have_estimates_or_uncertainty": true,
+    "contribution_estimate_fields_present": true,
+    "major_decisions_have_attribution_or_uncertainty": true,
+    "required_attribution_outputs_emitted": true
+  },
+  "config": {
+    "major_delta_threshold": 1e-09,
+    "min_evidence_abs": 1e-12
+  },
+  "input_source": "synthetic_attribution_smoke",
+  "next_required_step": "adaptive_alpha_controller_v2",
+  "required_outputs": [
+    "alpha_contribution_estimate",
+    "memory_eta_decay_contribution_estimate",
+    "gate_floor_contribution_estimate",
+    "normalization_contribution_estimate",
+    "reachability_contribution_estimate",
+    "interaction_warnings",
+    "uncertainty_flags"
+  ],
+  "row_attribution": [
+    {
+      "attribution_summary": "attribution_evidence_available",
+      "changed_parameters": [
+        "alpha"
+      ],
+      "condition": "real_adaptive",
+      "contribution_estimates": {
+        "alpha": 0.002
+      },
+      "evidence": {
+        "alpha": 0.2
+      },
+      "has_attribution_evidence": true,
+      "interaction_warnings": [],
+      "major_decision": true,
+      "step": 100,
+      "uncertainty_flags": []
+    },
+    {
+      "attribution_summary": "attribution_evidence_available",
+      "changed_parameters": [
+        "memory_eta"
+      ],
+      "condition": "real_adaptive",
+      "contribution_estimates": {
+        "memory_eta": 0.0024
+      },
+      "evidence": {
+        "memory_eta": 0.12
+      },
+      "has_attribution_evidence": true,
+      "interaction_warnings": [],
+      "major_decision": true,
+      "step": 200,
+      "uncertainty_flags": []
+    },
+    {
+      "attribution_summary": "attribution_evidence_available",
+      "changed_parameters": [
+        "memory_decay"
+      ],
+      "condition": "real_adaptive",
+      "contribution_estimates": {
+        "memory_decay": -0.0008
+      },
+      "evidence": {
+        "memory_decay": 0.08
+      },
+      "has_attribution_evidence": true,
+      "interaction_warnings": [],
+      "major_decision": true,
+      "step": 300,
+      "uncertainty_flags": []
+    },
+    {
+      "attribution_summary": "attribution_evidence_available",
+      "changed_parameters": [
+        "gate_floor"
+      ],
+      "condition": "real_adaptive",
+      "contribution_estimates": {
+        "gate_floor": 0.001
+      },
+      "evidence": {
+        "gate_floor": 0.1
+      },
+      "has_attribution_evidence": true,
+      "interaction_warnings": [],
+      "major_decision": true,
+      "step": 400,
+      "uncertainty_flags": []
+    },
+    {
+      "attribution_summary": "attribution_evidence_available",
+      "changed_parameters": [
+        "distance_norm_scale"
+      ],
+      "condition": "real_adaptive",
+      "contribution_estimates": {
+        "distance_norm_scale": 0.003
+      },
+      "evidence": {
+        "distance_norm_scale": 0.06
+      },
+      "has_attribution_evidence": true,
+      "interaction_warnings": [],
+      "major_decision": true,
+      "step": 500,
+      "uncertainty_flags": []
+    },
+    {
+      "attribution_summary": "attribution_evidence_available",
+      "changed_parameters": [
+        "causal_reachability"
+      ],
+      "condition": "real_adaptive",
+      "contribution_estimates": {
+        "causal_reachability": 0.04
+      },
+      "evidence": {
+        "causal_reachability": 0.04
+      },
+      "has_attribution_evidence": true,
+      "interaction_warnings": [],
+      "major_decision": true,
+      "step": 600,
+      "uncertainty_flags": []
+    },
+    {
+      "attribution_summary": "attribution_evidence_with_uncertainty",
+      "changed_parameters": [
+        "alpha",
+        "memory_eta"
+      ],
+      "condition": "real_adaptive",
+      "contribution_estimates": {
+        "alpha": 0.00055,
+        "memory_eta": 0.0005
+      },
+      "evidence": {
+        "alpha": 0.11,
+        "memory_eta": 0.05
+      },
+      "has_attribution_evidence": true,
+      "interaction_warnings": [
+        {
+          "message": "simultaneous parameter changes make single-parameter attribution ambiguous",
+          "parameters": [
+            "alpha",
+            "memory_eta"
+          ],
+          "step": 700,
+          "type": "multi_parameter_change"
+        }
+      ],
+      "major_decision": true,
+      "step": 700,
+      "uncertainty_flags": [
+        "multi_parameter_interaction"
+      ]
+    }
+  ],
+  "scientific_scope": "mechanics gate only; estimates which adaptive parameters can be credited from telemetry and marks ambiguous interactions explicitly",
+  "stage": "stage8_parameter_attribution_probe",
+  "status": "pass",
+  "summary": {
+    "alpha_contribution_estimate": 0.00255,
+    "attribution_summary": "estimated=alpha,memory_decay,memory_eta,gate_floor,distance_norm_scale,causal_reachability; uncertainty=multi_parameter_interaction",
+    "gate_floor_contribution_estimate": 0.001,
+    "interaction_warnings": [
+      {
+        "message": "simultaneous parameter changes make single-parameter attribution ambiguous",
+        "parameters": [
+          "alpha",
+          "memory_eta"
+        ],
+        "step": 700,
+        "type": "multi_parameter_change"
+      }
+    ],
+    "major_decision_count": 7,
+    "memory_decay_contribution_estimate": -0.0008,
+    "memory_eta_contribution_estimate": 0.0029,
+    "memory_eta_decay_contribution_estimate": 0.0021,
+    "normalization_contribution_estimate": 0.003,
+    "parameter_contribution_estimates": {
+      "alpha": 0.00255,
+      "causal_reachability": 0.04,
+      "distance_norm_scale": 0.003,
+      "gate_floor": 0.001,
+      "memory_decay": -0.0008,
+      "memory_eta": 0.0029
+    },
+    "reachability_contribution_estimate": 0.04,
+    "uncertainty_flags": [
+      "multi_parameter_interaction"
+    ]
+  }
+}

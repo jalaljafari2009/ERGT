@@ -15,6 +15,7 @@ from evaluation.causal_shortest_path_geometry import (
     finite_speed_edge_mask,
     pairwise_edge_distance,
 )
+from evaluation.memory_state_instrumentation import memory_state_metrics
 from evaluation.relational_memory_observer import MemoryConfig, stable_memory_update
 from geometry.emergent_distance import (
     EmergentDistance,
@@ -58,6 +59,11 @@ STABLE_MEMORY_DISTANCE_MODES = {
     "shuffled_stable_causal_d",
     "pairwise_real_d",
 }
+CONTROL_RNG_MODULUS = 2**63 - 1
+CONTROL_FAMILY_SEEDS = {
+    "random": 0x52A2F19D,
+    "shuffled": 0x9E3779B1,
+}
 
 
 @dataclass(frozen=True)
@@ -78,6 +84,8 @@ class GeoAttentionConfig:
     memory_gate_floor: float = 0.05
     memory_min_context_edges: int = 2
     max_causal_step: int | None = 1
+    control_seed: int = 0
+    control_seed_offset: int = 0
 
     def __post_init__(self) -> None:
         if self.n_heads <= 0:
@@ -104,6 +112,10 @@ class GeoAttentionConfig:
         ).validate()
         if self.max_causal_step is not None and self.max_causal_step <= 0:
             raise ValueError("max_causal_step must be positive or None")
+        if self.control_seed < 0:
+            raise ValueError("control_seed must be non-negative")
+        if self.control_seed_offset < 0:
+            raise ValueError("control_seed_offset must be non-negative")
 
 
 class GeoAttention(nn.Module):
@@ -183,6 +195,10 @@ class GeoAttention(nn.Module):
                 attention.get("memory", {}).get("min_context_edges", 2)
             ),
             max_causal_step=attention.get("max_causal_step", 1),
+            control_seed=int(
+                attention.get("control_seed", project_config.get("run", {}).get("seed", 0))
+            ),
+            control_seed_offset=int(attention.get("control_seed_offset", 0)),
         )
         return cls(
             attention_config,
@@ -327,9 +343,16 @@ class GeoAttention(nn.Module):
         distance_mode = self.config.distance_mode
         memory_used = False
         updated_memory = None
+        memory_metrics = {}
 
         if distance_mode == "no_memory_real_d":
             source_graph = self._valid_only(graph, valid_edge_mask)
+            memory_metrics = memory_state_metrics(
+                source_graph,
+                valid_edge_mask=valid_edge_mask,
+                stable_update=source_graph,
+                memory_config=self.memory_config,
+            )
             distance = causal_shortest_path_distance(
                 source_graph,
                 direct_edge_mask,
@@ -349,6 +372,12 @@ class GeoAttention(nn.Module):
             stable_update = update["stable_update"]
             if distance_mode == "instantaneous_real_d":
                 source_graph = stable_update
+                memory_metrics = memory_state_metrics(
+                    source_graph,
+                    valid_edge_mask=valid_edge_mask,
+                    stable_update=stable_update,
+                    memory_config=self.memory_config,
+                )
                 pipeline = "H -> stable_update -> finite-speed D_causal"
                 shortest_path = True
             else:
@@ -358,6 +387,13 @@ class GeoAttention(nn.Module):
                     valid_edge_mask,
                 )
                 updated_memory = source_graph
+                memory_metrics = memory_state_metrics(
+                    source_graph,
+                    valid_edge_mask=valid_edge_mask,
+                    previous_memory=geometry_memory,
+                    stable_update=stable_update,
+                    memory_config=self.memory_config,
+                )
                 if distance_mode == "pairwise_real_d":
                     pipeline = "H -> W_t memory -> finite-speed pairwise D"
                     shortest_path = False
@@ -385,6 +421,7 @@ class GeoAttention(nn.Module):
                 pipeline=pipeline,
                 memory_used=memory_used,
                 shortest_path=shortest_path,
+                memory_metrics=memory_metrics,
             ),
         }
 
@@ -406,9 +443,17 @@ class GeoAttention(nn.Module):
             return graph
         valid_edge_mask = make_valid_edge_mask_like(graph, attention_mask=attention_mask)
         if self.config.distance_mode in {"random_d", "random_stable_causal_d"}:
-            return make_random_graph_like(graph, valid_edge_mask=valid_edge_mask)
+            return make_random_graph_like(
+                graph,
+                generator=self._control_generator(graph, "random"),
+                valid_edge_mask=valid_edge_mask,
+            )
         if self.config.distance_mode in {"shuffled_d", "shuffled_stable_causal_d"}:
-            return make_shuffled_graph(graph, valid_edge_mask=valid_edge_mask)
+            return make_shuffled_graph(
+                graph,
+                generator=self._control_generator(graph, "shuffled"),
+                valid_edge_mask=valid_edge_mask,
+            )
         raise ValueError(f"unsupported distance_mode: {self.config.distance_mode}")
 
     def apply_geometry_bias(
@@ -600,14 +645,39 @@ class GeoAttention(nn.Module):
         memory = memory.clamp(0.0, 1.0)
         return self._valid_only(memory, valid_edge_mask), True
 
+    def _control_generator(self, graph: torch.Tensor, family: str) -> torch.Generator:
+        """Return an isolated deterministic generator for W-level controls.
+
+        Random and shuffled controls must not consume PyTorch's global RNG.
+        Otherwise they can alter dropout masks or any later stochastic training
+        operation, which makes the control comparison invalid.
+        """
+
+        generator = torch.Generator(device=graph.device)
+        generator.manual_seed(self._control_step_seed(family))
+        return generator
+
+    def _control_step_seed(self, family: str) -> int:
+        step = int(self.training_step.detach().cpu().item())
+        family_seed = CONTROL_FAMILY_SEEDS.get(family, 0)
+        seed = (
+            int(self.config.control_seed)
+            + int(self.config.control_seed_offset) * 1_000_003
+            + step * 9_176_789
+            + family_seed
+        )
+        return seed % CONTROL_RNG_MODULUS
+
     def _geometry_metadata(
         self,
         *,
         pipeline: str,
         memory_used: bool,
         shortest_path: bool,
+        memory_metrics: dict[str, float] | None = None,
     ) -> dict[str, Any]:
         source_family = self._geometry_source_family()
+        uses_control_rng = source_family in CONTROL_FAMILY_SEEDS
         memory_source = (
             "self_family_memory_recurrence"
             if self.config.distance_mode in STABLE_MEMORY_DISTANCE_MODES
@@ -619,7 +689,7 @@ class GeoAttention(nn.Module):
         control_generation_level = (
             "none" if self.config.distance_mode == "zero_d" else "W_before_distance"
         )
-        return {
+        result = {
             "distance_mode": self.config.distance_mode,
             "geometry_pipeline": pipeline,
             "geometry_version": "v2" if self.config.distance_mode in V2_DISTANCE_MODES else "v1",
@@ -630,18 +700,28 @@ class GeoAttention(nn.Module):
             "control_generation_level": control_generation_level,
             "normalization_source": normalization_source,
             "memory_source": memory_source,
+            "control_rng_isolated": uses_control_rng,
+            "control_seed": self.config.control_seed if uses_control_rng else None,
+            "control_seed_offset": self.config.control_seed_offset if uses_control_rng else None,
+            "control_step_seed": self._control_step_seed(source_family)
+            if uses_control_rng
+            else None,
             "cross_family_real_distance_reuse": False,
             "cross_family_real_memory_reuse": False,
             "control_isolation_contract": {
                 "distance_built_from": f"W_{source_family}",
                 "normalization_uses": normalization_source,
                 "memory_uses": memory_source,
+                "control_rng": "isolated_local_generator" if uses_control_rng else "none",
                 "random_or_shuffled_generated_before_distance": source_family
                 in {"random", "shuffled"},
                 "cross_family_real_distance_reuse": False,
                 "cross_family_real_memory_reuse": False,
             },
         }
+        if memory_metrics:
+            result.update(memory_metrics)
+        return result
 
     def _geometry_source_family(self) -> str:
         mode = self.config.distance_mode

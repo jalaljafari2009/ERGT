@@ -1,0 +1,800 @@
+{
+  "alpha": 0.1,
+  "checks": {
+    "control_isolation_gate_passed": true,
+    "control_rng_does_not_touch_global_rng": true,
+    "control_rng_isolated_random": true,
+    "control_rng_isolated_shuffled": true,
+    "finite_distance_regions_match": true,
+    "geo_to_qk_ratio_finite": true,
+    "geo_to_qk_ratio_same_qk_denominator": true,
+    "matched_clipping_policy": true,
+    "matched_distance_diagonal_policy": true,
+    "matched_graph_diagonal_policy": true,
+    "matched_normalization_policy": true,
+    "no_cross_family_real_distance_reuse": true,
+    "no_cross_family_real_memory_reuse": true,
+    "random_and_shuffled_built_before_distance": true,
+    "random_distance_not_real_distance": true,
+    "same_batch_path": true,
+    "same_data_path": true,
+    "same_distance_policy": true,
+    "same_graph_policy": true,
+    "same_memory_policy_for_memory_modes": true,
+    "same_model_shape": true,
+    "shuffled_distance_not_real_distance": true
+  },
+  "contract": {
+    "batch_path": "same synthetic or provided batch fingerprints for every family",
+    "data_path": "same hidden tensors and attention mask for every family",
+    "distance": "each family builds W before D and normalizes its own distance",
+    "forbidden": [
+      "cross-family real distance reuse",
+      "cross-family real memory reuse",
+      "control generation after distance normalization",
+      "family-specific normalization, clipping, or diagonal policies"
+    ],
+    "memory": "stable memory families keep self-family memory recurrence only",
+    "rng": "random/shuffled controls use isolated local generators"
+  },
+  "control_isolation_audit_status": "pass",
+  "control_isolation_checks": {
+    "distance_finite_regions_match": true,
+    "future_edges_forbidden": true,
+    "no_real_distance_reuse_random": true,
+    "no_real_distance_reuse_shuffled": true,
+    "no_real_memory_reuse_random": true,
+    "no_real_memory_reuse_shuffled": true,
+    "random_built_at_w_level": true,
+    "random_distance_not_real_distance": true,
+    "random_memory_not_real_memory": true,
+    "random_uses_self_family_memory": true,
+    "random_uses_self_family_normalization": true,
+    "random_w_changes_valid_edges": true,
+    "random_w_preserves_valid_range": true,
+    "same_hidden_inputs_for_all_modes": true,
+    "shuffled_built_at_w_level": true,
+    "shuffled_distance_not_real_distance": true,
+    "shuffled_memory_not_real_memory": true,
+    "shuffled_uses_self_family_memory": true,
+    "shuffled_uses_self_family_normalization": true,
+    "shuffled_w_changes_valid_edges": true,
+    "shuffled_w_preserves_valid_multiset": true,
+    "valid_edge_mask_shared": true
+  },
+  "distance_policy": {
+    "causal_runtime_distance": true,
+    "clip_value": 5.0,
+    "diagonal_policy": "zero",
+    "epsilon": 1e-06,
+    "normalization": "offdiag_zscore_clamp"
+  },
+  "families": [
+    "real_stable_causal_d",
+    "random_stable_causal_d",
+    "shuffled_stable_causal_d",
+    "no_memory_real_d",
+    "instantaneous_real_d"
+  ],
+  "geo_to_qk_ratio": {
+    "instantaneous_real_d": 0.3613526523113251,
+    "no_memory_real_d": 0.3214603066444397,
+    "random_stable_causal_d": 0.3603917360305786,
+    "real_stable_causal_d": 0.3608059883117676,
+    "shuffled_stable_causal_d": 0.36295783519744873
+  },
+  "graph_policy": {
+    "diagonal_policy": "keep",
+    "kernel": "sigmoid_cosine",
+    "normalize_hidden": true
+  },
+  "input_source": "synthetic_memory_smoke",
+  "max_causal_step": 1,
+  "memory_config": {
+    "anti_collapse_threshold": 0.1,
+    "decay": 0.7,
+    "eta": 0.3,
+    "gate_floor": 0.05,
+    "min_context_edges": 2
+  },
+  "mode_summaries": {
+    "instantaneous_real_d": {
+      "attention_mask_fingerprint": {
+        "finite_count": 12,
+        "mean": 0.9166666865348816,
+        "shape": [
+          2,
+          6
+        ],
+        "std": 0.2763853967189789,
+        "sum": 11.0
+      },
+      "distance_fingerprint": {
+        "finite_count": 74,
+        "mean": -2.577498214861862e-08,
+        "shape": [
+          2,
+          2,
+          6,
+          6
+        ],
+        "std": 0.8219948410987854,
+        "sum": -1.9073486328125e-06
+      },
+      "distance_mean": -2.577498214861862e-08,
+      "distance_policy": {
+        "causal_runtime_distance": true,
+        "clip_value": 5.0,
+        "diagonal_policy": "zero",
+        "epsilon": 1e-06,
+        "normalization": "offdiag_zscore_clamp"
+      },
+      "distance_std": 0.8219948410987854,
+      "geo_to_qk_ratio": 0.3613526523113251,
+      "global_rng_unchanged": true,
+      "graph_policy": {
+        "diagonal_policy": "keep",
+        "graph_heads": 1,
+        "kernel": "sigmoid_cosine",
+        "normalize_hidden": true,
+        "temperature": null
+      },
+      "hidden_fingerprints": [
+        {
+          "finite_count": 96,
+          "mean": 0.2584427297115326,
+          "shape": [
+            2,
+            6,
+            8
+          ],
+          "std": 0.34880149364471436,
+          "sum": 24.810501098632812
+        },
+        {
+          "finite_count": 96,
+          "mean": 0.27462637424468994,
+          "shape": [
+            2,
+            6,
+            8
+          ],
+          "std": 0.3576204180717468,
+          "sum": 26.364131927490234
+        }
+      ],
+      "memory_fingerprint": null,
+      "memory_policy": {
+        "anti_collapse_threshold": 0.1,
+        "decay": 0.7,
+        "eta": 0.3,
+        "gate_floor": 0.05,
+        "min_context_edges": 2
+      },
+      "metadata": {
+        "causal_shortest_path": true,
+        "control_generation_level": "W_before_distance",
+        "control_isolation_contract": {
+          "control_rng": "none",
+          "cross_family_real_distance_reuse": false,
+          "cross_family_real_memory_reuse": false,
+          "distance_built_from": "W_real",
+          "memory_uses": "none",
+          "normalization_uses": "self_family_distance",
+          "random_or_shuffled_generated_before_distance": false
+        },
+        "control_rng_isolated": false,
+        "control_seed": null,
+        "control_seed_offset": null,
+        "control_step_seed": null,
+        "cross_family_real_distance_reuse": false,
+        "cross_family_real_memory_reuse": false,
+        "distance_mode": "instantaneous_real_d",
+        "gate_floor": 0.05,
+        "geometry_memory_used": false,
+        "geometry_pipeline": "H -> stable_update -> finite-speed D_causal",
+        "geometry_source_family": "real",
+        "geometry_version": "v2",
+        "max_causal_step": 1,
+        "memory_decay": 0.7,
+        "memory_edge_density": 0.7599999904632568,
+        "memory_effective_rank": 2.0456422567367554,
+        "memory_eta": 0.3,
+        "memory_max_probability": 0.2944842576980591,
+        "memory_mean": 0.2857818305492401,
+        "memory_persistence": 0.0,
+        "memory_rigidity": 0.12239767014980317,
+        "memory_source": "none",
+        "memory_spectral_entropy": 0.3880116492509842,
+        "memory_stability": 1.0000001192092896,
+        "memory_std": 0.2200632244348526,
+        "memory_turnover": 0.0,
+        "noise_risk": 0.12239767014980317,
+        "normalization_source": "self_family_distance"
+      },
+      "model_shape": {
+        "head_dim": 4,
+        "hidden_dim": 8,
+        "n_heads": 2
+      },
+      "qk_fingerprint": {
+        "finite_count": 144,
+        "mean": 0.17041338980197906,
+        "shape": [
+          2,
+          2,
+          6,
+          6
+        ],
+        "std": 0.13470987975597382,
+        "sum": 24.539527893066406
+      }
+    },
+    "no_memory_real_d": {
+      "attention_mask_fingerprint": {
+        "finite_count": 12,
+        "mean": 0.9166666865348816,
+        "shape": [
+          2,
+          6
+        ],
+        "std": 0.2763853967189789,
+        "sum": 11.0
+      },
+      "distance_fingerprint": {
+        "finite_count": 74,
+        "mean": -4.188434488128223e-08,
+        "shape": [
+          2,
+          2,
+          6,
+          6
+        ],
+        "std": 0.8219932317733765,
+        "sum": -3.0994415283203125e-06
+      },
+      "distance_mean": -4.188434488128223e-08,
+      "distance_policy": {
+        "causal_runtime_distance": true,
+        "clip_value": 5.0,
+        "diagonal_policy": "zero",
+        "epsilon": 1e-06,
+        "normalization": "offdiag_zscore_clamp"
+      },
+      "distance_std": 0.8219932317733765,
+      "geo_to_qk_ratio": 0.3214603066444397,
+      "global_rng_unchanged": true,
+      "graph_policy": {
+        "diagonal_policy": "keep",
+        "graph_heads": 1,
+        "kernel": "sigmoid_cosine",
+        "normalize_hidden": true,
+        "temperature": null
+      },
+      "hidden_fingerprints": [
+        {
+          "finite_count": 96,
+          "mean": 0.2584427297115326,
+          "shape": [
+            2,
+            6,
+            8
+          ],
+          "std": 0.34880149364471436,
+          "sum": 24.810501098632812
+        },
+        {
+          "finite_count": 96,
+          "mean": 0.27462637424468994,
+          "shape": [
+            2,
+            6,
+            8
+          ],
+          "std": 0.3576204180717468,
+          "sum": 26.364131927490234
+        }
+      ],
+      "memory_fingerprint": null,
+      "memory_policy": {
+        "anti_collapse_threshold": 0.1,
+        "decay": 0.7,
+        "eta": 0.3,
+        "gate_floor": 0.05,
+        "min_context_edges": 2
+      },
+      "metadata": {
+        "causal_shortest_path": true,
+        "control_generation_level": "W_before_distance",
+        "control_isolation_contract": {
+          "control_rng": "none",
+          "cross_family_real_distance_reuse": false,
+          "cross_family_real_memory_reuse": false,
+          "distance_built_from": "W_real",
+          "memory_uses": "none",
+          "normalization_uses": "self_family_distance",
+          "random_or_shuffled_generated_before_distance": false
+        },
+        "control_rng_isolated": false,
+        "control_seed": null,
+        "control_seed_offset": null,
+        "control_step_seed": null,
+        "cross_family_real_distance_reuse": false,
+        "cross_family_real_memory_reuse": false,
+        "distance_mode": "no_memory_real_d",
+        "gate_floor": 0.05,
+        "geometry_memory_used": false,
+        "geometry_pipeline": "H -> W_real -> finite-speed D_causal",
+        "geometry_source_family": "real",
+        "geometry_version": "v2",
+        "max_causal_step": 1,
+        "memory_decay": 0.7,
+        "memory_edge_density": 1.0,
+        "memory_effective_rank": 3.6273339986801147,
+        "memory_eta": 0.3,
+        "memory_max_probability": 0.5167064666748047,
+        "memory_mean": 0.5874300599098206,
+        "memory_persistence": 0.0,
+        "memory_rigidity": 0.056657916307449346,
+        "memory_source": "none",
+        "memory_spectral_entropy": 0.7167104184627533,
+        "memory_stability": 0.9999998807907104,
+        "memory_std": 0.07901933044195175,
+        "memory_turnover": 0.0,
+        "noise_risk": 0.056657916307449346,
+        "normalization_source": "self_family_distance"
+      },
+      "model_shape": {
+        "head_dim": 4,
+        "hidden_dim": 8,
+        "n_heads": 2
+      },
+      "qk_fingerprint": {
+        "finite_count": 144,
+        "mean": 0.17041338980197906,
+        "shape": [
+          2,
+          2,
+          6,
+          6
+        ],
+        "std": 0.13470987975597382,
+        "sum": 24.539527893066406
+      }
+    },
+    "random_stable_causal_d": {
+      "attention_mask_fingerprint": {
+        "finite_count": 12,
+        "mean": 0.9166666865348816,
+        "shape": [
+          2,
+          6
+        ],
+        "std": 0.2763853967189789,
+        "sum": 11.0
+      },
+      "distance_fingerprint": {
+        "finite_count": 74,
+        "mean": -3.060779008023928e-08,
+        "shape": [
+          2,
+          2,
+          6,
+          6
+        ],
+        "std": 0.8219948410987854,
+        "sum": -2.2649765014648438e-06
+      },
+      "distance_mean": -3.060779008023928e-08,
+      "distance_policy": {
+        "causal_runtime_distance": true,
+        "clip_value": 5.0,
+        "diagonal_policy": "zero",
+        "epsilon": 1e-06,
+        "normalization": "offdiag_zscore_clamp"
+      },
+      "distance_std": 0.8219948410987854,
+      "geo_to_qk_ratio": 0.3603917360305786,
+      "global_rng_unchanged": true,
+      "graph_policy": {
+        "diagonal_policy": "keep",
+        "graph_heads": 1,
+        "kernel": "sigmoid_cosine",
+        "normalize_hidden": true,
+        "temperature": null
+      },
+      "hidden_fingerprints": [
+        {
+          "finite_count": 96,
+          "mean": 0.2584427297115326,
+          "shape": [
+            2,
+            6,
+            8
+          ],
+          "std": 0.34880149364471436,
+          "sum": 24.810501098632812
+        },
+        {
+          "finite_count": 96,
+          "mean": 0.27462637424468994,
+          "shape": [
+            2,
+            6,
+            8
+          ],
+          "std": 0.3576204180717468,
+          "sum": 26.364131927490234
+        }
+      ],
+      "memory_fingerprint": {
+        "finite_count": 72,
+        "mean": 0.07115619629621506,
+        "shape": [
+          2,
+          1,
+          6,
+          6
+        ],
+        "std": 0.12513010203838348,
+        "sum": 5.123246192932129
+      },
+      "memory_policy": {
+        "anti_collapse_threshold": 0.1,
+        "decay": 0.7,
+        "eta": 0.3,
+        "gate_floor": 0.05,
+        "min_context_edges": 2
+      },
+      "metadata": {
+        "causal_shortest_path": true,
+        "control_generation_level": "W_before_distance",
+        "control_isolation_contract": {
+          "control_rng": "isolated_local_generator",
+          "cross_family_real_distance_reuse": false,
+          "cross_family_real_memory_reuse": false,
+          "distance_built_from": "W_random",
+          "memory_uses": "self_family_memory_recurrence",
+          "normalization_uses": "self_family_distance",
+          "random_or_shuffled_generated_before_distance": true
+        },
+        "control_rng_isolated": true,
+        "control_seed": 2027,
+        "control_seed_offset": 1,
+        "control_step_seed": 1396589216,
+        "cross_family_real_distance_reuse": false,
+        "cross_family_real_memory_reuse": false,
+        "distance_mode": "random_stable_causal_d",
+        "gate_floor": 0.05,
+        "geometry_memory_used": true,
+        "geometry_pipeline": "H -> W_t memory -> finite-speed D_causal",
+        "geometry_source_family": "random",
+        "geometry_version": "v2",
+        "max_causal_step": 1,
+        "memory_decay": 0.7,
+        "memory_edge_density": 0.9200000166893005,
+        "memory_effective_rank": 2.424795389175415,
+        "memory_eta": 0.3,
+        "memory_max_probability": 0.28778570890426636,
+        "memory_mean": 0.20492984354496002,
+        "memory_persistence": 0.9874811768531799,
+        "memory_rigidity": 0.10162030756473542,
+        "memory_source": "self_family_memory_recurrence",
+        "memory_spectral_entropy": 0.49189846217632294,
+        "memory_stability": 0.8853078484535217,
+        "memory_std": 0.13296431303024292,
+        "memory_turnover": 0.037846244871616364,
+        "noise_risk": 0.7569248974323273,
+        "normalization_source": "self_family_distance"
+      },
+      "model_shape": {
+        "head_dim": 4,
+        "hidden_dim": 8,
+        "n_heads": 2
+      },
+      "qk_fingerprint": {
+        "finite_count": 144,
+        "mean": 0.17041338980197906,
+        "shape": [
+          2,
+          2,
+          6,
+          6
+        ],
+        "std": 0.13470987975597382,
+        "sum": 24.539527893066406
+      }
+    },
+    "real_stable_causal_d": {
+      "attention_mask_fingerprint": {
+        "finite_count": 12,
+        "mean": 0.9166666865348816,
+        "shape": [
+          2,
+          6
+        ],
+        "std": 0.2763853967189789,
+        "sum": 11.0
+      },
+      "distance_fingerprint": {
+        "finite_count": 74,
+        "mean": -4.027340949619429e-08,
+        "shape": [
+          2,
+          2,
+          6,
+          6
+        ],
+        "std": 0.8219948410987854,
+        "sum": -2.9802322387695312e-06
+      },
+      "distance_mean": -4.027340949619429e-08,
+      "distance_policy": {
+        "causal_runtime_distance": true,
+        "clip_value": 5.0,
+        "diagonal_policy": "zero",
+        "epsilon": 1e-06,
+        "normalization": "offdiag_zscore_clamp"
+      },
+      "distance_std": 0.8219948410987854,
+      "geo_to_qk_ratio": 0.3608059883117676,
+      "global_rng_unchanged": true,
+      "graph_policy": {
+        "diagonal_policy": "keep",
+        "graph_heads": 1,
+        "kernel": "sigmoid_cosine",
+        "normalize_hidden": true,
+        "temperature": null
+      },
+      "hidden_fingerprints": [
+        {
+          "finite_count": 96,
+          "mean": 0.2584427297115326,
+          "shape": [
+            2,
+            6,
+            8
+          ],
+          "std": 0.34880149364471436,
+          "sum": 24.810501098632812
+        },
+        {
+          "finite_count": 96,
+          "mean": 0.27462637424468994,
+          "shape": [
+            2,
+            6,
+            8
+          ],
+          "std": 0.3576204180717468,
+          "sum": 26.364131927490234
+        }
+      ],
+      "memory_fingerprint": {
+        "finite_count": 72,
+        "mean": 0.09955490380525589,
+        "shape": [
+          2,
+          1,
+          6,
+          6
+        ],
+        "std": 0.19023415446281433,
+        "sum": 7.167953014373779
+      },
+      "memory_policy": {
+        "anti_collapse_threshold": 0.1,
+        "decay": 0.7,
+        "eta": 0.3,
+        "gate_floor": 0.05,
+        "min_context_edges": 2
+      },
+      "metadata": {
+        "causal_shortest_path": true,
+        "control_generation_level": "W_before_distance",
+        "control_isolation_contract": {
+          "control_rng": "none",
+          "cross_family_real_distance_reuse": false,
+          "cross_family_real_memory_reuse": false,
+          "distance_built_from": "W_real",
+          "memory_uses": "self_family_memory_recurrence",
+          "normalization_uses": "self_family_distance",
+          "random_or_shuffled_generated_before_distance": false
+        },
+        "control_rng_isolated": false,
+        "control_seed": null,
+        "control_seed_offset": null,
+        "control_step_seed": null,
+        "cross_family_real_distance_reuse": false,
+        "cross_family_real_memory_reuse": false,
+        "distance_mode": "real_stable_causal_d",
+        "gate_floor": 0.05,
+        "geometry_memory_used": true,
+        "geometry_pipeline": "H -> W_t memory -> finite-speed D_causal",
+        "geometry_source_family": "real",
+        "geometry_version": "v2",
+        "max_causal_step": 1,
+        "memory_decay": 0.7,
+        "memory_edge_density": 0.7599999904632568,
+        "memory_effective_rank": 2.0141852498054504,
+        "memory_eta": 0.3,
+        "memory_max_probability": 0.28931236267089844,
+        "memory_mean": 0.28671810030937195,
+        "memory_persistence": 0.9997755885124207,
+        "memory_rigidity": 0.1239636093378067,
+        "memory_source": "self_family_memory_recurrence",
+        "memory_spectral_entropy": 0.3801819533109665,
+        "memory_stability": 0.9987394213676453,
+        "memory_std": 0.22485846281051636,
+        "memory_turnover": 0.006005412433296442,
+        "noise_risk": 0.1239636093378067,
+        "normalization_source": "self_family_distance"
+      },
+      "model_shape": {
+        "head_dim": 4,
+        "hidden_dim": 8,
+        "n_heads": 2
+      },
+      "qk_fingerprint": {
+        "finite_count": 144,
+        "mean": 0.17041338980197906,
+        "shape": [
+          2,
+          2,
+          6,
+          6
+        ],
+        "std": 0.13470987975597382,
+        "sum": 24.539527893066406
+      }
+    },
+    "shuffled_stable_causal_d": {
+      "attention_mask_fingerprint": {
+        "finite_count": 12,
+        "mean": 0.9166666865348816,
+        "shape": [
+          2,
+          6
+        ],
+        "std": 0.2763853967189789,
+        "sum": 11.0
+      },
+      "distance_fingerprint": {
+        "finite_count": 74,
+        "mean": -8.054681366331806e-09,
+        "shape": [
+          2,
+          2,
+          6,
+          6
+        ],
+        "std": 0.8219948410987854,
+        "sum": -5.960464477539062e-07
+      },
+      "distance_mean": -8.054681366331806e-09,
+      "distance_policy": {
+        "causal_runtime_distance": true,
+        "clip_value": 5.0,
+        "diagonal_policy": "zero",
+        "epsilon": 1e-06,
+        "normalization": "offdiag_zscore_clamp"
+      },
+      "distance_std": 0.8219948410987854,
+      "geo_to_qk_ratio": 0.36295783519744873,
+      "global_rng_unchanged": true,
+      "graph_policy": {
+        "diagonal_policy": "keep",
+        "graph_heads": 1,
+        "kernel": "sigmoid_cosine",
+        "normalize_hidden": true,
+        "temperature": null
+      },
+      "hidden_fingerprints": [
+        {
+          "finite_count": 96,
+          "mean": 0.2584427297115326,
+          "shape": [
+            2,
+            6,
+            8
+          ],
+          "std": 0.34880149364471436,
+          "sum": 24.810501098632812
+        },
+        {
+          "finite_count": 96,
+          "mean": 0.27462637424468994,
+          "shape": [
+            2,
+            6,
+            8
+          ],
+          "std": 0.3576204180717468,
+          "sum": 26.364131927490234
+        }
+      ],
+      "memory_fingerprint": {
+        "finite_count": 72,
+        "mean": 0.08272156119346619,
+        "shape": [
+          2,
+          1,
+          6,
+          6
+        ],
+        "std": 0.1529410183429718,
+        "sum": 5.9559526443481445
+      },
+      "memory_policy": {
+        "anti_collapse_threshold": 0.1,
+        "decay": 0.7,
+        "eta": 0.3,
+        "gate_floor": 0.05,
+        "min_context_edges": 2
+      },
+      "metadata": {
+        "causal_shortest_path": true,
+        "control_generation_level": "W_before_distance",
+        "control_isolation_contract": {
+          "control_rng": "isolated_local_generator",
+          "cross_family_real_distance_reuse": false,
+          "cross_family_real_memory_reuse": false,
+          "distance_built_from": "W_shuffled",
+          "memory_uses": "self_family_memory_recurrence",
+          "normalization_uses": "self_family_distance",
+          "random_or_shuffled_generated_before_distance": true
+        },
+        "control_rng_isolated": true,
+        "control_seed": 2027,
+        "control_seed_offset": 2,
+        "control_step_seed": 2665614583,
+        "cross_family_real_distance_reuse": false,
+        "cross_family_real_memory_reuse": false,
+        "distance_mode": "shuffled_stable_causal_d",
+        "gate_floor": 0.05,
+        "geometry_memory_used": true,
+        "geometry_pipeline": "H -> W_t memory -> finite-speed D_causal",
+        "geometry_source_family": "shuffled",
+        "geometry_version": "v2",
+        "max_causal_step": 1,
+        "memory_decay": 0.7,
+        "memory_edge_density": 0.9200000166893005,
+        "memory_effective_rank": 2.2424221634864807,
+        "memory_eta": 0.3,
+        "memory_max_probability": 0.29285335540771484,
+        "memory_mean": 0.2382381111383438,
+        "memory_persistence": 0.984476625919342,
+        "memory_rigidity": 0.11135421991348267,
+        "memory_source": "self_family_memory_recurrence",
+        "memory_spectral_entropy": 0.44322890043258667,
+        "memory_stability": 0.9037495851516724,
+        "memory_std": 0.17411485314369202,
+        "memory_turnover": 0.039735473692417145,
+        "noise_risk": 0.7947094738483429,
+        "normalization_source": "self_family_distance"
+      },
+      "model_shape": {
+        "head_dim": 4,
+        "hidden_dim": 8,
+        "n_heads": 2
+      },
+      "qk_fingerprint": {
+        "finite_count": 144,
+        "mean": 0.17041338980197906,
+        "shape": [
+          2,
+          2,
+          6,
+          6
+        ],
+        "std": 0.13470987975597382,
+        "sum": 24.539527893066406
+      }
+    }
+  },
+  "next_required_step": "loss_slope_and_trend_analyzer",
+  "scientific_scope": "mechanics gate only; proves comparable control-family construction before adaptive training or performance claims",
+  "seed": 2027,
+  "stage": "stage6_control_family_fairness_audit_v2",
+  "status": "pass"
+}

@@ -1,0 +1,1754 @@
+{
+  "checks": {
+    "allocation_respects_total_change_budget": true,
+    "can_prioritize_geometry_when_geometry_is_supported": true,
+    "can_shift_budget_to_memory_when_edges_are_noisy": true,
+    "future_leak_is_validity_hard_stop": true,
+    "injected_evidence_ledger_present": true,
+    "parameter_trajectory_present": true,
+    "replay_records_present": true,
+    "required_joint_budget_outputs_emitted": true,
+    "schema_declares_joint_budget_fields": true,
+    "suppresses_geometry_growth_when_attention_or_controls_disagree": true
+  },
+  "config": {
+    "high_attention_pressure": 0.65,
+    "high_attribution_uncertainty": 0.5,
+    "high_control_penalty": 0.35,
+    "high_noise_pressure": 0.55,
+    "max_geometry_budget_fraction": 0.55,
+    "max_memory_budget_fraction": 0.65,
+    "overpowered_geo_to_qk_ratio": 0.18,
+    "target_geo_to_qk_ratio": 0.1,
+    "total_change_budget": 1.0,
+    "underpowered_geo_to_qk_ratio": 0.03
+  },
+  "controller_design": "evidence_weighted_joint_budget_allocator",
+  "decisions": [
+    {
+      "allocated_change_budget": 0.2432,
+      "attention_behavior_regime": "healthy",
+      "attention_derived_budget_pressure": 0.05,
+      "budget_allocation": {
+        "alpha": {
+          "allocated_delta": 0.09025,
+          "family": "geometry",
+          "multiplier": 0.9025,
+          "release_score": 1.0,
+          "requested_delta": 0.1,
+          "risk_score": 0.0975,
+          "suppression_reasons": []
+        },
+        "causal_reachability": {
+          "allocated_delta": 0.08850000000000001,
+          "family": "geometry",
+          "multiplier": 0.4425,
+          "release_score": 0.54,
+          "requested_delta": 0.2,
+          "risk_score": 0.0975,
+          "suppression_reasons": []
+        },
+        "distance_norm_scale": {
+          "allocated_delta": 0.06325,
+          "family": "geometry",
+          "multiplier": 0.6325,
+          "release_score": 0.73,
+          "requested_delta": 0.1,
+          "risk_score": 0.0975,
+          "suppression_reasons": []
+        },
+        "memory_eta": {
+          "allocated_delta": 0.0012,
+          "family": "memory",
+          "multiplier": 0.03,
+          "release_score": 0.16,
+          "requested_delta": 0.04,
+          "risk_score": 0.13,
+          "suppression_reasons": []
+        }
+      },
+      "budget_conflict_score": 0.5099999999999999,
+      "budget_suppression_reasons": {
+        "alpha": [],
+        "causal_reachability": [],
+        "distance_norm_scale": [],
+        "memory_eta": []
+      },
+      "change_budget": 1.0,
+      "controller_state_snapshot": {
+        "allocated_change_budget": 0.2432,
+        "attention_behavior_regime": "healthy",
+        "attention_pressure": 0.05,
+        "budget_conflict_score": 0.5099999999999999,
+        "noise_pressure": 0.08,
+        "qk_competition_state": "geo_competitive"
+      },
+      "decision": "allocate_budget",
+      "decision_replay_record": {
+        "config": {
+          "high_attention_pressure": 0.65,
+          "high_attribution_uncertainty": 0.5,
+          "high_control_penalty": 0.35,
+          "high_noise_pressure": 0.55,
+          "max_geometry_budget_fraction": 0.55,
+          "max_memory_budget_fraction": 0.65,
+          "overpowered_geo_to_qk_ratio": 0.18,
+          "target_geo_to_qk_ratio": 0.1,
+          "total_change_budget": 1.0,
+          "underpowered_geo_to_qk_ratio": 0.03
+        },
+        "controller": "joint_parameter_budget_allocator",
+        "decision": "allocate_budget",
+        "observation": {
+          "attention_entropy_normalized": 0.62,
+          "attribution_uncertainty": 0.05,
+          "collapse_risk": 0.05,
+          "control_penalty": 0.02,
+          "control_separation": 0.24,
+          "future_leak_score": 0.0,
+          "geo_to_qk_ratio": 0.06,
+          "geometry_takeover_score": 0.05,
+          "hard_stop_reason": null,
+          "hard_stop_triggered": false,
+          "noise_risk": 0.08,
+          "parameter_requests": {
+            "alpha": {
+              "attribution_estimate": 0.1,
+              "credit": 0.9,
+              "hard_block": false,
+              "requested_delta": 0.1,
+              "risk_pressure": 0.05
+            },
+            "causal_reachability": {
+              "attribution_estimate": 0.04,
+              "credit": 0.5,
+              "hard_block": false,
+              "requested_delta": 0.2,
+              "risk_pressure": 0.05
+            },
+            "distance_norm_scale": {
+              "attribution_estimate": 0.08,
+              "credit": 0.65,
+              "hard_block": false,
+              "requested_delta": 0.1,
+              "risk_pressure": 0.05
+            },
+            "memory_eta": {
+              "attribution_estimate": 0.01,
+              "credit": 0.15,
+              "hard_block": false,
+              "requested_delta": 0.04,
+              "risk_pressure": 0.05
+            }
+          },
+          "rigidity_risk": 0.05,
+          "step": 100
+        },
+        "parameter_trajectory": {
+          "alpha_allocated_delta": 0.09025,
+          "causal_reachability_allocated_delta": 0.08850000000000001,
+          "distance_norm_scale_allocated_delta": 0.06325,
+          "memory_eta_allocated_delta": 0.0012
+        },
+        "state_before_decision": {
+          "allocated_change_budget": 0.2432,
+          "attention_behavior_regime": "healthy",
+          "attention_pressure": 0.05,
+          "budget_conflict_score": 0.5099999999999999,
+          "noise_pressure": 0.08,
+          "qk_competition_state": "geo_competitive"
+        }
+      },
+      "geometry_budget": 0.242,
+      "injected_evidence_ledger": {
+        "budget_suppression_reasons": {
+          "alpha": [],
+          "causal_reachability": [],
+          "distance_norm_scale": [],
+          "memory_eta": []
+        },
+        "final_allocation": {
+          "alpha": {
+            "allocated_delta": 0.09025,
+            "family": "geometry",
+            "multiplier": 0.9025,
+            "release_score": 1.0,
+            "requested_delta": 0.1,
+            "risk_score": 0.0975,
+            "suppression_reasons": []
+          },
+          "causal_reachability": {
+            "allocated_delta": 0.08850000000000001,
+            "family": "geometry",
+            "multiplier": 0.4425,
+            "release_score": 0.54,
+            "requested_delta": 0.2,
+            "risk_score": 0.0975,
+            "suppression_reasons": []
+          },
+          "distance_norm_scale": {
+            "allocated_delta": 0.06325,
+            "family": "geometry",
+            "multiplier": 0.6325,
+            "release_score": 0.73,
+            "requested_delta": 0.1,
+            "risk_score": 0.0975,
+            "suppression_reasons": []
+          },
+          "memory_eta": {
+            "allocated_delta": 0.0012,
+            "family": "memory",
+            "multiplier": 0.03,
+            "release_score": 0.16,
+            "requested_delta": 0.04,
+            "risk_score": 0.13,
+            "suppression_reasons": []
+          }
+        },
+        "parameter_requests": {
+          "alpha": {
+            "attribution_estimate": 0.1,
+            "credit": 0.9,
+            "hard_block": false,
+            "requested_delta": 0.1,
+            "risk_pressure": 0.05
+          },
+          "causal_reachability": {
+            "attribution_estimate": 0.04,
+            "credit": 0.5,
+            "hard_block": false,
+            "requested_delta": 0.2,
+            "risk_pressure": 0.05
+          },
+          "distance_norm_scale": {
+            "attribution_estimate": 0.08,
+            "credit": 0.65,
+            "hard_block": false,
+            "requested_delta": 0.1,
+            "risk_pressure": 0.05
+          },
+          "memory_eta": {
+            "attribution_estimate": 0.01,
+            "credit": 0.15,
+            "hard_block": false,
+            "requested_delta": 0.04,
+            "risk_pressure": 0.05
+          }
+        },
+        "preliminary_allocation": {
+          "alpha": {
+            "allocated_delta": 0.09025,
+            "family": "geometry",
+            "multiplier": 0.9025,
+            "release_score": 1.0,
+            "requested_delta": 0.1,
+            "risk_score": 0.0975,
+            "suppression_reasons": []
+          },
+          "causal_reachability": {
+            "allocated_delta": 0.08850000000000001,
+            "family": "geometry",
+            "multiplier": 0.4425,
+            "release_score": 0.54,
+            "requested_delta": 0.2,
+            "risk_score": 0.0975,
+            "suppression_reasons": []
+          },
+          "distance_norm_scale": {
+            "allocated_delta": 0.06325,
+            "family": "geometry",
+            "multiplier": 0.6325,
+            "release_score": 0.73,
+            "requested_delta": 0.1,
+            "risk_score": 0.0975,
+            "suppression_reasons": []
+          },
+          "memory_eta": {
+            "allocated_delta": 0.0012,
+            "family": "memory",
+            "multiplier": 0.03,
+            "release_score": 0.16,
+            "requested_delta": 0.04,
+            "risk_score": 0.13,
+            "suppression_reasons": []
+          }
+        }
+      },
+      "memory_budget": 0.0012,
+      "noise_budget": 0.08,
+      "parameter_trajectory": {
+        "alpha_allocated_delta": 0.09025,
+        "causal_reachability_allocated_delta": 0.08850000000000001,
+        "distance_norm_scale_allocated_delta": 0.06325,
+        "memory_eta_allocated_delta": 0.0012
+      },
+      "qk_competition_state": "geo_competitive",
+      "release_allocation": {
+        "alpha": 0.09025,
+        "causal_reachability": 0.08850000000000001,
+        "distance_norm_scale": 0.06325,
+        "memory_eta": 0.0012
+      },
+      "restraint_allocation": {
+        "alpha": 0.0,
+        "causal_reachability": 0.0,
+        "distance_norm_scale": 0.0,
+        "memory_eta": 0.0
+      },
+      "rigidity_budget": 0.05,
+      "step": 100
+    },
+    {
+      "allocated_change_budget": 0.10726,
+      "attention_behavior_regime": "healthy",
+      "attention_derived_budget_pressure": 0.18,
+      "budget_allocation": {
+        "alpha": {
+          "allocated_delta": 0.005600000000000005,
+          "family": "geometry",
+          "multiplier": 0.05600000000000005,
+          "release_score": 0.5900000000000001,
+          "requested_delta": 0.1,
+          "risk_score": 0.534,
+          "suppression_reasons": [
+            "noise_shifts_budget_to_memory"
+          ]
+        },
+        "gate_floor": {
+          "allocated_delta": 0.030539999999999994,
+          "family": "memory",
+          "multiplier": 0.5089999999999999,
+          "release_score": 0.5589999999999999,
+          "requested_delta": 0.06,
+          "risk_score": 0.05,
+          "suppression_reasons": []
+        },
+        "memory_decay": {
+          "allocated_delta": 0.04311999999999999,
+          "family": "memory",
+          "multiplier": 0.5389999999999999,
+          "release_score": 0.589,
+          "requested_delta": 0.08,
+          "risk_score": 0.05,
+          "suppression_reasons": []
+        },
+        "memory_eta": {
+          "allocated_delta": -0.027999999999999997,
+          "family": "memory",
+          "multiplier": 0.7,
+          "release_score": 0.0,
+          "requested_delta": -0.04,
+          "risk_score": 0.6,
+          "suppression_reasons": []
+        }
+      },
+      "budget_conflict_score": 0.6599999999999999,
+      "budget_suppression_reasons": {
+        "alpha": [
+          "noise_shifts_budget_to_memory"
+        ],
+        "gate_floor": [],
+        "memory_decay": [],
+        "memory_eta": []
+      },
+      "change_budget": 1.0,
+      "controller_state_snapshot": {
+        "allocated_change_budget": 0.10726,
+        "attention_behavior_regime": "healthy",
+        "attention_pressure": 0.18,
+        "budget_conflict_score": 0.6599999999999999,
+        "noise_pressure": 0.82,
+        "qk_competition_state": "geo_competitive"
+      },
+      "decision": "allocate_budget",
+      "decision_replay_record": {
+        "config": {
+          "high_attention_pressure": 0.65,
+          "high_attribution_uncertainty": 0.5,
+          "high_control_penalty": 0.35,
+          "high_noise_pressure": 0.55,
+          "max_geometry_budget_fraction": 0.55,
+          "max_memory_budget_fraction": 0.65,
+          "overpowered_geo_to_qk_ratio": 0.18,
+          "target_geo_to_qk_ratio": 0.1,
+          "total_change_budget": 1.0,
+          "underpowered_geo_to_qk_ratio": 0.03
+        },
+        "controller": "joint_parameter_budget_allocator",
+        "decision": "allocate_budget",
+        "observation": {
+          "attention_entropy_normalized": 0.7,
+          "attribution_uncertainty": 0.12,
+          "collapse_risk": 0.1,
+          "control_penalty": 0.18,
+          "control_separation": 0.02,
+          "future_leak_score": 0.0,
+          "geo_to_qk_ratio": 0.08,
+          "geometry_takeover_score": 0.12,
+          "hard_stop_reason": null,
+          "hard_stop_triggered": false,
+          "noise_risk": 0.82,
+          "parameter_requests": {
+            "alpha": {
+              "attribution_estimate": 0.04,
+              "credit": 0.55,
+              "hard_block": false,
+              "requested_delta": 0.1,
+              "risk_pressure": 0.05
+            },
+            "gate_floor": {
+              "attribution_estimate": 0.01,
+              "credit": 0.18,
+              "hard_block": false,
+              "requested_delta": 0.06,
+              "risk_pressure": 0.05
+            },
+            "memory_decay": {
+              "attribution_estimate": 0.02,
+              "credit": 0.2,
+              "hard_block": false,
+              "requested_delta": 0.08,
+              "risk_pressure": 0.05
+            },
+            "memory_eta": {
+              "attribution_estimate": 0.0,
+              "credit": -0.1,
+              "hard_block": false,
+              "requested_delta": -0.04,
+              "risk_pressure": 0.6
+            }
+          },
+          "rigidity_risk": 0.18,
+          "step": 200
+        },
+        "parameter_trajectory": {
+          "alpha_allocated_delta": 0.005600000000000005,
+          "gate_floor_allocated_delta": 0.030539999999999994,
+          "memory_decay_allocated_delta": 0.04311999999999999,
+          "memory_eta_allocated_delta": -0.027999999999999997
+        },
+        "state_before_decision": {
+          "allocated_change_budget": 0.10726,
+          "attention_behavior_regime": "healthy",
+          "attention_pressure": 0.18,
+          "budget_conflict_score": 0.6599999999999999,
+          "noise_pressure": 0.82,
+          "qk_competition_state": "geo_competitive"
+        }
+      },
+      "geometry_budget": 0.005600000000000005,
+      "injected_evidence_ledger": {
+        "budget_suppression_reasons": {
+          "alpha": [
+            "noise_shifts_budget_to_memory"
+          ],
+          "gate_floor": [],
+          "memory_decay": [],
+          "memory_eta": []
+        },
+        "final_allocation": {
+          "alpha": {
+            "allocated_delta": 0.005600000000000005,
+            "family": "geometry",
+            "multiplier": 0.05600000000000005,
+            "release_score": 0.5900000000000001,
+            "requested_delta": 0.1,
+            "risk_score": 0.534,
+            "suppression_reasons": [
+              "noise_shifts_budget_to_memory"
+            ]
+          },
+          "gate_floor": {
+            "allocated_delta": 0.030539999999999994,
+            "family": "memory",
+            "multiplier": 0.5089999999999999,
+            "release_score": 0.5589999999999999,
+            "requested_delta": 0.06,
+            "risk_score": 0.05,
+            "suppression_reasons": []
+          },
+          "memory_decay": {
+            "allocated_delta": 0.04311999999999999,
+            "family": "memory",
+            "multiplier": 0.5389999999999999,
+            "release_score": 0.589,
+            "requested_delta": 0.08,
+            "risk_score": 0.05,
+            "suppression_reasons": []
+          },
+          "memory_eta": {
+            "allocated_delta": -0.027999999999999997,
+            "family": "memory",
+            "multiplier": 0.7,
+            "release_score": 0.0,
+            "requested_delta": -0.04,
+            "risk_score": 0.6,
+            "suppression_reasons": []
+          }
+        },
+        "parameter_requests": {
+          "alpha": {
+            "attribution_estimate": 0.04,
+            "credit": 0.55,
+            "hard_block": false,
+            "requested_delta": 0.1,
+            "risk_pressure": 0.05
+          },
+          "gate_floor": {
+            "attribution_estimate": 0.01,
+            "credit": 0.18,
+            "hard_block": false,
+            "requested_delta": 0.06,
+            "risk_pressure": 0.05
+          },
+          "memory_decay": {
+            "attribution_estimate": 0.02,
+            "credit": 0.2,
+            "hard_block": false,
+            "requested_delta": 0.08,
+            "risk_pressure": 0.05
+          },
+          "memory_eta": {
+            "attribution_estimate": 0.0,
+            "credit": -0.1,
+            "hard_block": false,
+            "requested_delta": -0.04,
+            "risk_pressure": 0.6
+          }
+        },
+        "preliminary_allocation": {
+          "alpha": {
+            "allocated_delta": 0.005600000000000005,
+            "family": "geometry",
+            "multiplier": 0.05600000000000005,
+            "release_score": 0.5900000000000001,
+            "requested_delta": 0.1,
+            "risk_score": 0.534,
+            "suppression_reasons": [
+              "noise_shifts_budget_to_memory"
+            ]
+          },
+          "gate_floor": {
+            "allocated_delta": 0.030539999999999994,
+            "family": "memory",
+            "multiplier": 0.5089999999999999,
+            "release_score": 0.5589999999999999,
+            "requested_delta": 0.06,
+            "risk_score": 0.05,
+            "suppression_reasons": []
+          },
+          "memory_decay": {
+            "allocated_delta": 0.04311999999999999,
+            "family": "memory",
+            "multiplier": 0.5389999999999999,
+            "release_score": 0.589,
+            "requested_delta": 0.08,
+            "risk_score": 0.05,
+            "suppression_reasons": []
+          },
+          "memory_eta": {
+            "allocated_delta": -0.027999999999999997,
+            "family": "memory",
+            "multiplier": 0.7,
+            "release_score": 0.0,
+            "requested_delta": -0.04,
+            "risk_score": 0.6,
+            "suppression_reasons": []
+          }
+        }
+      },
+      "memory_budget": 0.10165999999999999,
+      "noise_budget": 0.82,
+      "parameter_trajectory": {
+        "alpha_allocated_delta": 0.005600000000000005,
+        "gate_floor_allocated_delta": 0.030539999999999994,
+        "memory_decay_allocated_delta": 0.04311999999999999,
+        "memory_eta_allocated_delta": -0.027999999999999997
+      },
+      "qk_competition_state": "geo_competitive",
+      "release_allocation": {
+        "alpha": 0.005600000000000005,
+        "gate_floor": 0.030539999999999994,
+        "memory_decay": 0.04311999999999999,
+        "memory_eta": 0.0
+      },
+      "restraint_allocation": {
+        "alpha": 0.0,
+        "gate_floor": 0.0,
+        "memory_decay": 0.0,
+        "memory_eta": 0.027999999999999997
+      },
+      "rigidity_budget": 0.18,
+      "step": 200
+    },
+    {
+      "allocated_change_budget": 0.0,
+      "attention_behavior_regime": "collapsed",
+      "attention_derived_budget_pressure": 0.76,
+      "budget_allocation": {
+        "alpha": {
+          "allocated_delta": 0.0,
+          "family": "geometry",
+          "multiplier": 0.0,
+          "release_score": 1.0,
+          "requested_delta": 0.1,
+          "risk_score": 1.5054999999999998,
+          "suppression_reasons": [
+            "geo_qk_overpowered",
+            "noise_shifts_budget_to_memory",
+            "geometry_growth_suppressed_by_attention_or_controls"
+          ]
+        },
+        "causal_reachability": {
+          "allocated_delta": 0.0,
+          "family": "geometry",
+          "multiplier": 0.0,
+          "release_score": 0.74,
+          "requested_delta": 0.2,
+          "risk_score": 1.5054999999999998,
+          "suppression_reasons": [
+            "geo_qk_overpowered",
+            "noise_shifts_budget_to_memory",
+            "geometry_growth_suppressed_by_attention_or_controls"
+          ]
+        },
+        "distance_norm_scale": {
+          "allocated_delta": 0.0,
+          "family": "geometry",
+          "multiplier": 0.0,
+          "release_score": 0.7799999999999999,
+          "requested_delta": 0.1,
+          "risk_score": 1.5054999999999998,
+          "suppression_reasons": [
+            "geo_qk_overpowered",
+            "noise_shifts_budget_to_memory",
+            "geometry_growth_suppressed_by_attention_or_controls"
+          ]
+        }
+      },
+      "budget_conflict_score": 0.8250000000000001,
+      "budget_suppression_reasons": {
+        "alpha": [
+          "geo_qk_overpowered",
+          "noise_shifts_budget_to_memory",
+          "geometry_growth_suppressed_by_attention_or_controls"
+        ],
+        "causal_reachability": [
+          "geo_qk_overpowered",
+          "noise_shifts_budget_to_memory",
+          "geometry_growth_suppressed_by_attention_or_controls"
+        ],
+        "distance_norm_scale": [
+          "geo_qk_overpowered",
+          "noise_shifts_budget_to_memory",
+          "geometry_growth_suppressed_by_attention_or_controls"
+        ]
+      },
+      "change_budget": 1.0,
+      "controller_state_snapshot": {
+        "allocated_change_budget": 0.0,
+        "attention_behavior_regime": "collapsed",
+        "attention_pressure": 0.76,
+        "budget_conflict_score": 0.8250000000000001,
+        "noise_pressure": 0.55,
+        "qk_competition_state": "geo_overpowered"
+      },
+      "decision": "freeze_all",
+      "decision_replay_record": {
+        "config": {
+          "high_attention_pressure": 0.65,
+          "high_attribution_uncertainty": 0.5,
+          "high_control_penalty": 0.35,
+          "high_noise_pressure": 0.55,
+          "max_geometry_budget_fraction": 0.55,
+          "max_memory_budget_fraction": 0.65,
+          "overpowered_geo_to_qk_ratio": 0.18,
+          "target_geo_to_qk_ratio": 0.1,
+          "total_change_budget": 1.0,
+          "underpowered_geo_to_qk_ratio": 0.03
+        },
+        "controller": "joint_parameter_budget_allocator",
+        "decision": "freeze_all",
+        "observation": {
+          "attention_entropy_normalized": 0.8,
+          "attribution_uncertainty": 0.25,
+          "collapse_risk": 0.76,
+          "control_penalty": 0.55,
+          "control_separation": -0.12,
+          "future_leak_score": 0.0,
+          "geo_to_qk_ratio": 0.22,
+          "geometry_takeover_score": 0.72,
+          "hard_stop_reason": null,
+          "hard_stop_triggered": false,
+          "noise_risk": 0.2,
+          "parameter_requests": {
+            "alpha": {
+              "attribution_estimate": 0.1,
+              "credit": 0.9,
+              "hard_block": false,
+              "requested_delta": 0.1,
+              "risk_pressure": 0.05
+            },
+            "causal_reachability": {
+              "attribution_estimate": 0.04,
+              "credit": 0.7,
+              "hard_block": false,
+              "requested_delta": 0.2,
+              "risk_pressure": 0.05
+            },
+            "distance_norm_scale": {
+              "attribution_estimate": 0.08,
+              "credit": 0.7,
+              "hard_block": false,
+              "requested_delta": 0.1,
+              "risk_pressure": 0.05
+            }
+          },
+          "rigidity_risk": 0.74,
+          "step": 300
+        },
+        "parameter_trajectory": {
+          "alpha_allocated_delta": 0.0,
+          "causal_reachability_allocated_delta": 0.0,
+          "distance_norm_scale_allocated_delta": 0.0
+        },
+        "state_before_decision": {
+          "allocated_change_budget": 0.0,
+          "attention_behavior_regime": "collapsed",
+          "attention_pressure": 0.76,
+          "budget_conflict_score": 0.8250000000000001,
+          "noise_pressure": 0.55,
+          "qk_competition_state": "geo_overpowered"
+        }
+      },
+      "geometry_budget": 0.0,
+      "injected_evidence_ledger": {
+        "budget_suppression_reasons": {
+          "alpha": [
+            "geo_qk_overpowered",
+            "noise_shifts_budget_to_memory",
+            "geometry_growth_suppressed_by_attention_or_controls"
+          ],
+          "causal_reachability": [
+            "geo_qk_overpowered",
+            "noise_shifts_budget_to_memory",
+            "geometry_growth_suppressed_by_attention_or_controls"
+          ],
+          "distance_norm_scale": [
+            "geo_qk_overpowered",
+            "noise_shifts_budget_to_memory",
+            "geometry_growth_suppressed_by_attention_or_controls"
+          ]
+        },
+        "final_allocation": {
+          "alpha": {
+            "allocated_delta": 0.0,
+            "family": "geometry",
+            "multiplier": 0.0,
+            "release_score": 1.0,
+            "requested_delta": 0.1,
+            "risk_score": 1.5054999999999998,
+            "suppression_reasons": [
+              "geo_qk_overpowered",
+              "noise_shifts_budget_to_memory",
+              "geometry_growth_suppressed_by_attention_or_controls"
+            ]
+          },
+          "causal_reachability": {
+            "allocated_delta": 0.0,
+            "family": "geometry",
+            "multiplier": 0.0,
+            "release_score": 0.74,
+            "requested_delta": 0.2,
+            "risk_score": 1.5054999999999998,
+            "suppression_reasons": [
+              "geo_qk_overpowered",
+              "noise_shifts_budget_to_memory",
+              "geometry_growth_suppressed_by_attention_or_controls"
+            ]
+          },
+          "distance_norm_scale": {
+            "allocated_delta": 0.0,
+            "family": "geometry",
+            "multiplier": 0.0,
+            "release_score": 0.7799999999999999,
+            "requested_delta": 0.1,
+            "risk_score": 1.5054999999999998,
+            "suppression_reasons": [
+              "geo_qk_overpowered",
+              "noise_shifts_budget_to_memory",
+              "geometry_growth_suppressed_by_attention_or_controls"
+            ]
+          }
+        },
+        "parameter_requests": {
+          "alpha": {
+            "attribution_estimate": 0.1,
+            "credit": 0.9,
+            "hard_block": false,
+            "requested_delta": 0.1,
+            "risk_pressure": 0.05
+          },
+          "causal_reachability": {
+            "attribution_estimate": 0.04,
+            "credit": 0.7,
+            "hard_block": false,
+            "requested_delta": 0.2,
+            "risk_pressure": 0.05
+          },
+          "distance_norm_scale": {
+            "attribution_estimate": 0.08,
+            "credit": 0.7,
+            "hard_block": false,
+            "requested_delta": 0.1,
+            "risk_pressure": 0.05
+          }
+        },
+        "preliminary_allocation": {
+          "alpha": {
+            "allocated_delta": 0.0,
+            "family": "geometry",
+            "multiplier": 0.0,
+            "release_score": 1.0,
+            "requested_delta": 0.1,
+            "risk_score": 1.5054999999999998,
+            "suppression_reasons": [
+              "geo_qk_overpowered",
+              "noise_shifts_budget_to_memory",
+              "geometry_growth_suppressed_by_attention_or_controls"
+            ]
+          },
+          "causal_reachability": {
+            "allocated_delta": 0.0,
+            "family": "geometry",
+            "multiplier": 0.0,
+            "release_score": 0.74,
+            "requested_delta": 0.2,
+            "risk_score": 1.5054999999999998,
+            "suppression_reasons": [
+              "geo_qk_overpowered",
+              "noise_shifts_budget_to_memory",
+              "geometry_growth_suppressed_by_attention_or_controls"
+            ]
+          },
+          "distance_norm_scale": {
+            "allocated_delta": 0.0,
+            "family": "geometry",
+            "multiplier": 0.0,
+            "release_score": 0.7799999999999999,
+            "requested_delta": 0.1,
+            "risk_score": 1.5054999999999998,
+            "suppression_reasons": [
+              "geo_qk_overpowered",
+              "noise_shifts_budget_to_memory",
+              "geometry_growth_suppressed_by_attention_or_controls"
+            ]
+          }
+        }
+      },
+      "memory_budget": 0,
+      "noise_budget": 0.55,
+      "parameter_trajectory": {
+        "alpha_allocated_delta": 0.0,
+        "causal_reachability_allocated_delta": 0.0,
+        "distance_norm_scale_allocated_delta": 0.0
+      },
+      "qk_competition_state": "geo_overpowered",
+      "release_allocation": {
+        "alpha": 0.0,
+        "causal_reachability": 0.0,
+        "distance_norm_scale": 0.0
+      },
+      "restraint_allocation": {
+        "alpha": -0.0,
+        "causal_reachability": -0.0,
+        "distance_norm_scale": -0.0
+      },
+      "rigidity_budget": 0.76,
+      "step": 300
+    }
+  ],
+  "input_source": "synthetic_joint_budget_allocator_smoke",
+  "next_required_step": "control_separation_scoring",
+  "required_outputs": [
+    "change_budget",
+    "allocated_change_budget",
+    "geometry_budget",
+    "memory_budget",
+    "rigidity_budget",
+    "noise_budget",
+    "qk_competition_state",
+    "release_allocation",
+    "restraint_allocation",
+    "attention_behavior_regime",
+    "attention_derived_budget_pressure",
+    "budget_conflict_score",
+    "budget_allocation",
+    "budget_suppression_reasons",
+    "parameter_trajectory",
+    "injected_evidence_ledger",
+    "controller_state_snapshot",
+    "decision_replay_record"
+  ],
+  "scientific_scope": "joint adaptive budget allocator; coordinates alpha, memory, gate, reachability, and distance scale before trainer application",
+  "stage": "stage14_joint_parameter_budget_allocator",
+  "status": "pass",
+  "summary": {
+    "config": {
+      "high_attention_pressure": 0.65,
+      "high_attribution_uncertainty": 0.5,
+      "high_control_penalty": 0.35,
+      "high_noise_pressure": 0.55,
+      "max_geometry_budget_fraction": 0.55,
+      "max_memory_budget_fraction": 0.65,
+      "overpowered_geo_to_qk_ratio": 0.18,
+      "target_geo_to_qk_ratio": 0.1,
+      "total_change_budget": 1.0,
+      "underpowered_geo_to_qk_ratio": 0.03
+    },
+    "decisions": [
+      {
+        "allocated_change_budget": 0.2432,
+        "attention_behavior_regime": "healthy",
+        "attention_derived_budget_pressure": 0.05,
+        "budget_allocation": {
+          "alpha": {
+            "allocated_delta": 0.09025,
+            "family": "geometry",
+            "multiplier": 0.9025,
+            "release_score": 1.0,
+            "requested_delta": 0.1,
+            "risk_score": 0.0975,
+            "suppression_reasons": []
+          },
+          "causal_reachability": {
+            "allocated_delta": 0.08850000000000001,
+            "family": "geometry",
+            "multiplier": 0.4425,
+            "release_score": 0.54,
+            "requested_delta": 0.2,
+            "risk_score": 0.0975,
+            "suppression_reasons": []
+          },
+          "distance_norm_scale": {
+            "allocated_delta": 0.06325,
+            "family": "geometry",
+            "multiplier": 0.6325,
+            "release_score": 0.73,
+            "requested_delta": 0.1,
+            "risk_score": 0.0975,
+            "suppression_reasons": []
+          },
+          "memory_eta": {
+            "allocated_delta": 0.0012,
+            "family": "memory",
+            "multiplier": 0.03,
+            "release_score": 0.16,
+            "requested_delta": 0.04,
+            "risk_score": 0.13,
+            "suppression_reasons": []
+          }
+        },
+        "budget_conflict_score": 0.5099999999999999,
+        "budget_suppression_reasons": {
+          "alpha": [],
+          "causal_reachability": [],
+          "distance_norm_scale": [],
+          "memory_eta": []
+        },
+        "change_budget": 1.0,
+        "controller_state_snapshot": {
+          "allocated_change_budget": 0.2432,
+          "attention_behavior_regime": "healthy",
+          "attention_pressure": 0.05,
+          "budget_conflict_score": 0.5099999999999999,
+          "noise_pressure": 0.08,
+          "qk_competition_state": "geo_competitive"
+        },
+        "decision": "allocate_budget",
+        "decision_replay_record": {
+          "config": {
+            "high_attention_pressure": 0.65,
+            "high_attribution_uncertainty": 0.5,
+            "high_control_penalty": 0.35,
+            "high_noise_pressure": 0.55,
+            "max_geometry_budget_fraction": 0.55,
+            "max_memory_budget_fraction": 0.65,
+            "overpowered_geo_to_qk_ratio": 0.18,
+            "target_geo_to_qk_ratio": 0.1,
+            "total_change_budget": 1.0,
+            "underpowered_geo_to_qk_ratio": 0.03
+          },
+          "controller": "joint_parameter_budget_allocator",
+          "decision": "allocate_budget",
+          "observation": {
+            "attention_entropy_normalized": 0.62,
+            "attribution_uncertainty": 0.05,
+            "collapse_risk": 0.05,
+            "control_penalty": 0.02,
+            "control_separation": 0.24,
+            "future_leak_score": 0.0,
+            "geo_to_qk_ratio": 0.06,
+            "geometry_takeover_score": 0.05,
+            "hard_stop_reason": null,
+            "hard_stop_triggered": false,
+            "noise_risk": 0.08,
+            "parameter_requests": {
+              "alpha": {
+                "attribution_estimate": 0.1,
+                "credit": 0.9,
+                "hard_block": false,
+                "requested_delta": 0.1,
+                "risk_pressure": 0.05
+              },
+              "causal_reachability": {
+                "attribution_estimate": 0.04,
+                "credit": 0.5,
+                "hard_block": false,
+                "requested_delta": 0.2,
+                "risk_pressure": 0.05
+              },
+              "distance_norm_scale": {
+                "attribution_estimate": 0.08,
+                "credit": 0.65,
+                "hard_block": false,
+                "requested_delta": 0.1,
+                "risk_pressure": 0.05
+              },
+              "memory_eta": {
+                "attribution_estimate": 0.01,
+                "credit": 0.15,
+                "hard_block": false,
+                "requested_delta": 0.04,
+                "risk_pressure": 0.05
+              }
+            },
+            "rigidity_risk": 0.05,
+            "step": 100
+          },
+          "parameter_trajectory": {
+            "alpha_allocated_delta": 0.09025,
+            "causal_reachability_allocated_delta": 0.08850000000000001,
+            "distance_norm_scale_allocated_delta": 0.06325,
+            "memory_eta_allocated_delta": 0.0012
+          },
+          "state_before_decision": {
+            "allocated_change_budget": 0.2432,
+            "attention_behavior_regime": "healthy",
+            "attention_pressure": 0.05,
+            "budget_conflict_score": 0.5099999999999999,
+            "noise_pressure": 0.08,
+            "qk_competition_state": "geo_competitive"
+          }
+        },
+        "geometry_budget": 0.242,
+        "injected_evidence_ledger": {
+          "budget_suppression_reasons": {
+            "alpha": [],
+            "causal_reachability": [],
+            "distance_norm_scale": [],
+            "memory_eta": []
+          },
+          "final_allocation": {
+            "alpha": {
+              "allocated_delta": 0.09025,
+              "family": "geometry",
+              "multiplier": 0.9025,
+              "release_score": 1.0,
+              "requested_delta": 0.1,
+              "risk_score": 0.0975,
+              "suppression_reasons": []
+            },
+            "causal_reachability": {
+              "allocated_delta": 0.08850000000000001,
+              "family": "geometry",
+              "multiplier": 0.4425,
+              "release_score": 0.54,
+              "requested_delta": 0.2,
+              "risk_score": 0.0975,
+              "suppression_reasons": []
+            },
+            "distance_norm_scale": {
+              "allocated_delta": 0.06325,
+              "family": "geometry",
+              "multiplier": 0.6325,
+              "release_score": 0.73,
+              "requested_delta": 0.1,
+              "risk_score": 0.0975,
+              "suppression_reasons": []
+            },
+            "memory_eta": {
+              "allocated_delta": 0.0012,
+              "family": "memory",
+              "multiplier": 0.03,
+              "release_score": 0.16,
+              "requested_delta": 0.04,
+              "risk_score": 0.13,
+              "suppression_reasons": []
+            }
+          },
+          "parameter_requests": {
+            "alpha": {
+              "attribution_estimate": 0.1,
+              "credit": 0.9,
+              "hard_block": false,
+              "requested_delta": 0.1,
+              "risk_pressure": 0.05
+            },
+            "causal_reachability": {
+              "attribution_estimate": 0.04,
+              "credit": 0.5,
+              "hard_block": false,
+              "requested_delta": 0.2,
+              "risk_pressure": 0.05
+            },
+            "distance_norm_scale": {
+              "attribution_estimate": 0.08,
+              "credit": 0.65,
+              "hard_block": false,
+              "requested_delta": 0.1,
+              "risk_pressure": 0.05
+            },
+            "memory_eta": {
+              "attribution_estimate": 0.01,
+              "credit": 0.15,
+              "hard_block": false,
+              "requested_delta": 0.04,
+              "risk_pressure": 0.05
+            }
+          },
+          "preliminary_allocation": {
+            "alpha": {
+              "allocated_delta": 0.09025,
+              "family": "geometry",
+              "multiplier": 0.9025,
+              "release_score": 1.0,
+              "requested_delta": 0.1,
+              "risk_score": 0.0975,
+              "suppression_reasons": []
+            },
+            "causal_reachability": {
+              "allocated_delta": 0.08850000000000001,
+              "family": "geometry",
+              "multiplier": 0.4425,
+              "release_score": 0.54,
+              "requested_delta": 0.2,
+              "risk_score": 0.0975,
+              "suppression_reasons": []
+            },
+            "distance_norm_scale": {
+              "allocated_delta": 0.06325,
+              "family": "geometry",
+              "multiplier": 0.6325,
+              "release_score": 0.73,
+              "requested_delta": 0.1,
+              "risk_score": 0.0975,
+              "suppression_reasons": []
+            },
+            "memory_eta": {
+              "allocated_delta": 0.0012,
+              "family": "memory",
+              "multiplier": 0.03,
+              "release_score": 0.16,
+              "requested_delta": 0.04,
+              "risk_score": 0.13,
+              "suppression_reasons": []
+            }
+          }
+        },
+        "memory_budget": 0.0012,
+        "noise_budget": 0.08,
+        "parameter_trajectory": {
+          "alpha_allocated_delta": 0.09025,
+          "causal_reachability_allocated_delta": 0.08850000000000001,
+          "distance_norm_scale_allocated_delta": 0.06325,
+          "memory_eta_allocated_delta": 0.0012
+        },
+        "qk_competition_state": "geo_competitive",
+        "release_allocation": {
+          "alpha": 0.09025,
+          "causal_reachability": 0.08850000000000001,
+          "distance_norm_scale": 0.06325,
+          "memory_eta": 0.0012
+        },
+        "restraint_allocation": {
+          "alpha": 0.0,
+          "causal_reachability": 0.0,
+          "distance_norm_scale": 0.0,
+          "memory_eta": 0.0
+        },
+        "rigidity_budget": 0.05,
+        "step": 100
+      },
+      {
+        "allocated_change_budget": 0.10726,
+        "attention_behavior_regime": "healthy",
+        "attention_derived_budget_pressure": 0.18,
+        "budget_allocation": {
+          "alpha": {
+            "allocated_delta": 0.005600000000000005,
+            "family": "geometry",
+            "multiplier": 0.05600000000000005,
+            "release_score": 0.5900000000000001,
+            "requested_delta": 0.1,
+            "risk_score": 0.534,
+            "suppression_reasons": [
+              "noise_shifts_budget_to_memory"
+            ]
+          },
+          "gate_floor": {
+            "allocated_delta": 0.030539999999999994,
+            "family": "memory",
+            "multiplier": 0.5089999999999999,
+            "release_score": 0.5589999999999999,
+            "requested_delta": 0.06,
+            "risk_score": 0.05,
+            "suppression_reasons": []
+          },
+          "memory_decay": {
+            "allocated_delta": 0.04311999999999999,
+            "family": "memory",
+            "multiplier": 0.5389999999999999,
+            "release_score": 0.589,
+            "requested_delta": 0.08,
+            "risk_score": 0.05,
+            "suppression_reasons": []
+          },
+          "memory_eta": {
+            "allocated_delta": -0.027999999999999997,
+            "family": "memory",
+            "multiplier": 0.7,
+            "release_score": 0.0,
+            "requested_delta": -0.04,
+            "risk_score": 0.6,
+            "suppression_reasons": []
+          }
+        },
+        "budget_conflict_score": 0.6599999999999999,
+        "budget_suppression_reasons": {
+          "alpha": [
+            "noise_shifts_budget_to_memory"
+          ],
+          "gate_floor": [],
+          "memory_decay": [],
+          "memory_eta": []
+        },
+        "change_budget": 1.0,
+        "controller_state_snapshot": {
+          "allocated_change_budget": 0.10726,
+          "attention_behavior_regime": "healthy",
+          "attention_pressure": 0.18,
+          "budget_conflict_score": 0.6599999999999999,
+          "noise_pressure": 0.82,
+          "qk_competition_state": "geo_competitive"
+        },
+        "decision": "allocate_budget",
+        "decision_replay_record": {
+          "config": {
+            "high_attention_pressure": 0.65,
+            "high_attribution_uncertainty": 0.5,
+            "high_control_penalty": 0.35,
+            "high_noise_pressure": 0.55,
+            "max_geometry_budget_fraction": 0.55,
+            "max_memory_budget_fraction": 0.65,
+            "overpowered_geo_to_qk_ratio": 0.18,
+            "target_geo_to_qk_ratio": 0.1,
+            "total_change_budget": 1.0,
+            "underpowered_geo_to_qk_ratio": 0.03
+          },
+          "controller": "joint_parameter_budget_allocator",
+          "decision": "allocate_budget",
+          "observation": {
+            "attention_entropy_normalized": 0.7,
+            "attribution_uncertainty": 0.12,
+            "collapse_risk": 0.1,
+            "control_penalty": 0.18,
+            "control_separation": 0.02,
+            "future_leak_score": 0.0,
+            "geo_to_qk_ratio": 0.08,
+            "geometry_takeover_score": 0.12,
+            "hard_stop_reason": null,
+            "hard_stop_triggered": false,
+            "noise_risk": 0.82,
+            "parameter_requests": {
+              "alpha": {
+                "attribution_estimate": 0.04,
+                "credit": 0.55,
+                "hard_block": false,
+                "requested_delta": 0.1,
+                "risk_pressure": 0.05
+              },
+              "gate_floor": {
+                "attribution_estimate": 0.01,
+                "credit": 0.18,
+                "hard_block": false,
+                "requested_delta": 0.06,
+                "risk_pressure": 0.05
+              },
+              "memory_decay": {
+                "attribution_estimate": 0.02,
+                "credit": 0.2,
+                "hard_block": false,
+                "requested_delta": 0.08,
+                "risk_pressure": 0.05
+              },
+              "memory_eta": {
+                "attribution_estimate": 0.0,
+                "credit": -0.1,
+                "hard_block": false,
+                "requested_delta": -0.04,
+                "risk_pressure": 0.6
+              }
+            },
+            "rigidity_risk": 0.18,
+            "step": 200
+          },
+          "parameter_trajectory": {
+            "alpha_allocated_delta": 0.005600000000000005,
+            "gate_floor_allocated_delta": 0.030539999999999994,
+            "memory_decay_allocated_delta": 0.04311999999999999,
+            "memory_eta_allocated_delta": -0.027999999999999997
+          },
+          "state_before_decision": {
+            "allocated_change_budget": 0.10726,
+            "attention_behavior_regime": "healthy",
+            "attention_pressure": 0.18,
+            "budget_conflict_score": 0.6599999999999999,
+            "noise_pressure": 0.82,
+            "qk_competition_state": "geo_competitive"
+          }
+        },
+        "geometry_budget": 0.005600000000000005,
+        "injected_evidence_ledger": {
+          "budget_suppression_reasons": {
+            "alpha": [
+              "noise_shifts_budget_to_memory"
+            ],
+            "gate_floor": [],
+            "memory_decay": [],
+            "memory_eta": []
+          },
+          "final_allocation": {
+            "alpha": {
+              "allocated_delta": 0.005600000000000005,
+              "family": "geometry",
+              "multiplier": 0.05600000000000005,
+              "release_score": 0.5900000000000001,
+              "requested_delta": 0.1,
+              "risk_score": 0.534,
+              "suppression_reasons": [
+                "noise_shifts_budget_to_memory"
+              ]
+            },
+            "gate_floor": {
+              "allocated_delta": 0.030539999999999994,
+              "family": "memory",
+              "multiplier": 0.5089999999999999,
+              "release_score": 0.5589999999999999,
+              "requested_delta": 0.06,
+              "risk_score": 0.05,
+              "suppression_reasons": []
+            },
+            "memory_decay": {
+              "allocated_delta": 0.04311999999999999,
+              "family": "memory",
+              "multiplier": 0.5389999999999999,
+              "release_score": 0.589,
+              "requested_delta": 0.08,
+              "risk_score": 0.05,
+              "suppression_reasons": []
+            },
+            "memory_eta": {
+              "allocated_delta": -0.027999999999999997,
+              "family": "memory",
+              "multiplier": 0.7,
+              "release_score": 0.0,
+              "requested_delta": -0.04,
+              "risk_score": 0.6,
+              "suppression_reasons": []
+            }
+          },
+          "parameter_requests": {
+            "alpha": {
+              "attribution_estimate": 0.04,
+              "credit": 0.55,
+              "hard_block": false,
+              "requested_delta": 0.1,
+              "risk_pressure": 0.05
+            },
+            "gate_floor": {
+              "attribution_estimate": 0.01,
+              "credit": 0.18,
+              "hard_block": false,
+              "requested_delta": 0.06,
+              "risk_pressure": 0.05
+            },
+            "memory_decay": {
+              "attribution_estimate": 0.02,
+              "credit": 0.2,
+              "hard_block": false,
+              "requested_delta": 0.08,
+              "risk_pressure": 0.05
+            },
+            "memory_eta": {
+              "attribution_estimate": 0.0,
+              "credit": -0.1,
+              "hard_block": false,
+              "requested_delta": -0.04,
+              "risk_pressure": 0.6
+            }
+          },
+          "preliminary_allocation": {
+            "alpha": {
+              "allocated_delta": 0.005600000000000005,
+              "family": "geometry",
+              "multiplier": 0.05600000000000005,
+              "release_score": 0.5900000000000001,
+              "requested_delta": 0.1,
+              "risk_score": 0.534,
+              "suppression_reasons": [
+                "noise_shifts_budget_to_memory"
+              ]
+            },
+            "gate_floor": {
+              "allocated_delta": 0.030539999999999994,
+              "family": "memory",
+              "multiplier": 0.5089999999999999,
+              "release_score": 0.5589999999999999,
+              "requested_delta": 0.06,
+              "risk_score": 0.05,
+              "suppression_reasons": []
+            },
+            "memory_decay": {
+              "allocated_delta": 0.04311999999999999,
+              "family": "memory",
+              "multiplier": 0.5389999999999999,
+              "release_score": 0.589,
+              "requested_delta": 0.08,
+              "risk_score": 0.05,
+              "suppression_reasons": []
+            },
+            "memory_eta": {
+              "allocated_delta": -0.027999999999999997,
+              "family": "memory",
+              "multiplier": 0.7,
+              "release_score": 0.0,
+              "requested_delta": -0.04,
+              "risk_score": 0.6,
+              "suppression_reasons": []
+            }
+          }
+        },
+        "memory_budget": 0.10165999999999999,
+        "noise_budget": 0.82,
+        "parameter_trajectory": {
+          "alpha_allocated_delta": 0.005600000000000005,
+          "gate_floor_allocated_delta": 0.030539999999999994,
+          "memory_decay_allocated_delta": 0.04311999999999999,
+          "memory_eta_allocated_delta": -0.027999999999999997
+        },
+        "qk_competition_state": "geo_competitive",
+        "release_allocation": {
+          "alpha": 0.005600000000000005,
+          "gate_floor": 0.030539999999999994,
+          "memory_decay": 0.04311999999999999,
+          "memory_eta": 0.0
+        },
+        "restraint_allocation": {
+          "alpha": 0.0,
+          "gate_floor": 0.0,
+          "memory_decay": 0.0,
+          "memory_eta": 0.027999999999999997
+        },
+        "rigidity_budget": 0.18,
+        "step": 200
+      },
+      {
+        "allocated_change_budget": 0.0,
+        "attention_behavior_regime": "collapsed",
+        "attention_derived_budget_pressure": 0.76,
+        "budget_allocation": {
+          "alpha": {
+            "allocated_delta": 0.0,
+            "family": "geometry",
+            "multiplier": 0.0,
+            "release_score": 1.0,
+            "requested_delta": 0.1,
+            "risk_score": 1.5054999999999998,
+            "suppression_reasons": [
+              "geo_qk_overpowered",
+              "noise_shifts_budget_to_memory",
+              "geometry_growth_suppressed_by_attention_or_controls"
+            ]
+          },
+          "causal_reachability": {
+            "allocated_delta": 0.0,
+            "family": "geometry",
+            "multiplier": 0.0,
+            "release_score": 0.74,
+            "requested_delta": 0.2,
+            "risk_score": 1.5054999999999998,
+            "suppression_reasons": [
+              "geo_qk_overpowered",
+              "noise_shifts_budget_to_memory",
+              "geometry_growth_suppressed_by_attention_or_controls"
+            ]
+          },
+          "distance_norm_scale": {
+            "allocated_delta": 0.0,
+            "family": "geometry",
+            "multiplier": 0.0,
+            "release_score": 0.7799999999999999,
+            "requested_delta": 0.1,
+            "risk_score": 1.5054999999999998,
+            "suppression_reasons": [
+              "geo_qk_overpowered",
+              "noise_shifts_budget_to_memory",
+              "geometry_growth_suppressed_by_attention_or_controls"
+            ]
+          }
+        },
+        "budget_conflict_score": 0.8250000000000001,
+        "budget_suppression_reasons": {
+          "alpha": [
+            "geo_qk_overpowered",
+            "noise_shifts_budget_to_memory",
+            "geometry_growth_suppressed_by_attention_or_controls"
+          ],
+          "causal_reachability": [
+            "geo_qk_overpowered",
+            "noise_shifts_budget_to_memory",
+            "geometry_growth_suppressed_by_attention_or_controls"
+          ],
+          "distance_norm_scale": [
+            "geo_qk_overpowered",
+            "noise_shifts_budget_to_memory",
+            "geometry_growth_suppressed_by_attention_or_controls"
+          ]
+        },
+        "change_budget": 1.0,
+        "controller_state_snapshot": {
+          "allocated_change_budget": 0.0,
+          "attention_behavior_regime": "collapsed",
+          "attention_pressure": 0.76,
+          "budget_conflict_score": 0.8250000000000001,
+          "noise_pressure": 0.55,
+          "qk_competition_state": "geo_overpowered"
+        },
+        "decision": "freeze_all",
+        "decision_replay_record": {
+          "config": {
+            "high_attention_pressure": 0.65,
+            "high_attribution_uncertainty": 0.5,
+            "high_control_penalty": 0.35,
+            "high_noise_pressure": 0.55,
+            "max_geometry_budget_fraction": 0.55,
+            "max_memory_budget_fraction": 0.65,
+            "overpowered_geo_to_qk_ratio": 0.18,
+            "target_geo_to_qk_ratio": 0.1,
+            "total_change_budget": 1.0,
+            "underpowered_geo_to_qk_ratio": 0.03
+          },
+          "controller": "joint_parameter_budget_allocator",
+          "decision": "freeze_all",
+          "observation": {
+            "attention_entropy_normalized": 0.8,
+            "attribution_uncertainty": 0.25,
+            "collapse_risk": 0.76,
+            "control_penalty": 0.55,
+            "control_separation": -0.12,
+            "future_leak_score": 0.0,
+            "geo_to_qk_ratio": 0.22,
+            "geometry_takeover_score": 0.72,
+            "hard_stop_reason": null,
+            "hard_stop_triggered": false,
+            "noise_risk": 0.2,
+            "parameter_requests": {
+              "alpha": {
+                "attribution_estimate": 0.1,
+                "credit": 0.9,
+                "hard_block": false,
+                "requested_delta": 0.1,
+                "risk_pressure": 0.05
+              },
+              "causal_reachability": {
+                "attribution_estimate": 0.04,
+                "credit": 0.7,
+                "hard_block": false,
+                "requested_delta": 0.2,
+                "risk_pressure": 0.05
+              },
+              "distance_norm_scale": {
+                "attribution_estimate": 0.08,
+                "credit": 0.7,
+                "hard_block": false,
+                "requested_delta": 0.1,
+                "risk_pressure": 0.05
+              }
+            },
+            "rigidity_risk": 0.74,
+            "step": 300
+          },
+          "parameter_trajectory": {
+            "alpha_allocated_delta": 0.0,
+            "causal_reachability_allocated_delta": 0.0,
+            "distance_norm_scale_allocated_delta": 0.0
+          },
+          "state_before_decision": {
+            "allocated_change_budget": 0.0,
+            "attention_behavior_regime": "collapsed",
+            "attention_pressure": 0.76,
+            "budget_conflict_score": 0.8250000000000001,
+            "noise_pressure": 0.55,
+            "qk_competition_state": "geo_overpowered"
+          }
+        },
+        "geometry_budget": 0.0,
+        "injected_evidence_ledger": {
+          "budget_suppression_reasons": {
+            "alpha": [
+              "geo_qk_overpowered",
+              "noise_shifts_budget_to_memory",
+              "geometry_growth_suppressed_by_attention_or_controls"
+            ],
+            "causal_reachability": [
+              "geo_qk_overpowered",
+              "noise_shifts_budget_to_memory",
+              "geometry_growth_suppressed_by_attention_or_controls"
+            ],
+            "distance_norm_scale": [
+              "geo_qk_overpowered",
+              "noise_shifts_budget_to_memory",
+              "geometry_growth_suppressed_by_attention_or_controls"
+            ]
+          },
+          "final_allocation": {
+            "alpha": {
+              "allocated_delta": 0.0,
+              "family": "geometry",
+              "multiplier": 0.0,
+              "release_score": 1.0,
+              "requested_delta": 0.1,
+              "risk_score": 1.5054999999999998,
+              "suppression_reasons": [
+                "geo_qk_overpowered",
+                "noise_shifts_budget_to_memory",
+                "geometry_growth_suppressed_by_attention_or_controls"
+              ]
+            },
+            "causal_reachability": {
+              "allocated_delta": 0.0,
+              "family": "geometry",
+              "multiplier": 0.0,
+              "release_score": 0.74,
+              "requested_delta": 0.2,
+              "risk_score": 1.5054999999999998,
+              "suppression_reasons": [
+                "geo_qk_overpowered",
+                "noise_shifts_budget_to_memory",
+                "geometry_growth_suppressed_by_attention_or_controls"
+              ]
+            },
+            "distance_norm_scale": {
+              "allocated_delta": 0.0,
+              "family": "geometry",
+              "multiplier": 0.0,
+              "release_score": 0.7799999999999999,
+              "requested_delta": 0.1,
+              "risk_score": 1.5054999999999998,
+              "suppression_reasons": [
+                "geo_qk_overpowered",
+                "noise_shifts_budget_to_memory",
+                "geometry_growth_suppressed_by_attention_or_controls"
+              ]
+            }
+          },
+          "parameter_requests": {
+            "alpha": {
+              "attribution_estimate": 0.1,
+              "credit": 0.9,
+              "hard_block": false,
+              "requested_delta": 0.1,
+              "risk_pressure": 0.05
+            },
+            "causal_reachability": {
+              "attribution_estimate": 0.04,
+              "credit": 0.7,
+              "hard_block": false,
+              "requested_delta": 0.2,
+              "risk_pressure": 0.05
+            },
+            "distance_norm_scale": {
+              "attribution_estimate": 0.08,
+              "credit": 0.7,
+              "hard_block": false,
+              "requested_delta": 0.1,
+              "risk_pressure": 0.05
+            }
+          },
+          "preliminary_allocation": {
+            "alpha": {
+              "allocated_delta": 0.0,
+              "family": "geometry",
+              "multiplier": 0.0,
+              "release_score": 1.0,
+              "requested_delta": 0.1,
+              "risk_score": 1.5054999999999998,
+              "suppression_reasons": [
+                "geo_qk_overpowered",
+                "noise_shifts_budget_to_memory",
+                "geometry_growth_suppressed_by_attention_or_controls"
+              ]
+            },
+            "causal_reachability": {
+              "allocated_delta": 0.0,
+              "family": "geometry",
+              "multiplier": 0.0,
+              "release_score": 0.74,
+              "requested_delta": 0.2,
+              "risk_score": 1.5054999999999998,
+              "suppression_reasons": [
+                "geo_qk_overpowered",
+                "noise_shifts_budget_to_memory",
+                "geometry_growth_suppressed_by_attention_or_controls"
+              ]
+            },
+            "distance_norm_scale": {
+              "allocated_delta": 0.0,
+              "family": "geometry",
+              "multiplier": 0.0,
+              "release_score": 0.7799999999999999,
+              "requested_delta": 0.1,
+              "risk_score": 1.5054999999999998,
+              "suppression_reasons": [
+                "geo_qk_overpowered",
+                "noise_shifts_budget_to_memory",
+                "geometry_growth_suppressed_by_attention_or_controls"
+              ]
+            }
+          }
+        },
+        "memory_budget": 0,
+        "noise_budget": 0.55,
+        "parameter_trajectory": {
+          "alpha_allocated_delta": 0.0,
+          "causal_reachability_allocated_delta": 0.0,
+          "distance_norm_scale_allocated_delta": 0.0
+        },
+        "qk_competition_state": "geo_overpowered",
+        "release_allocation": {
+          "alpha": 0.0,
+          "causal_reachability": 0.0,
+          "distance_norm_scale": 0.0
+        },
+        "restraint_allocation": {
+          "alpha": -0.0,
+          "causal_reachability": -0.0,
+          "distance_norm_scale": -0.0
+        },
+        "rigidity_budget": 0.76,
+        "step": 300
+      }
+    ]
+  }
+}

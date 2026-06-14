@@ -1,0 +1,1133 @@
+{
+  "checks": {
+    "can_increase_eta_when_memory_is_starved": true,
+    "can_release_rigid_memory": true,
+    "can_smooth_when_memory_is_noisy": true,
+    "future_leak_is_validity_hard_stop": true,
+    "injected_evidence_ledger_present": true,
+    "ordinary_risk_does_not_abort": true,
+    "parameter_trajectory_present": true,
+    "replay_records_present": true,
+    "required_memory_controller_outputs_emitted": true,
+    "uses_controller_error_terms": true
+  },
+  "config": {
+    "decay_step": 0.04,
+    "eta_step": 0.04,
+    "high_noise_threshold": 0.55,
+    "high_rigidity_threshold": 0.55,
+    "initial_decay": 0.7,
+    "initial_eta": 0.3,
+    "max_decay": 0.95,
+    "max_eta": 0.8,
+    "min_decay": 0.1,
+    "min_eta": 0.02,
+    "release_margin": 0.03,
+    "restraint_margin": 0.03,
+    "starved_density_threshold": 0.1,
+    "target_persistence": 0.55,
+    "target_stability": 0.65,
+    "target_turnover": 0.08
+  },
+  "controller_design": "evidence_balance_memory_eta_decay",
+  "decisions": [
+    {
+      "controller_state_snapshot": {
+        "derivative_error": 0.917,
+        "error": 0.917,
+        "integral_error": 0.917,
+        "release_score": 0.917,
+        "restraint_score": 0.0
+      },
+      "current_decay": 0.72,
+      "current_eta": 0.33999999999999997,
+      "decay_delta": 0.020000000000000018,
+      "decision": "inject_memory",
+      "decision_replay_record": {
+        "config": {
+          "decay_step": 0.04,
+          "eta_step": 0.04,
+          "high_noise_threshold": 0.55,
+          "high_rigidity_threshold": 0.55,
+          "initial_decay": 0.7,
+          "initial_eta": 0.3,
+          "max_decay": 0.95,
+          "max_eta": 0.8,
+          "min_decay": 0.1,
+          "min_eta": 0.02,
+          "release_margin": 0.03,
+          "restraint_margin": 0.03,
+          "starved_density_threshold": 0.1,
+          "target_persistence": 0.55,
+          "target_stability": 0.65,
+          "target_turnover": 0.08
+        },
+        "controller": "adaptive_memory_eta_decay",
+        "decision": "inject_memory",
+        "observation": {
+          "future_leak_score": 0.0,
+          "hard_stop_reason": null,
+          "hard_stop_triggered": false,
+          "memory_edge_density": 0.06,
+          "memory_persistence": 0.35,
+          "memory_rigidity": 0.12,
+          "memory_stability": 0.42,
+          "memory_turnover": 0.03,
+          "noise_risk": 0.1,
+          "random_memory_advantage": 0.02,
+          "real_memory_advantage": 0.18,
+          "shuffled_memory_advantage": 0.01,
+          "step": 100
+        },
+        "parameter_trajectory": {
+          "decay_delta": 0.020000000000000018,
+          "decay_next": 0.72,
+          "decay_previous": 0.7,
+          "decay_proposed": 0.72,
+          "eta_delta": 0.03999999999999998,
+          "eta_next": 0.33999999999999997,
+          "eta_previous": 0.3,
+          "eta_proposed": 0.33999999999999997
+        },
+        "state_before_decision": {
+          "derivative_error": 0.917,
+          "error": 0.917,
+          "integral_error": 0.917,
+          "release_score": 0.917,
+          "restraint_score": 0.0
+        }
+      },
+      "eta_delta": 0.03999999999999998,
+      "injected_evidence_ledger": {
+        "memory_stability_trend": {
+          "memory_stability": 0.42,
+          "stability_gap": -0.23000000000000004,
+          "target_stability": 0.65
+        },
+        "memory_turnover_trend": {
+          "memory_turnover": 0.03,
+          "target_turnover": 0.08,
+          "turnover_gap": -0.05
+        },
+        "noise_evidence": {
+          "memory_turnover": 0.03,
+          "noise_high": false,
+          "noise_risk": 0.1,
+          "random_memory_advantage": 0.02,
+          "shuffled_memory_advantage": 0.01
+        },
+        "persistence_trend": {
+          "memory_persistence": 0.35,
+          "persistence_gap": -0.20000000000000007,
+          "target_persistence": 0.55
+        },
+        "release_evidence": {
+          "persistence_deficit_recoverable": 0.18000000000000008,
+          "real_memory_advantage": 0.18,
+          "stability_deficit_recoverable": 0.20700000000000005,
+          "starved_memory_pressure": 0.35
+        },
+        "restraint_evidence": {
+          "control_family_pressure": 0.0,
+          "future_leak_pressure": 0.0,
+          "noise_pressure": 0.0,
+          "rigidity_pressure": 0.0,
+          "turnover_pressure": 0.0
+        },
+        "rigidity_evidence": {
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false,
+          "memory_edge_density": 0.06,
+          "memory_rigidity": 0.12,
+          "rigidity_high": false
+        }
+      },
+      "memory_stability_trend": {
+        "memory_stability": 0.42,
+        "stability_gap": -0.23000000000000004,
+        "target_stability": 0.65
+      },
+      "memory_turnover_trend": {
+        "memory_turnover": 0.03,
+        "target_turnover": 0.08,
+        "turnover_gap": -0.05
+      },
+      "noise_evidence": {
+        "memory_turnover": 0.03,
+        "noise_high": false,
+        "noise_risk": 0.1,
+        "random_memory_advantage": 0.02,
+        "shuffled_memory_advantage": 0.01
+      },
+      "parameter_trajectory": {
+        "decay_delta": 0.020000000000000018,
+        "decay_next": 0.72,
+        "decay_previous": 0.7,
+        "decay_proposed": 0.72,
+        "eta_delta": 0.03999999999999998,
+        "eta_next": 0.33999999999999997,
+        "eta_previous": 0.3,
+        "eta_proposed": 0.33999999999999997
+      },
+      "persistence_trend": {
+        "memory_persistence": 0.35,
+        "persistence_gap": -0.20000000000000007,
+        "target_persistence": 0.55
+      },
+      "previous_decay": 0.7,
+      "previous_eta": 0.3,
+      "proposed_decay": 0.72,
+      "proposed_eta": 0.33999999999999997,
+      "release_evidence": {
+        "persistence_deficit_recoverable": 0.18000000000000008,
+        "real_memory_advantage": 0.18,
+        "stability_deficit_recoverable": 0.20700000000000005,
+        "starved_memory_pressure": 0.35
+      },
+      "restraint_evidence": {
+        "control_family_pressure": 0.0,
+        "future_leak_pressure": 0.0,
+        "noise_pressure": 0.0,
+        "rigidity_pressure": 0.0,
+        "turnover_pressure": 0.0
+      },
+      "rigidity_evidence": {
+        "future_leak_score": 0.0,
+        "hard_stop_triggered": false,
+        "memory_edge_density": 0.06,
+        "memory_rigidity": 0.12,
+        "rigidity_high": false
+      },
+      "step": 100
+    },
+    {
+      "controller_state_snapshot": {
+        "derivative_error": -1.5717999999999999,
+        "error": -0.6547999999999998,
+        "integral_error": 0.0788000000000002,
+        "release_score": 0.13520000000000004,
+        "restraint_score": 0.7899999999999999
+      },
+      "current_decay": 0.76,
+      "current_eta": 0.3,
+      "decay_delta": 0.040000000000000036,
+      "decision": "smooth_memory",
+      "decision_replay_record": {
+        "config": {
+          "decay_step": 0.04,
+          "eta_step": 0.04,
+          "high_noise_threshold": 0.55,
+          "high_rigidity_threshold": 0.55,
+          "initial_decay": 0.7,
+          "initial_eta": 0.3,
+          "max_decay": 0.95,
+          "max_eta": 0.8,
+          "min_decay": 0.1,
+          "min_eta": 0.02,
+          "release_margin": 0.03,
+          "restraint_margin": 0.03,
+          "starved_density_threshold": 0.1,
+          "target_persistence": 0.55,
+          "target_stability": 0.65,
+          "target_turnover": 0.08
+        },
+        "controller": "adaptive_memory_eta_decay",
+        "decision": "smooth_memory",
+        "observation": {
+          "future_leak_score": 0.0,
+          "hard_stop_reason": null,
+          "hard_stop_triggered": false,
+          "memory_edge_density": 0.24,
+          "memory_persistence": 0.38,
+          "memory_rigidity": 0.18,
+          "memory_stability": 0.48,
+          "memory_turnover": 0.22,
+          "noise_risk": 0.72,
+          "random_memory_advantage": 0.09,
+          "real_memory_advantage": 0.04,
+          "shuffled_memory_advantage": 0.07,
+          "step": 200
+        },
+        "parameter_trajectory": {
+          "decay_delta": 0.040000000000000036,
+          "decay_next": 0.76,
+          "decay_previous": 0.72,
+          "decay_proposed": 0.76,
+          "eta_delta": -0.03999999999999998,
+          "eta_next": 0.3,
+          "eta_previous": 0.33999999999999997,
+          "eta_proposed": 0.3
+        },
+        "state_before_decision": {
+          "derivative_error": -1.5717999999999999,
+          "error": -0.6547999999999998,
+          "integral_error": 0.0788000000000002,
+          "release_score": 0.13520000000000004,
+          "restraint_score": 0.7899999999999999
+        }
+      },
+      "eta_delta": -0.03999999999999998,
+      "injected_evidence_ledger": {
+        "memory_stability_trend": {
+          "memory_stability": 0.48,
+          "stability_gap": -0.17000000000000004,
+          "target_stability": 0.65
+        },
+        "memory_turnover_trend": {
+          "memory_turnover": 0.22,
+          "target_turnover": 0.08,
+          "turnover_gap": 0.14
+        },
+        "noise_evidence": {
+          "memory_turnover": 0.22,
+          "noise_high": true,
+          "noise_risk": 0.72,
+          "random_memory_advantage": 0.09,
+          "shuffled_memory_advantage": 0.07
+        },
+        "persistence_trend": {
+          "memory_persistence": 0.38,
+          "persistence_gap": -0.17000000000000004,
+          "target_persistence": 0.55
+        },
+        "release_evidence": {
+          "persistence_deficit_recoverable": 0.04760000000000002,
+          "real_memory_advantage": 0.04,
+          "stability_deficit_recoverable": 0.04760000000000002,
+          "starved_memory_pressure": 0.0
+        },
+        "restraint_evidence": {
+          "control_family_pressure": 0.049999999999999996,
+          "future_leak_pressure": 0.0,
+          "noise_pressure": 0.57,
+          "rigidity_pressure": 0.03,
+          "turnover_pressure": 0.14
+        },
+        "rigidity_evidence": {
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false,
+          "memory_edge_density": 0.24,
+          "memory_rigidity": 0.18,
+          "rigidity_high": false
+        }
+      },
+      "memory_stability_trend": {
+        "memory_stability": 0.48,
+        "stability_gap": -0.17000000000000004,
+        "target_stability": 0.65
+      },
+      "memory_turnover_trend": {
+        "memory_turnover": 0.22,
+        "target_turnover": 0.08,
+        "turnover_gap": 0.14
+      },
+      "noise_evidence": {
+        "memory_turnover": 0.22,
+        "noise_high": true,
+        "noise_risk": 0.72,
+        "random_memory_advantage": 0.09,
+        "shuffled_memory_advantage": 0.07
+      },
+      "parameter_trajectory": {
+        "decay_delta": 0.040000000000000036,
+        "decay_next": 0.76,
+        "decay_previous": 0.72,
+        "decay_proposed": 0.76,
+        "eta_delta": -0.03999999999999998,
+        "eta_next": 0.3,
+        "eta_previous": 0.33999999999999997,
+        "eta_proposed": 0.3
+      },
+      "persistence_trend": {
+        "memory_persistence": 0.38,
+        "persistence_gap": -0.17000000000000004,
+        "target_persistence": 0.55
+      },
+      "previous_decay": 0.72,
+      "previous_eta": 0.33999999999999997,
+      "proposed_decay": 0.76,
+      "proposed_eta": 0.3,
+      "release_evidence": {
+        "persistence_deficit_recoverable": 0.04760000000000002,
+        "real_memory_advantage": 0.04,
+        "stability_deficit_recoverable": 0.04760000000000002,
+        "starved_memory_pressure": 0.0
+      },
+      "restraint_evidence": {
+        "control_family_pressure": 0.049999999999999996,
+        "future_leak_pressure": 0.0,
+        "noise_pressure": 0.57,
+        "rigidity_pressure": 0.03,
+        "turnover_pressure": 0.14
+      },
+      "rigidity_evidence": {
+        "future_leak_score": 0.0,
+        "hard_stop_triggered": false,
+        "memory_edge_density": 0.24,
+        "memory_rigidity": 0.18,
+        "rigidity_high": false
+      },
+      "step": 200
+    },
+    {
+      "controller_state_snapshot": {
+        "derivative_error": -0.0052000000000000934,
+        "error": -0.6599999999999999,
+        "integral_error": -0.5969599999999997,
+        "release_score": 0.06,
+        "restraint_score": 0.72
+      },
+      "current_decay": 0.72,
+      "current_eta": 0.27999999999999997,
+      "decay_delta": -0.040000000000000036,
+      "decision": "release_rigid_memory",
+      "decision_replay_record": {
+        "config": {
+          "decay_step": 0.04,
+          "eta_step": 0.04,
+          "high_noise_threshold": 0.55,
+          "high_rigidity_threshold": 0.55,
+          "initial_decay": 0.7,
+          "initial_eta": 0.3,
+          "max_decay": 0.95,
+          "max_eta": 0.8,
+          "min_decay": 0.1,
+          "min_eta": 0.02,
+          "release_margin": 0.03,
+          "restraint_margin": 0.03,
+          "starved_density_threshold": 0.1,
+          "target_persistence": 0.55,
+          "target_stability": 0.65,
+          "target_turnover": 0.08
+        },
+        "controller": "adaptive_memory_eta_decay",
+        "decision": "release_rigid_memory",
+        "observation": {
+          "future_leak_score": 0.0,
+          "hard_stop_reason": null,
+          "hard_stop_triggered": false,
+          "memory_edge_density": 0.82,
+          "memory_persistence": 0.93,
+          "memory_rigidity": 0.78,
+          "memory_stability": 0.9,
+          "memory_turnover": 0.01,
+          "noise_risk": 0.24,
+          "random_memory_advantage": 0.03,
+          "real_memory_advantage": 0.06,
+          "shuffled_memory_advantage": 0.02,
+          "step": 300
+        },
+        "parameter_trajectory": {
+          "decay_delta": -0.040000000000000036,
+          "decay_next": 0.72,
+          "decay_previous": 0.76,
+          "decay_proposed": 0.72,
+          "eta_delta": -0.020000000000000018,
+          "eta_next": 0.27999999999999997,
+          "eta_previous": 0.3,
+          "eta_proposed": 0.27999999999999997
+        },
+        "state_before_decision": {
+          "derivative_error": -0.0052000000000000934,
+          "error": -0.6599999999999999,
+          "integral_error": -0.5969599999999997,
+          "release_score": 0.06,
+          "restraint_score": 0.72
+        }
+      },
+      "eta_delta": -0.020000000000000018,
+      "injected_evidence_ledger": {
+        "memory_stability_trend": {
+          "memory_stability": 0.9,
+          "stability_gap": 0.25,
+          "target_stability": 0.65
+        },
+        "memory_turnover_trend": {
+          "memory_turnover": 0.01,
+          "target_turnover": 0.08,
+          "turnover_gap": -0.07
+        },
+        "noise_evidence": {
+          "memory_turnover": 0.01,
+          "noise_high": false,
+          "noise_risk": 0.24,
+          "random_memory_advantage": 0.03,
+          "shuffled_memory_advantage": 0.02
+        },
+        "persistence_trend": {
+          "memory_persistence": 0.93,
+          "persistence_gap": 0.38,
+          "target_persistence": 0.55
+        },
+        "release_evidence": {
+          "persistence_deficit_recoverable": 0.0,
+          "real_memory_advantage": 0.06,
+          "stability_deficit_recoverable": 0.0,
+          "starved_memory_pressure": 0.0
+        },
+        "restraint_evidence": {
+          "control_family_pressure": 0.0,
+          "future_leak_pressure": 0.0,
+          "noise_pressure": 0.09,
+          "rigidity_pressure": 0.63,
+          "turnover_pressure": 0.0
+        },
+        "rigidity_evidence": {
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false,
+          "memory_edge_density": 0.82,
+          "memory_rigidity": 0.78,
+          "rigidity_high": true
+        }
+      },
+      "memory_stability_trend": {
+        "memory_stability": 0.9,
+        "stability_gap": 0.25,
+        "target_stability": 0.65
+      },
+      "memory_turnover_trend": {
+        "memory_turnover": 0.01,
+        "target_turnover": 0.08,
+        "turnover_gap": -0.07
+      },
+      "noise_evidence": {
+        "memory_turnover": 0.01,
+        "noise_high": false,
+        "noise_risk": 0.24,
+        "random_memory_advantage": 0.03,
+        "shuffled_memory_advantage": 0.02
+      },
+      "parameter_trajectory": {
+        "decay_delta": -0.040000000000000036,
+        "decay_next": 0.72,
+        "decay_previous": 0.76,
+        "decay_proposed": 0.72,
+        "eta_delta": -0.020000000000000018,
+        "eta_next": 0.27999999999999997,
+        "eta_previous": 0.3,
+        "eta_proposed": 0.27999999999999997
+      },
+      "persistence_trend": {
+        "memory_persistence": 0.93,
+        "persistence_gap": 0.38,
+        "target_persistence": 0.55
+      },
+      "previous_decay": 0.76,
+      "previous_eta": 0.3,
+      "proposed_decay": 0.72,
+      "proposed_eta": 0.27999999999999997,
+      "release_evidence": {
+        "persistence_deficit_recoverable": 0.0,
+        "real_memory_advantage": 0.06,
+        "stability_deficit_recoverable": 0.0,
+        "starved_memory_pressure": 0.0
+      },
+      "restraint_evidence": {
+        "control_family_pressure": 0.0,
+        "future_leak_pressure": 0.0,
+        "noise_pressure": 0.09,
+        "rigidity_pressure": 0.63,
+        "turnover_pressure": 0.0
+      },
+      "rigidity_evidence": {
+        "future_leak_score": 0.0,
+        "hard_stop_triggered": false,
+        "memory_edge_density": 0.82,
+        "memory_rigidity": 0.78,
+        "rigidity_high": true
+      },
+      "step": 300
+    }
+  ],
+  "input_source": "synthetic_memory_controller_smoke",
+  "next_required_step": "gate_floor_and_noise_controller",
+  "required_outputs": [
+    "current_eta",
+    "current_decay",
+    "proposed_eta",
+    "proposed_decay",
+    "eta_delta",
+    "decay_delta",
+    "memory_stability_trend",
+    "memory_turnover_trend",
+    "persistence_trend",
+    "noise_evidence",
+    "rigidity_evidence",
+    "release_evidence",
+    "restraint_evidence",
+    "parameter_trajectory",
+    "injected_evidence_ledger",
+    "controller_state_snapshot",
+    "decision_replay_record"
+  ],
+  "scientific_scope": "memory eta/decay search controller; ordinary memory risk signals become pressure while future leak remains a validity hard stop",
+  "stage": "stage10_adaptive_memory_controller",
+  "status": "pass",
+  "summary": {
+    "config": {
+      "decay_step": 0.04,
+      "eta_step": 0.04,
+      "high_noise_threshold": 0.55,
+      "high_rigidity_threshold": 0.55,
+      "initial_decay": 0.7,
+      "initial_eta": 0.3,
+      "max_decay": 0.95,
+      "max_eta": 0.8,
+      "min_decay": 0.1,
+      "min_eta": 0.02,
+      "release_margin": 0.03,
+      "restraint_margin": 0.03,
+      "starved_density_threshold": 0.1,
+      "target_persistence": 0.55,
+      "target_stability": 0.65,
+      "target_turnover": 0.08
+    },
+    "controller_state_snapshot": {
+      "integral_error": -0.5969599999999997,
+      "previous_error": -0.6599999999999999
+    },
+    "current_decay": 0.72,
+    "current_eta": 0.27999999999999997,
+    "decisions": [
+      {
+        "controller_state_snapshot": {
+          "derivative_error": 0.917,
+          "error": 0.917,
+          "integral_error": 0.917,
+          "release_score": 0.917,
+          "restraint_score": 0.0
+        },
+        "current_decay": 0.72,
+        "current_eta": 0.33999999999999997,
+        "decay_delta": 0.020000000000000018,
+        "decision": "inject_memory",
+        "decision_replay_record": {
+          "config": {
+            "decay_step": 0.04,
+            "eta_step": 0.04,
+            "high_noise_threshold": 0.55,
+            "high_rigidity_threshold": 0.55,
+            "initial_decay": 0.7,
+            "initial_eta": 0.3,
+            "max_decay": 0.95,
+            "max_eta": 0.8,
+            "min_decay": 0.1,
+            "min_eta": 0.02,
+            "release_margin": 0.03,
+            "restraint_margin": 0.03,
+            "starved_density_threshold": 0.1,
+            "target_persistence": 0.55,
+            "target_stability": 0.65,
+            "target_turnover": 0.08
+          },
+          "controller": "adaptive_memory_eta_decay",
+          "decision": "inject_memory",
+          "observation": {
+            "future_leak_score": 0.0,
+            "hard_stop_reason": null,
+            "hard_stop_triggered": false,
+            "memory_edge_density": 0.06,
+            "memory_persistence": 0.35,
+            "memory_rigidity": 0.12,
+            "memory_stability": 0.42,
+            "memory_turnover": 0.03,
+            "noise_risk": 0.1,
+            "random_memory_advantage": 0.02,
+            "real_memory_advantage": 0.18,
+            "shuffled_memory_advantage": 0.01,
+            "step": 100
+          },
+          "parameter_trajectory": {
+            "decay_delta": 0.020000000000000018,
+            "decay_next": 0.72,
+            "decay_previous": 0.7,
+            "decay_proposed": 0.72,
+            "eta_delta": 0.03999999999999998,
+            "eta_next": 0.33999999999999997,
+            "eta_previous": 0.3,
+            "eta_proposed": 0.33999999999999997
+          },
+          "state_before_decision": {
+            "derivative_error": 0.917,
+            "error": 0.917,
+            "integral_error": 0.917,
+            "release_score": 0.917,
+            "restraint_score": 0.0
+          }
+        },
+        "eta_delta": 0.03999999999999998,
+        "injected_evidence_ledger": {
+          "memory_stability_trend": {
+            "memory_stability": 0.42,
+            "stability_gap": -0.23000000000000004,
+            "target_stability": 0.65
+          },
+          "memory_turnover_trend": {
+            "memory_turnover": 0.03,
+            "target_turnover": 0.08,
+            "turnover_gap": -0.05
+          },
+          "noise_evidence": {
+            "memory_turnover": 0.03,
+            "noise_high": false,
+            "noise_risk": 0.1,
+            "random_memory_advantage": 0.02,
+            "shuffled_memory_advantage": 0.01
+          },
+          "persistence_trend": {
+            "memory_persistence": 0.35,
+            "persistence_gap": -0.20000000000000007,
+            "target_persistence": 0.55
+          },
+          "release_evidence": {
+            "persistence_deficit_recoverable": 0.18000000000000008,
+            "real_memory_advantage": 0.18,
+            "stability_deficit_recoverable": 0.20700000000000005,
+            "starved_memory_pressure": 0.35
+          },
+          "restraint_evidence": {
+            "control_family_pressure": 0.0,
+            "future_leak_pressure": 0.0,
+            "noise_pressure": 0.0,
+            "rigidity_pressure": 0.0,
+            "turnover_pressure": 0.0
+          },
+          "rigidity_evidence": {
+            "future_leak_score": 0.0,
+            "hard_stop_triggered": false,
+            "memory_edge_density": 0.06,
+            "memory_rigidity": 0.12,
+            "rigidity_high": false
+          }
+        },
+        "memory_stability_trend": {
+          "memory_stability": 0.42,
+          "stability_gap": -0.23000000000000004,
+          "target_stability": 0.65
+        },
+        "memory_turnover_trend": {
+          "memory_turnover": 0.03,
+          "target_turnover": 0.08,
+          "turnover_gap": -0.05
+        },
+        "noise_evidence": {
+          "memory_turnover": 0.03,
+          "noise_high": false,
+          "noise_risk": 0.1,
+          "random_memory_advantage": 0.02,
+          "shuffled_memory_advantage": 0.01
+        },
+        "parameter_trajectory": {
+          "decay_delta": 0.020000000000000018,
+          "decay_next": 0.72,
+          "decay_previous": 0.7,
+          "decay_proposed": 0.72,
+          "eta_delta": 0.03999999999999998,
+          "eta_next": 0.33999999999999997,
+          "eta_previous": 0.3,
+          "eta_proposed": 0.33999999999999997
+        },
+        "persistence_trend": {
+          "memory_persistence": 0.35,
+          "persistence_gap": -0.20000000000000007,
+          "target_persistence": 0.55
+        },
+        "previous_decay": 0.7,
+        "previous_eta": 0.3,
+        "proposed_decay": 0.72,
+        "proposed_eta": 0.33999999999999997,
+        "release_evidence": {
+          "persistence_deficit_recoverable": 0.18000000000000008,
+          "real_memory_advantage": 0.18,
+          "stability_deficit_recoverable": 0.20700000000000005,
+          "starved_memory_pressure": 0.35
+        },
+        "restraint_evidence": {
+          "control_family_pressure": 0.0,
+          "future_leak_pressure": 0.0,
+          "noise_pressure": 0.0,
+          "rigidity_pressure": 0.0,
+          "turnover_pressure": 0.0
+        },
+        "rigidity_evidence": {
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false,
+          "memory_edge_density": 0.06,
+          "memory_rigidity": 0.12,
+          "rigidity_high": false
+        },
+        "step": 100
+      },
+      {
+        "controller_state_snapshot": {
+          "derivative_error": -1.5717999999999999,
+          "error": -0.6547999999999998,
+          "integral_error": 0.0788000000000002,
+          "release_score": 0.13520000000000004,
+          "restraint_score": 0.7899999999999999
+        },
+        "current_decay": 0.76,
+        "current_eta": 0.3,
+        "decay_delta": 0.040000000000000036,
+        "decision": "smooth_memory",
+        "decision_replay_record": {
+          "config": {
+            "decay_step": 0.04,
+            "eta_step": 0.04,
+            "high_noise_threshold": 0.55,
+            "high_rigidity_threshold": 0.55,
+            "initial_decay": 0.7,
+            "initial_eta": 0.3,
+            "max_decay": 0.95,
+            "max_eta": 0.8,
+            "min_decay": 0.1,
+            "min_eta": 0.02,
+            "release_margin": 0.03,
+            "restraint_margin": 0.03,
+            "starved_density_threshold": 0.1,
+            "target_persistence": 0.55,
+            "target_stability": 0.65,
+            "target_turnover": 0.08
+          },
+          "controller": "adaptive_memory_eta_decay",
+          "decision": "smooth_memory",
+          "observation": {
+            "future_leak_score": 0.0,
+            "hard_stop_reason": null,
+            "hard_stop_triggered": false,
+            "memory_edge_density": 0.24,
+            "memory_persistence": 0.38,
+            "memory_rigidity": 0.18,
+            "memory_stability": 0.48,
+            "memory_turnover": 0.22,
+            "noise_risk": 0.72,
+            "random_memory_advantage": 0.09,
+            "real_memory_advantage": 0.04,
+            "shuffled_memory_advantage": 0.07,
+            "step": 200
+          },
+          "parameter_trajectory": {
+            "decay_delta": 0.040000000000000036,
+            "decay_next": 0.76,
+            "decay_previous": 0.72,
+            "decay_proposed": 0.76,
+            "eta_delta": -0.03999999999999998,
+            "eta_next": 0.3,
+            "eta_previous": 0.33999999999999997,
+            "eta_proposed": 0.3
+          },
+          "state_before_decision": {
+            "derivative_error": -1.5717999999999999,
+            "error": -0.6547999999999998,
+            "integral_error": 0.0788000000000002,
+            "release_score": 0.13520000000000004,
+            "restraint_score": 0.7899999999999999
+          }
+        },
+        "eta_delta": -0.03999999999999998,
+        "injected_evidence_ledger": {
+          "memory_stability_trend": {
+            "memory_stability": 0.48,
+            "stability_gap": -0.17000000000000004,
+            "target_stability": 0.65
+          },
+          "memory_turnover_trend": {
+            "memory_turnover": 0.22,
+            "target_turnover": 0.08,
+            "turnover_gap": 0.14
+          },
+          "noise_evidence": {
+            "memory_turnover": 0.22,
+            "noise_high": true,
+            "noise_risk": 0.72,
+            "random_memory_advantage": 0.09,
+            "shuffled_memory_advantage": 0.07
+          },
+          "persistence_trend": {
+            "memory_persistence": 0.38,
+            "persistence_gap": -0.17000000000000004,
+            "target_persistence": 0.55
+          },
+          "release_evidence": {
+            "persistence_deficit_recoverable": 0.04760000000000002,
+            "real_memory_advantage": 0.04,
+            "stability_deficit_recoverable": 0.04760000000000002,
+            "starved_memory_pressure": 0.0
+          },
+          "restraint_evidence": {
+            "control_family_pressure": 0.049999999999999996,
+            "future_leak_pressure": 0.0,
+            "noise_pressure": 0.57,
+            "rigidity_pressure": 0.03,
+            "turnover_pressure": 0.14
+          },
+          "rigidity_evidence": {
+            "future_leak_score": 0.0,
+            "hard_stop_triggered": false,
+            "memory_edge_density": 0.24,
+            "memory_rigidity": 0.18,
+            "rigidity_high": false
+          }
+        },
+        "memory_stability_trend": {
+          "memory_stability": 0.48,
+          "stability_gap": -0.17000000000000004,
+          "target_stability": 0.65
+        },
+        "memory_turnover_trend": {
+          "memory_turnover": 0.22,
+          "target_turnover": 0.08,
+          "turnover_gap": 0.14
+        },
+        "noise_evidence": {
+          "memory_turnover": 0.22,
+          "noise_high": true,
+          "noise_risk": 0.72,
+          "random_memory_advantage": 0.09,
+          "shuffled_memory_advantage": 0.07
+        },
+        "parameter_trajectory": {
+          "decay_delta": 0.040000000000000036,
+          "decay_next": 0.76,
+          "decay_previous": 0.72,
+          "decay_proposed": 0.76,
+          "eta_delta": -0.03999999999999998,
+          "eta_next": 0.3,
+          "eta_previous": 0.33999999999999997,
+          "eta_proposed": 0.3
+        },
+        "persistence_trend": {
+          "memory_persistence": 0.38,
+          "persistence_gap": -0.17000000000000004,
+          "target_persistence": 0.55
+        },
+        "previous_decay": 0.72,
+        "previous_eta": 0.33999999999999997,
+        "proposed_decay": 0.76,
+        "proposed_eta": 0.3,
+        "release_evidence": {
+          "persistence_deficit_recoverable": 0.04760000000000002,
+          "real_memory_advantage": 0.04,
+          "stability_deficit_recoverable": 0.04760000000000002,
+          "starved_memory_pressure": 0.0
+        },
+        "restraint_evidence": {
+          "control_family_pressure": 0.049999999999999996,
+          "future_leak_pressure": 0.0,
+          "noise_pressure": 0.57,
+          "rigidity_pressure": 0.03,
+          "turnover_pressure": 0.14
+        },
+        "rigidity_evidence": {
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false,
+          "memory_edge_density": 0.24,
+          "memory_rigidity": 0.18,
+          "rigidity_high": false
+        },
+        "step": 200
+      },
+      {
+        "controller_state_snapshot": {
+          "derivative_error": -0.0052000000000000934,
+          "error": -0.6599999999999999,
+          "integral_error": -0.5969599999999997,
+          "release_score": 0.06,
+          "restraint_score": 0.72
+        },
+        "current_decay": 0.72,
+        "current_eta": 0.27999999999999997,
+        "decay_delta": -0.040000000000000036,
+        "decision": "release_rigid_memory",
+        "decision_replay_record": {
+          "config": {
+            "decay_step": 0.04,
+            "eta_step": 0.04,
+            "high_noise_threshold": 0.55,
+            "high_rigidity_threshold": 0.55,
+            "initial_decay": 0.7,
+            "initial_eta": 0.3,
+            "max_decay": 0.95,
+            "max_eta": 0.8,
+            "min_decay": 0.1,
+            "min_eta": 0.02,
+            "release_margin": 0.03,
+            "restraint_margin": 0.03,
+            "starved_density_threshold": 0.1,
+            "target_persistence": 0.55,
+            "target_stability": 0.65,
+            "target_turnover": 0.08
+          },
+          "controller": "adaptive_memory_eta_decay",
+          "decision": "release_rigid_memory",
+          "observation": {
+            "future_leak_score": 0.0,
+            "hard_stop_reason": null,
+            "hard_stop_triggered": false,
+            "memory_edge_density": 0.82,
+            "memory_persistence": 0.93,
+            "memory_rigidity": 0.78,
+            "memory_stability": 0.9,
+            "memory_turnover": 0.01,
+            "noise_risk": 0.24,
+            "random_memory_advantage": 0.03,
+            "real_memory_advantage": 0.06,
+            "shuffled_memory_advantage": 0.02,
+            "step": 300
+          },
+          "parameter_trajectory": {
+            "decay_delta": -0.040000000000000036,
+            "decay_next": 0.72,
+            "decay_previous": 0.76,
+            "decay_proposed": 0.72,
+            "eta_delta": -0.020000000000000018,
+            "eta_next": 0.27999999999999997,
+            "eta_previous": 0.3,
+            "eta_proposed": 0.27999999999999997
+          },
+          "state_before_decision": {
+            "derivative_error": -0.0052000000000000934,
+            "error": -0.6599999999999999,
+            "integral_error": -0.5969599999999997,
+            "release_score": 0.06,
+            "restraint_score": 0.72
+          }
+        },
+        "eta_delta": -0.020000000000000018,
+        "injected_evidence_ledger": {
+          "memory_stability_trend": {
+            "memory_stability": 0.9,
+            "stability_gap": 0.25,
+            "target_stability": 0.65
+          },
+          "memory_turnover_trend": {
+            "memory_turnover": 0.01,
+            "target_turnover": 0.08,
+            "turnover_gap": -0.07
+          },
+          "noise_evidence": {
+            "memory_turnover": 0.01,
+            "noise_high": false,
+            "noise_risk": 0.24,
+            "random_memory_advantage": 0.03,
+            "shuffled_memory_advantage": 0.02
+          },
+          "persistence_trend": {
+            "memory_persistence": 0.93,
+            "persistence_gap": 0.38,
+            "target_persistence": 0.55
+          },
+          "release_evidence": {
+            "persistence_deficit_recoverable": 0.0,
+            "real_memory_advantage": 0.06,
+            "stability_deficit_recoverable": 0.0,
+            "starved_memory_pressure": 0.0
+          },
+          "restraint_evidence": {
+            "control_family_pressure": 0.0,
+            "future_leak_pressure": 0.0,
+            "noise_pressure": 0.09,
+            "rigidity_pressure": 0.63,
+            "turnover_pressure": 0.0
+          },
+          "rigidity_evidence": {
+            "future_leak_score": 0.0,
+            "hard_stop_triggered": false,
+            "memory_edge_density": 0.82,
+            "memory_rigidity": 0.78,
+            "rigidity_high": true
+          }
+        },
+        "memory_stability_trend": {
+          "memory_stability": 0.9,
+          "stability_gap": 0.25,
+          "target_stability": 0.65
+        },
+        "memory_turnover_trend": {
+          "memory_turnover": 0.01,
+          "target_turnover": 0.08,
+          "turnover_gap": -0.07
+        },
+        "noise_evidence": {
+          "memory_turnover": 0.01,
+          "noise_high": false,
+          "noise_risk": 0.24,
+          "random_memory_advantage": 0.03,
+          "shuffled_memory_advantage": 0.02
+        },
+        "parameter_trajectory": {
+          "decay_delta": -0.040000000000000036,
+          "decay_next": 0.72,
+          "decay_previous": 0.76,
+          "decay_proposed": 0.72,
+          "eta_delta": -0.020000000000000018,
+          "eta_next": 0.27999999999999997,
+          "eta_previous": 0.3,
+          "eta_proposed": 0.27999999999999997
+        },
+        "persistence_trend": {
+          "memory_persistence": 0.93,
+          "persistence_gap": 0.38,
+          "target_persistence": 0.55
+        },
+        "previous_decay": 0.76,
+        "previous_eta": 0.3,
+        "proposed_decay": 0.72,
+        "proposed_eta": 0.27999999999999997,
+        "release_evidence": {
+          "persistence_deficit_recoverable": 0.0,
+          "real_memory_advantage": 0.06,
+          "stability_deficit_recoverable": 0.0,
+          "starved_memory_pressure": 0.0
+        },
+        "restraint_evidence": {
+          "control_family_pressure": 0.0,
+          "future_leak_pressure": 0.0,
+          "noise_pressure": 0.09,
+          "rigidity_pressure": 0.63,
+          "turnover_pressure": 0.0
+        },
+        "rigidity_evidence": {
+          "future_leak_score": 0.0,
+          "hard_stop_triggered": false,
+          "memory_edge_density": 0.82,
+          "memory_rigidity": 0.78,
+          "rigidity_high": true
+        },
+        "step": 300
+      }
+    ],
+    "parameter_trajectory": [
+      {
+        "decay_delta": 0.020000000000000018,
+        "decay_next": 0.72,
+        "decay_previous": 0.7,
+        "decay_proposed": 0.72,
+        "eta_delta": 0.03999999999999998,
+        "eta_next": 0.33999999999999997,
+        "eta_previous": 0.3,
+        "eta_proposed": 0.33999999999999997
+      },
+      {
+        "decay_delta": 0.040000000000000036,
+        "decay_next": 0.76,
+        "decay_previous": 0.72,
+        "decay_proposed": 0.76,
+        "eta_delta": -0.03999999999999998,
+        "eta_next": 0.3,
+        "eta_previous": 0.33999999999999997,
+        "eta_proposed": 0.3
+      },
+      {
+        "decay_delta": -0.040000000000000036,
+        "decay_next": 0.72,
+        "decay_previous": 0.76,
+        "decay_proposed": 0.72,
+        "eta_delta": -0.020000000000000018,
+        "eta_next": 0.27999999999999997,
+        "eta_previous": 0.3,
+        "eta_proposed": 0.27999999999999997
+      }
+    ]
+  }
+}

@@ -75,29 +75,43 @@
   "anti_patterns": [
     "fixed_small_alpha_as_default_truth",
     "geo_qk_as_absolute_scientific_ceiling",
+    "ordinary_risk_flag_aborts_optimization",
     "single_step_loss_delta_controller",
     "changing_alpha_memory_and_normalization_without_attribution",
+    "unlogged_parameter_search",
+    "controller_decision_without_replay_record",
     "claiming_real_geometry_when_random_or_shuffled_matches_real",
     "opening_more_parameters_when_run02_evidence_is_incomplete"
   ],
   "checks": {
     "adaptive_parameters_declared": true,
+    "controller_obligations_prevent_soft_flag_abort": true,
+    "controller_obligations_require_decision_replay": true,
+    "controller_obligations_require_full_parameter_trajectory": true,
     "controller_obligations_require_real_controls": true,
+    "controller_obligations_require_rng_isolation": true,
+    "controller_obligations_require_search_not_static_gate": true,
     "controller_obligations_require_trend_not_single_delta": true,
     "every_adaptive_parameter_has_growth_and_restraint": true,
     "hard_stops_are_limited_to_safety_and_validity": true,
     "soft_pressures_are_not_hard_stops": true,
-    "telemetry_covers_loss_attention_memory_controls": true
+    "telemetry_covers_loss_attention_memory_controls": true,
+    "telemetry_records_parameter_search_and_injected_evidence": true
   },
   "contract": "open_control_philosophy",
   "controller_obligations": [
     "Do not treat a soft pressure as a scientific hard stop.",
+    "Do not abort a run for ordinary risk flags; convert them into controller pressure.",
     "Use rolling windows or smoothed trends instead of single-point deltas.",
     "Record every parameter change with a reason and evidence fields.",
+    "Record the full parameter trajectory for every adaptive degree of freedom.",
+    "Record injected evidence, observations, and controller state so decisions can be replayed.",
     "Let a parameter grow when benefit evidence exceeds risk pressure.",
     "Let a parameter shrink or freeze when risk pressure dominates.",
+    "Search for better parameter regions instead of treating early gates as final answers.",
     "Separate runtime safety bounds from scientific claims.",
     "Compare real adaptive behavior against random and shuffled controls.",
+    "Keep random and shuffled control RNG isolated from training, dropout, and sampler RNG.",
     "Do not count baseline-only improvement as proof of real relational geometry.",
     "Allocate change budget across parameters instead of changing all knobs blindly."
   ],
@@ -147,7 +161,12 @@
     "rigidity_risk",
     "noise_risk",
     "control_penalty",
-    "attribution_summary"
+    "control_rng_isolated",
+    "attribution_summary",
+    "parameter_trajectory",
+    "injected_evidence_ledger",
+    "controller_state_snapshot",
+    "decision_replay_record"
   ],
   "soft_pressures": {
     "attention_entropy_drop": {

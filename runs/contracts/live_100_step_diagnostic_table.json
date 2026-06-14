@@ -1,0 +1,672 @@
+{
+  "checks": {
+    "all_required_columns_present": true,
+    "controller_decision_columns_visible": true,
+    "fail_fast_row_is_displayed": true,
+    "meta_control_columns_visible": true,
+    "missing_values_are_explicit_in_table": true,
+    "plot_payload_has_required_series_groups": true,
+    "plot_payload_uses_step_axis": true,
+    "required_live_diagnostic_outputs_emitted": true,
+    "schema_declares_live_diagnostic_fields": true,
+    "table_markdown_has_header_and_rows": true,
+    "trainer_emits_live_diagnostic_rows_during_run": true,
+    "trainer_live_rows_align_with_display_rows": true
+  },
+  "completed_run_summary": {
+    "artifact_bundle_name": "ergt_03_adaptive_control_report_bundle.zip",
+    "checkpoint_artifacts_excluded": true,
+    "control_separation_event_count": 9,
+    "control_separation_log_ready": true,
+    "controller_decision_count": 129,
+    "controller_decision_log_ready": true,
+    "lightweight_artifact_bundle_ready": true,
+    "live_diagnostic_plot_ready": true,
+    "live_diagnostic_row_count": 15,
+    "live_diagnostic_table_ready": true,
+    "live_display_event_count": 15,
+    "meta_control_observer_log_ready": true,
+    "meta_observer_event_count": 15,
+    "progress_log_ready": true,
+    "safety_event_count": 15,
+    "safety_log_ready": true,
+    "trainer_fail_fast_reason": null,
+    "trainer_fail_fast_triggered": false,
+    "trainer_processed_rows": 15,
+    "trainer_processed_steps": [
+      100,
+      200,
+      300,
+      100,
+      200,
+      300,
+      100,
+      200,
+      300,
+      100,
+      200,
+      300,
+      100,
+      200,
+      300
+    ],
+    "trainer_status": "completed"
+  },
+  "config": {
+    "display_interval": 100,
+    "max_table_rows": 12,
+    "missing_value": "NA"
+  },
+  "fail_fast_live_row": {
+    "alpha": 0.035,
+    "alpha_decision": "grow_alpha",
+    "attention_control_separation": 0.12,
+    "attention_regime": "useful_noncollapsed",
+    "causal_reachability_decision": "expand_reach",
+    "condition": "real_memory_d",
+    "contrast_retention": 0.62,
+    "controller_conflict_score": 0.0,
+    "delta_vs_baseline": null,
+    "distance_norm_scale_decision": "increase_distance_scale",
+    "future_leak": 0.2,
+    "gate_floor_decision": "hold_gate_floor",
+    "geo_to_qk_ratio": 0.08,
+    "joint_budget_decision": "allocate_geometry_memory",
+    "live_diagnostic_plot_ready": true,
+    "live_diagnostic_row_ready": true,
+    "live_diagnostic_table_ready": true,
+    "memory_decay_decision": "hold_decay",
+    "memory_eta_decision": "increase_eta",
+    "memory_persistence": 0.48,
+    "memory_rigidity": 0.1,
+    "memory_stability": 0.55,
+    "memory_turnover": 0.22,
+    "meta_alpha_weight": 0.15828566752349116,
+    "meta_attention_entropy": 1.4054332408991277,
+    "meta_control_confidence": 0.34718216511665656,
+    "meta_gate_weight": 0.11543899977189455,
+    "meta_memory_weight": 0.23563341740962843,
+    "meta_norm_weight": 0.34044599595783437,
+    "meta_reach_weight": 0.1501959193371515,
+    "meta_top_signal": "distance_contrast",
+    "noise_risk": 0.14,
+    "rolling_slope": 0.04,
+    "step": 200,
+    "train_loss": 5.2,
+    "trainer_fail_fast_triggered": true,
+    "trainer_status": "failed_fast",
+    "validation_loss": 5.3
+  },
+  "next_required_step": "adaptive_notebook_ergt_03",
+  "plot_series_groups": {
+    "geometry": [
+      "alpha",
+      "geo_to_qk_ratio",
+      "contrast_retention"
+    ],
+    "loss": [
+      "validation_loss",
+      "delta_vs_baseline",
+      "rolling_slope"
+    ],
+    "memory": [
+      "memory_stability",
+      "memory_turnover",
+      "memory_persistence",
+      "memory_rigidity",
+      "noise_risk"
+    ],
+    "meta_control": [
+      "meta_alpha_weight",
+      "meta_memory_weight",
+      "meta_gate_weight",
+      "meta_reach_weight",
+      "meta_norm_weight",
+      "controller_conflict_score",
+      "meta_control_confidence"
+    ],
+    "safety": [
+      "future_leak",
+      "trainer_fail_fast_triggered"
+    ]
+  },
+  "required_columns": [
+    "step",
+    "condition",
+    "train_loss",
+    "validation_loss",
+    "delta_vs_baseline",
+    "rolling_slope",
+    "alpha",
+    "geo_to_qk_ratio",
+    "memory_stability",
+    "memory_turnover",
+    "memory_persistence",
+    "memory_rigidity",
+    "noise_risk",
+    "attention_regime",
+    "attention_control_separation",
+    "contrast_retention",
+    "future_leak",
+    "meta_top_signal",
+    "meta_attention_entropy",
+    "meta_alpha_weight",
+    "meta_memory_weight",
+    "meta_gate_weight",
+    "meta_reach_weight",
+    "meta_norm_weight",
+    "controller_conflict_score",
+    "meta_control_confidence",
+    "alpha_decision",
+    "memory_eta_decision",
+    "memory_decay_decision",
+    "gate_floor_decision",
+    "causal_reachability_decision",
+    "distance_norm_scale_decision",
+    "joint_budget_decision",
+    "trainer_status",
+    "trainer_fail_fast_triggered"
+  ],
+  "required_outputs": [
+    "live_diagnostic_rows",
+    "live_diagnostic_tables",
+    "live_diagnostic_plot_payloads",
+    "live_diagnostic_row_count",
+    "live_diagnostic_table_ready",
+    "live_diagnostic_plot_ready"
+  ],
+  "sample_row": {
+    "alpha": 0.035,
+    "alpha_decision": "grow_alpha",
+    "attention_control_separation": 0.12,
+    "attention_regime": "useful_noncollapsed",
+    "causal_reachability_decision": "expand_reach",
+    "condition": "real_memory_d",
+    "contrast_retention": 0.62,
+    "controller_conflict_score": 0.06,
+    "delta_vs_baseline": 0.16,
+    "distance_norm_scale_decision": "increase_distance_scale",
+    "future_leak": 0.0,
+    "gate_floor_decision": "hold_gate_floor",
+    "geo_to_qk_ratio": 0.08,
+    "joint_budget_decision": "allocate_geometry_memory",
+    "live_diagnostic_plot_ready": true,
+    "live_diagnostic_row_ready": true,
+    "live_diagnostic_table_ready": true,
+    "memory_decay_decision": "hold_decay",
+    "memory_eta_decision": "increase_eta",
+    "memory_persistence": 0.48,
+    "memory_rigidity": 0.1,
+    "memory_stability": 0.55,
+    "memory_turnover": 0.22,
+    "meta_alpha_weight": 0.18,
+    "meta_attention_entropy": 1.92,
+    "meta_control_confidence": 0.62,
+    "meta_gate_weight": 0.12,
+    "meta_memory_weight": 0.25,
+    "meta_norm_weight": 0.28,
+    "meta_reach_weight": 0.17,
+    "meta_top_signal": "memory_state",
+    "noise_risk": 0.14,
+    "rolling_slope": 0.04,
+    "step": 1000,
+    "train_loss": 5.2,
+    "trainer_fail_fast_triggered": false,
+    "trainer_status": "running",
+    "validation_loss": 5.3
+  },
+  "sample_snapshot": {
+    "live_diagnostic_columns": [
+      {
+        "key": "step",
+        "label": "step",
+        "precision": 0,
+        "sources": [
+          "step"
+        ]
+      },
+      {
+        "key": "condition",
+        "label": "condition",
+        "precision": null,
+        "sources": [
+          "condition"
+        ]
+      },
+      {
+        "key": "train_loss",
+        "label": "train",
+        "precision": 4,
+        "sources": [
+          "train_loss"
+        ]
+      },
+      {
+        "key": "validation_loss",
+        "label": "val",
+        "precision": 4,
+        "sources": [
+          "validation_loss"
+        ]
+      },
+      {
+        "key": "delta_vs_baseline",
+        "label": "d_base",
+        "precision": 4,
+        "sources": [
+          "real_vs_baseline_delta",
+          "baseline_centered_improvement"
+        ]
+      },
+      {
+        "key": "rolling_slope",
+        "label": "slope",
+        "precision": 6,
+        "sources": [
+          "loss_slope",
+          "loss_slope_gain",
+          "adaptive_slope_gain"
+        ]
+      },
+      {
+        "key": "alpha",
+        "label": "alpha",
+        "precision": 4,
+        "sources": [
+          "alpha",
+          "alpha_effective"
+        ]
+      },
+      {
+        "key": "geo_to_qk_ratio",
+        "label": "geo_qk",
+        "precision": 4,
+        "sources": [
+          "geo_to_qk_ratio"
+        ]
+      },
+      {
+        "key": "memory_stability",
+        "label": "m_stab",
+        "precision": 4,
+        "sources": [
+          "memory_stability"
+        ]
+      },
+      {
+        "key": "memory_turnover",
+        "label": "m_turn",
+        "precision": 4,
+        "sources": [
+          "memory_turnover"
+        ]
+      },
+      {
+        "key": "memory_persistence",
+        "label": "m_pers",
+        "precision": 4,
+        "sources": [
+          "memory_persistence"
+        ]
+      },
+      {
+        "key": "memory_rigidity",
+        "label": "m_rigid",
+        "precision": 4,
+        "sources": [
+          "memory_rigidity"
+        ]
+      },
+      {
+        "key": "noise_risk",
+        "label": "noise",
+        "precision": 4,
+        "sources": [
+          "noise_risk"
+        ]
+      },
+      {
+        "key": "attention_regime",
+        "label": "attn_regime",
+        "precision": null,
+        "sources": [
+          "attention_behavior_regime"
+        ]
+      },
+      {
+        "key": "attention_control_separation",
+        "label": "attn_sep",
+        "precision": 4,
+        "sources": [
+          "attention_behavior_separation",
+          "control_attention_separation"
+        ]
+      },
+      {
+        "key": "contrast_retention",
+        "label": "contrast",
+        "precision": 4,
+        "sources": [
+          "distance_contrast_retention"
+        ]
+      },
+      {
+        "key": "future_leak",
+        "label": "f_leak",
+        "precision": 4,
+        "sources": [
+          "future_leak_score",
+          "future_leakage_detected"
+        ]
+      },
+      {
+        "key": "meta_top_signal",
+        "label": "meta_top",
+        "precision": null,
+        "sources": [
+          "meta_top_signal"
+        ]
+      },
+      {
+        "key": "meta_attention_entropy",
+        "label": "meta_ent",
+        "precision": 4,
+        "sources": [
+          "meta_attention_entropy"
+        ]
+      },
+      {
+        "key": "meta_alpha_weight",
+        "label": "w_alpha",
+        "precision": 4,
+        "sources": [
+          "meta_alpha_weight"
+        ]
+      },
+      {
+        "key": "meta_memory_weight",
+        "label": "w_memory",
+        "precision": 4,
+        "sources": [
+          "meta_memory_weight"
+        ]
+      },
+      {
+        "key": "meta_gate_weight",
+        "label": "w_gate",
+        "precision": 4,
+        "sources": [
+          "meta_gate_weight"
+        ]
+      },
+      {
+        "key": "meta_reach_weight",
+        "label": "w_reach",
+        "precision": 4,
+        "sources": [
+          "meta_reach_weight"
+        ]
+      },
+      {
+        "key": "meta_norm_weight",
+        "label": "w_norm",
+        "precision": 4,
+        "sources": [
+          "meta_norm_weight"
+        ]
+      },
+      {
+        "key": "controller_conflict_score",
+        "label": "conflict",
+        "precision": 4,
+        "sources": [
+          "controller_conflict_score"
+        ]
+      },
+      {
+        "key": "meta_control_confidence",
+        "label": "meta_conf",
+        "precision": 4,
+        "sources": [
+          "meta_control_confidence"
+        ]
+      },
+      {
+        "key": "alpha_decision",
+        "label": "a_decision",
+        "precision": null,
+        "sources": [
+          "alpha_decision"
+        ]
+      },
+      {
+        "key": "memory_eta_decision",
+        "label": "eta_decision",
+        "precision": null,
+        "sources": [
+          "memory_eta_decision"
+        ]
+      },
+      {
+        "key": "memory_decay_decision",
+        "label": "decay_decision",
+        "precision": null,
+        "sources": [
+          "memory_decay_decision"
+        ]
+      },
+      {
+        "key": "gate_floor_decision",
+        "label": "gate_decision",
+        "precision": null,
+        "sources": [
+          "gate_floor_decision"
+        ]
+      },
+      {
+        "key": "causal_reachability_decision",
+        "label": "reach_decision",
+        "precision": null,
+        "sources": [
+          "causal_reachability_decision"
+        ]
+      },
+      {
+        "key": "distance_norm_scale_decision",
+        "label": "norm_decision",
+        "precision": null,
+        "sources": [
+          "distance_norm_scale_decision"
+        ]
+      },
+      {
+        "key": "joint_budget_decision",
+        "label": "budget_decision",
+        "precision": null,
+        "sources": [
+          "joint_budget_decision"
+        ]
+      },
+      {
+        "key": "trainer_status",
+        "label": "trainer",
+        "precision": null,
+        "sources": [
+          "trainer_status"
+        ]
+      },
+      {
+        "key": "trainer_fail_fast_triggered",
+        "label": "fail_fast",
+        "precision": 0,
+        "sources": [
+          "trainer_fail_fast_triggered"
+        ]
+      }
+    ],
+    "live_diagnostic_plot_payload": {
+      "latest_step": 1000,
+      "plot_ready": true,
+      "series_groups": {
+        "geometry": {
+          "alpha": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.035
+            }
+          ],
+          "contrast_retention": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.62
+            }
+          ],
+          "geo_to_qk_ratio": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.08
+            }
+          ]
+        },
+        "loss": {
+          "delta_vs_baseline": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.16
+            }
+          ],
+          "rolling_slope": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.04
+            }
+          ],
+          "validation_loss": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 5.3
+            }
+          ]
+        },
+        "memory": {
+          "memory_persistence": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.48
+            }
+          ],
+          "memory_rigidity": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.1
+            }
+          ],
+          "memory_stability": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.55
+            }
+          ],
+          "memory_turnover": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.22
+            }
+          ],
+          "noise_risk": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.14
+            }
+          ]
+        },
+        "meta_control": {
+          "controller_conflict_score": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.06
+            }
+          ],
+          "meta_alpha_weight": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.18
+            }
+          ],
+          "meta_control_confidence": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.62
+            }
+          ],
+          "meta_gate_weight": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.12
+            }
+          ],
+          "meta_memory_weight": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.25
+            }
+          ],
+          "meta_norm_weight": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.28
+            }
+          ],
+          "meta_reach_weight": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.17
+            }
+          ]
+        },
+        "safety": {
+          "future_leak": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.0
+            }
+          ],
+          "trainer_fail_fast_triggered": [
+            {
+              "condition": "real_memory_d",
+              "step": 1000,
+              "value": 0.0
+            }
+          ]
+        }
+      },
+      "x_axis": "step"
+    },
+    "live_diagnostic_plot_ready": true,
+    "live_diagnostic_row_count": 1,
+    "live_diagnostic_table_markdown": "| step | condition | train | val | d_base | slope | alpha | geo_qk | m_stab | m_turn | m_pers | m_rigid | noise | attn_regime | attn_sep | contrast | f_leak | meta_top | meta_ent | w_alpha | w_memory | w_gate | w_reach | w_norm | conflict | meta_conf | a_decision | eta_decision | decay_decision | gate_decision | reach_decision | norm_decision | budget_decision | trainer | fail_fast |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| 1000 | real_memory_d | 5.2000 | 5.3000 | 0.1600 | 0.040000 | 0.0350 | 0.0800 | 0.5500 | 0.2200 | 0.4800 | 0.1000 | 0.1400 | useful_noncollapsed | 0.1200 | 0.6200 | 0.0000 | memory_state | 1.9200 | 0.1800 | 0.2500 | 0.1200 | 0.1700 | 0.2800 | 0.0600 | 0.6200 | grow_alpha | increase_eta | hold_decay | hold_gate_floor | expand_reach | increase_distance_scale | allocate_geometry_memory | running | 0 |",
+    "live_diagnostic_table_ready": true
+  },
+  "scientific_scope": "live display contract for 100-step adaptive ERGT diagnostics; table and plot payloads are observability artifacts, not claim credit",
+  "stage": "stage18_live_100_step_diagnostic_table",
+  "status": "pass"
+}

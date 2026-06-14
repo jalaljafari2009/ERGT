@@ -82,7 +82,7 @@ def tiny_ergt_config(output_dir: Path) -> dict:
     }
 
 
-def test_random_distance_mode_changes_between_forward_calls() -> None:
+def test_random_distance_mode_is_step_deterministic_without_call_order_rng() -> None:
     torch.manual_seed(1)
     attention = GeoAttention(
         GeoAttentionConfig(
@@ -91,15 +91,20 @@ def test_random_distance_mode_changes_between_forward_calls() -> None:
             dropout=0.0,
             distance_mode="random_d",
             alpha_initial_value=0.1,
+            control_seed=2027,
         ),
         distance_config={"normalization": "offdiag_zscore_clamp", "diagonal_policy": "zero"},
     )
     hidden_states = torch.randn(1, 4, 8)
 
+    attention.set_training_step(11)
     first = attention.compute_distance(hidden_states)
     second = attention.compute_distance(hidden_states)
+    attention.set_training_step(12)
+    third = attention.compute_distance(hidden_states)
 
-    assert not torch.allclose(first, second)
+    assert torch.allclose(first, second)
+    assert not torch.allclose(first, third)
 
 
 def test_geometry_diagnostics_include_attention_metrics() -> None:
@@ -114,6 +119,8 @@ def test_geometry_diagnostics_include_attention_metrics() -> None:
 
     assert "attention_entropy" in diagnostics["layers"]["layer_0"]
     assert "attention_entropy" in diagnostics["summary"]
+    assert "collapse_risk" in diagnostics["summary"]
+    assert "head_attention_diversity" in diagnostics["layers"]["layer_0"]
 
 
 def test_ergt_v1_geoattention_v2_carries_memory_between_layers() -> None:
@@ -206,6 +213,7 @@ def test_train_ergt_v1_smoke_outputs_finite_metrics_and_exact_step(
         sys.argv = old_argv
 
     results = json.loads((output_dir / "metrics.json").read_text(encoding="utf-8"))
+    saved_config = json.loads((output_dir / "config.json").read_text(encoding="utf-8"))
     progress_rows = [
         json.loads(line)
         for line in (output_dir / "progress_log.jsonl").read_text(encoding="utf-8").splitlines()
@@ -216,6 +224,7 @@ def test_train_ergt_v1_smoke_outputs_finite_metrics_and_exact_step(
     assert math.isfinite(results["final_validation_loss"])
     assert math.isfinite(results["perplexity"])
     assert len(progress_rows) == 1
+    assert saved_config["attention"]["control_seed"] == 1
     assert math.isfinite(progress_rows[0]["validation_loss"])
     assert math.isfinite(progress_rows[0]["best_validation_loss"])
     assert "tokens_per_second" in progress_rows[0]

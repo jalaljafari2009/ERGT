@@ -122,17 +122,27 @@ REQUIRED_TELEMETRY = [
     "rigidity_risk",
     "noise_risk",
     "control_penalty",
+    "control_rng_isolated",
     "attribution_summary",
+    "parameter_trajectory",
+    "injected_evidence_ledger",
+    "controller_state_snapshot",
+    "decision_replay_record",
 ]
 
 CONTROLLER_OBLIGATIONS = [
     "Do not treat a soft pressure as a scientific hard stop.",
+    "Do not abort a run for ordinary risk flags; convert them into controller pressure.",
     "Use rolling windows or smoothed trends instead of single-point deltas.",
     "Record every parameter change with a reason and evidence fields.",
+    "Record the full parameter trajectory for every adaptive degree of freedom.",
+    "Record injected evidence, observations, and controller state so decisions can be replayed.",
     "Let a parameter grow when benefit evidence exceeds risk pressure.",
     "Let a parameter shrink or freeze when risk pressure dominates.",
+    "Search for better parameter regions instead of treating early gates as final answers.",
     "Separate runtime safety bounds from scientific claims.",
     "Compare real adaptive behavior against random and shuffled controls.",
+    "Keep random and shuffled control RNG isolated from training, dropout, and sampler RNG.",
     "Do not count baseline-only improvement as proof of real relational geometry.",
     "Allocate change budget across parameters instead of changing all knobs blindly.",
 ]
@@ -140,8 +150,11 @@ CONTROLLER_OBLIGATIONS = [
 ANTI_PATTERNS = [
     "fixed_small_alpha_as_default_truth",
     "geo_qk_as_absolute_scientific_ceiling",
+    "ordinary_risk_flag_aborts_optimization",
     "single_step_loss_delta_controller",
     "changing_alpha_memory_and_normalization_without_attribution",
+    "unlogged_parameter_search",
+    "controller_decision_without_replay_record",
     "claiming_real_geometry_when_random_or_shuffled_matches_real",
     "opening_more_parameters_when_run02_evidence_is_incomplete",
 ]
@@ -205,10 +218,32 @@ def validate_contract(contract: dict[str, Any]) -> dict[str, bool]:
             "control_penalty",
             "attribution_summary",
         }.issubset(required_telemetry),
+        "telemetry_records_parameter_search_and_injected_evidence": {
+            "parameter_trajectory",
+            "injected_evidence_ledger",
+            "controller_state_snapshot",
+            "decision_replay_record",
+        }.issubset(required_telemetry),
+        "controller_obligations_prevent_soft_flag_abort": any(
+            "ordinary risk flags" in obligation for obligation in obligations
+        ),
+        "controller_obligations_require_full_parameter_trajectory": any(
+            "full parameter trajectory" in obligation for obligation in obligations
+        ),
+        "controller_obligations_require_decision_replay": any(
+            "decisions can be replayed" in obligation for obligation in obligations
+        ),
+        "controller_obligations_require_search_not_static_gate": any(
+            "Search for better parameter regions" in obligation
+            for obligation in obligations
+        ),
         "controller_obligations_require_trend_not_single_delta": any(
             "single-point" in obligation for obligation in obligations
         ),
         "controller_obligations_require_real_controls": any(
             "random and shuffled" in obligation for obligation in obligations
+        ),
+        "controller_obligations_require_rng_isolation": any(
+            "RNG isolated" in obligation for obligation in obligations
         ),
     }

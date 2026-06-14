@@ -1,0 +1,230 @@
+{
+  "checks": {
+    "all_required_comparisons_positive": true,
+    "attention_gate_passed": true,
+    "baseline_only_insufficient_rule_enforced": true,
+    "decision_passes": true,
+    "guarded_run_contract_ready": true,
+    "no_failure_labels_for_pass": true,
+    "r1_clear": true,
+    "r2_clear": true,
+    "r3_clear": true,
+    "relation_specific_gate_passed": true,
+    "required_outputs_present": true,
+    "stage22_late_window_passed": true,
+    "stage23_attribution_passed": true
+  },
+  "decision_table": [
+    {
+      "gate_item": "baseline",
+      "passes": true,
+      "real_advantage": 0.16954545454545447,
+      "threshold": 0.0
+    },
+    {
+      "gate_item": "alpha_zero",
+      "passes": true,
+      "real_advantage": 0.16954545454545447,
+      "threshold": 0.0
+    },
+    {
+      "gate_item": "random_adaptive",
+      "passes": true,
+      "real_advantage": 0.10863636363636359,
+      "threshold": 0.0
+    },
+    {
+      "gate_item": "shuffled_adaptive",
+      "passes": true,
+      "real_advantage": 0.11711363636363642,
+      "threshold": 0.0
+    },
+    {
+      "gate_item": "no_memory_real",
+      "passes": true,
+      "real_advantage": 0.11079545454545446,
+      "threshold": 0.0
+    },
+    {
+      "gate_item": "instantaneous_real",
+      "passes": true,
+      "real_advantage": 0.096590909090909,
+      "threshold": 0.0
+    },
+    {
+      "gate_item": "R1",
+      "passes": true,
+      "real_advantage": null,
+      "threshold": null
+    },
+    {
+      "gate_item": "R2",
+      "passes": true,
+      "real_advantage": null,
+      "threshold": null
+    },
+    {
+      "gate_item": "R3",
+      "passes": true,
+      "real_advantage": null,
+      "threshold": null
+    },
+    {
+      "gate_item": "attention_gate",
+      "passes": true,
+      "real_advantage": 0.12500000000000006,
+      "threshold": null
+    },
+    {
+      "gate_item": "relation_specific_gate",
+      "passes": true,
+      "real_advantage": 0.096590909090909,
+      "threshold": null
+    }
+  ],
+  "gate": {
+    "anti_overclaim": "Passing this gate supports only the current guarded adaptive mechanics contract. It does not prove the final physics or intelligence claim without real notebook telemetry, longer runs, and multi-seed confirmation.",
+    "attention_gate": {
+      "attention_separated_from_controls": true,
+      "minimum_attention_advantage": 0.12500000000000006,
+      "passes": true,
+      "stage22_attention_safe": true
+    },
+    "baseline_only_insufficient_check": {
+      "baseline_passes": true,
+      "non_baseline_comparison_passes": {
+        "alpha_zero": true,
+        "instantaneous_real": true,
+        "no_memory_real": true,
+        "random_adaptive": true,
+        "shuffled_adaptive": true
+      },
+      "passes": true,
+      "rule": "baseline improvement alone is insufficient for a real geometry claim"
+    },
+    "checks": {
+      "all_required_comparisons_positive": true,
+      "attention_gate_passed": true,
+      "attribution_report_passed": true,
+      "baseline_only_is_insufficient": true,
+      "late_window_report_passed": true,
+      "r1_memory_and_causality_clear": true,
+      "r2_distance_scale_clear": true,
+      "r3_attention_behavior_clear": true,
+      "relation_specific_gate_passed": true
+    },
+    "config": {
+      "decision_window": "1000_2000",
+      "late_window_end": 2000,
+      "late_window_start": 1000,
+      "max_future_leak_score": 0.0,
+      "max_geo_to_qk_ratio": 0.16,
+      "min_attention_advantage": 0.0,
+      "min_control_advantage": 0.0,
+      "min_distance_contrast_retention": 0.55,
+      "min_geo_to_qk_ratio": 0.01,
+      "min_relation_specific_advantage": 0.0,
+      "real_condition": "real_memory_d"
+    },
+    "decision": "pass_real_geometry_contract",
+    "decision_window": "1000_2000",
+    "failure_labels": [],
+    "relation_specific_gate": {
+      "best_control_condition": "instantaneous_real_d",
+      "best_control_family": "instantaneous",
+      "best_control_gain_share_of_real_gain": 0.4302949061662205,
+      "estimate": 0.096590909090909,
+      "passes": true
+    },
+    "required_comparisons": {
+      "alpha_zero": {
+        "passes": true,
+        "real_advantage": 0.16954545454545447,
+        "threshold": 0.0
+      },
+      "baseline": {
+        "passes": true,
+        "real_advantage": 0.16954545454545447,
+        "threshold": 0.0
+      },
+      "instantaneous_real": {
+        "passes": true,
+        "real_advantage": 0.096590909090909,
+        "threshold": 0.0
+      },
+      "no_memory_real": {
+        "passes": true,
+        "real_advantage": 0.11079545454545446,
+        "threshold": 0.0
+      },
+      "random_adaptive": {
+        "passes": true,
+        "real_advantage": 0.10863636363636359,
+        "threshold": 0.0
+      },
+      "shuffled_adaptive": {
+        "passes": true,
+        "real_advantage": 0.11711363636363642,
+        "threshold": 0.0
+      }
+    },
+    "risk_audit": {
+      "R1": {
+        "max_future_leak_score": 0.0,
+        "memory_specific_gain": 0.11079545454545446,
+        "name": "memory_and_causal_validity",
+        "passes": true,
+        "stable_memory_gain": 0.096590909090909
+      },
+      "R2": {
+        "max_geo_to_qk_ratio": 0.106,
+        "mean_distance_contrast_retention": 0.6749999999999999,
+        "mean_geo_to_qk_ratio": 0.09225,
+        "name": "distance_contrast_and_scale",
+        "passes": true,
+        "relation_specific_advantage": 0.096590909090909
+      },
+      "R3": {
+        "collapse_warning": false,
+        "control_like_attention_warning": false,
+        "minimum_attention_advantage": 0.12500000000000006,
+        "name": "attention_behavior",
+        "passes": true,
+        "uniformity_drift_warning": false
+      }
+    }
+  },
+  "guarded_summary": {
+    "all_conditions_have_identical_steps": true,
+    "all_conditions_reach_2000": true,
+    "condition_row_counts": {
+      "alpha_zero": 20,
+      "baseline": 20,
+      "instantaneous_real_d": 20,
+      "no_memory_real_d": 20,
+      "random_memory_d": 20,
+      "real_memory_d": 20,
+      "shuffled_memory_d": 20
+    }
+  },
+  "input_source": "guarded_2000_contract_replay",
+  "next_required_step": "controller_revision_loop_noop_audit",
+  "required_outputs": [
+    "required_comparisons",
+    "baseline_only_insufficient_check",
+    "risk_audit",
+    "attention_gate",
+    "relation_specific_gate",
+    "failure_labels",
+    "decision"
+  ],
+  "scientific_scope": "guarded adaptive decision gate; requires real stable causal geometry to beat baseline, alpha-zero, random, shuffled, no-memory, and instantaneous controls while clearing memory/causality, distance-scale, and attention-behavior audits",
+  "stage": "stage24_decision_gate_real_geometry_vs_generic_regularization",
+  "status": "pass",
+  "upstream_reports": {
+    "attribution_next_required_step": "decision_gate_real_geometry_vs_generic_regularization",
+    "attribution_status": "pass",
+    "late_window_next_required_step": "random_shuffled_no_memory_attribution_comparison",
+    "late_window_status": "pass"
+  }
+}
