@@ -94,6 +94,39 @@ def test_trainer_produces_controller_and_meta_logs() -> None:
     assert result["live_display_lines"]
 
 
+def test_trainer_streams_live_diagnostic_callback_every_display_step() -> None:
+    streamed_events: list[dict] = []
+
+    result = run_open_adaptive_control_trainer(
+        [
+            {"condition": "baseline", "step": 100, "validation_loss": 6.0},
+            {
+                "condition": "real_memory_d",
+                "step": 100,
+                "validation_loss": 5.8,
+                "alpha": 0.03,
+                "geo_to_qk_ratio": 0.04,
+                "memory_stability": 0.62,
+                "memory_persistence": 0.66,
+                "meta_alpha_weight": 0.2,
+                "meta_memory_weight": 0.3,
+            },
+        ],
+        config=OpenAdaptiveTrainerConfig(live_display_interval=100),
+        live_diagnostic_callback=streamed_events.append,
+    )
+
+    assert len(streamed_events) == result["trainer_summary"]["live_display_event_count"]
+    assert result["trainer_summary"]["live_callback_event_count"] == len(streamed_events)
+    assert result["trainer_replay_record"]["live_diagnostic_callback_used"]
+    assert streamed_events[-1]["step"] == 100
+    assert streamed_events[-1]["condition"] == "real_memory_d"
+    assert "live_diagnostic_table_markdown" in streamed_events[-1]
+    assert "| step | condition |" in streamed_events[-1]["live_diagnostic_table_markdown"]
+    assert streamed_events[-1]["live_diagnostic_row"]["alpha"] == 0.03
+    assert streamed_events[-1]["live_diagnostic_row"]["memory_stability"] == 0.62
+
+
 def test_trainer_artifact_manifest_excludes_checkpoints() -> None:
     result = run_open_adaptive_control_trainer(
         [{"condition": "baseline", "step": 100, "validation_loss": 6.0}]

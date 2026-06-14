@@ -710,9 +710,10 @@ Implementation summary: ERGT-03 now exists as
 `notebooks/ERGT_03_Adaptive_Relational_Control.ipynb`. It defaults to the
 `adaptive_smoke` profile, declares an `adaptive_2000_guarded` profile, runs
 contract preflights, invokes the open adaptive trainer, writes live 100-step
-rows/tables/plot payloads, verifies a future-leak fail-fast path, exports the
-fixed lightweight bundle `ergt_03_adaptive_control_report_bundle.zip`, prints
-the default review path
+rows/tables/plot payloads, streams every 100-step diagnostic table during the
+notebook run through `display_live_diagnostic_event`, verifies a future-leak
+fail-fast path, exports the fixed lightweight bundle
+`ergt_03_adaptive_control_report_bundle.zip`, prints the default review path
 `C:\Users\Administrator\Downloads\ergt_03_adaptive_control_report_bundle.zip`,
 and includes Colab runtime shutdown hooks. The stage contract is documented in
 `docs/39_adaptive_notebook_ergt_03.md`; the machine report is

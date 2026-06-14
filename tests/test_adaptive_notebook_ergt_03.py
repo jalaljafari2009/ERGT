@@ -36,6 +36,8 @@ def test_adaptive_notebook_exports_lightweight_live_artifacts_only() -> None:
     report = build_adaptive_notebook_ergt_03_report()
 
     assert report["checks"]["live_100_step_display_present"]
+    assert report["checks"]["live_100_step_streaming_callback_present"]
+    assert report["checks"]["live_parameter_columns_present"]
     assert report["checks"]["lightweight_zip_excludes_checkpoints"]
     assert report["source_marker_checks"]["live_rows"]
     assert report["source_marker_checks"]["live_tables"]

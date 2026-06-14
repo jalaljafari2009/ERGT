@@ -24,7 +24,16 @@ def test_live_diagnostic_row_exposes_required_columns() -> None:
             "real_vs_baseline_delta": 0.1,
             "loss_slope_gain": 0.02,
             "alpha_effective": 0.03,
+            "alpha_next": 0.035,
+            "alpha_delta": 0.005,
             "geo_to_qk_ratio": 0.04,
+            "memory_eta_next": 0.32,
+            "memory_eta_delta": 0.02,
+            "memory_decay_next": 0.68,
+            "memory_decay_delta": -0.02,
+            "gate_floor_next": 0.05,
+            "distance_norm_scale_next": 1.1,
+            "causal_reachability_next": 2.0,
             "meta_top_signal": "memory_state",
             "trainer_status": "running",
             "trainer_fail_fast_triggered": False,
@@ -35,6 +44,9 @@ def test_live_diagnostic_row_exposes_required_columns() -> None:
     assert row["delta_vs_baseline"] == 0.1
     assert row["rolling_slope"] == 0.02
     assert row["alpha"] == 0.03
+    assert row["alpha_next"] == 0.035
+    assert row["memory_eta"] == 0.32
+    assert row["memory_decay"] == 0.68
     assert row["live_diagnostic_row_ready"]
 
 

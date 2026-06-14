@@ -51,13 +51,14 @@ artifacts.
 
 ## Live Display Contract
 
-The notebook displays adaptive telemetry every:
+The notebook streams adaptive telemetry during execution every:
 
 ```text
 100 steps
 ```
 
-The displayed rows come from:
+Each live event is emitted through `display_live_diagnostic_event`, which receives
+the same snapshot that is written to disk. The displayed rows come from:
 
 ```text
 live_diagnostic_rows
@@ -65,8 +66,10 @@ live_diagnostic_tables
 live_diagnostic_plot_payloads
 ```
 
-The table includes loss, geometry scale, memory state, rigidity and noise risk,
-future leakage, controller decisions, and meta-control attention weights.
+The table includes loss, geometry scale, alpha, memory state, memory persistence,
+memory rigidity, noise risk, attention regime, future leakage, controller
+decisions, and meta-control attention weights. The latest table is repeated after
+the smoke stage only for review; the full live stream is emitted during the run.
 
 ## Failure Safety
 
@@ -114,6 +117,7 @@ guarded 2000 profile is declared
 preflight contract tests are present
 adaptive trainer is invoked
 live 100-step rows, tables, and plots are exported
+live 100-step tables are streamed during execution through the notebook callback
 fail-fast report is created
 fixed bundle name and local review path are declared
 auto shutdown hook is present

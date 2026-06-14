@@ -9,6 +9,7 @@ replayable logs.
 from __future__ import annotations
 
 import math
+from collections.abc import Callable
 from dataclasses import asdict, dataclass
 from typing import Any, Literal
 
@@ -27,6 +28,7 @@ from experiments.meta_control_attention_observer import (
 from experiments.progress_logging import format_progress_line, sanitize_for_json
 
 TrainerStatus = Literal["completed", "failed_fast", "empty"]
+LiveDiagnosticCallback = Callable[[dict[str, Any]], None]
 
 DECISION_FIELDS = (
     "alpha_decision",
@@ -120,7 +122,12 @@ class OpenAdaptiveRelationalControlTrainer:
             LiveDiagnosticTableConfig(display_interval=self.config.live_display_interval)
         )
 
-    def run(self, telemetry_rows: list[dict[str, Any]]) -> OpenAdaptiveTrainerRunResult:
+    def run(
+        self,
+        telemetry_rows: list[dict[str, Any]],
+        *,
+        live_diagnostic_callback: LiveDiagnosticCallback | None = None,
+    ) -> OpenAdaptiveTrainerRunResult:
         progress_by_condition: dict[str, list[dict[str, Any]]] = {}
         progress_log: list[dict[str, Any]] = []
         live_rows: list[dict[str, Any]] = []
@@ -132,6 +139,7 @@ class OpenAdaptiveRelationalControlTrainer:
         meta_log: list[dict[str, Any]] = []
         separation_log: list[dict[str, Any]] = []
         safety_log: list[dict[str, Any]] = []
+        live_callback_event_count = 0
         status: TrainerStatus = "empty"
         fail_reason: str | None = None
 
@@ -181,6 +189,25 @@ class OpenAdaptiveRelationalControlTrainer:
                 live_diagnostic_plot_payloads.append(
                     snapshot["live_diagnostic_plot_payload"]
                 )
+                if live_diagnostic_callback is not None:
+                    live_diagnostic_callback(
+                        sanitize_for_json(
+                            {
+                                "step": int(record["step"]),
+                                "condition": record["condition"],
+                                "live_display_line": live_lines[-1],
+                                "live_diagnostic_row_count": len(live_diagnostic_rows),
+                                "live_diagnostic_row": diagnostic_row,
+                                "live_diagnostic_table_markdown": snapshot[
+                                    "live_diagnostic_table_markdown"
+                                ],
+                                "live_diagnostic_plot_payload": snapshot[
+                                    "live_diagnostic_plot_payload"
+                                ],
+                            }
+                        )
+                    )
+                    live_callback_event_count += 1
             if status == "failed_fast" and self.config.fail_fast:
                 break
 
@@ -199,6 +226,7 @@ class OpenAdaptiveRelationalControlTrainer:
             "control_separation_event_count": len(separation_log),
             "safety_event_count": len(safety_log),
             "live_display_event_count": len(live_rows),
+            "live_callback_event_count": live_callback_event_count,
             "live_diagnostic_row_count": len(live_diagnostic_rows),
             "live_diagnostic_table_ready": bool(live_diagnostic_tables),
             "live_diagnostic_plot_ready": bool(live_diagnostic_plot_payloads),
@@ -215,6 +243,7 @@ class OpenAdaptiveRelationalControlTrainer:
             "trainer_status": result_status,
             "fail_fast": self.config.fail_fast,
             "live_display_interval": self.config.live_display_interval,
+            "live_diagnostic_callback_used": live_diagnostic_callback is not None,
             "log_streams": [
                 "progress_log",
                 "controller_decision_log",
@@ -300,11 +329,17 @@ def run_open_adaptive_control_trainer(
     telemetry_rows: list[dict[str, Any]],
     *,
     config: OpenAdaptiveTrainerConfig | None = None,
+    live_diagnostic_callback: LiveDiagnosticCallback | None = None,
 ) -> dict[str, Any]:
     """Convenience wrapper returning a JSON-ready trainer run summary."""
 
     trainer = OpenAdaptiveRelationalControlTrainer(config)
-    return trainer.summary(trainer.run(telemetry_rows))
+    return trainer.summary(
+        trainer.run(
+            telemetry_rows,
+            live_diagnostic_callback=live_diagnostic_callback,
+        )
+    )
 
 
 def _normalize_row(row: dict[str, Any], index: int) -> dict[str, Any]:

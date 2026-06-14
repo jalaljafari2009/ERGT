@@ -34,6 +34,16 @@ REQUIRED_SOURCE_MARKERS = {
     "live_rows": "live_diagnostic_rows",
     "live_tables": "live_diagnostic_tables",
     "live_plot_payloads": "live_diagnostic_plot_payloads",
+    "live_stream_flag": "LIVE_DIAGNOSTIC_STREAM_ALL_TABLES = True",
+    "live_stream_callback_function": "def display_live_diagnostic_event",
+    "live_stream_callback_invocation": (
+        "live_diagnostic_callback=display_live_diagnostic_event"
+    ),
+    "live_stream_markdown_display": "display(Markdown(f\"### {title}",
+    "live_alpha_parameter": '"alpha_next"',
+    "live_memory_eta_parameter": '"memory_eta_next"',
+    "live_memory_decay_parameter": '"memory_decay_next"',
+    "live_gate_floor_parameter": '"gate_floor_next"',
     "fail_fast_report": "fail_fast_report.json",
     "future_leak_fail_fast": "future_leak_score",
     "stage_summary": "stage19_notebook_summary.json",
@@ -85,6 +95,14 @@ def build_adaptive_notebook_ergt_03_report(
         "live_100_step_display_present": marker_checks["live_rows"]
         and marker_checks["live_tables"]
         and marker_checks["live_plot_payloads"],
+        "live_100_step_streaming_callback_present": marker_checks["live_stream_flag"]
+        and marker_checks["live_stream_callback_function"]
+        and marker_checks["live_stream_callback_invocation"]
+        and marker_checks["live_stream_markdown_display"],
+        "live_parameter_columns_present": marker_checks["live_alpha_parameter"]
+        and marker_checks["live_memory_eta_parameter"]
+        and marker_checks["live_memory_decay_parameter"]
+        and marker_checks["live_gate_floor_parameter"],
         "preflight_contracts_present": marker_checks["contract_tests"]
         and marker_checks["trainer_contract_report"]
         and marker_checks["live_table_contract_report"],
