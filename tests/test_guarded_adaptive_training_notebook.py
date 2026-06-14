@@ -6,7 +6,10 @@ from pathlib import Path
 from experiments.guarded_adaptive_training_notebook import (
     PROFILE_SETTINGS,
     REPORT_BUNDLE_NAME,
+    NotebookRuntime,
+    ergt_config,
 )
+from layers.relational_graph import RelationalGraphConfig
 
 
 def test_ergt04_notebook_json_and_contract_markers() -> None:
@@ -37,3 +40,29 @@ def test_guarded_profile_runs_real_controls_with_short_alpha_zero() -> None:
         "no_memory_real_d_adaptive",
         "instantaneous_real_d_adaptive",
     ]
+
+
+def test_ergt04_relational_graph_config_matches_runtime_schema(tmp_path: Path) -> None:
+    runtime = NotebookRuntime(
+        project_root=tmp_path,
+        run_profile="real_smoke_200",
+        device="cpu",
+        seed=2027,
+        run_training=False,
+        run_preflight_tests=False,
+        prepare_data_if_missing=False,
+        auto_shutdown_colab_runtime=False,
+        auto_shutdown_after_success=False,
+        auto_shutdown_on_failure=False,
+        auto_shutdown_delay_seconds=0,
+    )
+    config = ergt_config(
+        runtime,
+        tmp_path,
+        "alpha_zero_short_check",
+        "zero_d",
+        100,
+        adaptive=False,
+    )
+
+    RelationalGraphConfig(**config["relational_graph"])

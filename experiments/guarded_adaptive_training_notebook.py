@@ -454,9 +454,6 @@ def ergt_config(
             "temperature": 1.0,
             "normalize_hidden": True,
             "diagonal_policy": "zero",
-            "causal": True,
-            "clip_min": 0.0,
-            "clip_max": 1.0,
         },
         "distance": {
             "formula": "-log(W + epsilon)",
