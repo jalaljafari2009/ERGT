@@ -24,6 +24,15 @@ def test_adaptive_notebook_uses_fixed_bundle_and_download_path() -> None:
     assert report["checks"]["default_local_review_path_declared"]
 
 
+def test_adaptive_notebook_bootstraps_repo_in_colab() -> None:
+    report = build_adaptive_notebook_ergt_03_report()
+
+    assert report["checks"]["colab_repo_bootstrap_present"]
+    assert report["source_marker_checks"]["repo_clone_url"]
+    assert report["source_marker_checks"]["git_clone_repo"]
+    assert report["source_marker_checks"]["project_root_sys_path"]
+
+
 def test_adaptive_notebook_has_failure_safety_controls() -> None:
     report = build_adaptive_notebook_ergt_03_report()
 

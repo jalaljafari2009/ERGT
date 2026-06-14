@@ -17,6 +17,11 @@ REQUIRED_SOURCE_MARKERS = {
     "guarded_2000_profile_declared": '"adaptive_2000_guarded"',
     "fixed_bundle_name": EXPECTED_BUNDLE_NAME,
     "default_local_review_path": EXPECTED_LOCAL_REVIEW_PATH,
+    "repo_clone_url": "https://github.com/jalaljafari2009/ERGT.git",
+    "colab_project_root": 'COLAB_PROJECT_ROOT = Path("/content/ERGT")',
+    "prepare_project_root": "def prepare_project_root()",
+    "git_clone_repo": '"git", "clone", "--depth", "1", GIT_REPO_URL',
+    "project_root_sys_path": "sys.path.insert(0, str(PROJECT_ROOT))",
     "auto_shutdown_flag": "AUTO_SHUTDOWN_COLAB_RUNTIME = True",
     "auto_shutdown_function": "shutdown_colab_runtime_if_requested",
     "lightweight_export_function": "export_report_bundle",
@@ -84,6 +89,11 @@ def build_adaptive_notebook_ergt_03_report(
         "default_local_review_path_declared": marker_checks[
             "default_local_review_path"
         ],
+        "colab_repo_bootstrap_present": marker_checks["repo_clone_url"]
+        and marker_checks["colab_project_root"]
+        and marker_checks["prepare_project_root"]
+        and marker_checks["git_clone_repo"]
+        and marker_checks["project_root_sys_path"],
         "auto_shutdown_cell_present": marker_checks["auto_shutdown_flag"]
         and marker_checks["auto_shutdown_function"],
         "lightweight_zip_excludes_checkpoints": marker_checks["lightweight_export_function"]

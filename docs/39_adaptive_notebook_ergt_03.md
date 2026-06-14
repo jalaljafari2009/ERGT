@@ -12,6 +12,15 @@ notebooks/ERGT_03_Adaptive_Relational_Control.ipynb
 The notebook does not change ERGT-01 or ERGT-02. It is a safety and execution
 wrapper for the adaptive controller built in stages 17 and 18.
 
+When opened directly through Colab from GitHub, the first setup cell prepares the
+full repository automatically:
+
+```text
+git clone --depth 1 https://github.com/jalaljafari2009/ERGT.git /content/ERGT
+cd /content/ERGT
+add /content/ERGT to sys.path
+```
+
 ## What The Notebook Proves
 
 ERGT-03 is not a scientific claim run. It proves that the adaptive path can be
@@ -19,6 +28,7 @@ started safely:
 
 ```text
 preflight contracts pass
+full repository is available under /content/ERGT in Colab
 adaptive trainer emits live 100-step rows
 meta-control attention fields are visible during execution
 fail-fast events stop and export evidence
@@ -120,6 +130,7 @@ live 100-step rows, tables, and plots are exported
 live 100-step tables are streamed during execution through the notebook callback
 fail-fast report is created
 fixed bundle name and local review path are declared
+GitHub-to-Colab repository bootstrap is declared
 auto shutdown hook is present
 checkpoint artifacts are excluded
 ```
