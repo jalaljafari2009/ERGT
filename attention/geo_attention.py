@@ -216,6 +216,7 @@ class GeoAttention(nn.Module):
         need_weights: bool = False,
         return_diagnostics: bool = False,
         geometry_memory: torch.Tensor | None = None,
+        return_geometry_state: bool = False,
     ) -> torch.Tensor | tuple[torch.Tensor, torch.Tensor] | dict[str, Any]:
         if hidden_states.dim() != 3:
             raise ValueError("hidden_states must have shape [batch, sequence, hidden_dim]")
@@ -243,6 +244,7 @@ class GeoAttention(nn.Module):
                     attention_mask=attention_mask,
                     geometry_memory=geometry_memory,
                     return_memory=True,
+                    return_metadata=return_diagnostics,
                 )
         else:
             distance_result = self.compute_distance(
@@ -250,6 +252,7 @@ class GeoAttention(nn.Module):
                 attention_mask=attention_mask,
                 geometry_memory=geometry_memory,
                 return_memory=True,
+                return_metadata=return_diagnostics,
             )
         distance = distance_result["distance"]
         updated_geometry_memory = distance_result["geometry_memory"]
@@ -286,6 +289,14 @@ class GeoAttention(nn.Module):
                     geometry_metadata=geometry_metadata,
                 ),
             }
+        if return_geometry_state:
+            result: dict[str, Any] = {
+                "output": output,
+                "geometry_memory": updated_geometry_memory,
+            }
+            if need_weights:
+                result["attention_weights"] = attention_weights.detach()
+            return result
         if need_weights:
             return output, attention_weights
         return output
@@ -299,6 +310,7 @@ class GeoAttention(nn.Module):
         attention_mask: torch.Tensor | None = None,
         geometry_memory: torch.Tensor | None = None,
         return_memory: bool = False,
+        return_metadata: bool = True,
     ) -> torch.Tensor | dict[str, Any]:
         if self.config.distance_mode == "zero_d":
             result = self._zero_distance_result(hidden_states, pipeline="zero_distance")
@@ -309,6 +321,7 @@ class GeoAttention(nn.Module):
                 hidden_states,
                 attention_mask=attention_mask,
                 geometry_memory=geometry_memory,
+                return_metadata=return_metadata,
             )
             return result if return_memory else result["distance"]
 
@@ -330,6 +343,7 @@ class GeoAttention(nn.Module):
         hidden_states: torch.Tensor,
         attention_mask: torch.Tensor | None = None,
         geometry_memory: torch.Tensor | None = None,
+        return_metadata: bool = True,
     ) -> dict[str, Any]:
         """Build stable causal geometry for GeoAttention v2."""
 
@@ -347,16 +361,18 @@ class GeoAttention(nn.Module):
 
         if distance_mode == "no_memory_real_d":
             source_graph = self._valid_only(graph, valid_edge_mask)
-            memory_metrics = memory_state_metrics(
-                source_graph,
-                valid_edge_mask=valid_edge_mask,
-                stable_update=source_graph,
-                memory_config=self.memory_config,
-            )
+            if return_metadata:
+                memory_metrics = memory_state_metrics(
+                    source_graph,
+                    valid_edge_mask=valid_edge_mask,
+                    stable_update=source_graph,
+                    memory_config=self.memory_config,
+                )
             distance = causal_shortest_path_distance(
                 source_graph,
                 direct_edge_mask,
                 epsilon=self.emergent_distance.config.epsilon,
+                unit_step_causal=self.config.max_causal_step == 1,
             )
             pipeline = "H -> W_real -> finite-speed D_causal"
             shortest_path = True
@@ -372,12 +388,13 @@ class GeoAttention(nn.Module):
             stable_update = update["stable_update"]
             if distance_mode == "instantaneous_real_d":
                 source_graph = stable_update
-                memory_metrics = memory_state_metrics(
-                    source_graph,
-                    valid_edge_mask=valid_edge_mask,
-                    stable_update=stable_update,
-                    memory_config=self.memory_config,
-                )
+                if return_metadata:
+                    memory_metrics = memory_state_metrics(
+                        source_graph,
+                        valid_edge_mask=valid_edge_mask,
+                        stable_update=stable_update,
+                        memory_config=self.memory_config,
+                    )
                 pipeline = "H -> stable_update -> finite-speed D_causal"
                 shortest_path = True
             else:
@@ -387,13 +404,14 @@ class GeoAttention(nn.Module):
                     valid_edge_mask,
                 )
                 updated_memory = source_graph
-                memory_metrics = memory_state_metrics(
-                    source_graph,
-                    valid_edge_mask=valid_edge_mask,
-                    previous_memory=geometry_memory,
-                    stable_update=stable_update,
-                    memory_config=self.memory_config,
-                )
+                if return_metadata:
+                    memory_metrics = memory_state_metrics(
+                        source_graph,
+                        valid_edge_mask=valid_edge_mask,
+                        previous_memory=geometry_memory,
+                        stable_update=stable_update,
+                        memory_config=self.memory_config,
+                    )
                 if distance_mode == "pairwise_real_d":
                     pipeline = "H -> W_t memory -> finite-speed pairwise D"
                     shortest_path = False
@@ -412,6 +430,7 @@ class GeoAttention(nn.Module):
                     source_graph,
                     direct_edge_mask,
                     epsilon=self.emergent_distance.config.epsilon,
+                    unit_step_causal=self.config.max_causal_step == 1,
                 )
 
         return {

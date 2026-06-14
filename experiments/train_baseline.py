@@ -63,6 +63,7 @@ def main() -> None:
     set_seed(seed)
 
     device = torch.device(args.device or ("cuda" if torch.cuda.is_available() else "cpu"))
+    configure_torch_runtime(config, device)
     output_dir = Path(config["run"]["output_dir"])
     output_dir.mkdir(parents=True, exist_ok=True)
     (output_dir / "checkpoints").mkdir(exist_ok=True)
@@ -75,18 +76,22 @@ def main() -> None:
     model_config = build_model_config(config, metadata)
     model = TransformerBaseline(model_config).to(device)
     optimizer = build_optimizer(model, config)
+    precision = precision_config(config, device)
+    scaler = torch.amp.GradScaler("cuda", enabled=precision["use_grad_scaler"])
 
     train_loader = DataLoader(
         train_dataset,
         batch_size=int(config["training"]["batch_size"]),
         shuffle=True,
         drop_last=True,
+        **dataloader_runtime_kwargs(config, device),
     )
     validation_loader = DataLoader(
         validation_dataset,
         batch_size=int(config["training"]["batch_size"]),
         shuffle=False,
         drop_last=False,
+        **dataloader_runtime_kwargs(config, device),
     )
     if len(train_loader) == 0:
         raise ValueError("train loader produced no batches; reduce batch_size or provide more data")
@@ -125,8 +130,8 @@ def main() -> None:
                 break
             step += 1
 
-            input_ids = input_ids.to(device)
-            targets = targets.to(device)
+            input_ids = input_ids.to(device, non_blocking=device.type == "cuda")
+            targets = targets.to(device, non_blocking=device.type == "cuda")
 
             lr = learning_rate_for_step(step, config)
             for param_group in optimizer.param_groups:
@@ -134,17 +139,24 @@ def main() -> None:
 
             model.train()
             optimizer.zero_grad(set_to_none=True)
-            outputs = model(input_ids, targets=targets)
+            with torch.autocast(
+                device_type=device.type,
+                dtype=precision["autocast_dtype"],
+                enabled=precision["use_autocast"],
+            ):
+                outputs = model(input_ids, targets=targets)
             loss = outputs["loss"]
             if not torch.isfinite(loss):
                 raise RuntimeError(f"non-finite loss at step {step}: {loss.item()}")
 
-            loss.backward()
+            scaler.scale(loss).backward()
             grad_norm = None
             if grad_clip > 0:
+                scaler.unscale_(optimizer)
                 grad_norm_tensor = torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
                 grad_norm = float(grad_norm_tensor.detach().cpu().item())
-            optimizer.step()
+            scaler.step(optimizer)
+            scaler.update()
 
             batch_tokens = input_ids.numel()
             tokens_processed += batch_tokens
@@ -171,6 +183,7 @@ def main() -> None:
                     model,
                     validation_loader,
                     device,
+                    precision=precision,
                     max_batches=max_eval_batches,
                 )
                 if not math.isfinite(val_loss):
@@ -200,6 +213,7 @@ def main() -> None:
         model,
         validation_loader,
         device,
+        precision=precision,
         max_batches=max_eval_batches,
     )
     results = {
@@ -215,6 +229,7 @@ def main() -> None:
         "seed": seed,
         "data_dir": str(data_dir),
         "max_eval_batches": max_eval_batches,
+        "runtime": runtime_summary(config, device, precision),
     }
     if torch.cuda.is_available() and device.type == "cuda":
         results["peak_memory_bytes"] = torch.cuda.max_memory_allocated(device)
@@ -276,6 +291,95 @@ def build_optimizer(model: torch.nn.Module, config: dict[str, Any]) -> torch.opt
     )
 
 
+def configure_torch_runtime(config: dict[str, Any], device: torch.device) -> None:
+    runtime = config.get("runtime", {})
+    training = config.get("training", {})
+    matmul_precision = str(
+        runtime.get("float32_matmul_precision", training.get("float32_matmul_precision", "high"))
+    )
+    if matmul_precision in {"highest", "high", "medium"}:
+        torch.set_float32_matmul_precision(matmul_precision)
+    if device.type == "cuda":
+        allow_tf32 = bool(runtime.get("allow_tf32", training.get("allow_tf32", True)))
+        torch.backends.cuda.matmul.allow_tf32 = allow_tf32
+        torch.backends.cudnn.allow_tf32 = allow_tf32
+        torch.backends.cudnn.benchmark = bool(
+            runtime.get("cudnn_benchmark", training.get("cudnn_benchmark", True))
+        )
+
+
+def precision_config(config: dict[str, Any], device: torch.device) -> dict[str, Any]:
+    requested = str(config.get("training", {}).get("precision", "tf32")).lower()
+    if device.type != "cuda" or requested in {"fp32", "float32", "tf32"}:
+        return {
+            "mode": requested,
+            "use_autocast": False,
+            "autocast_dtype": torch.float32,
+            "use_grad_scaler": False,
+        }
+    if requested == "auto":
+        requested = "bf16" if torch.cuda.is_bf16_supported() else "fp16"
+    if requested in {"bf16", "bfloat16"} and torch.cuda.is_bf16_supported():
+        return {
+            "mode": "bf16",
+            "use_autocast": True,
+            "autocast_dtype": torch.bfloat16,
+            "use_grad_scaler": False,
+        }
+    if requested in {"bf16", "bfloat16"}:
+        requested = "fp16"
+    if requested in {"fp16", "float16"}:
+        return {
+            "mode": "fp16",
+            "use_autocast": True,
+            "autocast_dtype": torch.float16,
+            "use_grad_scaler": True,
+        }
+    raise ValueError(
+        "training.precision must be one of fp32, tf32, bf16/bfloat16, auto, or fp16/float16"
+    )
+
+
+def dataloader_runtime_kwargs(config: dict[str, Any], device: torch.device) -> dict[str, Any]:
+    training = config.get("training", {})
+    num_workers = int(training.get("num_workers", training.get("dataloader_num_workers", 0)))
+    pin_memory = bool(training.get("pin_memory", device.type == "cuda" and num_workers > 0))
+    kwargs: dict[str, Any] = {
+        "num_workers": num_workers,
+        "pin_memory": pin_memory,
+    }
+    if num_workers > 0:
+        kwargs["persistent_workers"] = bool(training.get("persistent_workers", True))
+        kwargs["prefetch_factor"] = int(training.get("prefetch_factor", 2))
+    return kwargs
+
+
+def runtime_summary(
+    config: dict[str, Any],
+    device: torch.device,
+    precision: dict[str, Any],
+) -> dict[str, Any]:
+    training = config.get("training", {})
+    runtime = config.get("runtime", {})
+    return {
+        "precision": precision["mode"],
+        "use_autocast": bool(precision["use_autocast"]),
+        "allow_tf32": bool(torch.backends.cuda.matmul.allow_tf32)
+        if device.type == "cuda"
+        else False,
+        "float32_matmul_precision": str(
+            runtime.get(
+                "float32_matmul_precision",
+                training.get("float32_matmul_precision", "high"),
+            )
+        ),
+        "num_workers": int(
+            training.get("num_workers", training.get("dataloader_num_workers", 0))
+        ),
+        "pin_memory": bool(training.get("pin_memory", device.type == "cuda")),
+    }
+
+
 def learning_rate_for_step(step: int, config: dict[str, Any]) -> float:
     base_lr = float(config["training"]["learning_rate"])
     warmup_steps = int(config["training"].get("warmup_steps", 0))
@@ -290,17 +394,24 @@ def evaluate(
     data_loader: DataLoader,
     device: torch.device,
     *,
+    precision: dict[str, Any] | None = None,
     max_batches: int | None = None,
 ) -> float:
     model.eval()
+    precision = precision or precision_config({}, device)
     total_loss = 0.0
     total_tokens = 0
     for batch_index, (input_ids, targets) in enumerate(data_loader):
         if max_batches is not None and batch_index >= max_batches:
             break
-        input_ids = input_ids.to(device)
-        targets = targets.to(device)
-        outputs = model(input_ids, targets=targets)
+        input_ids = input_ids.to(device, non_blocking=device.type == "cuda")
+        targets = targets.to(device, non_blocking=device.type == "cuda")
+        with torch.autocast(
+            device_type=device.type,
+            dtype=precision["autocast_dtype"],
+            enabled=precision["use_autocast"],
+        ):
+            outputs = model(input_ids, targets=targets)
         loss = outputs["loss"]
         if not torch.isfinite(loss):
             raise RuntimeError(f"non-finite validation loss: {loss.item()}")

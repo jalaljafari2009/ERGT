@@ -292,29 +292,41 @@ def causal_prefix_hidden_prediction(
     if attention_mask.shape != hidden_states.shape[:2]:
         raise ValueError("attention_mask shape must match hidden_states")
 
-    prediction = torch.zeros_like(hidden_states)
-    source_available = torch.zeros(
-        hidden_states.shape[:2],
-        dtype=torch.bool,
-        device=hidden_states.device,
-    )
-    source_index = torch.full(
-        hidden_states.shape[:2],
+    valid = attention_mask.to(dtype=torch.bool, device=hidden_states.device)
+    batch_size, sequence_length, hidden_dim = hidden_states.shape
+    positions = torch.arange(sequence_length, device=hidden_states.device).view(1, -1)
+    invalid_position = torch.full(
+        (batch_size, sequence_length),
         -1,
         dtype=torch.long,
         device=hidden_states.device,
     )
-    valid = attention_mask.to(dtype=torch.bool, device=hidden_states.device)
-    for batch_idx in range(hidden_states.size(0)):
-        previous_index = -1
-        for position in range(hidden_states.size(1)):
-            if not bool(valid[batch_idx, position].item()):
-                continue
-            if previous_index >= 0:
-                prediction[batch_idx, position] = hidden_states[batch_idx, previous_index]
-                source_available[batch_idx, position] = True
-                source_index[batch_idx, position] = previous_index
-            previous_index = position
+    valid_positions = torch.where(
+        valid,
+        positions.expand(batch_size, sequence_length),
+        invalid_position,
+    )
+    latest_valid = torch.cummax(valid_positions, dim=1).values
+    source_index = torch.cat(
+        [
+            torch.full((batch_size, 1), -1, dtype=torch.long, device=hidden_states.device),
+            latest_valid[:, :-1],
+        ],
+        dim=1,
+    )
+    source_index = torch.where(valid, source_index, torch.full_like(source_index, -1))
+    source_available = source_index >= 0
+    gather_index = source_index.clamp_min(0).unsqueeze(-1).expand(
+        batch_size,
+        sequence_length,
+        hidden_dim,
+    )
+    prediction = torch.gather(hidden_states, dim=1, index=gather_index)
+    prediction = torch.where(
+        source_available.unsqueeze(-1),
+        prediction,
+        torch.zeros_like(prediction),
+    )
     return prediction, source_available, source_index
 
 

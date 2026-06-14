@@ -69,8 +69,10 @@ class ERGTBlock(nn.Module):
             attn_result = self.attn(
                 attn_input,
                 attention_mask=attention_mask,
-                return_diagnostics=True,
+                need_weights=need_weights,
+                return_diagnostics=return_diagnostics,
                 geometry_memory=geometry_memory,
+                return_geometry_state=return_geometry_state,
             )
             hidden_states = hidden_states + attn_result["output"]
             hidden_states = hidden_states + self.ffn(self.ln_2(hidden_states))

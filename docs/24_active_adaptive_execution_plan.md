@@ -722,6 +722,13 @@ and includes Colab runtime shutdown hooks. The stage contract is documented in
 `docs/39_adaptive_notebook_ergt_03.md`; the machine report is
 `runs/contracts/adaptive_notebook_ergt_03.json`.
 
+Runtime update: A100-class runs are optimized in
+`docs/47_a100_runtime_optimization.md`. The implementation separates
+geometry-memory state forwarding from full diagnostics, vectorizes causal
+prefix reconstruction, adds a unit-step causal shortest-path fast path, and
+uses shared runtime config fields for TF32/BF16/DataLoader settings across
+baseline and ERGT controls.
+
 Risk coverage: R1, R2, and R3.
 
 ### 20. Short Smoke and Failure-Safety Validation

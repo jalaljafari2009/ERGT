@@ -258,6 +258,7 @@ def causal_shortest_path_distance(
     valid_edge_mask: torch.Tensor,
     *,
     epsilon: float = 1e-6,
+    unit_step_causal: bool | None = None,
 ) -> torch.Tensor:
     """Compute directed causal shortest-path distance over `memory_graph`."""
 
@@ -265,7 +266,9 @@ def causal_shortest_path_distance(
         raise ValueError("epsilon must be positive")
     _validate_graph(memory_graph)
     valid_edge_mask = _prepare_mask(valid_edge_mask, memory_graph)
-    if _is_unit_step_causal_mask(valid_edge_mask):
+    if unit_step_causal is True or (
+        unit_step_causal is None and _is_unit_step_causal_mask(valid_edge_mask)
+    ):
         return _unit_step_causal_path_distance(
             memory_graph,
             valid_edge_mask,
@@ -368,20 +371,22 @@ def _unit_step_causal_path_distance(
 ) -> torch.Tensor:
     """Fast shortest-path distance for max_causal_step=1 chain geometry."""
 
-    direct = pairwise_edge_distance(memory_graph, valid_edge_mask, epsilon=epsilon)
-    sequence_length = direct.size(-1)
-    diagonal = torch.eye(sequence_length, dtype=torch.bool, device=direct.device).view(
+    sequence_length = memory_graph.size(-1)
+    diagonal = torch.eye(sequence_length, dtype=torch.bool, device=memory_graph.device).view(
         1,
         1,
         sequence_length,
         sequence_length,
     )
+    empty = torch.full_like(memory_graph, torch.inf).masked_fill(diagonal, 0.0)
     if sequence_length <= 1:
-        return direct.masked_fill(diagonal, 0.0)
+        return empty
 
-    indices = torch.arange(1, sequence_length, device=direct.device)
-    adjacent_cost = direct[..., indices, indices - 1]
-    adjacent_finite = torch.isfinite(adjacent_cost)
+    indices = torch.arange(1, sequence_length, device=memory_graph.device)
+    adjacent_valid = valid_edge_mask[..., indices, indices - 1]
+    adjacent_graph = memory_graph[..., indices, indices - 1].clamp_min(epsilon)
+    adjacent_cost = -torch.log(adjacent_graph)
+    adjacent_finite = adjacent_valid & torch.isfinite(adjacent_cost)
     safe_adjacent_cost = torch.where(
         adjacent_finite,
         adjacent_cost,
@@ -412,7 +417,7 @@ def _unit_step_causal_path_distance(
 
     distance = prefix_cost.unsqueeze(-1) - prefix_cost.unsqueeze(-2)
     missing = prefix_missing.unsqueeze(-1) - prefix_missing.unsqueeze(-2)
-    positions = torch.arange(sequence_length, device=direct.device)
+    positions = torch.arange(sequence_length, device=memory_graph.device)
     causal = positions.view(sequence_length, 1) >= positions.view(1, sequence_length)
     reachable = (missing == 0) & causal.view(1, 1, sequence_length, sequence_length)
     distance = torch.where(reachable, distance, torch.full_like(distance, torch.inf))

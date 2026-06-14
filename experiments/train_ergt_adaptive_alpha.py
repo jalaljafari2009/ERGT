@@ -38,9 +38,14 @@ from experiments.train_baseline import default_data_dir, learning_rate_for_step 
 from experiments.train_ergt_v1 import (  # noqa: E402
     build_ergt_model_config,
     build_optimizer,
+    configure_torch_runtime,
+    dataloader_runtime_kwargs,
     ensure_attention_control_seed,
     evaluate,
     load_prepared_or_raise,
+    maybe_compile_model,
+    precision_config,
+    runtime_summary,
     save_checkpoint,
     set_seed,
 )
@@ -82,6 +87,7 @@ def main() -> None:
     set_seed(seed)
 
     device = torch.device(args.device or ("cuda" if torch.cuda.is_available() else "cpu"))
+    configure_torch_runtime(config, device)
     output_dir = Path(config["run"]["output_dir"])
     output_dir.mkdir(parents=True, exist_ok=True)
     (output_dir / "checkpoints").mkdir(exist_ok=True)
@@ -92,7 +98,11 @@ def main() -> None:
 
     model_config = build_ergt_model_config(config, metadata)
     model = ERGTV1(model_config).to(device)
+    model_summary = model.model_summary()
+    model = maybe_compile_model(model, config, device)
     optimizer = build_optimizer(model, config)
+    precision = precision_config(config, device)
+    scaler = torch.amp.GradScaler("cuda", enabled=precision["use_grad_scaler"])
 
     adaptive_config = AdaptiveAlphaConfig(**config.get("adaptive_alpha", {}))
     controller = AdaptiveAlphaController(adaptive_config)
@@ -108,12 +118,14 @@ def main() -> None:
         batch_size=int(config["training"]["batch_size"]),
         shuffle=True,
         drop_last=True,
+        **dataloader_runtime_kwargs(config, device),
     )
     validation_loader = DataLoader(
         validation_dataset,
         batch_size=int(config["training"]["batch_size"]),
         shuffle=False,
         drop_last=False,
+        **dataloader_runtime_kwargs(config, device),
     )
     if len(train_loader) == 0:
         raise ValueError("train loader produced no batches; reduce batch_size or provide more data")
@@ -129,7 +141,7 @@ def main() -> None:
         flush=True,
     )
 
-    save_json(output_dir / "model_summary.json", model.model_summary())
+    save_json(output_dir / "model_summary.json", model_summary)
 
     max_steps = int(config["training"]["max_steps"])
     eval_interval = int(config["training"]["eval_interval"])
@@ -138,6 +150,11 @@ def main() -> None:
     max_eval_batches = config["training"].get("max_eval_batches")
     max_eval_batches = int(max_eval_batches) if max_eval_batches is not None else None
     log_geometry = bool(config.get("logging", {}).get("log_geometry_diagnostics", True))
+    train_geometry_interval = int(
+        config.get("logging", {}).get("train_geometry_diagnostics_interval", eval_interval)
+    )
+    if train_geometry_interval <= 0:
+        train_geometry_interval = eval_interval
 
     train_log_path = output_dir / config["logging"].get("train_log", "train_log.jsonl")
     progress_log_path = output_dir / config["logging"].get(
@@ -162,8 +179,8 @@ def main() -> None:
                 break
             step += 1
 
-            input_ids = input_ids.to(device)
-            targets = targets.to(device)
+            input_ids = input_ids.to(device, non_blocking=device.type == "cuda")
+            targets = targets.to(device, non_blocking=device.type == "cuda")
 
             lr = learning_rate_for_step(step, config)
             for param_group in optimizer.param_groups:
@@ -172,32 +189,43 @@ def main() -> None:
             model.train()
             model.set_training_step(step)
             optimizer.zero_grad(set_to_none=True)
-            outputs = model(
-                input_ids,
-                targets=targets,
-                return_geometry_diagnostics=log_geometry,
+            should_eval = step == 1 or step % eval_interval == 0 or step == max_steps
+            should_log_train_geometry = (
+                log_geometry
+                and (step == 1 or step % train_geometry_interval == 0 or step == max_steps)
             )
+            with torch.autocast(
+                device_type=device.type,
+                dtype=precision["autocast_dtype"],
+                enabled=precision["use_autocast"],
+            ):
+                outputs = model(
+                    input_ids,
+                    targets=targets,
+                    return_geometry_diagnostics=should_log_train_geometry,
+                )
             loss = outputs["loss"]
             if not torch.isfinite(loss):
                 raise RuntimeError(f"non-finite loss at step {step}: {loss.item()}")
 
-            loss.backward()
+            scaler.scale(loss).backward()
             grad_norm = None
             if grad_clip > 0:
+                scaler.unscale_(optimizer)
                 grad_norm_tensor = torch.nn.utils.clip_grad_norm_(
                     model.parameters(),
                     grad_clip,
                     error_if_nonfinite=True,
                 )
                 grad_norm = float(grad_norm_tensor.detach().cpu().item())
-            optimizer.step()
+            scaler.step(optimizer)
+            scaler.update()
 
             batch_tokens = input_ids.numel()
             tokens_processed += batch_tokens
             final_train_loss = float(loss.item())
             elapsed_seconds = time.perf_counter() - start_time
 
-            should_eval = step == 1 or step % eval_interval == 0 or step == max_steps
             log_record: dict[str, Any] = {
                 "step": step,
                 "train_loss": final_train_loss,
@@ -217,7 +245,7 @@ def main() -> None:
                 "nan_or_inf_detected": False,
             }
 
-            if log_geometry:
+            if should_log_train_geometry:
                 log_record["geometry"] = aggregate_attention_diagnostics(
                     outputs["geometry_diagnostics"]
                 )
@@ -228,6 +256,7 @@ def main() -> None:
                     validation_loader,
                     device,
                     log_geometry=log_geometry,
+                    precision=precision,
                     max_batches=max_eval_batches,
                 )
                 val_loss = val_result["validation_loss"]
@@ -293,6 +322,7 @@ def main() -> None:
         validation_loader,
         device,
         log_geometry=log_geometry,
+        precision=precision,
         max_batches=max_eval_batches,
     )
     final_val_loss = final_eval["validation_loss"]
@@ -309,6 +339,7 @@ def main() -> None:
         "seed": seed,
         "data_dir": str(data_dir),
         "max_eval_batches": max_eval_batches,
+        "runtime": runtime_summary(config, device, precision),
         "attention": config.get("attention", {}),
         "distance": config.get("distance", {}),
         "adaptive_alpha": controller.summary(),
