@@ -729,6 +729,22 @@ prefix reconstruction, adds a unit-step causal shortest-path fast path, and
 uses shared runtime config fields for TF32/BF16/DataLoader settings across
 baseline and ERGT controls.
 
+Notebook rule update: reusable Colab notebook construction rules are now
+centralized in `docs/48_colab_notebook_execution_contract.md`. Future notebooks
+must use English machine-facing text, bootstrap the full GitHub repository,
+stream live diagnostic tables during execution, expose Colab runtime shutdown,
+export a fixed lightweight zip bundle to the documented Downloads path, preserve
+geometry-memory mechanisms under runtime optimization, and apply runtime policy
+equally across all control families.
+
+Training notebook update: ERGT-03 is now explicitly labeled as a synthetic
+smoke/contract notebook. Real guarded adaptive training is moved to
+`notebooks/ERGT_04_Guarded_Adaptive_Training.ipynb` and documented in
+`docs/49_guarded_adaptive_training_notebook.md`. ERGT-04 runs a full baseline,
+a short alpha-zero wrapper-neutrality check, and full adaptive-alpha real,
+random, shuffled, no-memory, and instantaneous controls with live streamed
+100-step progress and lightweight bundle export.
+
 Risk coverage: R1, R2, and R3.
 
 ### 20. Short Smoke and Failure-Safety Validation

@@ -87,6 +87,15 @@ The ERGT-03 adaptive relational control notebook, including fail-fast export,
 fixed lightweight bundle naming, live 100-step display, and Colab runtime
 shutdown hooks, is defined in `docs/39_adaptive_notebook_ergt_03.md`.
 
+The general Colab notebook execution contract for future notebooks, including
+English-only notebook text, GitHub-to-Colab repository bootstrap, fixed
+lightweight zip bundles, live diagnostic display, runtime shutdown, and A100
+runtime policy, is defined in `docs/48_colab_notebook_execution_contract.md`.
+
+The ERGT-04 guarded adaptive training notebook, which runs real baseline and
+geometry-control training instead of synthetic smoke rows, is defined in
+`docs/49_guarded_adaptive_training_notebook.md`.
+
 The short smoke and failure-safety gate that must pass before a guarded 2000-step
 adaptive run is defined in
 `docs/40_short_smoke_failure_safety_validation.md`.

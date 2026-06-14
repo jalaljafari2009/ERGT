@@ -69,7 +69,9 @@ def main() -> None:
     configure_torch_runtime(config, device)
     output_dir = Path(config["run"]["output_dir"])
     output_dir.mkdir(parents=True, exist_ok=True)
-    (output_dir / "checkpoints").mkdir(exist_ok=True)
+    save_checkpoints = bool(config["training"].get("save_checkpoints", True))
+    if save_checkpoints:
+        (output_dir / "checkpoints").mkdir(exist_ok=True)
     save_json(output_dir / "config.json", config)
 
     data_dir = Path(args.data_dir) if args.data_dir else default_data_dir(config)
@@ -234,9 +236,14 @@ def main() -> None:
                     log_record.update(geometry_progress_fields(val_result.get("geometry")))
                 if val_loss < best_val_loss:
                     best_val_loss = val_loss
-                    save_checkpoint(
-                        output_dir / "checkpoints" / "best.pt", model, optimizer, step, config
-                    )
+                    if save_checkpoints:
+                        save_checkpoint(
+                            output_dir / "checkpoints" / "best.pt",
+                            model,
+                            optimizer,
+                            step,
+                            config,
+                        )
                 log_record["best_validation_loss"] = best_val_loss
                 log_record.update(gpu_memory_snapshot(device))
                 append_jsonl(progress_log_path, log_record)
@@ -244,7 +251,9 @@ def main() -> None:
 
             append_jsonl(train_log_path, log_record)
 
-            if step % checkpoint_interval == 0 or step == max_steps:
+            if save_checkpoints and (
+                step % checkpoint_interval == 0 or step == max_steps
+            ):
                 save_checkpoint(
                     output_dir / "checkpoints" / "last.pt", model, optimizer, step, config
                 )
@@ -282,7 +291,10 @@ def main() -> None:
         results["peak_memory_bytes"] = torch.cuda.max_memory_allocated(device)
 
     save_json(output_dir / config["logging"].get("results", "metrics.json"), results)
-    save_checkpoint(output_dir / "checkpoints" / "last.pt", model, optimizer, step, config)
+    if save_checkpoints:
+        save_checkpoint(
+            output_dir / "checkpoints" / "last.pt", model, optimizer, step, config
+        )
     print(json.dumps(results, indent=2, sort_keys=True))
 
 

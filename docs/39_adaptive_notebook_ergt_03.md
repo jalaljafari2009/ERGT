@@ -12,6 +12,15 @@ notebooks/ERGT_03_Adaptive_Relational_Control.ipynb
 The notebook does not change ERGT-01 or ERGT-02. It is a safety and execution
 wrapper for the adaptive controller built in stages 17 and 18.
 
+Reusable construction rules for later Colab notebooks are centralized in
+`docs/48_colab_notebook_execution_contract.md`. ERGT-03 is the first concrete
+notebook that follows that notebook contract.
+
+ERGT-03 is synthetic by design. It verifies the notebook wrapper, live display,
+fail-fast path, and bundle export. Real guarded adaptive training is handled by
+`notebooks/ERGT_04_Guarded_Adaptive_Training.ipynb` and documented in
+`docs/49_guarded_adaptive_training_notebook.md`.
+
 When opened directly through Colab from GitHub, the first setup cell prepares the
 full repository automatically:
 

@@ -43,7 +43,8 @@ Training configs may include:
     "dataloader_num_workers": 2,
     "pin_memory": true,
     "persistent_workers": true,
-    "prefetch_factor": 2
+    "prefetch_factor": 2,
+    "save_checkpoints": false
   },
   "logging": {
     "train_geometry_diagnostics_interval": 100
@@ -55,12 +56,21 @@ Training configs may include:
 GradScaler. `tf32` keeps full FP32 tensors while enabling TensorFloat-32 matmul
 on CUDA.
 
+`save_checkpoints=false` is recommended for Colab evidence notebooks when the
+review bundle is the deliverable. It does not change training dynamics; it only
+skips checkpoint writes and keeps the exported bundle lightweight.
+
 ## Notebook Impact
 
 `ERGT_01_Attention_Evidence_Ladder.ipynb` and
 `ERGT_02_Adaptive_Competitive_Alpha.ipynb` now write these runtime fields into
 all generated baseline and ERGT configs. This keeps baseline, real, random,
 shuffled, no-memory, and instantaneous controls under the same runtime policy.
+
+Future notebooks must follow the broader Colab execution rules in
+`docs/48_colab_notebook_execution_contract.md`, including live display,
+lightweight bundles, auto-shutdown hooks, and equal runtime policy across control
+families.
 
 ## Scientific Guard
 

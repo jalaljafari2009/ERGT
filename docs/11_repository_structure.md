@@ -114,6 +114,9 @@ docs/43_random_shuffled_no_memory_attribution.md
 docs/44_decision_gate_real_geometry.md
 docs/45_controller_revision_loop.md
 docs/46_longer_run_multi_seed_confirmation.md
+docs/47_a100_runtime_optimization.md
+docs/48_colab_notebook_execution_contract.md
+docs/49_guarded_adaptive_training_notebook.md
 ```
 
 The original source notes remain at the repository root:
